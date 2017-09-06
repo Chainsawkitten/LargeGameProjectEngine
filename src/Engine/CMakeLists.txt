@@ -103,8 +103,6 @@ set(HEADERS
 set(EMBEDDED_INPUT
     ../../shaders/Default2D.vert
     ../../shaders/Deferred.frag
-    ../../shaders/DebugDrawing.vert
-    ../../shaders/DebugDrawing.frag
     ../../shaders/Texture2D.frag
     ../../shaders/Particle.vert
     ../../shaders/Particle.geom

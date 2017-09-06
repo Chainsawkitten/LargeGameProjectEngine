@@ -1,13 +1,9 @@
 #pragma once
 
-#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include <Video/DebugDrawing.hpp>
 
-namespace Video {
-    class Shader;
-    class ShaderProgram;
-}
 class World;
 class Entity;
 
@@ -37,7 +33,7 @@ class DebugDrawingManager {
          */
         void AddLine(const glm::vec3& startPosition, const glm::vec3& endPosition, const glm::vec3& color, float width = 1.f, float duration = 0.f, bool depthTesting = true);
         
-        /// Add an axis-aligned bounding box to the world.
+        /// Add a cuboid to the world.
         /**
          * @param minCoordinates The minimum coordinates of the box.
          * @param maxCoordinates The maximum coordinates of the box.
@@ -46,7 +42,7 @@ class DebugDrawingManager {
          * @param duration How long the box should stay in the world (in seconds).
          * @param depthTesting Whether to enable depth testing.
          */
-        void AddAxisAlignedBoundingBox(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        void AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
         /// Update the debug geometry.
         /**
@@ -67,48 +63,9 @@ class DebugDrawingManager {
         DebugDrawingManager(DebugDrawingManager const&) = delete;
         void operator=(DebugDrawingManager const&) = delete;
         
-        Video::Shader* vertexShader;
-        Video::Shader* fragmentShader;
-        Video::ShaderProgram* shaderProgram;
+        std::vector<Video::DebugDrawing::Point> points;
+        std::vector<Video::DebugDrawing::Line> lines;
+        std::vector<Video::DebugDrawing::Cuboid> cuboids;
         
-        // Points.
-        struct Point {
-            glm::vec3 position;
-            glm::vec3 color;
-            float size;
-            float duration;
-            bool depthTesting;
-        };
-        std::vector<Point> points;
-        
-        GLuint pointVertexBuffer;
-        GLuint pointVertexArray;
-        
-        // Lines.
-        struct Line {
-            glm::vec3 startPosition;
-            glm::vec3 endPosition;
-            glm::vec3 color;
-            float width;
-            float duration;
-            bool depthTesting;
-        };
-        std::vector<Line> lines;
-        
-        GLuint lineVertexBuffer;
-        GLuint lineVertexArray;
-        
-        // Axis-aligned bounding boxes.
-        struct AABB {
-            glm::vec3 minCoordinates;
-            glm::vec3 maxCoordinates;
-            glm::vec3 color;
-            float lineWidth;
-            float duration;
-            bool depthTesting;
-        };
-        std::vector<AABB> aabbs;
-        
-        GLuint aabbVertexBuffer;
-        GLuint aabbVertexArray;
+        Video::DebugDrawing* debugDrawing;
 };

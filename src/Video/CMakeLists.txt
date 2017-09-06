@@ -1,4 +1,5 @@
 set(SRCS
+        DebugDrawing.cpp
         Renderer.cpp
         RenderTarget.cpp
         Culling/AxisAlignedBoundingBox.cpp
@@ -24,6 +25,7 @@ set(SRCS
     )
 
 set(HEADERS
+        DebugDrawing.hpp
         Renderer.hpp
         RenderTarget.hpp
         Culling/AxisAlignedBoundingBox.hpp
@@ -52,6 +54,8 @@ set(HEADERS
 
 # Setup embedded source
 set(EMBEDDED_INPUT
+    ../../shaders/DebugDrawing.vert
+    ../../shaders/DebugDrawing.frag
     ../../shaders/Default3D.vert
     ../../shaders/Default3D.frag
     ../../shaders/Deferred.frag
