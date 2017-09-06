@@ -1,0 +1,38 @@
+{
+	"activeScene" : 0,
+	"filters" : 
+	{
+		"color" : false,
+		"colorColor" : 
+		{
+			"x" : 1.0,
+			"y" : 1.0,
+			"z" : 1.0
+		},
+		"fog" : false,
+		"fogColor" : 
+		{
+			"x" : 1.0,
+			"y" : 1.0,
+			"z" : 1.0
+		},
+		"fogDensity" : 0.0010000000474974513,
+		"fxaa" : true,
+		"glow" : true,
+		"glowBlurAmount" : 1
+	},
+	"input" : 
+	[
+		{
+			"size" : 0
+		}
+	],
+	"models" : null,
+	"scenes" : 
+	[
+		"TestScene"
+	],
+	"scripts" : null,
+	"sounds" : null,
+	"textures" : null
+}

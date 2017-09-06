@@ -1,19 +1,13 @@
 #pragma once
 
-#include <GL/glew.h>
 #include <glm/glm.hpp>
 
 namespace Video {
     class Renderer;
-    class Shader;
-    class ShaderProgram;
 }
 class World;
 class Entity;
 class Texture2D;
-namespace Component {
-    class SuperComponent;
-}
 
 /// Handles rendering the world.
 class RenderManager {
@@ -47,23 +41,13 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
         
-        void RenderEditorEntity(Component::SuperComponent* component);
         void LightWorld(World& world, const Entity* camera);
 
         Video::Renderer* renderer;
-        
-        Video::Shader* editorEntityVertexShader;
-        Video::Shader* editorEntityGeometryShader;
-        Video::Shader* editorEntityFragmentShader;
-        Video::ShaderProgram* editorEntityShaderProgram;
         
         // Editor entity textures.
         Texture2D* particleEmitterTexture;
         Texture2D* lightTexture;
         Texture2D* soundSourceTexture;
         Texture2D* cameraTexture;
-        
-        // Geometry.
-        GLuint vertexBuffer;
-        GLuint vertexArray;
 };

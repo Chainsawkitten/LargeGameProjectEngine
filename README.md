@@ -1,4 +1,4 @@
-# Hymn to Beauty (Large Game Project Engine)
+# Large Game Project
 [![Travis CI Build Status](https://travis-ci.org/Chainsawkitten/LargeGameProjectEngine.svg?branch=master)](https://travis-ci.org/Chainsawkitten/LargeGameProjectEngine)
 [![AppVeyor CI Build Status](https://ci.appveyor.com/api/projects/status/bmewjuam0j9h7qq9?svg=true)](https://ci.appveyor.com/project/Chainsawkitten/largegameprojectengine)
 
@@ -9,6 +9,12 @@ C++/OpenGL 3D Engine. See the [wiki](https://github.com/Chainsawkitten/LargeGame
 2. Run `git submodule update --init`
 3. Use CMake to generate make/project files for Hymn to Beauty.
 4. Build Hymn to Beauty.
+
+## Setting up game project
+On Windows:
+1. Open command line.
+2. Go to %appdata%/Hymn to Beauty/Hymns
+3. Type `mklink /J Game <Path to repository folder>/Game`
 
 ## License
 Released under the [MIT license](LICENSE).

@@ -105,9 +105,6 @@ set(EMBEDDED_INPUT
     ../../shaders/Deferred.frag
     ../../shaders/DebugDrawing.vert
     ../../shaders/DebugDrawing.frag
-    ../../shaders/EditorEntity.vert
-    ../../shaders/EditorEntity.geom
-    ../../shaders/EditorEntity.frag
     ../../shaders/Texture2D.frag
     ../../shaders/Particle.vert
     ../../shaders/Particle.geom

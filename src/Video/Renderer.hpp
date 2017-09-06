@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -16,6 +17,7 @@ namespace Video {
     class GammaCorrectionFilter;
     class GlowBlurFilter;
     class GlowFilter;
+    class ShaderProgram;
     namespace Geometry {
         class Geometry3D;
     }
@@ -123,6 +125,28 @@ namespace Video {
              */
             void DisplayResults(bool dither);
             
+            /// Begin rendering icons.
+            /**
+             * Needs to be called before RenderIcon.
+             * @param viewProjectionMatrix The camera's view projection matrix.
+             * @param cameraPosition The camera's position.
+             * @param cameraUp The camera's up vector.
+             */
+            void PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp);
+            
+            /// Render a billboarded icon.
+            /**
+             * PrepareRenderingIcons must be called before.
+             * @param position World position to render at.
+             * @param icon The icon to render.
+             */
+            void RenderIcon(const glm::vec3& position, const Texture* icon);
+            
+            /// Stop rendering icons.
+            /**
+             * Should be called after all icons have been rendered.
+             */
+            void StopRenderingIcons();
             
         private:
             glm::vec2 screenSize;
@@ -137,5 +161,11 @@ namespace Video {
             GammaCorrectionFilter* gammaCorrectionFilter;
             GlowFilter* glowFilter;
             GlowBlurFilter* glowBlurFilter;
+            
+            // Icon rendering.
+            ShaderProgram* iconShaderProgram;
+            GLuint vertexBuffer;
+            GLuint vertexArray;
+            const Texture* currentIcon = nullptr;
     };
 }

@@ -1,19 +1,13 @@
 #include "RenderManager.hpp"
 
-#include <GL/glew.h>
 #include <Video/Renderer.hpp>
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
 #include "ParticleManager.hpp"
-#include "DebugDrawingManager.hpp"
-#include "EditorEntity.vert.hpp"
-#include "EditorEntity.geom.hpp"
-#include "EditorEntity.frag.hpp"
 #include "Light.png.hpp"
 #include "ParticleEmitter.png.hpp"
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
-#include <Video/Shader/ShaderProgram.hpp>
 #include "../Entity/Entity.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
@@ -40,51 +34,19 @@ using namespace Component;
 RenderManager::RenderManager() {
     renderer = new Video::Renderer(MainWindow::GetInstance()->GetSize());
     
-    // Init shaders.
-    editorEntityVertexShader = Managers().resourceManager->CreateShader(EDITORENTITY_VERT, EDITORENTITY_VERT_LENGTH, GL_VERTEX_SHADER);
-    editorEntityGeometryShader = Managers().resourceManager->CreateShader(EDITORENTITY_GEOM, EDITORENTITY_GEOM_LENGTH, GL_GEOMETRY_SHADER);
-    editorEntityFragmentShader = Managers().resourceManager->CreateShader(EDITORENTITY_FRAG, EDITORENTITY_FRAG_LENGTH, GL_FRAGMENT_SHADER);
-    editorEntityShaderProgram = Managers().resourceManager->CreateShaderProgram({ editorEntityVertexShader, editorEntityGeometryShader, editorEntityFragmentShader });
-    
     // Init textures.
     particleEmitterTexture = Managers().resourceManager->CreateTexture2D(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
     lightTexture = Managers().resourceManager->CreateTexture2D(LIGHT_PNG, LIGHT_PNG_LENGTH);
     soundSourceTexture = Managers().resourceManager->CreateTexture2D(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);
     cameraTexture = Managers().resourceManager->CreateTexture2D(CAMERA_PNG, CAMERA_PNG_LENGTH);
-    
-    // Create editor entity geometry.
-    float vertex;
-    
-    glBindVertexArray(0);
-    glGenBuffers(1, &vertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 1 * sizeof(float), &vertex, GL_STATIC_DRAW);
-    
-    glGenVertexArrays(1, &vertexArray);
-    glBindVertexArray(vertexArray);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(float), nullptr);
-    
-    glBindVertexArray(0);
 }
 
 RenderManager::~RenderManager() {
-    Managers().resourceManager->FreeShader(editorEntityVertexShader);
-    Managers().resourceManager->FreeShader(editorEntityGeometryShader);
-    Managers().resourceManager->FreeShader(editorEntityFragmentShader);
-    Managers().resourceManager->FreeShaderProgram(editorEntityShaderProgram);
-    
     Managers().resourceManager->FreeTexture2D(particleEmitterTexture);
     Managers().resourceManager->FreeTexture2D(lightTexture);
     Managers().resourceManager->FreeTexture2D(soundSourceTexture);
     Managers().resourceManager->FreeTexture2D(cameraTexture);
     
-    glDeleteBuffers(1, &vertexBuffer);
-    glDeleteVertexArrays(1, &vertexArray);
-
     delete renderer;
 }
 
@@ -179,77 +141,50 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
     
     // Render from camera.
     if (camera != nullptr) {
-        editorEntityShaderProgram->Use();
-        glBindVertexArray(vertexArray);
-        glDepthMask(GL_FALSE);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-        
-        // Set camera uniforms.
         glm::vec2 screenSize(MainWindow::GetInstance()->GetSize());
         glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position));
         glm::mat4 projectionMat(camera->GetComponent<Lens>()->GetProjection(screenSize));
-        glm::mat4 viewProjectionMat(projectionMat * viewMat);
+        glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
         glm::vec3 up(glm::inverse(camera->GetCameraOrientation())* glm::vec4(0, 1, 0, 1));
-    
-        glUniformMatrix4fv(editorEntityShaderProgram->GetUniformLocation("viewProjectionMatrix"), 1, GL_FALSE, &viewProjectionMat[0][0]);
-        glUniform3fv(editorEntityShaderProgram->GetUniformLocation("cameraPosition"), 1, &camera->position[0]);
-        glUniform3fv(editorEntityShaderProgram->GetUniformLocation("cameraUp"), 1, &up[0]);
-        glUniform1i(editorEntityShaderProgram->GetUniformLocation("baseImage"), 0);
         
-        glActiveTexture(GL_TEXTURE0);
+        renderer->PrepareRenderingIcons(viewProjectionMatrix, camera->position, up);
         
         // Render sound sources.
         if (soundSources) {
-            glBindTexture(GL_TEXTURE_2D, soundSourceTexture->GetTextureID());
-            
             for (SoundSource* soundSource : world.GetComponents<SoundSource>())
-                RenderEditorEntity(soundSource);
+                renderer->RenderIcon(soundSource->entity->position, soundSourceTexture);
         }
         
         // Render particle emitters.
         if (particleEmitters) {
-            glBindTexture(GL_TEXTURE_2D, particleEmitterTexture->GetTextureID());
-            
             for (ParticleEmitter* emitter : world.GetComponents<ParticleEmitter>())
-                RenderEditorEntity(emitter);
+                renderer->RenderIcon(emitter->entity->position, particleEmitterTexture);
         }
         
         // Render light sources.
         if (lightSources) {
-            glBindTexture(GL_TEXTURE_2D, lightTexture->GetTextureID());
-            
             for (DirectionalLight* light : world.GetComponents<DirectionalLight>())
-                RenderEditorEntity(light);
+                renderer->RenderIcon(light->entity->position, lightTexture);
             
             for (PointLight* light : world.GetComponents<PointLight>())
-                RenderEditorEntity(light);
+                renderer->RenderIcon(light->entity->position, lightTexture);
             
             for (SpotLight* light : world.GetComponents<SpotLight>())
-                RenderEditorEntity(light);
+                renderer->RenderIcon(light->entity->position, lightTexture);
         }
         
         // Render cameras.
         if (cameras) {
-            glBindTexture(GL_TEXTURE_2D, cameraTexture->GetTextureID());
-            
             for (Lens* lens : world.GetComponents<Lens>())
-                RenderEditorEntity(lens);
+                renderer->RenderIcon(lens->entity->position, cameraTexture);
         }
         
-        glDepthMask(GL_TRUE);
-        glDisable(GL_BLEND);
+        renderer->StopRenderingIcons();
     }
 }
 
 void RenderManager::UpdateBufferSize() {
     renderer->SetScreenSize(MainWindow::GetInstance()->GetSize());
-}
-
-void RenderManager::RenderEditorEntity(SuperComponent* component) {
-    Entity* entity = component->entity;
-    glUniform3fv(editorEntityShaderProgram->GetUniformLocation("position"), 1, &entity->GetWorldPosition()[0]);
-    glDrawArrays(GL_POINTS, 0, 1);
 }
 
 void RenderManager::LightWorld(World& world, const Entity* camera) {
