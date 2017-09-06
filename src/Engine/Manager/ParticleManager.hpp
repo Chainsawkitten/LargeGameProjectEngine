@@ -7,8 +7,7 @@
 class Entity;
 class World;
 namespace Video {
-    class Shader;
-    class ShaderProgram;
+    class ParticleRenderer;
 }
 class Texture2D;
 namespace Component {
@@ -20,33 +19,6 @@ class ParticleManager {
     friend class Hub;
     
     public:
-        /// A particle in the particle system.
-        struct Particle {
-            /// Position.
-            glm::vec3 worldPos;
-            
-            /// Size.
-            glm::vec2 size;
-            
-            /// Life (in seconds).
-            float life;
-            
-            /// Lifetime (in seconds).
-            float lifetime;
-            
-            /// Initial velocity.
-            glm::vec3 velocity;
-            
-            /// Start, mid and end of life alpha of particle.
-            glm::vec3 alpha;
-            
-            /// Color of the particle.
-            glm::vec3 color;
-            
-            /// Texture index (for the texture atlas, left to right, top to bottom indexing)
-            float textureIndex;
-        };
-        
         /// Get the maximum amount of particles.
         /**
          * @return Maximum amount of particles.
@@ -104,20 +76,11 @@ class ParticleManager {
         std::random_device randomDevice;
         std::mt19937 randomEngine;
         
-        // Shaders.
-        Video::Shader* vertexShader;
-        Video::Shader* geometryShader;
-        Video::Shader* fragmentShader;
-        Video::ShaderProgram* shaderProgram;
+        Video::ParticleRenderer* particleRenderer;
 
         // The number of rows in the texture atlas.
         int textureAtlasRowNumber = 4;
 
         // Texture atlas containing the particle textures.
         Texture2D* textureAtlas;
-
-        // Vertex buffer.
-        GLuint vertexBuffer = 0;
-        GLuint vertexArray = 0;
-        unsigned int vertexCount = 0;
 };

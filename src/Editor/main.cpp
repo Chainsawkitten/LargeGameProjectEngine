@@ -10,6 +10,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
+#include <Engine/Manager/ParticleManager.hpp>
 #include <Engine/Util/Profiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>

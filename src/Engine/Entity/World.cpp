@@ -3,11 +3,12 @@
 #include "../Entity/Entity.hpp"
 #include "../Component/SuperComponent.hpp"
 #include "../Manager/Managers.hpp"
+#include "../Manager/ParticleManager.hpp"
 #include "../Util/FileSystem.hpp"
 #include <fstream>
 
 World::World() {
-    particles = new ParticleManager::Particle[Managers().particleManager->GetMaxParticleCount()];
+    particles = new Video::ParticleRenderer::Particle[Managers().particleManager->GetMaxParticleCount()];
 }
 
 World::~World() {
@@ -87,7 +88,7 @@ void World::ClearKilled() {
     }
 }
 
-ParticleManager::Particle* World::GetParticles() const {
+Video::ParticleRenderer::Particle* World::GetParticles() const {
     return particles;
 }
 

@@ -3,7 +3,7 @@
 #include <vector>
 #include <map>
 #include <typeinfo>
-#include "../Manager/ParticleManager.hpp"
+#include <Video/ParticleRenderer.hpp>
 
 class Entity;
 namespace Component {
@@ -71,7 +71,7 @@ class World {
         /**
          * @return Array of all the particles in the world.
          */
-        ParticleManager::Particle* GetParticles() const;
+        Video::ParticleRenderer::Particle* GetParticles() const;
         
         /// Get the number of particles in the world.
         /**
@@ -112,7 +112,7 @@ class World {
         std::map<const std::type_info*, std::vector<Component::SuperComponent*>> components;
         
         // All particles in the world.
-        ParticleManager::Particle* particles;
+        Video::ParticleRenderer::Particle* particles;
         unsigned int particleCount = 0;
         
         // Entities registered for update event.
