@@ -1,35 +1,46 @@
 [submodule "externals/glfw"]
 	path = externals/glfw
 	url = https://github.com/glfw/glfw.git
+	shallow = true
 [submodule "externals/glew"]
 	path = externals/glew
 	url = https://github.com/Perlmint/glew-cmake.git
+	shallow = true
 [submodule "externals/Headerize"]
 	path = externals/Headerize
 	url = https://github.com/Chainsawkitten/Headerize.git
+	shallow = true
 [submodule "externals/simpleini"]
 	path = externals/simpleini
 	url = https://github.com/brofield/simpleini.git
+	shallow = true
 [submodule "externals/glm"]
 	path = externals/glm
 	url = https://github.com/g-truc/glm.git
+	shallow = true
 [submodule "externals/stb"]
 	path = externals/stb
 	url = https://github.com/nothings/stb.git
+	shallow = true
 [submodule "externals/jsoncpp"]
 	path = externals/jsoncpp
 	url = https://github.com/open-source-parsers/jsoncpp.git
     ignore = dirty
+	shallow = true
 [submodule "externals/openal-soft"]
 	path = externals/openal-soft
 	url = https://github.com/kcat/openal-soft.git
+	shallow = true
 [submodule "externals/assimp"]
 	path = externals/assimp
 	url = https://github.com/assimp/assimp.git
+	shallow = true
 [submodule "externals/imgui"]
 	path = externals/imgui
 	url = https://github.com/ocornut/imgui.git
+	shallow = true
 [submodule "externals/AngelScript"]
 	path = externals/AngelScript
 	url = https://github.com/IngwiePhoenix/AngelScript.git
 	ignore = dirty
+	shallow = true
