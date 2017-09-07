@@ -10,6 +10,7 @@
 [submodule "externals/simpleini"]
 	path = externals/simpleini
 	url = https://github.com/brofield/simpleini.git
+	shallow = true
 [submodule "externals/glm"]
 	path = externals/glm
 	url = https://github.com/g-truc/glm.git
