@@ -10,7 +10,7 @@ int main() {
     if (!glfwInit())
         return 1;
     
-    Log() << "Game started - " << time(nullptr) << "\n";
+    Log() << "Game started - q" << time(nullptr) << "\n";
     
     MainWindow* window = new MainWindow(640, 480, false, false, "Hymn to Beauty", false);
     glewInit();
