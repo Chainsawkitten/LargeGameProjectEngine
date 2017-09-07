@@ -123,3 +123,7 @@ macro(ProcessWithHeaderize headervar sourcevar inputfile outdir)
     list(APPEND ${headervar} ${outputfile}.hpp)
     list(APPEND ${sourcevar} ${outputfile}.cpp)
 endmacro()
+
+# Catch
+add_library(catch INTERFACE)
+target_include_directories(catch INTERFACE Catch/single_include)

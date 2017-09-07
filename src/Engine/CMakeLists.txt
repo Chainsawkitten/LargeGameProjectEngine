@@ -121,6 +121,6 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine Video imgui stb simpleini ${OPENAL_LIB} angelscript)
+target_link_libraries(Engine Video catch imgui stb simpleini ${OPENAL_LIB} angelscript)
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)
