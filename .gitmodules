@@ -43,4 +43,3 @@
 	path = externals/AngelScript
 	url = https://github.com/IngwiePhoenix/AngelScript.git
 	ignore = dirty
-	shallow = true
