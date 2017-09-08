@@ -38,4 +38,4 @@
 	url = https://github.com/Chainsawkitten/assimp.git
 [submodule "externals/bullet3"]
 	path = externals/bullet3
-        url = https://github.com/bulletphysics/bullet3.git
+	url = https://github.com/bulletphysics/bullet3.git
