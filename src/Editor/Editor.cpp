@@ -125,6 +125,9 @@ void Editor::Show(float deltaTime) {
                 
                 ImGui::EndMenu();
             }
+            
+            // Editor Camera Coordinates
+            ImGui::SameLine(size.x - 280); ImGui::Text("X: %f, Y: %f, Z: %f", cameraEntity->GetWorldPosition().x, cameraEntity->GetWorldPosition().y, cameraEntity->GetWorldPosition().z);
         }
         
         ImGui::EndMainMenuBar();

@@ -30,12 +30,8 @@ void print(const std::string& message) {
     Log() << message;
 }
 
-Entity* GetEntity() {
-    return Managers().scriptManager->currentEntity;
-}
-
 void RegisterUpdate() {
-    Managers().scriptManager->RegisterUpdate(GetEntity());
+    Managers().scriptManager->RegisterUpdate(Managers().scriptManager->currentEntity);
 }
 
 bool ButtonInput(int buttonIndex) {
@@ -325,7 +321,6 @@ ScriptManager::ScriptManager() {
     
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
-    engine->RegisterGlobalFunction("Entity@ GetEntity()", asFUNCTION(GetEntity), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
     engine->RegisterGlobalFunction("bool Input(input button)", asFUNCTION(ButtonInput), asCALL_CDECL);
     engine->RegisterGlobalFunction("void SendMessage(Entity@, int)", asFUNCTION(::SendMessage), asCALL_CDECL);
