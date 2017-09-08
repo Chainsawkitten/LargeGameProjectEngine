@@ -3,6 +3,12 @@
 #include <string>
 #include <list>
 
+#ifdef MEASURE_VRAM
+#include <d3d11_3.h>
+#include <dxgi1_4.h>
+#undef CreateDirectory
+#endif
+
 /// Handles profiling.
 class ProfilingManager {
     friend class Hub;
@@ -45,4 +51,9 @@ class ProfilingManager {
         float frameTimes[frames] = {};
         
         bool syncGPU = false;
+
+#ifdef MEASURE_VRAM
+        IDXGIFactory* dxgiFactory = nullptr;
+        IDXGIAdapter3* dxgiAdapter3 = nullptr;
+#endif
 };
