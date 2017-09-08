@@ -123,3 +123,18 @@ macro(ProcessWithHeaderize headervar sourcevar inputfile outdir)
     list(APPEND ${headervar} ${outputfile}.hpp)
     list(APPEND ${sourcevar} ${outputfile}.cpp)
 endmacro()
+
+# Catch
+add_library(catch INTERFACE)
+target_include_directories(catch INTERFACE Catch/single_include)
+
+# Bullet
+set(BUILD_CPU_DEMOS OFF CACHE BOOL "Don't build bullet demos." FORCE)
+set(BUILD_UNIT_TESTS OFF CACHE BOOL "Don't build bullet tests." FORCE)
+set(BUILD_EXTRAS OFF CACHE BOOL "Don't build bullet extras." FORCE)
+set(BUILD_BULLET2_DEMOS OFF CACHE BOOL "Don't build bullet 2 demos." FORCE)
+set(BUILD_BULLET3 OFF CACHE BOOL "Don't build bullet 3." FORCE)
+add_subdirectory(bullet3)
+add_library(bullet INTERFACE)
+target_link_libraries(bullet INTERFACE BulletDynamics BulletCollision LinearMath)
+target_include_directories(bullet INTERFACE bullet3/src)

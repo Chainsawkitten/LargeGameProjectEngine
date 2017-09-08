@@ -9,7 +9,7 @@ namespace Video {
     class Lighting;
     class StaticRenderProgram;
     class SkinRenderProgram;
-    class Texture;
+    class Texture2D;
     class PostProcessing;
     class ColorFilter;
     class FogFilter;
@@ -20,6 +20,7 @@ namespace Video {
     class ShaderProgram;
     namespace Geometry {
         class Geometry3D;
+        class Rectangle;
     }
     
     /// Handles rendering using OpenGL.
@@ -62,7 +63,7 @@ namespace Video {
              * @param glowTexture Glow texture.
              * @param modelMatrix Model matrix.
              */
-            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture* diffuseTexture, const Texture* normalTexture, const Texture* specularTexture, const Texture* glowTexture, const glm::mat4 modelMatrix);
+            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix);
             
             /// Prepare for rendering skinned meshes.
             /**
@@ -82,7 +83,7 @@ namespace Video {
              * @param bones Transformations of skeleton.
              * @param bonesIT Inverse transpose transformations of skeleton.
              */
-            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture* diffuseTexture, const Video::Texture* normalTexture, const Video::Texture* specularTexture, const Video::Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
+            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* diffuseTexture, const Video::Texture2D* normalTexture, const Video::Texture2D* specularTexture, const Video::Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
             
             /// Add a light to the scene.
             void AddLight(const Video::Light& light);
@@ -140,7 +141,7 @@ namespace Video {
              * @param position World position to render at.
              * @param icon The icon to render.
              */
-            void RenderIcon(const glm::vec3& position, const Texture* icon);
+            void RenderIcon(const glm::vec3& position, const Texture2D* icon);
             
             /// Stop rendering icons.
             /**
@@ -166,6 +167,8 @@ namespace Video {
             ShaderProgram* iconShaderProgram;
             GLuint vertexBuffer;
             GLuint vertexArray;
-            const Texture* currentIcon = nullptr;
+            const Texture2D* currentIcon = nullptr;
+            
+            Geometry::Rectangle* rectangle;
     };
 }

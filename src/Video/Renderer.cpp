@@ -13,21 +13,23 @@
 #include "PostProcessing/GlowBlurFilter.hpp"
 #include "PostProcessing/GlowFilter.hpp"
 #include "RenderTarget.hpp"
-#include "Texture/Texture.hpp"
+#include "Texture/Texture2D.hpp"
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"
 #include "EditorEntity.vert.hpp"
 #include "EditorEntity.geom.hpp"
 #include "EditorEntity.frag.hpp"
+#include "Geometry/Rectangle.hpp"
 
 using namespace Video;
 
 Renderer::Renderer(const glm::vec2& screenSize) {
     this->screenSize = screenSize;
-    lighting = new Lighting(screenSize);
+    rectangle = new Geometry::Rectangle();
+    lighting = new Lighting(screenSize, rectangle);
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
-    postProcessing = new PostProcessing(screenSize);
+    postProcessing = new PostProcessing(screenSize, rectangle);
     colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
     fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
     fxaaFilter = new FXAAFilter();
@@ -64,6 +66,7 @@ Renderer::Renderer(const glm::vec2& screenSize) {
 }
 
 Renderer::~Renderer() {
+    delete rectangle;
     delete lighting;
     delete staticRenderProgram;
     delete skinRenderProgram;
@@ -86,7 +89,7 @@ void Renderer::SetScreenSize(const glm::vec2& screenSize) {
     
     postProcessing->UpdateBufferSize(screenSize);
     delete lighting;
-    lighting = new Lighting(screenSize);
+    lighting = new Lighting(screenSize, rectangle);
 }
 
 void Renderer::Clear() {
@@ -114,7 +117,7 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
     staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture* diffuseTexture, const Texture* normalTexture, const Texture* specularTexture, const Texture* glowTexture, const glm::mat4 modelMatrix) {
+void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) {
     staticRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix);
 }
 
@@ -122,7 +125,7 @@ void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const gl
     skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture* diffuseTexture, const Video::Texture* normalTexture, const Video::Texture* specularTexture, const Video::Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
+void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* diffuseTexture, const Video::Texture2D* normalTexture, const Video::Texture2D* specularTexture, const Video::Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
     skinRenderProgram->Render(geometry, diffuseTexture, normalTexture, specularTexture, glowTexture, modelMatrix, bones, bonesIT);
 }
 
@@ -178,7 +181,7 @@ void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, cons
     glActiveTexture(GL_TEXTURE0);
 }
 
-void Renderer::RenderIcon(const glm::vec3& position, const Texture* icon) {
+void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
     if (currentIcon != icon) {
         currentIcon = icon;
         glBindTexture(GL_TEXTURE_2D, icon->GetTextureID());

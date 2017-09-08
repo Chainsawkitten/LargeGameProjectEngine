@@ -3,7 +3,6 @@
 #include "Util/FileSystem.hpp"
 #include "Manager/Managers.hpp"
 #include "Manager/RenderManager.hpp"
-#include "Manager/ResourceManager.hpp"
 #include "Manager/PhysicsManager.hpp"
 #include "Manager/ParticleManager.hpp"
 #include "Manager/ScriptManager.hpp"
@@ -15,7 +14,8 @@
 #include "DefaultGlow.png.hpp"
 #include "Geometry/RiggedModel.hpp"
 #include "Geometry/StaticModel.hpp"
-#include "Texture/Texture2D.hpp"
+#include <Video/Texture/Texture2D.hpp>
+#include "Texture/TextureAsset.hpp"
 #include "Audio/SoundBuffer.hpp"
 #include "Input/Input.hpp"
 #include "Script/ScriptFile.hpp"
@@ -30,10 +30,14 @@
 using namespace std;
 
 ActiveHymn::ActiveHymn() {
-    defaultDiffuse = Managers().resourceManager->CreateTexture2D(DEFAULTDIFFUSE_PNG, DEFAULTDIFFUSE_PNG_LENGTH, true);
-    defaultNormal = Managers().resourceManager->CreateTexture2D(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH);
-    defaultSpecular = Managers().resourceManager->CreateTexture2D(DEFAULTSPECULAR_PNG, DEFAULTSPECULAR_PNG_LENGTH);
-    defaultGlow = Managers().resourceManager->CreateTexture2D(DEFAULTGLOW_PNG, DEFAULTGLOW_PNG_LENGTH);
+    defaultDiffuse = new TextureAsset();
+    defaultDiffuse->GetTexture()->Load(DEFAULTDIFFUSE_PNG, DEFAULTDIFFUSE_PNG_LENGTH, true);
+    defaultNormal = new TextureAsset();
+    defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH, false);
+    defaultSpecular = new TextureAsset();
+    defaultSpecular->GetTexture()->Load(DEFAULTSPECULAR_PNG, DEFAULTSPECULAR_PNG_LENGTH, false);
+    defaultGlow = new TextureAsset();
+    defaultGlow->GetTexture()->Load(DEFAULTGLOW_PNG, DEFAULTGLOW_PNG_LENGTH, false);
     
     Clear();
 }
@@ -58,7 +62,7 @@ void ActiveHymn::Clear() {
     models.clear();
     modelNumber = 0U;
     
-    for (Texture2D* texture : textures) {
+    for (TextureAsset* texture : textures) {
         delete texture;
     }
     textures.clear();
@@ -103,7 +107,7 @@ void ActiveHymn::Save() const {
     
     // Save textures.
     Json::Value texturesNode;
-    for (Texture2D* texture : textures) {
+    for (TextureAsset* texture : textures) {
         texturesNode.append(texture->Save());
     }
     root["textures"] = texturesNode;
@@ -172,7 +176,7 @@ void ActiveHymn::Load(const string& path) {
     // Load textures.
     const Json::Value texturesNode = root["textures"];
     for (unsigned int i=0; i < texturesNode.size(); ++i) {
-        Texture2D* texture = new Texture2D();
+        TextureAsset* texture = new TextureAsset();
         texture->Load(texturesNode[i]);
         textures.push_back(texture);
     }

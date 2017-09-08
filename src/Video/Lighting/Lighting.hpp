@@ -17,8 +17,9 @@ namespace Video {
             /// Create new deferred lighting.
             /**
              * @param screenSize Size of the screen in pixels.
+             * @param rectangle %Rectangle to use for rendering.
              */
-            Lighting(const glm::vec2& screenSize);
+            Lighting(const glm::vec2& screenSize, const Geometry::Rectangle* rectangle);
             
             /// Destructor.
             ~Lighting();
@@ -58,7 +59,7 @@ namespace Video {
             GLuint frameBufferObject;
             GLuint depthHandle;
             
-            Geometry::Rectangle* rectangle;
+            const Geometry::Rectangle* rectangle;
             ShaderProgram* shaderProgram;
             
             std::vector<Light> lights;

@@ -93,7 +93,7 @@ void DebugDrawingManager::Render(World& world, Entity* camera) {
     }
     
     if (camera != nullptr) {
-        glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position));
+        glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
         glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
         glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
         

@@ -3,7 +3,7 @@
 #include "SuperComponent.hpp"
 
 class Entity;
-class Texture2D;
+class TextureAsset;
 
 namespace Component {
     /// %Component providing a material to Entity.
@@ -28,18 +28,18 @@ namespace Component {
             void Load(const Json::Value& node) override;
             
             /// Diffuse texture.
-            Texture2D* diffuse;
+            TextureAsset* diffuse;
             
             /// Normal texture.
-            Texture2D* normal;
+            TextureAsset* normal;
             
             /// Specular texture.
-            Texture2D* specular;
+            TextureAsset* specular;
             
             /// Glow texture.
-            Texture2D* glow;
+            TextureAsset* glow;
             
         private:
-            void LoadTexture(Texture2D*& texture, const std::string& name);
+            void LoadTexture(TextureAsset*& texture, const std::string& name);
     };
 }

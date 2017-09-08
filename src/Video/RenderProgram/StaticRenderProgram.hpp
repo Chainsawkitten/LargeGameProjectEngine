@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 namespace Video {
-    class Texture;
+    class Texture2D;
     class ShaderProgram;
     namespace Geometry {
         class Geometry3D;
@@ -34,7 +34,7 @@ namespace Video {
              * @param glowTexture Glow texture.
              * @param modelMatrix Model matrix.
              */
-            void Render(Geometry::Geometry3D* geometry, const Texture* diffuseTexture, const Texture* normalTexture, const Texture* specularTexture, const Texture* glowTexture, const glm::mat4 modelMatrix) const;
+            void Render(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) const;
             
         private:
             ShaderProgram* shaderProgram;

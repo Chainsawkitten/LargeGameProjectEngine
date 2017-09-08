@@ -18,7 +18,7 @@
 		},
 		"fogDensity" : 0.0010000000474974513,
 		"fxaa" : true,
-		"glow" : true,
+		"glow" : false,
 		"glowBlurAmount" : 1
 	},
 	"input" : 
@@ -27,12 +27,27 @@
 			"size" : 0
 		}
 	],
-	"models" : null,
+	"models" : 
+	[
+		{
+			"extension" : "fbx",
+			"name" : "Minecart",
+			"type" : "Static"
+		}
+	],
 	"scenes" : 
 	[
 		"TestScene"
 	],
-	"scripts" : null,
+	"scripts" : 
+	[
+		{
+			"name" : "Player"
+		},
+		{
+			"name" : "Cart"
+		}
+	],
 	"sounds" : null,
 	"textures" : null
 }

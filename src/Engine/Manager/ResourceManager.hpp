@@ -6,11 +6,11 @@
 namespace Video {
     class Shader;
     class ShaderProgram;
+    class Texture2D;
     namespace Geometry {
         class Rectangle;
     }
 }
-class Texture2D;
 namespace Geometry {
     class Cube;
     class Model;
@@ -108,7 +108,7 @@ class ResourceManager {
          * @param srgb Whether the image is in SRGB space and should be converted to linear space.
          * @return The %Texture2D instance
          */
-        Texture2D* CreateTexture2D(const char* data, int dataLength, bool srgb = false);
+        Video::Texture2D* CreateTexture2D(const char* data, int dataLength, bool srgb = false);
         
         /// Create a 2D texture if it doesn't already exist.
         /**
@@ -116,14 +116,14 @@ class ResourceManager {
          * @param srgb Whether the image is in SRGB space and should be converted to linear space.
          * @return The %Texture2D instance
          */
-        Texture2D* CreateTexture2DFromFile(std::string filename, bool srgb = false);
+        Video::Texture2D* CreateTexture2DFromFile(std::string filename, bool srgb = false);
         
         /// Free the reference to the 2D texture.
         /**
          * Deletes the instance if no more references exist.
          * @param texture %Texture to dereference.
          */
-        void FreeTexture2D(Texture2D* texture);
+        void FreeTexture2D(Video::Texture2D* texture);
         
         /// Create a sound if it doesn't already exist.
         /**
@@ -189,15 +189,15 @@ class ResourceManager {
         
         // Texture2D
         struct Texture2DInstance {
-            Texture2D* texture;
+            Video::Texture2D* texture;
             int count;
         };
         std::map<const char*, Texture2DInstance> textures;
-        std::map<Texture2D*, const char*> texturesInverse;
+        std::map<Video::Texture2D*, const char*> texturesInverse;
         
         // Texture2D from file
         std::map<std::string, Texture2DInstance> texturesFromFile;
-        std::map<Texture2D*, std::string> texturesFromFileInverse;
+        std::map<Video::Texture2D*, std::string> texturesFromFileInverse;
         
         // Sound
         struct SoundInstance {

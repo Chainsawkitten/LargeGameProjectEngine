@@ -47,7 +47,7 @@ set(SRCS
         Util/Json.cpp
         Util/Profiling.cpp
         Util/Settings.cpp
-        Texture/Texture2D.cpp
+        Texture/TextureAsset.cpp
         Script/ScriptFile.cpp
         Input/Input.cpp
     )
@@ -94,17 +94,13 @@ set(HEADERS
         Util/Json.hpp
         Util/Profiling.hpp
         Util/Settings.hpp
-        Texture/Texture2D.hpp
+        Texture/TextureAsset.hpp
         Script/ScriptFile.hpp
         Input/Input.hpp
     )
 
 # Setup embedded source
 set(EMBEDDED_INPUT
-    ../../shaders/Default2D.vert
-    ../../shaders/Deferred.frag
-    ../../shaders/Texture2D.frag
-    ../../shaders/Post.vert
     ../../assets/Camera.png
     ../../assets/DefaultDiffuse.png
     ../../assets/DefaultNormal.png
@@ -125,6 +121,10 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Engine Video imgui stb simpleini ${OPENAL_LIB} angelscript)
+target_link_libraries(Engine Video Physics catch imgui stb simpleini ${OPENAL_LIB} angelscript)
+if(MeasureVRAM)
+    target_link_libraries(Engine ${DirectX11_LIBRARIES})
+    target_include_directories(Engine PRIVATE ${DirectX11_INCLUDE_DIRS})
+endif()
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)

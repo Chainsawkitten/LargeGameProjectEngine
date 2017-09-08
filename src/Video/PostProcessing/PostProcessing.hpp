@@ -15,8 +15,9 @@ namespace Video {
             /// Create new post-processing handler.
             /**
              * @param screenSize The size of the screen in pixels.
+             * @param rectangle %Rectangle to use for rendering.
              */
-            PostProcessing(const glm::vec2& screenSize);
+            PostProcessing(const glm::vec2& screenSize, const Geometry::Rectangle* rectangle);
             
             /// Destructor.
             ~PostProcessing();
@@ -48,6 +49,6 @@ namespace Video {
         private:
             short int which = 0;
             RenderTarget* buffers[2];
-            Geometry::Rectangle* rectangle;
+            const Geometry::Rectangle* rectangle;
     };
 }

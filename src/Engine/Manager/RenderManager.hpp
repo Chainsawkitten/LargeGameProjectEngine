@@ -4,10 +4,10 @@
 
 namespace Video {
     class Renderer;
+    class Texture2D;
 }
 class World;
 class Entity;
-class Texture2D;
 
 /// Handles rendering the world.
 class RenderManager {
@@ -46,8 +46,8 @@ class RenderManager {
         Video::Renderer* renderer;
         
         // Editor entity textures.
-        Texture2D* particleEmitterTexture;
-        Texture2D* lightTexture;
-        Texture2D* soundSourceTexture;
-        Texture2D* cameraTexture;
+        Video::Texture2D* particleEmitterTexture;
+        Video::Texture2D* lightTexture;
+        Video::Texture2D* soundSourceTexture;
+        Video::Texture2D* cameraTexture;
 };

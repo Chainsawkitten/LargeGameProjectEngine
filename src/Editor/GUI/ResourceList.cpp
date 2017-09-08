@@ -2,7 +2,7 @@
 
 #include <Engine/Geometry/RiggedModel.hpp>
 #include <Engine/Geometry/StaticModel.hpp>
-#include <Engine/Texture/Texture2D.hpp>
+#include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>
@@ -106,13 +106,13 @@ void ResourceList::Show() {
     bool texturePressed = false;
     if (ImGui::TreeNode("Textures")) {
         if (ImGui::Button("Add texture")) {
-            Texture2D* texture = new Texture2D();
+            TextureAsset* texture = new TextureAsset();
             texture->name = "Texture #" + std::to_string(Hymn().textureNumber++);
             Hymn().textures.push_back(texture);
         }
         
         for (auto it = Hymn().textures.begin(); it != Hymn().textures.end(); ++it) {
-            Texture2D* texture = *it;
+            TextureAsset* texture = *it;
             if (ImGui::Selectable(texture->name.c_str())) {
                 texturePressed = true;
                 textureEditor.SetTexture(texture);

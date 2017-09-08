@@ -7,18 +7,16 @@
 
 using namespace Video;
 
-PostProcessing::PostProcessing(const glm::vec2& screenSize) {
+PostProcessing::PostProcessing(const glm::vec2& screenSize, const Geometry::Rectangle* rectangle) {
     buffers[0] = new RenderTarget(screenSize);
     buffers[1] = new RenderTarget(screenSize);
     
-    rectangle = new Geometry::Rectangle();
+    this->rectangle = rectangle;
 }
 
 PostProcessing::~PostProcessing() {
     delete buffers[0];
     delete buffers[1];
-    
-    delete rectangle;
 }
 
 RenderTarget* PostProcessing::GetRenderTarget() const {

@@ -5,7 +5,7 @@
 #include <Video/Geometry/Rectangle.hpp>
 #include "../Geometry/Cube.hpp"
 #include "../Geometry/StaticModel.hpp"
-#include "../Texture/Texture2D.hpp"
+#include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
 #include "../Audio/VorbisFile.hpp"
 
@@ -159,9 +159,9 @@ void ResourceManager::FreeModel(Geometry::Model* model) {
     }
 }
 
-Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength, bool srgb) {
+Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength, bool srgb) {
     if (textures.find(data) == textures.end()) {
-        textures[data].texture = new Texture2D(data, dataLength, srgb);
+        textures[data].texture = new Video::Texture2D(data, dataLength, srgb);
         texturesInverse[textures[data].texture] = data;
         textures[data].count = 1;
     } else {
@@ -171,9 +171,9 @@ Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLength, bo
     return textures[data].texture;
 }
 
-Texture2D* ResourceManager::CreateTexture2DFromFile(std::string filename, bool srgb) {
+Video::Texture2D* ResourceManager::CreateTexture2DFromFile(std::string filename, bool srgb) {
     if (texturesFromFile.find(filename) == texturesFromFile.end()) {
-        texturesFromFile[filename].texture = new Texture2D(filename.c_str(), srgb);
+        texturesFromFile[filename].texture = new Video::Texture2D(filename.c_str(), srgb);
         texturesFromFileInverse[texturesFromFile[filename].texture] = filename;
         texturesFromFile[filename].count = 1;
     } else {
@@ -183,7 +183,7 @@ Texture2D* ResourceManager::CreateTexture2DFromFile(std::string filename, bool s
     return texturesFromFile[filename].texture;
 }
 
-void ResourceManager::FreeTexture2D(Texture2D* texture) {
+void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
     if (texture->IsFromFile()) {
         string filename = texturesFromFileInverse[texture];
         

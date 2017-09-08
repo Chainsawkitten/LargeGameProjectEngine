@@ -2,11 +2,7 @@
 
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include "../Texture/Texture2D.hpp"
-#include "DefaultDiffuse.png.hpp"
-#include "DefaultNormal.png.hpp"
-#include "DefaultSpecular.png.hpp"
-#include "DefaultGlow.png.hpp"
+#include "../Texture/TextureAsset.hpp"
 #include "../Hymn.hpp"
 
 using namespace Component;
@@ -43,8 +39,8 @@ void Material::Load(const Json::Value& node) {
     LoadTexture(glow, node.get("glow", "").asString());
 }
 
-void Material::LoadTexture(Texture2D*& texture, const std::string& name) {
-    for (Texture2D* t : Hymn().textures) {
+void Material::LoadTexture(TextureAsset*& texture, const std::string& name) {
+    for (TextureAsset* t : Hymn().textures) {
         if (t->name == name)
             texture = t;
     }

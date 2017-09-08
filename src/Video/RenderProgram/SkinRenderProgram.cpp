@@ -1,7 +1,7 @@
 #include "SkinRenderProgram.hpp"
 
 #include "../Geometry/Geometry3D.hpp"
-#include "../Texture/Texture.hpp"
+#include "../Texture/Texture2D.hpp"
 #include "../Culling/AxisAlignedBoundingBox.hpp"
 #include "../Culling/Frustum.hpp"
 #include <glm/gtc/matrix_transform.hpp>
@@ -34,7 +34,7 @@ void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& 
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture* diffuseTexture, const Texture* normalTexture, const Texture* specularTexture, const Texture* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const {
+void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
         glBindVertexArray(geometry->GetVertexArray());

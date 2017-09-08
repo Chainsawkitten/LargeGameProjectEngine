@@ -35,18 +35,58 @@
 			"scene" : false
 		},
 		{
-			"Lens" : 
+			"Material" : 
 			{
-				"fieldOfView" : 45.0,
-				"zFar" : 100.0,
-				"zNear" : 0.5
+				"diffuse" : "",
+				"glow" : "",
+				"normal" : "",
+				"specular" : ""
 			},
-			"Listener" : 
+			"Mesh" : 
 			{
-				"placeholderValue" : ""
+				"model" : "Minecart"
 			},
-			"children" : null,
-			"name" : "Player",
+			"Script" : 
+			{
+				"scriptName" : "Cart"
+			},
+			"children" : 
+			[
+				{
+					"Lens" : 
+					{
+						"fieldOfView" : 45.0,
+						"zFar" : 100.0,
+						"zNear" : 0.5
+					},
+					"Script" : 
+					{
+						"scriptName" : "Player"
+					},
+					"children" : null,
+					"name" : "Player",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 4.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false
+				}
+			],
+			"name" : "Minecart",
 			"position" : 
 			{
 				"x" : 0.0,
@@ -58,6 +98,74 @@
 				"x" : 0.0,
 				"y" : 0.0,
 				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false
+		},
+		{
+			"Material" : 
+			{
+				"diffuse" : "",
+				"glow" : "",
+				"normal" : "",
+				"specular" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Minecart"
+			},
+			"children" : null,
+			"name" : "Sidecart #1",
+			"position" : 
+			{
+				"x" : 10.0,
+				"y" : 0.0,
+				"z" : -10.0
+			},
+			"rotation" : 
+			{
+				"x" : 4.0,
+				"y" : 45.0,
+				"z" : 45.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false
+		},
+		{
+			"Material" : 
+			{
+				"diffuse" : "",
+				"glow" : "",
+				"normal" : "",
+				"specular" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Minecart"
+			},
+			"children" : null,
+			"name" : "Sidecart #2",
+			"position" : 
+			{
+				"x" : -10.0,
+				"y" : 2.0,
+				"z" : -10.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : -20.0,
+				"z" : 20.0
 			},
 			"scale" : 
 			{

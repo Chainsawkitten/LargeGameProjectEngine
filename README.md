@@ -13,8 +13,11 @@ C++/OpenGL 3D Engine. See the [wiki](https://github.com/Chainsawkitten/LargeGame
 ## Setting up game project
 On Windows:
 1. Open command line.
-2. Go to %appdata%/Hymn to Beauty/Hymns
+2. Go to `%appdata%/Hymn to Beauty/Hymns`
 3. Type `mklink /J Game <Path to repository folder>/Game`
+
+## Measuring VRAM
+Measuring VRAM requires building with Visual Studio and having the Windows SDK installed. Enable the `MeasureVram` option in CMake.
 
 ## License
 Released under the [MIT license](LICENSE).

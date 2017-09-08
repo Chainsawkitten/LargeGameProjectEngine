@@ -4,7 +4,7 @@
 #include <vector>
 #include "Entity/World.hpp"
 
-class Texture2D;
+class TextureAsset;
 namespace Geometry {
     class Model;
 }
@@ -75,7 +75,7 @@ class ActiveHymn {
         unsigned int modelNumber = 0U;
         
         /// Textures.
-        std::vector<Texture2D*> textures;
+        std::vector<TextureAsset*> textures;
         
         /// The id of the next texture to create.
         unsigned int textureNumber = 0U;
@@ -96,16 +96,16 @@ class ActiveHymn {
         std::size_t activeScene;
 
         /// Default diffuse texture.
-        Texture2D* defaultDiffuse;
+        TextureAsset* defaultDiffuse;
         
         /// Default normal texture.
-        Texture2D* defaultNormal;
+        TextureAsset* defaultNormal;
         
         /// Default specular texture.
-        Texture2D* defaultSpecular;
+        TextureAsset* defaultSpecular;
         
         /// Default glow texture.
-        Texture2D* defaultGlow;
+        TextureAsset* defaultGlow;
         
         /// Filter settings.
         struct FilterSettings {

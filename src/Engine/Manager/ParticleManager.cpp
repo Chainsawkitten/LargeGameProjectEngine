@@ -9,7 +9,7 @@
 #include "../MainWindow.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include "../Texture/Texture2D.hpp"
+#include <Video/Texture/Texture2D.hpp>
 #include "ParticleAtlas.png.hpp"
 #include <Video/ParticleRenderer.hpp>
 
@@ -64,12 +64,12 @@ void ParticleManager::UpdateBuffer(World& world) {
 
 void ParticleManager::Render(World& world, const Entity* camera) {
     if (world.GetParticleCount() > 0) {
-        glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->position);
+        glm::mat4 viewMatrix = camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition());
         glm::mat4 projectionMatrix = camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize());
         glm::mat4 viewProjectionMatrix = projectionMatrix * viewMatrix;
         glm::vec3 up(glm::inverse(camera->GetCameraOrientation())* glm::vec4(0, 1, 0, 1));
         
-        particleRenderer->Render(textureAtlas, textureAtlasRowNumber, camera->position, up, viewProjectionMatrix);
+        particleRenderer->Render(textureAtlas, textureAtlasRowNumber, camera->GetWorldPosition(), up, viewProjectionMatrix);
     }
 }
 

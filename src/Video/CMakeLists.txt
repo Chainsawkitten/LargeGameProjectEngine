@@ -23,6 +23,7 @@ set(SRCS
         Shader/Shader.cpp
         Shader/ShaderProgram.cpp
         Texture/Texture.cpp
+        Texture/Texture2D.cpp
     )
 
 set(HEADERS
@@ -52,6 +53,7 @@ set(HEADERS
         Shader/Shader.hpp
         Shader/ShaderProgram.hpp
         Texture/Texture.hpp
+        Texture/Texture2D.hpp
     )
 
 # Setup embedded source
@@ -88,6 +90,6 @@ set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Video STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
-target_link_libraries(Video Utility glew glm assimp jsoncpp_lib_static)
+target_link_libraries(Video Utility glew glm assimp jsoncpp_lib_static stb)
 set_property(TARGET Video PROPERTY CXX_STANDARD 11)
 set_property(TARGET Video PROPERTY CXX_STANDARD_REQUIRED ON)

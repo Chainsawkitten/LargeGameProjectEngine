@@ -9,7 +9,7 @@
 
 using namespace Video;
 
-Lighting::Lighting(const glm::vec2& screenSize) {
+Lighting::Lighting(const glm::vec2& screenSize, const Geometry::Rectangle* rectangle) {
     // Compile shader program.
     Shader* vertexShader = new Shader(POST_VERT, POST_VERT_LENGTH, GL_VERTEX_SHADER);
     Shader* fragmentShader = new Shader(DEFERRED_FRAG, DEFERRED_FRAG_LENGTH, GL_FRAGMENT_SHADER);
@@ -17,7 +17,7 @@ Lighting::Lighting(const glm::vec2& screenSize) {
     delete vertexShader;
     delete fragmentShader;
     
-    rectangle = new Geometry::Rectangle();
+    this->rectangle = rectangle;
     
     // Create the FBO
     glGenFramebuffers(1, &frameBufferObject);
@@ -79,7 +79,6 @@ Lighting::~Lighting() {
         glDeleteTextures(1, &depthHandle);
     
     delete shaderProgram;
-    delete rectangle;
 }
 
 void Lighting::SetTarget() {
