@@ -101,6 +101,7 @@ foreach(model_format ${UNUSED_MODEL_FORMATS})
 endforeach()
 add_subdirectory(assimp)
 target_include_directories(assimp INTERFACE assimp/include)
+target_include_directories(assimp INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/assimp/include)
 
 # AngelScript
 add_subdirectory(AngelScript/sdk/angelscript/projects/cmake)

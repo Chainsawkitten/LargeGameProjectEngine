@@ -23,9 +23,6 @@
 [submodule "externals/openal-soft"]
 	path = externals/openal-soft
 	url = https://github.com/kcat/openal-soft.git
-[submodule "externals/assimp"]
-	path = externals/assimp
-	url = https://github.com/assimp/assimp.git
 [submodule "externals/imgui"]
 	path = externals/imgui
 	url = https://github.com/ocornut/imgui.git
@@ -36,6 +33,10 @@
 [submodule "externals/Catch"]
 	path = externals/Catch
 	url = https://github.com/philsquared/Catch.git
+[submodule "externals/assimp"]
+	path = externals/assimp
+	url = https://github.com/Chainsawkitten/assimp.git
+	shallow = true
 [submodule "externals/bullet3"]
 	path = externals/bullet3
 	url = https://github.com/bulletphysics/bullet3.git
