@@ -6,6 +6,10 @@ configuration: Release
 
 platform: x64
 
+branches:
+  only:
+  - master
+
 install:
 - cmd: git submodule update --init
 

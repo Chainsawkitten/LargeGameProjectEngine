@@ -4,11 +4,23 @@
 #include <GLFW/glfw3.h>
 
 ProfilingManager::ProfilingManager() {
-    
+#ifdef MEASURE_VRAM
+    dxgiFactory = nullptr;
+    HRESULT error = CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&dxgiFactory));
+
+    if (SUCCEEDED(error)) {
+        IDXGIAdapter* firstAdapter;
+        dxgiFactory->EnumAdapters(0, &firstAdapter);
+        firstAdapter->QueryInterface(__uuidof(IDXGIAdapter3), (void**)&dxgiAdapter3);
+    }
+#endif
 }
 
 ProfilingManager::~ProfilingManager() {
-    
+#ifdef MEASURE_VRAM
+    dxgiAdapter3->Release();
+    dxgiFactory->Release();
+#endif
 }
 
 void ProfilingManager::BeginFrame() {
@@ -38,6 +50,15 @@ void ProfilingManager::ShowResults() {
         ImGui::Columns(2);
         ShowResult(first);
         ImGui::Columns(1);
+    }
+
+    if (ImGui::CollapsingHeader("Memory")) {
+#ifdef MEASURE_VRAM
+        DXGI_QUERY_VIDEO_MEMORY_INFO info;
+        dxgiAdapter3->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &info);
+        unsigned int memoryUsage = info.CurrentUsage;
+        ImGui::Text("VRAM: %i MiB", memoryUsage / 1024 / 1024);
+#endif
     }
     
     ImGui::End();
