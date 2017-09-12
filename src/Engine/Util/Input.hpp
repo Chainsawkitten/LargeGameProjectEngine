@@ -21,7 +21,8 @@ class InputHandler {
             BACKWARD, ///< Move backward.
             LEFT, ///< Move left.
             RIGHT, ///< Move right.
-            BUTTONS, ///< Total number of inputs
+            ZOOM, ///< Zoom to entity.
+            BUTTONS, ///< Total number of inputs.
         };
         
         /// Input device codes

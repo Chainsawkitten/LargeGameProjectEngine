@@ -2,6 +2,10 @@
 
 #include <imgui.h>
 #include <GLFW/glfw3.h>
+#ifdef MEASURE_RAM
+#include <windows.h>
+#include <psapi.h>
+#endif
 
 ProfilingManager::ProfilingManager() {
 #ifdef MEASURE_VRAM
@@ -51,13 +55,19 @@ void ProfilingManager::ShowResults() {
         ShowResult(first);
         ImGui::Columns(1);
     }
-
+    
     if (ImGui::CollapsingHeader("Memory")) {
+#ifdef MEASURE_RAM
+        PROCESS_MEMORY_COUNTERS_EX memoryCounters;
+        GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PROCESS_MEMORY_COUNTERS*>(&memoryCounters), sizeof(memoryCounters));
+        ImGui::Text("RAM: %u MiB", static_cast<unsigned int>(memoryCounters.PrivateUsage / 1024 / 1024));
+#endif
+        
 #ifdef MEASURE_VRAM
         DXGI_QUERY_VIDEO_MEMORY_INFO info;
         dxgiAdapter3->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &info);
         unsigned int memoryUsage = info.CurrentUsage;
-        ImGui::Text("VRAM: %i MiB", memoryUsage / 1024 / 1024);
+        ImGui::Text("VRAM: %u MiB", memoryUsage / 1024 / 1024);
 #endif
     }
     

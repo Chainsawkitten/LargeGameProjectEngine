@@ -33,6 +33,31 @@
 			"extension" : "fbx",
 			"name" : "Minecart",
 			"type" : "Static"
+		},
+		{
+			"extension" : "fbx",
+			"name" : "cave",
+			"type" : "Static"
+		},
+		{
+			"extension" : "fbx",
+			"name" : "minecart2",
+			"type" : "Static"
+		},
+		{
+			"extension" : "fbx",
+			"name" : "cartsecond",
+			"type" : "Static"
+		},
+		{
+			"extension" : "fbx",
+			"name" : "hands",
+			"type" : "Static"
+		},
+		{
+			"extension" : "fbx",
+			"name" : "cave3",
+			"type" : "Static"
 		}
 	],
 	"scenes" : 
@@ -49,5 +74,23 @@
 		}
 	],
 	"sounds" : null,
-	"textures" : null
+	"textures" : 
+	[
+		{
+			"name" : "Texture #0",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #1",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #2",
+			"srgb" : false
+		},
+		{
+			"name" : "Texture #3",
+			"srgb" : false
+		}
+	]
 }

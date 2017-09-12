@@ -122,9 +122,21 @@ create_directory_groups(${SRCS} ${HEADERS})
 
 add_library(Engine STATIC ${SRCS} ${HEADERS} ${EMBEDDED_SOURCE})
 target_link_libraries(Engine Video Physics catch imgui stb simpleini ${OPENAL_LIB} angelscript)
+
+# Measure VRAM dependencies.
 if(MeasureVRAM)
     target_link_libraries(Engine ${DirectX11_LIBRARIES})
     target_include_directories(Engine PRIVATE ${DirectX11_INCLUDE_DIRS})
 endif()
+
+# Measure RAM dependencies.
+if(WIN32)
+    find_library(PSAPI Psapi)
+    if(PSAPI)
+        add_definitions(-DMEASURE_RAM)
+        target_link_libraries(Engine ${PSAPI})
+    endif()
+endif()
+
 set_property(TARGET Engine PROPERTY CXX_STANDARD 11)
 set_property(TARGET Engine PROPERTY CXX_STANDARD_REQUIRED ON)

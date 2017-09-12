@@ -37,14 +37,14 @@
 		{
 			"Material" : 
 			{
-				"diffuse" : "",
+				"diffuse" : "Texture #1",
 				"glow" : "",
-				"normal" : "",
+				"normal" : "Texture #1",
 				"specular" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "Minecart"
+				"model" : "cartsecond"
 			},
 			"Script" : 
 			{
@@ -56,19 +56,90 @@
 					"Lens" : 
 					{
 						"fieldOfView" : 45.0,
-						"zFar" : 100.0,
+						"zFar" : 1000.0,
 						"zNear" : 0.5
 					},
 					"Script" : 
 					{
 						"scriptName" : "Player"
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"diffuse" : "Texture #0",
+								"glow" : "",
+								"normal" : "",
+								"specular" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "hands"
+							},
+							"children" : null,
+							"name" : "hands",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : -50.0
+							},
+							"rotation" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false
+						}
+					],
 					"name" : "Player",
 					"position" : 
 					{
 						"x" : 0.0,
-						"y" : 4.0,
+						"y" : 25.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false
+				},
+				{
+					"PointLight" : 
+					{
+						"ambientCoefficient" : 0.13700000941753387,
+						"attenuation" : 0.87800002098083496,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"intensity" : 0.35200002789497375
+					},
+					"children" : null,
+					"name" : "light",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 5.0,
 						"z" : 0.0
 					},
 					"rotation" : 
@@ -91,7 +162,7 @@
 			{
 				"x" : 0.0,
 				"y" : 0.0,
-				"z" : 0.0
+				"z" : 500.0
 			},
 			"rotation" : 
 			{
@@ -110,62 +181,28 @@
 		{
 			"Material" : 
 			{
-				"diffuse" : "",
+				"diffuse" : "Texture #2",
 				"glow" : "",
-				"normal" : "",
+				"normal" : "Texture #3",
 				"specular" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "Minecart"
+				"model" : "cave3"
 			},
 			"children" : null,
-			"name" : "Sidecart #1",
+			"name" : "cave",
 			"position" : 
 			{
-				"x" : 10.0,
+				"x" : 0.0,
 				"y" : 0.0,
-				"z" : -10.0
-			},
-			"rotation" : 
-			{
-				"x" : 4.0,
-				"y" : 45.0,
-				"z" : 45.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false
-		},
-		{
-			"Material" : 
-			{
-				"diffuse" : "",
-				"glow" : "",
-				"normal" : "",
-				"specular" : ""
-			},
-			"Mesh" : 
-			{
-				"model" : "Minecart"
-			},
-			"children" : null,
-			"name" : "Sidecart #2",
-			"position" : 
-			{
-				"x" : -10.0,
-				"y" : 2.0,
-				"z" : -10.0
+				"z" : 0.0
 			},
 			"rotation" : 
 			{
 				"x" : 0.0,
-				"y" : -20.0,
-				"z" : 20.0
+				"y" : 0.0,
+				"z" : 0.0
 			},
 			"scale" : 
 			{

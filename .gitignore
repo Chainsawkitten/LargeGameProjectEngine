@@ -35,4 +35,8 @@ DocumentationGame
 *.out
 *.app
 
+# OpenVR
+bin
+
+# In-source build
 build/

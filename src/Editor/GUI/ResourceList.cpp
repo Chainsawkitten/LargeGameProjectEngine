@@ -267,3 +267,7 @@ void ResourceList::ResetScene() {
     sceneEditor.SetScene(std::numeric_limits<std::size_t>::max());
     sceneEditor.SetVisible(false);
 }
+
+SceneEditor& ResourceList::GetScene() {
+    return sceneEditor;
+}

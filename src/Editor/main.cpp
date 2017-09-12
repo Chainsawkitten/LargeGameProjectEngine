@@ -17,6 +17,10 @@
 #include "ImGui/OpenGLImplementation.hpp"
 #include <imgui.h>
 
+#ifdef VR_SUPPORT
+#include <openvr.h>
+#endif
+
 int main() {
     // Enable logging if requested.
     if (EditorSettings::GetInstance().GetBool("Logging"))
@@ -30,6 +34,13 @@ int main() {
     MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Hymn to Beauty", EditorSettings::GetInstance().GetBool("Debug Context"));
     glewInit();
     window->Init(false);
+    
+    // Init VR.
+#ifdef VR_SUPPORT
+    vr::EVRInitError error;
+    vr::IVRSystem* vrSystem = vr::VR_Init(&error, vr::VRApplication_Scene);
+    Log() << "VR init: " << error << "\n";
+#endif
     
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
     
