@@ -41,6 +41,7 @@ namespace GUI {
             
         private:
             void ShowEntity(Entity* entity);
+            Entity* draggedEntity = nullptr;
             
             bool visible = false;
             

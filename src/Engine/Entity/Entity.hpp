@@ -28,11 +28,33 @@ class Entity {
         
         /// Add child entity.
         /**
-         * @param name The name of the child entity.
-         * @return The new entity.
-         */
+        * @param name The name of the child entity.
+        * @return The new entity.
+        */
         Entity* AddChild(const std::string& name = "");
+
+        /// Remove child entity.
+        /**
+        * @param child The entity you want to remove.
+        * @return Did we manage to remove the child.
+        */
+        bool RemoveChild(Entity* child);
         
+        /// Set a new parent.
+        /**
+        * @param newParent The entity you want to be the new parent.
+        * @return Did we manage set the new parent?.
+        */
+        bool SetParent(Entity* newParent);
+
+        /// Check if entity is a child.
+        /**
+        * @param child The entity you want to check if it is a child.
+        * @param deep True if we want to check if it's a grandchild, false if we do not.
+        * @return True if it has a child, false if it does not.
+        */
+        bool HasChild(const Entity* child, bool deep = true) const;
+
         /// Instantiate a scene as a child to this entity.
         /**
          * @param name The name of the scene to instantiate.

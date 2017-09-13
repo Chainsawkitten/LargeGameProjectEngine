@@ -38,6 +38,44 @@ Entity* Entity::AddChild(const std::string& name) {
     return child;
 }
 
+bool Entity::SetParent(Entity* newParent) {
+    
+    Entity* oldParent = parent;
+
+    //We make sure we're not trying to put the root as a child.
+    if (parent != nullptr) {
+
+        //We make sure we're not trying to set a parent as a child to one of it's own children.
+        if (!HasChild(newParent)) {
+
+            parent->RemoveChild(this);
+            parent = newParent;
+            newParent->children.push_back(this);
+
+            return true;
+
+        }
+
+    }
+
+    return false;
+
+}
+
+bool Entity::HasChild(const Entity* check_child, bool deep) const {
+
+    for (Entity* child : children) {
+        if (child->name == check_child->name)
+            return true;
+        else if (deep)
+            child->HasChild(check_child);
+
+    }
+
+    return false;
+
+}
+
 Entity* Entity::InstantiateScene(const std::string& name) {
     Entity* child = AddChild();
     
@@ -72,9 +110,19 @@ Entity* Entity::GetChild(const std::string& name) const {
         if (child->name == name)
             return child;
     }
-    
+
     return nullptr;
-}        
+}
+
+bool Entity::RemoveChild(Entity* child) {
+    for (auto it = children.begin(); it != children.end(); ++it) {
+        if (*it == child) {
+            children.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
 
 bool Entity::IsScene() const {
     return scene;
@@ -90,14 +138,8 @@ void Entity::Kill() {
         child->Kill();
     
     // Remove this entity from the parent's list of children.
-    if (parent != nullptr && !parent->killed) {
-        for (auto it = parent->children.begin(); it != parent->children.end(); ++it) {
-            if (*it == this) {
-                parent->children.erase(it);
-                break;
-            }
-        }
-    }
+    parent->RemoveChild(this);
+
 }
 
 bool Entity::IsKilled() const {
