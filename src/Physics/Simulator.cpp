@@ -1,6 +1,8 @@
 #include "Simulator.hpp"
 
 #include <btBulletDynamicsCommon.h>
+#include "GlmConversion.hpp"
+#include "RigidBody.hpp"
 
 namespace Physics {
 
@@ -36,6 +38,30 @@ namespace Physics {
 
     void Simulator::Simulate(float dt) {
         dynamicsWorld->stepSimulation(dt, 10);
+    }
+
+    void Simulator::Enable(RigidBody& body) {
+        // Adding a rigid body to the world allows it to be simulated.
+        dynamicsWorld->addRigidBody(body.rigidBody);
+        body.simulator = this;
+    }
+
+    void Simulator::Disable(RigidBody& body) {
+        dynamicsWorld->removeRigidBody(body.rigidBody);
+        body.simulator = nullptr;
+    }
+
+    void Simulator::UseSphere(RigidBody& body, float radius) {
+        // Collision shapes are only used to determine collisions and have no
+        // concept of physical quantities such as mass or inertia. Note that a
+        // shape may be reused for multiple bodies.
+        btCollisionShape* shape = new btSphereShape(static_cast<btScalar>(radius));
+        body.rigidBody->setCollisionShape(shape);
+    }
+
+    void Simulator::UsePlane(RigidBody& body, glm::vec3 normal, float planeConstant) {
+        btCollisionShape* shape = new btStaticPlaneShape(glmToBt(normal), static_cast<btScalar>(planeConstant));
+        body.rigidBody->setCollisionShape(shape);
     }
 
 }

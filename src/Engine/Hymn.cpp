@@ -19,7 +19,6 @@
 #include "Audio/SoundBuffer.hpp"
 #include "Input/Input.hpp"
 #include "Script/ScriptFile.hpp"
-#include <json/json.h>
 #include "Util/Json.hpp"
 #include <fstream>
 #include "Util/Profiling.hpp"
@@ -102,37 +101,48 @@ void ActiveHymn::SetPath(const string& path) {
     FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Textures").c_str());
 }
 
+
+
 void ActiveHymn::Save() const {
-    Json::Value root;
     
+    // Save to file.
+    ofstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    file << ToJson();
+    file.close();
+}
+
+Json::Value ActiveHymn::ToJson() const {
+
+    Json::Value root;
+
     // Save textures.
     Json::Value texturesNode;
     for (TextureAsset* texture : textures) {
         texturesNode.append(texture->Save());
     }
     root["textures"] = texturesNode;
-    
+
     // Save models.
     Json::Value modelsNode;
     for (Geometry::Model* model : models) {
         modelsNode.append(model->Save());
     }
     root["models"] = modelsNode;
-    
+
     // Save scripts.
     Json::Value scriptNode;
     for (ScriptFile* script : scripts) {
         scriptNode.append(script->Save());
     }
     root["scripts"] = scriptNode;
-    
+
     // Save sounds.
     Json::Value soundsNode;
     for (Audio::SoundBuffer* sound : sounds) {
         soundsNode.append(sound->Save());
     }
     root["sounds"] = soundsNode;
-    
+
     // Save scenes.
     Json::Value scenesNode;
     for (const string& scene : scenes) {
@@ -140,11 +150,11 @@ void ActiveHymn::Save() const {
     }
     root["scenes"] = scenesNode;
     root["activeScene"] = activeScene;
-    
+
     Json::Value inputNode;
     inputNode.append(Input::GetInstance().Save());
     root["input"] = inputNode;
-    
+
     // Filter settings.
     Json::Value filtersNode;
     filtersNode["color"] = filterSettings.color;
@@ -156,39 +166,30 @@ void ActiveHymn::Save() const {
     filtersNode["glow"] = filterSettings.glow;
     filtersNode["glowBlurAmount"] = filterSettings.glowBlurAmount;
     root["filters"] = filtersNode;
-    
-    // Save to file.
-    ofstream file(path + FileSystem::DELIMITER + "Hymn.json");
-    file << root;
-    file.close();
+
+    return root;
+
 }
 
-void ActiveHymn::Load(const string& path) {
-    Clear();
-    this->path = path;
-    
-    // Load Json document from file.
-    Json::Value root;
-    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
-    file >> root;
-    file.close();
-    
+void ActiveHymn::FromJson(Json::Value root) {
+
     // Load textures.
     const Json::Value texturesNode = root["textures"];
-    for (unsigned int i=0; i < texturesNode.size(); ++i) {
+    for (unsigned int i = 0; i < texturesNode.size(); ++i) {
         TextureAsset* texture = new TextureAsset();
         texture->Load(texturesNode[i]);
         textures.push_back(texture);
     }
-    
+
     // Load models.
     const Json::Value modelsNode = root["models"];
-    for (unsigned int i=0; i < modelsNode.size(); ++i) {
+    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
         Geometry::Model* model;
         std::string type = modelsNode[i].get("type", "").asString();
         if (type == "Static") {
             model = new Geometry::StaticModel();
-        } else {
+        }
+        else {
             model = new Geometry::RiggedModel();
         }
         model->Load(modelsNode[i]);
@@ -205,24 +206,24 @@ void ActiveHymn::Load(const string& path) {
 
     // Load sounds.
     const Json::Value soundsNode = root["sounds"];
-    for (unsigned int i=0; i < soundsNode.size(); ++i) {
+    for (unsigned int i = 0; i < soundsNode.size(); ++i) {
         Audio::SoundBuffer* sound = new Audio::SoundBuffer();
         sound->Load(soundsNode[i]);
         sounds.push_back(sound);
     }
-    
+
     // Load scenes.
     const Json::Value scenesNode = root["scenes"];
-    for (unsigned int i=0; i < scenesNode.size(); ++i) {
+    for (unsigned int i = 0; i < scenesNode.size(); ++i) {
         scenes.push_back(scenesNode[i].asString());
     }
-    
+
     activeScene = root["activeScene"].asUInt();
     Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + scenes[activeScene] + ".json");
-    
+
     const Json::Value inputNode = root["input"];
     Input::GetInstance().Load(inputNode[0]);
-    
+
     // Load filter settings.
     Json::Value filtersNode = root["filters"];
     filterSettings.color = filtersNode["color"].asBool();
@@ -233,11 +234,26 @@ void ActiveHymn::Load(const string& path) {
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
     filterSettings.glow = filtersNode["glow"].asBool();
     filterSettings.glowBlurAmount = filtersNode["glowBlurAmount"].asInt();
-    
+
     textureNumber = textures.size();
     modelNumber = models.size();
     soundNumber = sounds.size();
     scriptNumber = scripts.size();
+
+}
+
+void ActiveHymn::Load(const string& path) {
+    Clear();
+    this->path = path;
+    
+    // Load Json document from file.
+    Json::Value root;
+    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    file >> root;
+    file.close();
+    
+    FromJson(root);
+
 }
 
 void ActiveHymn::Update(float deltaTime) {

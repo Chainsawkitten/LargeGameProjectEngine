@@ -7,6 +7,7 @@ set(SRCS
         ImGui/GuiHelpers.cpp
         GUI/FiltersWindow.cpp
         GUI/SelectHymnWindow.cpp
+        GUI/SavePromptWindow.cpp
         GUI/InputWindow.cpp
         GUI/FileSelector.cpp
         GUI/ResourceList.cpp
@@ -17,6 +18,7 @@ set(SRCS
         GUI/Editors/SoundEditor.cpp
         GUI/Editors/ScriptEditor.cpp
         GUI/Editors/TextureEditor.cpp
+        Util/AssetConverter.cpp
         Util/EditorSettings.cpp
     )
 
@@ -28,6 +30,7 @@ set(HEADERS
         ImGui/GuiHelpers.hpp
         GUI/FiltersWindow.hpp
         GUI/SelectHymnWindow.hpp
+        GUI/SavePromptWindow.hpp
         GUI/InputWindow.hpp
         GUI/FileSelector.hpp
         GUI/ResourceList.hpp
@@ -38,6 +41,7 @@ set(HEADERS
         GUI/Editors/SoundEditor.hpp
         GUI/Editors/ScriptEditor.hpp
         GUI/Editors/TextureEditor.hpp
+        Util/AssetConverter.hpp
         Util/EditorSettings.hpp
     )
 

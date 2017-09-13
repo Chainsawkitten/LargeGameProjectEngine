@@ -5,7 +5,9 @@
 #include "GUI/ResourceList.hpp"
 #include "GUI/SettingsWindow.hpp"
 #include "GUI/FiltersWindow.hpp"
+#include "GUI/SavePromptWindow.hpp"
 #include <string>
+#include <json/json.h>
 
 struct GLFWcursor;
 
@@ -26,7 +28,19 @@ class Editor {
         
         /// Save the hymn being edited.
         void Save() const;
-        
+
+        /// Loads the save editor state.
+        void LoadEditorState();
+
+        /// Is the editor ready to be closed, have we saved everything?
+        /**
+        * @return Are we ready to close the editor?
+        */
+        bool ReadyToClose() const;
+
+        /// Close the editor.
+        void Close();
+
         /// Get whether the resource list is visible.
         /**
          * @return Whether the resource list is visible.
@@ -58,6 +72,12 @@ class Editor {
         GUI::ResourceList resourceList;
         GUI::SettingsWindow settingsWindow;
         GUI::FiltersWindow filtersWindow;
+        GUI::SavePromptWindow savePromtWindow;
+
+        bool close;
+        bool savePromptAnswered;
+
+        Json::Value editorState;
         
         World cameraWorld;
         Entity* cameraEntity;

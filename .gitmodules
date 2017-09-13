@@ -43,3 +43,6 @@
 [submodule "externals/bullet3"]
 	path = externals/bullet3
 	url = https://github.com/bulletphysics/bullet3.git
+[submodule "externals/SteamAudio"]
+	path = externals/SteamAudio
+	url = https://github.com/Chainsawkitten/SteamAudio-CMake.git

@@ -10,6 +10,7 @@ Contains the world, entities, components and the managers that handle them.
 - Angelscript
 - Catch
 - DirectX (if measuring VRAM)
+- GLFW
 - ImGui
 - OpenAL Soft
 - SimpleIni

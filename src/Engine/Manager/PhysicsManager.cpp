@@ -6,11 +6,11 @@
 #include "../Component/Physics.hpp"
 
 PhysicsManager::PhysicsManager() {
-    simulator = new Physics::Simulator;
+
 }
 
 PhysicsManager::~PhysicsManager() {
-    delete simulator;
+
 }
 
 void PhysicsManager::Update(World& world, float deltaTime) {
@@ -55,5 +55,5 @@ void PhysicsManager::Update(World& world, float deltaTime) {
         entity->rotation += physicsComp->angularVelocity * 360.f * deltaTime;
     }
 
-    simulator->Simulate(deltaTime);
+    Simulate(deltaTime);
 }

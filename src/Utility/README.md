@@ -4,7 +4,4 @@ Contains logging functionality that is used for error/debug messages in the othe
 
 ## Dependencies
 ### External libraries
-- Angelscript
-- GLEW
-- GLFW
 - GLM

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <json/json.h>
 #include "Entity/World.hpp"
 
 class TextureAsset;
@@ -36,13 +37,25 @@ class ActiveHymn {
         
         /// Save the hymn.
         void Save() const;
-        
+
+        /// Convert the hymn to Json.
+        /**
+         * @return The hymn as a Json.
+         */
+        Json::Value ToJson() const;
+
+        /// Convert a Json to a Hymn.
+        /**
+         * @param root The Json file to load.
+         */
+        void FromJson(Json::Value root);
+
         /// Load a hymn.
         /**
          * @param path Path to the saved hymn.
          */
         void Load(const std::string& path);
-        
+
         /// Update the world.
         /**
          * @param deltaTime Time since last frame (in seconds).

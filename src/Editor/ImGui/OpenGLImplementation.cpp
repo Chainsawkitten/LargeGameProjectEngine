@@ -9,6 +9,7 @@
 #define GLFW_EXPOSE_NATIVE_WGL
 #include <GLFW/glfw3native.h>
 #endif
+#include <Engine/Util/Input.hpp>
 
 namespace ImGuiImplementation {
     // Forward declarations.
@@ -230,6 +231,7 @@ namespace ImGuiImplementation {
     
     void ScrollCallback(GLFWwindow*, double /*xoffset*/, double yoffset) {
         g_MouseWheel += (float)yoffset; // Use fractional mouse wheel, 1.0 unit 5 lines.
+        Input()->ScrollCallback(yoffset);
     }
     
     void KeyCallback(GLFWwindow*, int key, int, int action, int mods) {

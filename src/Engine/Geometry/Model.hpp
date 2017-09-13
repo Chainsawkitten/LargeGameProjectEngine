@@ -44,15 +44,12 @@ namespace Geometry {
             /// The name of the model.
             std::string name;
             
-            /// The extension of the model.
-            std::string extension;
-            
         protected:
             /// Generate vertex buffer.
             /**
              * @param vertexBuffer Vertex buffer.
              */
-            virtual void GenerateVertexBuffer(GLuint& vertexBuffer) = 0;
+            virtual void GenerateVertexBuffer(GLuint& vertexBuffer) {}
             
             /// Generate vertex array.
             /**

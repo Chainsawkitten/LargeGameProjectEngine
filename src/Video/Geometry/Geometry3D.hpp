@@ -70,6 +70,15 @@ namespace Video {
                  * @param positions Vector of vertex positions.
                  */
                 void CreateAxisAlignedBoundingBox(const std::vector<glm::vec3*>& positions);
+
+                /// Create local space axis-aligned bounding box around the geometry.
+                /**
+                 * @param dim Vector of vertex positions.
+                 * @param origin Vector of vertex positions.
+                 * @param minValues Vector of vertex positions.
+                 * @param maxValues Vector of vertex positions.
+                 */
+                void CreateAxisAlignedBoundingBox(glm::vec3 dim, glm::vec3 origin, glm::vec3 minValues, glm::vec3 maxValues);
                 
                 /// Vertex buffer.
                 GLuint vertexBuffer;

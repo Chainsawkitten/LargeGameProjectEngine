@@ -9,6 +9,7 @@ Use 4 spaces for indentation, not tabs.
 
 ### Documentation
 All non-private members need to be documented using Doxygen-style comments.
+For functions and methods, parameters are documented first and return type next.
 
 ### Example
 ```cpp

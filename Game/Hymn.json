@@ -16,7 +16,7 @@
 			"y" : 1.0,
 			"z" : 1.0
 		},
-		"fogDensity" : 0.0010000000474974513,
+		"fogDensity" : 0.00099999993108212948,
 		"fxaa" : true,
 		"glow" : false,
 		"glowBlurAmount" : 1
@@ -30,33 +30,15 @@
 	"models" : 
 	[
 		{
-			"extension" : "fbx",
-			"name" : "Minecart",
+			"name" : "CartSecond",
 			"type" : "Static"
 		},
 		{
-			"extension" : "fbx",
-			"name" : "cave",
+			"name" : "Hands",
 			"type" : "Static"
 		},
 		{
-			"extension" : "fbx",
-			"name" : "minecart2",
-			"type" : "Static"
-		},
-		{
-			"extension" : "fbx",
-			"name" : "cartsecond",
-			"type" : "Static"
-		},
-		{
-			"extension" : "fbx",
-			"name" : "hands",
-			"type" : "Static"
-		},
-		{
-			"extension" : "fbx",
-			"name" : "cave3",
+			"name" : "Cave",
 			"type" : "Static"
 		}
 	],

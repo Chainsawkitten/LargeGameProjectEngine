@@ -144,12 +144,15 @@ add_subdirectory(openvr)
 
 set(OpenVR_LIBRARY "openvr_api")
 if(WIN32)
-  if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(OpenVR_LIBRARY "openvr_api64")
-  endif()
+    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+        set(OpenVR_LIBRARY "openvr_api64")
+    endif()
 endif()
 
 target_include_directories(${OpenVR_LIBRARY} INTERFACE openvr/headers)
 target_include_directories(${OpenVR_LIBRARY} INTERFACE openvr/src/vrcommon)
 
 set(OpenVR_LIBRARY ${OpenVR_LIBRARY} PARENT_SCOPE)
+
+# Steam Audio
+add_subdirectory(SteamAudio)

@@ -2,6 +2,7 @@
 
 #include <string>
 #include "../FileSelector.hpp"
+#include "Util/AssetConverter.hpp"
 
 namespace Geometry {
     class Model;
@@ -39,7 +40,6 @@ namespace GUI {
             void SetVisible(bool visible);
             
         private:
-            void LoadPressed();
             void FileSelected(const std::string& file);
             
             Geometry::Model* model = nullptr;
@@ -48,5 +48,13 @@ namespace GUI {
             FileSelector fileSelector;
             
             char name[128] = "";
+
+            bool hasSourceFile = false;
+            std::string source;
+            std::string destination;
+
+            bool triangulate = true;
+            bool importNormals = true;
+            bool importTangents = true;
     };
 }
