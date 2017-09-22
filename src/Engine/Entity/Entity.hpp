@@ -1,11 +1,12 @@
 #pragma once
-
 #include <map>
 #include <vector>
 #include <typeinfo>
 #include "../Entity/World.hpp"
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
+#include <fstream>
+
 
 /// %Entity containing various components.
 class Entity {
@@ -58,9 +59,10 @@ class Entity {
         /// Instantiate a scene as a child to this entity.
         /**
          * @param name The name of the scene to instantiate.
+         * @param isSameScene set to true if it is the same scene you want to istantiate.
          * @return The created root entity of the scene.
          */
-        Entity* InstantiateScene(const std::string& name);
+        Entity* InstantiateScene(const std::string& name, bool isSameScene);
         
         /// Get all of the entity's children.
         /**

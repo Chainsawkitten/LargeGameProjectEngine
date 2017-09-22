@@ -137,8 +137,13 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::Separator();
         
         for (const std::string& scene : Hymn().scenes) {
+            bool isSameScene = false;
+            if (Hymn().scenes[sceneIndex] == scene)
+            {
+                isSameScene = true;
+            }
             if (ImGui::Selectable(scene.c_str()))
-                entity->InstantiateScene(scene);
+                entity->InstantiateScene(scene, isSameScene);
         }
         
         ImGui::EndPopup();

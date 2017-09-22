@@ -65,20 +65,43 @@ bool Entity::HasChild(const Entity* check_child, bool deep) const {
     return false;
 }
 
-Entity* Entity::InstantiateScene(const std::string& name) {
+Entity* Entity::InstantiateScene(const std::string& name, bool isSameScene) {
     Entity* child = AddChild();
-    
     // Load scene.
     std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + ".json";
+    std::string filenameCopy = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + "_copy" + ".json";
     if (FileSystem::FileExists(filename.c_str())) {
-        Json::Value root;
-        std::ifstream file(filename);
-        file >> root;
-        file.close();
-        child->Load(root);
-        
-        child->scene = true;
-        child->sceneName = name;
+        //If it needs to be a copy.
+        if (isSameScene) {
+            Json::Value rootOriginal;
+            Json::Value rootCopy;
+            //Reads from original.
+            std::ifstream file(filename);
+            file >> rootOriginal;
+            file.close();
+            //Writes from original to copy.
+            std::ofstream copyOfFile;
+            copyOfFile.open(filenameCopy);
+            copyOfFile << rootOriginal;
+            copyOfFile.close();
+            //Reads from copy.
+            std::ifstream readFromCopyFile;
+            readFromCopyFile.open(filenameCopy);
+            readFromCopyFile >> rootCopy;
+            readFromCopyFile.close();
+            //Loads copy of scene.
+            child->Load(rootCopy);
+            child->scene = true;
+            child->sceneName = name + "_copy";
+        } else { //dont need to be a copy
+            Json::Value root;
+            std::ifstream file(filename);
+            file >> root;
+            file.close();
+            child->Load(root);
+            child->scene = true;
+            child->sceneName = name;
+        }
     } else {
         child->name = "Error loading scene";
         Log() << "Couldn't find scene to load.";
