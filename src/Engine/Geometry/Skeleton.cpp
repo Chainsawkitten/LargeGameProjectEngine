@@ -53,23 +53,6 @@ void Skeleton::Load(const aiScene* aScene) {
     finalTransformsIT.resize(countBones);
 }
 
-std::size_t Skeleton::GetNumBones() const {
-    return bones.size();
-}
-
-void Skeleton::Animate(const Geometry::Animation* animation, const float timeInSeconds) {
-    float animationTime = 0;
-    float ticksPerSecond = (float)(animation->ticksPerSecond != 0 ? animation->ticksPerSecond : 25.0f);
-    float timeInTicks = timeInSeconds * ticksPerSecond;
-    animationTime = fmod(timeInTicks, static_cast<float>(animation->duration));
-    
-    ReadNodeHeirarchy(animation, animationTime, &rootNode, glm::mat4());
-}
-
-void Skeleton::BindPose() {
-    ReadNodeHeirarchy(nullptr, 0, &rootNode, glm::mat4());
-}
-
 void Skeleton::LoadNodeTree(aiNode* aNode, Node* node, Node* parentNode) {
     node->name = aNode->mName.C_Str();
     CpyMat(node->transformation, aNode->mTransformation);
@@ -127,19 +110,4 @@ const glm::mat4* Skeleton::FindBone(const std::string& name) const {
     if (it != boneIndexMap.end())
         return &bones[it->second];
     return nullptr;
-}
-
-std::size_t Skeleton::FindBoneIndex(const std::string& name) {
-    const auto& it = this->boneIndexMap.find(name);
-    if (it != boneIndexMap.end())
-        return it->second;
-    return -1;
-}
-
-const std::vector<glm::mat4>& Skeleton::GetFinalTransformations() const {
-    return finalTransforms;
-}
-
-const std::vector<glm::mat3>& Skeleton::GetFinalTransformationsIT() const {
-    return finalTransformsIT;
 }

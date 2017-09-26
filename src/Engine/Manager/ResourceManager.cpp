@@ -14,33 +14,6 @@ ResourceManager::ResourceManager() {
     
 }
 
-Video::Geometry::Rectangle* ResourceManager::CreateRectangle() {
-    if (rectangleCount == 0)
-        rectangle = new Video::Geometry::Rectangle();
-    
-    rectangleCount++;
-    return rectangle;
-}
-
-void ResourceManager::FreeRectangle() {
-    rectangleCount--;
-    
-    if (rectangleCount <= 0)
-        delete rectangle;
-}
-
-Geometry::Cube* ResourceManager::CreateCube() {
-    if (cubeCount++ == 0)
-        cube = new Geometry::Cube();
-    
-    return cube;
-}
-
-void ResourceManager::FreeCube() {
-    if (--cubeCount <= 0)
-        delete rectangle;
-}
-
 Geometry::Model* ResourceManager::CreateModel(const std::string& name) {
     if (models.find(name) == models.end()) {
         Geometry::Model* model = new Geometry::Model();

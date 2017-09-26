@@ -65,10 +65,6 @@ void MainWindow::Init(bool showNotifications) {
         glDebugMessageCallback(showNotifications ? DebugMessageCallback : DebugMessageCallbackIgnoreNotifications, nullptr);
 }
 
-void MainWindow::SetVsync(bool vsync) {
-    glfwSwapInterval(vsync ? 1 : 0);
-}
-
 void MainWindow::Update() {
     input->Update();
     input->SetActive();

@@ -34,7 +34,3 @@ void FXAAFilter::SetUniforms() {
 void FXAAFilter::SetScreenSize(const glm::vec2& screenSize) {
     this->screenSize = screenSize;
 }
-
-void FXAAFilter::SetBrightness(float brightness) {
-    this->brightness = brightness;
-}
