@@ -328,7 +328,6 @@ void Editor::Play() {
     worldState = Hymn().world.ToJson();
     SetVisible(false);
     resourceView.HideEditors();
-    resourceView.ResetScene();
     Managers().scriptManager->RegisterInput();
     Managers().scriptManager->BuildAllScripts();
 }
