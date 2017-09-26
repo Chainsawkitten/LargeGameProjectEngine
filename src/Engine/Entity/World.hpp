@@ -4,6 +4,8 @@
 #include <map>
 #include <typeinfo>
 #include <Video/ParticleRenderer.hpp>
+#include <json/json.h>
+
 
 class Entity;
 namespace Component {
@@ -91,6 +93,18 @@ class World {
          */
         void Load(const std::string& filename);
         
+        /// Create a Json for the world
+        /**
+         * @return A Json file representing the world state.
+         */
+        Json::Value ToJson() const;
+
+        /// Loads the world from a Json file.
+        /**
+         * @param root A Json file representing the world state.
+         */
+        void FromJson(Json::Value root);
+
     private:
         // Copy constructor.
         World(World& world) = delete;

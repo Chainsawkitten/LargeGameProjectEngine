@@ -111,3 +111,18 @@ void World::Load(const std::string& filename) {
         root->Load(rootNode);
     }
 }
+
+Json::Value World::ToJson() const {
+
+    return root->Save();
+
+}
+
+void World::FromJson(Json::Value json) {
+
+    Clear();
+    CreateRoot();
+
+    root->Load(json);
+
+}

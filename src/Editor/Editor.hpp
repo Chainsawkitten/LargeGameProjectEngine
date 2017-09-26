@@ -79,6 +79,7 @@ class Editor {
         bool savePromptAnswered;
 
         Json::Value editorState;
+        Json::Value worldState;
         
         World cameraWorld;
         Entity* cameraEntity;

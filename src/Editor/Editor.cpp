@@ -325,6 +325,7 @@ Entity* Editor::GetCamera() const {
 void Editor::Play() {
     Resources().Save();
     editorState = Hymn().ToJson();
+    worldState = Hymn().world.ToJson();
     SetVisible(false);
     resourceView.HideEditors();
     resourceView.ResetScene();
@@ -338,8 +339,8 @@ void Editor::LoadEditorState() {
     Hymn().SetPath(path);
     Resources().Clear();
     Hymn().FromJson(editorState);
+    Hymn().world.FromJson(worldState);
     Resources().Load();
-    LoadActiveScene();
 }
 
 void Editor::NewHymn() {
