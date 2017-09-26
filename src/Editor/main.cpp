@@ -31,6 +31,9 @@ int main() {
     if (!glfwInit())
         return 1;
     
+    int* snabelA = new int;
+    *snabelA = 10;
+
     MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Hymn to Beauty", EditorSettings::GetInstance().GetBool("Debug Context"));
     glewInit();
     window->Init(false);
