@@ -35,7 +35,3 @@ Shader::~Shader() {
 GLuint Shader::GetShaderID() const {
     return shader;
 }
-
-GLenum Shader::GetShaderType() const {
-    return shaderType;
-}

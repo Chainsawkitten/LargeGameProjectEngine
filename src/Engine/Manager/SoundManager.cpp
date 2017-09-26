@@ -30,15 +30,6 @@ SoundManager::~SoundManager() {
     alcCloseDevice(device);
 }
 
-void SoundManager::SetVolume(float volume) {
-    alListenerf(AL_GAIN, volume);
-    this->volume = volume;
-}
-
-float SoundManager::GetVolume() const {
-    return volume;
-}
-
 void SoundManager::CheckError(const char* message) {
     ALenum error = alGetError();
     if (error != AL_NO_ERROR) {

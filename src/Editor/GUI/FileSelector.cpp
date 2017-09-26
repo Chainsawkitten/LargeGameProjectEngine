@@ -55,15 +55,6 @@ void GUI::FileSelector::SetInitialPath(const char * path) {
     this->path = path;
 }
 
-void FileSelector::SetExtensions(const std::vector<string>& extensions) {
-    this->extensions.clear();
-
-    this->extensions.reserve(extensions.size());
-    for (std::size_t i = 0; i < extensions.size(); ++i)
-        this->extensions.push_back(extensions[i]);
-    pathChanged = true;
-}
-
 void FileSelector::AddExtensions(const std::string& extension) {
     this->extensions.push_back(extension);
     pathChanged = true;

@@ -115,14 +115,6 @@ bool InputHandler::Triggered(Button button) {
     return buttonData[button].triggered;
 }
 
-bool InputHandler::Released(Button button) {
-    return buttonData[button].released;
-}
-
-const std::string& InputHandler::GetText() const {
-    return text;
-}
-
 void InputHandler::CharacterCallback(unsigned int codePoint) {
     tempText += static_cast<char>(codePoint);
 }

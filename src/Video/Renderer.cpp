@@ -110,14 +110,6 @@ void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D*
     staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix);
 }
 
-void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
-    skinRenderProgram->PreRender(viewMatrix, projectionMatrix);
-}
-
-void Renderer::RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) {
-    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones, bonesIT);
-}
-
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
     fxaaFilter->SetScreenSize(renderSurface->GetSize());
     postProcessing->ApplyFilter(renderSurface, fxaaFilter);
