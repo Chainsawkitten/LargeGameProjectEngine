@@ -30,8 +30,8 @@ Json::Value SoundBuffer::Save() const {
     return sound;
 }
 
-void SoundBuffer::Load(const Json::Value& node) {
-    name = node.get("name", "").asString();
+void SoundBuffer::Load(const std::string& name) {
+    this->name = name;
     SoundFile* soundFile = new VorbisFile((Hymn().GetPath() + FileSystem::DELIMITER + "Sounds" + FileSystem::DELIMITER + name + ".ogg").c_str());
     Load(soundFile);
     delete soundFile;

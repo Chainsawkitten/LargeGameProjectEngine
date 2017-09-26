@@ -11,7 +11,7 @@
 using namespace Video;
 
 Texture2D::Texture2D() {
-    isFromFile = false;
+    
 }
 
 Texture2D::Texture2D(const char* filename, bool srgb) {
@@ -46,10 +46,6 @@ void Texture2D::SetWrapping(GLint wrapMode) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
 }
 
-bool Texture2D::IsFromFile() const {
-    return isFromFile;
-}
-
 void Texture2D::Load(const char* filename, bool srgb) {
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);
@@ -79,7 +75,6 @@ void Texture2D::Load(const char* filename, bool srgb) {
     // Generate mipmaps.
     glGenerateMipmap(GL_TEXTURE_2D);
     
-    isFromFile = true;
     loaded = true;
 }
 
@@ -112,7 +107,6 @@ void Texture2D::Load(const char* source, int sourceLength, bool srgb) {
     // Generate mipmaps, by the way.
     glGenerateMipmap(GL_TEXTURE_2D);
     
-    isFromFile = false;
     loaded = true;
 }
 

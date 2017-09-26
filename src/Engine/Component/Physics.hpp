@@ -60,5 +60,6 @@ namespace Component {
              * https://en.wikipedia.org/wiki/List_of_moments_of_inertia
              */
             glm::vec3 momentOfInertia = glm::vec3(1.f, 1.f, 1.f);
+
     };
 }

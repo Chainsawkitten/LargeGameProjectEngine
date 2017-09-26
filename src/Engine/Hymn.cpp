@@ -8,15 +8,14 @@
 #include "Manager/ScriptManager.hpp"
 #include "Manager/SoundManager.hpp"
 #include "Manager/DebugDrawingManager.hpp"
-#include "DefaultDiffuse.png.hpp"
+#include "Manager/ResourceManager.hpp"
+#include "DefaultAlbedo.png.hpp"
 #include "DefaultNormal.png.hpp"
-#include "DefaultSpecular.png.hpp"
-#include "DefaultGlow.png.hpp"
-#include "Geometry/RiggedModel.hpp"
-#include "Geometry/StaticModel.hpp"
+#include "DefaultMetallic.png.hpp"
+#include "DefaultRoughness.png.hpp"
+#include "Geometry/Model.hpp"
 #include <Video/Texture/Texture2D.hpp>
 #include "Texture/TextureAsset.hpp"
-#include "Audio/SoundBuffer.hpp"
 #include "Input/Input.hpp"
 #include "Script/ScriptFile.hpp"
 #include "Util/Json.hpp"
@@ -29,14 +28,14 @@
 using namespace std;
 
 ActiveHymn::ActiveHymn() {
-    defaultDiffuse = new TextureAsset();
-    defaultDiffuse->GetTexture()->Load(DEFAULTDIFFUSE_PNG, DEFAULTDIFFUSE_PNG_LENGTH, true);
+    defaultAlbedo = new TextureAsset();
+    defaultAlbedo->GetTexture()->Load(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH, true);
     defaultNormal = new TextureAsset();
     defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH, false);
-    defaultSpecular = new TextureAsset();
-    defaultSpecular->GetTexture()->Load(DEFAULTSPECULAR_PNG, DEFAULTSPECULAR_PNG_LENGTH, false);
-    defaultGlow = new TextureAsset();
-    defaultGlow->GetTexture()->Load(DEFAULTGLOW_PNG, DEFAULTGLOW_PNG_LENGTH, false);
+    defaultMetallic= new TextureAsset();
+    defaultMetallic->GetTexture()->Load(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH, false);
+    defaultRoughness = new TextureAsset();
+    defaultRoughness->GetTexture()->Load(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH, false);
     
     Clear();
 }
@@ -53,38 +52,18 @@ void ActiveHymn::Clear() {
     
     entityNumber = 1U;
     
-    scenes.clear();
-    
-    for (Geometry::Model* model : models) {
-        delete model;
-    }
-    models.clear();
-    modelNumber = 0U;
-    
-    for (TextureAsset* texture : textures) {
-        delete texture;
-    }
-    textures.clear();
-    textureNumber = 0U;
-    
-    for (Audio::SoundBuffer* sound : sounds) {
-        delete sound;
-    }
-    sounds.clear();
-    soundNumber = 0U;
-    
-    for (ScriptFile* script : scripts) {
-        delete script;
-    }
-    scripts.clear();
-    scriptNumber = 0U;
-    
     filterSettings.color = false;
     filterSettings.fog = false;
     filterSettings.fogDensity = 0.001f;
     filterSettings.fxaa = true;
     filterSettings.glow = true;
     filterSettings.glowBlurAmount = 1;
+    
+    for (ScriptFile* script : scripts) {
+        Managers().resourceManager->FreeScriptFile(script);
+    }
+    scripts.clear();
+    scriptNumber = 0U;
 }
 
 const string& ActiveHymn::GetPath() const {
@@ -101,56 +80,29 @@ void ActiveHymn::SetPath(const string& path) {
     FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Textures").c_str());
 }
 
-
-
 void ActiveHymn::Save() const {
-    
     // Save to file.
     ofstream file(path + FileSystem::DELIMITER + "Hymn.json");
     file << ToJson();
     file.close();
 }
 
-Json::Value ActiveHymn::ToJson() const {
-
+void ActiveHymn::Load(const string& path) {
+    Clear();
+    this->path = path;
+    
+    // Load Json document from file.
     Json::Value root;
+    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    file >> root;
+    file.close();
+    
+    FromJson(root);
+}
 
-    // Save textures.
-    Json::Value texturesNode;
-    for (TextureAsset* texture : textures) {
-        texturesNode.append(texture->Save());
-    }
-    root["textures"] = texturesNode;
-
-    // Save models.
-    Json::Value modelsNode;
-    for (Geometry::Model* model : models) {
-        modelsNode.append(model->Save());
-    }
-    root["models"] = modelsNode;
-
-    // Save scripts.
-    Json::Value scriptNode;
-    for (ScriptFile* script : scripts) {
-        scriptNode.append(script->Save());
-    }
-    root["scripts"] = scriptNode;
-
-    // Save sounds.
-    Json::Value soundsNode;
-    for (Audio::SoundBuffer* sound : sounds) {
-        soundsNode.append(sound->Save());
-    }
-    root["sounds"] = soundsNode;
-
-    // Save scenes.
-    Json::Value scenesNode;
-    for (const string& scene : scenes) {
-        scenesNode.append(scene);
-    }
-    root["scenes"] = scenesNode;
-    root["activeScene"] = activeScene;
-
+Json::Value ActiveHymn::ToJson() const {
+    Json::Value root;
+    
     Json::Value inputNode;
     inputNode.append(Input::GetInstance().Save());
     root["input"] = inputNode;
@@ -166,64 +118,21 @@ Json::Value ActiveHymn::ToJson() const {
     filtersNode["glow"] = filterSettings.glow;
     filtersNode["glowBlurAmount"] = filterSettings.glowBlurAmount;
     root["filters"] = filtersNode;
-
+    
+    // Save scripts.
+    Json::Value scriptNode;
+    for (ScriptFile* script : scripts) {
+        scriptNode.append(script->name);
+    }
+    root["scripts"] = scriptNode;
+    
     return root;
-
 }
 
 void ActiveHymn::FromJson(Json::Value root) {
-
-    // Load textures.
-    const Json::Value texturesNode = root["textures"];
-    for (unsigned int i = 0; i < texturesNode.size(); ++i) {
-        TextureAsset* texture = new TextureAsset();
-        texture->Load(texturesNode[i]);
-        textures.push_back(texture);
-    }
-
-    // Load models.
-    const Json::Value modelsNode = root["models"];
-    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
-        Geometry::Model* model;
-        std::string type = modelsNode[i].get("type", "").asString();
-        if (type == "Static") {
-            model = new Geometry::StaticModel();
-        }
-        else {
-            model = new Geometry::RiggedModel();
-        }
-        model->Load(modelsNode[i]);
-        models.push_back(model);
-    }
-
-    // Load scripts.
-    const Json::Value scriptNode = root["scripts"];
-    for (unsigned int i = 0; i < scriptNode.size(); ++i) {
-        ScriptFile* script = new ScriptFile();
-        script->Load(scriptNode[i]);
-        scripts.push_back(script);
-    }
-
-    // Load sounds.
-    const Json::Value soundsNode = root["sounds"];
-    for (unsigned int i = 0; i < soundsNode.size(); ++i) {
-        Audio::SoundBuffer* sound = new Audio::SoundBuffer();
-        sound->Load(soundsNode[i]);
-        sounds.push_back(sound);
-    }
-
-    // Load scenes.
-    const Json::Value scenesNode = root["scenes"];
-    for (unsigned int i = 0; i < scenesNode.size(); ++i) {
-        scenes.push_back(scenesNode[i].asString());
-    }
-
-    activeScene = root["activeScene"].asUInt();
-    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + scenes[activeScene] + ".json");
-
     const Json::Value inputNode = root["input"];
     Input::GetInstance().Load(inputNode[0]);
-
+    
     // Load filter settings.
     Json::Value filtersNode = root["filters"];
     filterSettings.color = filtersNode["color"].asBool();
@@ -234,26 +143,13 @@ void ActiveHymn::FromJson(Json::Value root) {
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
     filterSettings.glow = filtersNode["glow"].asBool();
     filterSettings.glowBlurAmount = filtersNode["glowBlurAmount"].asInt();
-
-    textureNumber = textures.size();
-    modelNumber = models.size();
-    soundNumber = sounds.size();
+    
+    // Load scripts.
+    const Json::Value scriptNode = root["scripts"];
+    for (unsigned int i = 0; i < scriptNode.size(); ++i) {
+        scripts.push_back(Managers().resourceManager->CreateScriptFile(scriptNode[i].asString()));
+    }
     scriptNumber = scripts.size();
-
-}
-
-void ActiveHymn::Load(const string& path) {
-    Clear();
-    this->path = path;
-    
-    // Load Json document from file.
-    Json::Value root;
-    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
-    file >> root;
-    file.close();
-    
-    FromJson(root);
-
 }
 
 void ActiveHymn::Update(float deltaTime) {
@@ -267,15 +163,13 @@ void ActiveHymn::Update(float deltaTime) {
     
     { PROFILE("Update animations");
         for (Entity* entity : world.GetEntities()) {
+            if (entity->IsKilled() || !entity->enabled)
+                continue;
+            
             Component::Animation* anim = entity->GetComponent<Component::Animation>();
             if (anim != nullptr) {
-                Geometry::RiggedModel* model = anim->riggedModel;
-                if (model != nullptr) {
-                    if (!model->animations.empty()) {
-                        anim->time += deltaTime;
-                        model->skeleton.Animate(&model->animations[0], anim->time);
-                    }
-                }
+                Geometry::Model* model = anim->riggedModel;
+                /// @todo Fix animations.
             }
         }
     }

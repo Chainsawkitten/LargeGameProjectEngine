@@ -2,15 +2,18 @@
 
 #include <glm/glm.hpp>
 
+#include "SuperManager.hpp"
+
 namespace Video {
     class Renderer;
+    class RenderSurface;
     class Texture2D;
 }
 class World;
 class Entity;
 
 /// Handles rendering the world.
-class RenderManager {
+class RenderManager : public SuperManager {
     friend class Hub;
     
     public:
@@ -41,9 +44,11 @@ class RenderManager {
         RenderManager(RenderManager const&) = delete;
         void operator=(RenderManager const&) = delete;
         
-        void LightWorld(World& world, const Entity* camera);
+        void LightWorld(World& world, const Entity* camera, Video::RenderSurface* renderSurface);
 
         Video::Renderer* renderer;
+
+        Video::RenderSurface* renderSurface;
         
         // Editor entity textures.
         Video::Texture2D* particleEmitterTexture;

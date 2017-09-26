@@ -43,12 +43,6 @@ class World {
          */
         Entity* GetRoot() const;
         
-        /// Gets all components of a specific type.
-        /**
-         * @return A list of pointers to all components of the world.
-         */
-        template<typename T> std::vector<T*>& GetComponents();
-        
         /// Register an entity to receive update events.
         /**
          * @param entity %Entity to register.
@@ -101,16 +95,10 @@ class World {
         // Copy constructor.
         World(World& world) = delete;
         
-        // Add component.
-        void AddComponent(Component::SuperComponent* component, const std::type_info* componentType);
-        
         // List of all entities in this world.
         std::vector<Entity*> entities;
         Entity* root = nullptr;
-        
-        // Map containing list of components.
-        std::map<const std::type_info*, std::vector<Component::SuperComponent*>> components;
-        
+                
         // All particles in the world.
         Video::ParticleRenderer::Particle* particles;
         unsigned int particleCount = 0;
@@ -118,7 +106,3 @@ class World {
         // Entities registered for update event.
         std::vector<Entity*> updateEntities;
 };
-
-template<typename T> inline std::vector<T*>& World::GetComponents() {
-    return reinterpret_cast<std::vector<T*>&>(components[&typeid(T*)]);
-}

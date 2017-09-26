@@ -31,10 +31,9 @@ set(SRCS
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
-        Geometry/RiggedModel.cpp
         Geometry/Skeleton.cpp
-        Geometry/StaticModel.cpp
         Manager/Managers.cpp
+        Manager/SuperManager.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
         Manager/ProfilingManager.cpp
@@ -79,10 +78,9 @@ set(HEADERS
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
-        Geometry/RiggedModel.hpp
         Geometry/Skeleton.hpp
-        Geometry/StaticModel.hpp
         Manager/Managers.hpp
+        Manager/SuperManager.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
         Manager/ProfilingManager.hpp
@@ -104,10 +102,10 @@ set(HEADERS
 # Setup embedded source
 set(EMBEDDED_INPUT
     ../../assets/Camera.png
-    ../../assets/DefaultDiffuse.png
+    ../../assets/DefaultAlbedo.png
     ../../assets/DefaultNormal.png
-    ../../assets/DefaultSpecular.png
-    ../../assets/DefaultGlow.png
+    ../../assets/DefaultMetallic.png
+    ../../assets/DefaultRoughness.png
     ../../assets/Light.png
     ../../assets/ParticleAtlas.png
     ../../assets/ParticleEmitter.png

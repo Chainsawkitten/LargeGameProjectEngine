@@ -7,7 +7,7 @@ namespace Video {
     struct Light {
         /// Position.
         glm::vec4 position;
-        
+
         /// Intensity.
         glm::vec3 intensities;
         

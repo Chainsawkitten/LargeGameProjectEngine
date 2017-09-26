@@ -75,6 +75,11 @@ void ProfilingManager::ShowResults() {
 }
 
 ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name) {
+    // Sync GPU and CPU.
+    if (syncGPU) {
+        glFinish();
+    }
+
     if (current == nullptr) {
         first.name = name;
         first.parent = nullptr;

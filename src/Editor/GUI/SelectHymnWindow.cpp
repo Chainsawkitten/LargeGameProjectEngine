@@ -6,6 +6,10 @@
 using namespace GUI;
 using namespace std;
 
+SelectHymnWindow::SelectHymnWindow(): title(nullptr), openButtonName(nullptr) {
+    name[0] = '\0';
+}
+
 void SelectHymnWindow::Scan() {
     files = FileSystem::DirectoryContents(FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns", FileSystem::DIRECTORY);
 }

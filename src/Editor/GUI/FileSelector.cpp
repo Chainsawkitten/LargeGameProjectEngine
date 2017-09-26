@@ -7,8 +7,8 @@
 using namespace GUI;
 using namespace std;
 
-FileSelector::FileSelector() {
-    path = FileSystem::DataPath("Hymn to Beauty");
+FileSelector::FileSelector() : path("Hymn to Beauty") {
+
 }
 
 void FileSelector::Show() {
@@ -46,9 +46,13 @@ void FileSelector::Show() {
     ImGui::End();
 }
 
-void FileSelector::SetFileSelectedCallback(std::function<void(const std::string&)> callback) {
+void FileSelector::SetFileSelectedCallback(const std::function<void(const std::string&)>& callback) {
     fileSelectedCallback = callback;
     hasFileSelectedCallback = true;
+}
+
+void GUI::FileSelector::SetInitialPath(const char * path) {
+    this->path = path;
 }
 
 void FileSelector::SetExtensions(const std::vector<string>& extensions) {

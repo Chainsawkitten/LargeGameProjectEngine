@@ -252,7 +252,6 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "void Kill()", asMETHOD(Entity, Kill), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsKilled() const", asMETHOD(Entity, IsKilled), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetParent() const", asMETHOD(Entity, GetParent), asCALL_THISCALL);
-    engine->RegisterObjectMethod("Entity", "Entity@ AddChild(const string &in)", asMETHOD(Entity, AddChild), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
@@ -306,26 +305,13 @@ ScriptManager::ScriptManager() {
     
     engine->SetDefaultNamespace("");
     
-    // Register adding and getting components..
-    engine->RegisterObjectMethod("Entity", "Component::DirectionalLight@ AddDirectionalLight()", asMETHODPR(Entity, AddComponent, (), DirectionalLight*), asCALL_THISCALL);
+    // Register getting components.
     engine->RegisterObjectMethod("Entity", "Component::DirectionalLight@ GetDirectionalLight()", asMETHODPR(Entity, GetComponent, () const, DirectionalLight*), asCALL_THISCALL);
-    
-    engine->RegisterObjectMethod("Entity", "Component::Lens@ AddLens()", asMETHODPR(Entity, AddComponent, (), Lens*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::Lens@ GetLens()", asMETHODPR(Entity, GetComponent, () const, Lens*), asCALL_THISCALL);
-    
-    engine->RegisterObjectMethod("Entity", "Component::Listener@ AddListener()", asMETHODPR(Entity, AddComponent, (), Listener*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::Listener@ GetListener()", asMETHODPR(Entity, GetComponent, () const, Listener*), asCALL_THISCALL);
-    
-    engine->RegisterObjectMethod("Entity", "Component::Physics@ AddPhysics()", asMETHODPR(Entity, AddComponent, (), Component::Physics*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::Physics@ GetPhysics()", asMETHODPR(Entity, GetComponent, () const, Component::Physics*), asCALL_THISCALL);
-    
-    engine->RegisterObjectMethod("Entity", "Component::PointLight@ AddPointLight()", asMETHODPR(Entity, AddComponent, (), PointLight*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::PointLight@ GetPointLight()", asMETHODPR(Entity, GetComponent, () const, PointLight*), asCALL_THISCALL);
-    
-    engine->RegisterObjectMethod("Entity", "Component::SpotLight@ AddSpotLight()", asMETHODPR(Entity, AddComponent, (), SpotLight*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::SpotLight@ GetSpotLight()", asMETHODPR(Entity, GetComponent, () const, SpotLight*), asCALL_THISCALL);
-    
-    engine->RegisterObjectMethod("Entity", "Component::SoundSource@ AddSoundSource()", asMETHODPR(Entity, AddComponent, (), SoundSource*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::SoundSource@ GetSoundSource()", asMETHODPR(Entity, GetComponent, () const, SoundSource*), asCALL_THISCALL);
     
     // Register managers.
@@ -411,8 +397,8 @@ void ScriptManager::BuildAllScripts() {
 
 void ScriptManager::Update(World& world, float deltaTime) {
     // Init.
-    for (Script* script : world.GetComponents<Script>()) {
-        if (!script->initialized) {
+    for (Script* script : GetComponents<Script>(&world)) {
+        if (!script->initialized && !script->IsKilled() && script->entity->enabled) {
             CreateInstance(script);
             script->initialized = true;
         }

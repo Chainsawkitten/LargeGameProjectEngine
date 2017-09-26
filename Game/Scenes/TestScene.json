@@ -32,15 +32,16 @@
 				"y" : 1.0,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"uid" : 1
 		},
 		{
 			"Material" : 
 			{
-				"diffuse" : "Texture #1",
-				"glow" : "",
+				"albedo" : "Texture #1",
+				"metallic" : "",
 				"normal" : "Texture #1",
-				"specular" : ""
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{
@@ -63,43 +64,7 @@
 					{
 						"scriptName" : "Player"
 					},
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"diffuse" : "Texture #0",
-								"glow" : "",
-								"normal" : "",
-								"specular" : ""
-							},
-							"Mesh" : 
-							{
-								"model" : "Hands"
-							},
-							"children" : null,
-							"name" : "hands",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : -50.0
-							},
-							"rotation" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false
-						}
-					],
+					"children" : null,
 					"name" : "Player",
 					"position" : 
 					{
@@ -119,7 +84,8 @@
 						"y" : 1.0,
 						"z" : 1.0
 					},
-					"scene" : false
+					"scene" : false,
+					"uid" : 4
 				},
 				{
 					"PointLight" : 
@@ -134,7 +100,42 @@
 						},
 						"intensity" : 0.35199999809265137
 					},
-					"children" : null,
+					"children" : 
+					[
+						{
+							"Lens" : 
+							{
+								"fieldOfView" : 45.0,
+								"zFar" : 1000.0,
+								"zNear" : 0.5
+							},
+							"Script" : 
+							{
+								"scriptName" : "Player"
+							},
+							"children" : null,
+							"name" : "Player",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 25.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false
+						}
+					],
 					"name" : "light",
 					"position" : 
 					{
@@ -154,7 +155,8 @@
 						"y" : 1.0,
 						"z" : 1.0
 					},
-					"scene" : false
+					"scene" : false,
+					"uid" : 5
 				}
 			],
 			"name" : "Minecart",
@@ -176,15 +178,16 @@
 				"y" : 1.0,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"uid" : 2
 		},
 		{
 			"Material" : 
 			{
-				"diffuse" : "Texture #2",
-				"glow" : "",
+				"albedo" : "Texture #2",
+				"metallic" : "",
 				"normal" : "Texture #3",
-				"specular" : ""
+				"roughness" : ""
 			},
 			"Mesh" : 
 			{
@@ -210,7 +213,8 @@
 				"y" : 1.0,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"uid" : 3
 		}
 	],
 	"name" : "Root",
@@ -232,5 +236,6 @@
 		"y" : 1.0,
 		"z" : 1.0
 	},
-	"scene" : false
+	"scene" : false,
+	"uid" : 0
 }

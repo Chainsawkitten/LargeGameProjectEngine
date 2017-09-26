@@ -47,7 +47,7 @@ namespace Video {
                 /**
                  * @param vertexBuffer Vertex buffer.
                  */
-                virtual void GenerateVertexBuffer(GLuint& vertexBuffer) = 0;
+            //    virtual void GenerateVertexBuffer(GLuint& vertexBuffer) = 0;
                 
                 /// Generate vertex array.
                 /**
@@ -55,7 +55,7 @@ namespace Video {
                  * @param indexBuffer Index buffer.
                  * @param vertexArray Vertex array.
                  */
-                virtual void GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) = 0;
+            //    virtual void GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) = 0;
                 
                 /// Generate index buffer.
                 /**

@@ -38,5 +38,6 @@ namespace Component {
 
             /// Intensity.
             float intensity = 1.f;
+
     };
 }

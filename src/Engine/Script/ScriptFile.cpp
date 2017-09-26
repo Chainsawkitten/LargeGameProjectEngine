@@ -7,6 +7,6 @@ Json::Value ScriptFile::Save() const {
     return script;
 }
 
-void ScriptFile::Load(const Json::Value& node) {
-    name = node.get("name", "").asString();
+void ScriptFile::Load(const std::string& name) {
+    this->name = name;
 }

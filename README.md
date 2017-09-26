@@ -29,6 +29,7 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [AngelScript](https://github.com/IngwiePhoenix/AngelScript) | zlib |
 | [assimp](https://github.com/assimp/assimp) | Modified BSD |
 | [Bullet](https://github.com/bulletphysics/bullet3) | zlib |
+| [Catch](https://github.com/philsquared/Catch) | BSL |
 | [Headerize](https://github.com/Chainsawkitten/Headerize) | Public domain |
 | [GLEW](https://github.com/Perlmint/glew-cmake) | Modified BSD / MIT |
 | [GLFW](https://github.com/glfw/glfw) | zlib / libpng |
@@ -39,3 +40,4 @@ Hymn to Beauty uses several third party libraries with their own licenses:
 | [OpenVR](https://github.com/ValveSoftware/openvr) | BSD |
 | [SimpleIni](https://github.com/brofield/simpleini) | MIT |
 | [stb](https://github.com/nothings/stb) | Public domain |
+| [Steam Audio](https://valvesoftware.github.io/steam-audio/) | STEAM® AUDIO SDK License |

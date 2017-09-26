@@ -7,6 +7,8 @@
 #include <json/json.h>
 #include "../Component/SuperComponent.hpp"
 
+#include "../Manager/Managers.hpp"
+
 /// %Entity containing various components.
 class Entity {
     public:
@@ -168,6 +170,21 @@ class Entity {
          * Default: 0.f, 0.f, 0.f
          */
         glm::vec3 rotation = glm::vec3(0.f, 0.f, 0.f);
+
+        /// Get the entity's UID
+        /**
+         * @return The entity's UID
+         */
+        unsigned int GetUniqueIdentifier() const;
+           
+        /// Set the entity's UID
+        /**
+         * @param UID the entity's unique identifier to be set
+         */
+        void SetUniqueIdentifier(unsigned int UID);
+
+        /// Whether the entity is active.
+        bool enabled = true;
         
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;
@@ -182,6 +199,7 @@ class Entity {
         std::map<const std::type_info*, Component::SuperComponent*> components;
         
         bool killed = false;
+        unsigned int uniqueIdentifier = 0;
 };
 
 template<typename T> T* Entity::AddComponent() {
@@ -190,7 +208,7 @@ template<typename T> T* Entity::AddComponent() {
         return nullptr;
     T* component = new T(this);
     components[componentType] = component;
-    world->AddComponent(component, componentType);
+    Managers().AddComponent(world, component, componentType);
     return component;
 }
 

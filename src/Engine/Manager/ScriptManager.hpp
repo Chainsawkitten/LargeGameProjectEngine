@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "SuperManager.hpp"
+
 class asIScriptEngine;
 class asIScriptContext;
 class asITypeInfo;
@@ -14,7 +16,7 @@ namespace Component {
 }
 
 /// Handles scripting.
-class ScriptManager {
+class ScriptManager : public SuperManager {
     friend class Hub;
         
     public:

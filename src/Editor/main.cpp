@@ -125,6 +125,7 @@ int main() {
     // Shut down and cleanup.
     ImGuiImplementation::Shutdown();
     delete editor;
+    Hymn().world.Clear();
     
     Managers().ShutDown();
     

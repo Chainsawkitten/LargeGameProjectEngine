@@ -11,6 +11,9 @@ namespace GUI {
     /// Used to edit a sound.
     class SoundEditor {
         public:
+            /// Constructor.
+            SoundEditor();
+
             /// Show the editor.
             void Show();
             
@@ -47,6 +50,6 @@ namespace GUI {
             
             FileSelector fileSelector;
             
-            char name[128] = "";
+            char name[128];
     };
 }

@@ -9,6 +9,9 @@ namespace GUI {
     /// Used to edit a texture.
     class TextureEditor {
         public:
+            /// Constructor.
+            TextureEditor();
+
             /// Show the editor.
             void Show();
             
@@ -44,6 +47,6 @@ namespace GUI {
             
             FileSelector fileSelector;
             
-            char name[128] = "";
+            char name[128];
     };
 }

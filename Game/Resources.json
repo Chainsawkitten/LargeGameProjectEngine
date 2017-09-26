@@ -1,0 +1,20 @@
+{
+	"activeScene" : 0,
+	"models" : 
+	[
+		"CartSecond",
+		"Cave"
+	],
+	"scenes" : 
+	[
+		"TestScene"
+	],
+	"sounds" : null,
+	"textures" : 
+	[
+		"Texture #0",
+		"Texture #1",
+		"Texture #2",
+		"Texture #3"
+	]
+}

@@ -4,11 +4,13 @@
 #include <vector>
 #include <Video/DebugDrawing.hpp>
 
+#include "SuperManager.hpp"
+
 class World;
 class Entity;
 
 /// Debug drawing facilities.
-class DebugDrawingManager {
+class DebugDrawingManager : public SuperManager{
     friend class Hub;
     
     public:

@@ -34,11 +34,11 @@ namespace Audio {
              */
             Json::Value Save() const;
             
-            /// Load sound from JSON node.
+            /// Load sound from file.
             /**
-             * @param node JSON node to load from.
+             * @param name Name of the sound to load.
              */
-            void Load(const Json::Value& node);
+            void Load(const std::string& name);
             
             /// Load sound buffer from a sound file.
             /**

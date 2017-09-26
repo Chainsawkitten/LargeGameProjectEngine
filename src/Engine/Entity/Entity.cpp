@@ -39,41 +39,30 @@ Entity* Entity::AddChild(const std::string& name) {
 }
 
 bool Entity::SetParent(Entity* newParent) {
-    
-    Entity* oldParent = parent;
-
     //We make sure we're not trying to put the root as a child.
     if (parent != nullptr) {
-
         //We make sure we're not trying to set a parent as a child to one of it's own children.
         if (!HasChild(newParent)) {
-
             parent->RemoveChild(this);
             parent = newParent;
             newParent->children.push_back(this);
-
+            
             return true;
-
         }
-
     }
-
+    
     return false;
-
 }
 
 bool Entity::HasChild(const Entity* check_child, bool deep) const {
-
     for (Entity* child : children) {
         if (child->name == check_child->name)
             return true;
         else if (deep)
             child->HasChild(check_child);
-
     }
 
     return false;
-
 }
 
 Entity* Entity::InstantiateScene(const std::string& name) {
@@ -87,17 +76,14 @@ Entity* Entity::InstantiateScene(const std::string& name) {
         file >> root;
         file.close();
         child->Load(root);
-
+        
         child->scene = true;
         child->sceneName = name;
-    }
-    else {
-
+    } else {
         child->name = "Error loading scene";
         Log() << "Couldn't find scene to load.";
-
     }
-
+    
     return child;
 }
 
@@ -110,7 +96,7 @@ Entity* Entity::GetChild(const std::string& name) const {
         if (child->name == name)
             return child;
     }
-
+    
     return nullptr;
 }
 
@@ -121,6 +107,7 @@ bool Entity::RemoveChild(Entity* child) {
             return true;
         }
     }
+    
     return false;
 }
 
@@ -153,6 +140,7 @@ Json::Value Entity::Save() const {
     entity["scale"] = Json::SaveVec3(scale);
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
+    entity["uid"] = uniqueIdentifier;
     
     if (scene) {
         entity["sceneName"] = sceneName;
@@ -222,6 +210,8 @@ void Entity::Load(const Json::Value& node) {
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
+    uniqueIdentifier = node.get("uid", 0).asUInt();
+    
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
@@ -256,4 +246,12 @@ glm::vec3 Entity::GetWorldPosition() const {
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
     
     return position;
+}
+
+unsigned int Entity::GetUniqueIdentifier() const {
+    return uniqueIdentifier;
+}
+
+void Entity::SetUniqueIdentifier(unsigned int UID) {
+    uniqueIdentifier = UID;
 }

@@ -2,11 +2,19 @@
 
 #include "../Geometry/Model.hpp"
 #include "../Hymn.hpp"
+#include "../Manager/Managers.hpp"
+#include "../Manager/ResourceManager.hpp"
 
 using namespace Component;
 
 Mesh::Mesh(Entity* entity) : SuperComponent(entity) {
     
+}
+
+Mesh::~Mesh() {
+    Geometry::Model* model = dynamic_cast<Geometry::Model*>(geometry);
+    if (model != nullptr)
+        Managers().resourceManager->FreeModel(model);
 }
 
 Json::Value Mesh::Save() const {
@@ -21,8 +29,5 @@ Json::Value Mesh::Save() const {
 
 void Mesh::Load(const Json::Value& node) {
     std::string meshName = node.get("model", "").asString();
-    for (Geometry::Model* model : Hymn().models) {
-        if (model->name == meshName)
-            geometry = model;
-    }
+    geometry = Managers().resourceManager->CreateModel(meshName);
 }

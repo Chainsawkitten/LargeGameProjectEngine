@@ -6,13 +6,6 @@
 #include "Entity/World.hpp"
 
 class TextureAsset;
-namespace Geometry {
-    class Model;
-}
-namespace Audio {
-    class SoundBuffer;
-}
-
 class ScriptFile;
 
 /// A hymn to beauty.
@@ -37,6 +30,12 @@ class ActiveHymn {
         
         /// Save the hymn.
         void Save() const;
+        
+        /// Load a hymn.
+        /**
+         * @param path Path to the saved hymn.
+         */
+        void Load(const std::string& path);
 
         /// Convert the hymn to Json.
         /**
@@ -49,12 +48,6 @@ class ActiveHymn {
          * @param root The Json file to load.
          */
         void FromJson(Json::Value root);
-
-        /// Load a hymn.
-        /**
-         * @param path Path to the saved hymn.
-         */
-        void Load(const std::string& path);
 
         /// Update the world.
         /**
@@ -71,54 +64,30 @@ class ActiveHymn {
          * @param cameras Whether to show cameras.
          */
         void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false);
-        
+
         /// The game world.
         World world;
         
         /// The id of the next entity to create.
         unsigned int entityNumber = 1U;
         
-        /// Scenes.
-        std::vector<std::string> scenes;
-        
-        /// Models.
-        std::vector<Geometry::Model*> models;
-        
-        /// The id of the next model to create.
-        unsigned int modelNumber = 0U;
-        
-        /// Textures.
-        std::vector<TextureAsset*> textures;
-        
-        /// The id of the next texture to create.
-        unsigned int textureNumber = 0U;
-        
-        /// Sounds.
-        std::vector<Audio::SoundBuffer*> sounds;
-
-        /// The id of the next sound to create.
-        unsigned int soundNumber = 0U;
-
         /// Scripts.
         std::vector<ScriptFile*> scripts;
-
+    
         /// The id of the next script to create.
         unsigned int scriptNumber = 0U;
 
-        ///The index to the activeScene.
-        std::size_t activeScene;
-
-        /// Default diffuse texture.
-        TextureAsset* defaultDiffuse;
+        /// Default albedo texture.
+        TextureAsset* defaultAlbedo;
         
         /// Default normal texture.
         TextureAsset* defaultNormal;
         
-        /// Default specular texture.
-        TextureAsset* defaultSpecular;
+        /// Default metallic texture.
+        TextureAsset* defaultMetallic;
         
-        /// Default glow texture.
-        TextureAsset* defaultGlow;
+        /// Default roughness texture.
+        TextureAsset* defaultRoughness;
         
         /// Filter settings.
         struct FilterSettings {

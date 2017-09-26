@@ -58,12 +58,6 @@ namespace Video {
              */
             void SetWrapping(GLint wrapMode);
             
-            /// Get whether the texture was created from file.
-            /**
-             * @return true if the texture was loaded from a file, false otherwise.
-             */
-            bool IsFromFile() const;
-            
             /// Load texture from file.
             /**
              * @param filename Filename (relative or absolute) of the image file.
@@ -89,7 +83,6 @@ namespace Video {
             GLuint texID = 0;
             int width = 0;
             int height = 0;
-            bool isFromFile;
             bool loaded = false;
     };
 }

@@ -6,6 +6,8 @@
 #include <vector>
 
 namespace Video {
+    class FrameBuffer;
+    class RenderSurface;
     class ShaderProgram;
     namespace Geometry {
         class Rectangle;
@@ -16,16 +18,12 @@ namespace Video {
         public:
             /// Create new deferred lighting.
             /**
-             * @param screenSize Size of the screen in pixels.
              * @param rectangle %Rectangle to use for rendering.
              */
-            Lighting(const glm::vec2& screenSize, const Geometry::Rectangle* rectangle);
+            Lighting(const Geometry::Rectangle* rectangle);
             
             /// Destructor.
             ~Lighting();
-            
-            /// Set as render target.
-            void SetTarget();
             
             /// Clear all lights.
             void ClearLights();
@@ -39,26 +37,11 @@ namespace Video {
             /// Light the scene with the added lights.
             /**
              * @param inverseProjectionMatrix The camera's inverse projection matrix.
+             * @param renderSurface %RenderSurface contaning textures.
              */
-            void Render(const glm::mat4& inverseProjectionMatrix);
+            void Render(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
             
-        private:
-            enum TEXTURE_TYPE {
-                DIFFUSE,
-                NORMAL,
-                SPECULAR,
-                GLOW,
-                NUM_TEXTURES
-            };
-            
-            static void AttachTexture(GLuint texture, unsigned int width, unsigned int height, GLenum attachment, GLint internalFormat);
-            void BindForReading() const;
-            
-            GLuint textures[NUM_TEXTURES];
-            
-            GLuint frameBufferObject;
-            GLuint depthHandle;
-            
+        private:  
             const Geometry::Rectangle* rectangle;
             ShaderProgram* shaderProgram;
             
@@ -73,6 +56,7 @@ namespace Video {
                 GLint ambientCoefficient;
                 GLint coneAngle;
                 GLint direction;
+                GLint color;
             } lightUniforms[lightCount];
     };
 }

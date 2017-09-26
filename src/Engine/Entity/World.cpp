@@ -5,7 +5,9 @@
 #include "../Manager/Managers.hpp"
 #include "../Manager/ParticleManager.hpp"
 #include "../Util/FileSystem.hpp"
+#include "Hymn.hpp"
 #include <fstream>
+#include <ctime>
 
 World::World() {
     particles = new Video::ParticleRenderer::Particle[Managers().particleManager->GetMaxParticleCount()];
@@ -20,6 +22,7 @@ World::~World() {
 Entity* World::CreateEntity(const std::string& name) {
     Entity* entity = new Entity(this, name);
     entities.push_back(entity);
+    entity->SetUniqueIdentifier(std::time(NULL));
     return entity;
 }
 
@@ -49,34 +52,19 @@ void World::Clear() {
     entities.clear();
     root = nullptr;
     
-    for (auto& it : components) {
-        for (Component::SuperComponent* component : it.second)
-            delete component;
-    }
-    components.clear();
-    
+    Managers().ClearComponents(this);
+
     particleCount = 0;
     updateEntities.clear();
 }
 
 void World::ClearKilled() {
+
     // Clear killed components.
-    std::size_t i;
-    for (auto& componentIt : components) {
-        i = 0;
-        while (i < componentIt.second.size()) {
-            if (componentIt.second[i]->IsKilled()) {
-                delete componentIt.second[i];
-                componentIt.second[i] = componentIt.second[componentIt.second.size() - 1];
-                componentIt.second.pop_back();
-            } else {
-                ++i;
-            }
-        }
-    }
-    
+    Managers().ClearKilledComponents(this);
+
     // Clear killed entities.
-    i = 0;
+    std::size_t i = 0;
     while (i < entities.size()) {
         if (entities[i]->IsKilled()) {
             delete entities[i];
@@ -110,7 +98,7 @@ void World::Save(const std::string& filename) const {
 
 void World::Load(const std::string& filename) {
     Clear();
-    
+
     CreateRoot();
     
     // Load Json document from file.
@@ -122,8 +110,4 @@ void World::Load(const std::string& filename) {
         
         root->Load(rootNode);
     }
-}
-
-void World::AddComponent(Component::SuperComponent* component, const std::type_info* componentType) {
-    components[componentType].push_back(component);
 }

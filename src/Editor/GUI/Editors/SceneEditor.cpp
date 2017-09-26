@@ -4,6 +4,7 @@
 #include <Engine/Util/FileSystem.hpp>
 #include <Utility/Log.hpp>
 #include <imgui.h>
+#include "../../Resources.hpp"
 
 using namespace GUI;
 
@@ -19,10 +20,15 @@ enum DraggedItemState {
 };
 DraggedItemState draggedItemState = DraggedItemState::NOT_ACTIVE;
 
+SceneEditor::SceneEditor() {
+    name[0] = '\0';
+    sceneIndex = 0;
+}
+
 void SceneEditor::Show() {
-    if (ImGui::Begin(("Scene: " + Hymn().scenes[sceneIndex] + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
+    if (ImGui::Begin(("Scene: " + Resources().scenes[sceneIndex] + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
-        Hymn().scenes[sceneIndex] = name;
+        Resources().scenes[sceneIndex] = name;
         
         // Entities.
         entityPressed = false;
@@ -69,8 +75,8 @@ void SceneEditor::SetScene(std::size_t sceneIndex) {
     entityEditor.SetVisible(false);
     this->sceneIndex = sceneIndex;
     
-    if (sceneIndex < Hymn().scenes.size()) {
-        strcpy(name, Hymn().scenes[sceneIndex].c_str());
+    if (sceneIndex < Resources().scenes.size()) {
+        strcpy(name, Resources().scenes[sceneIndex].c_str());
     } else {
         SetVisible(false);
     }
@@ -85,8 +91,8 @@ void SceneEditor::SetVisible(bool visible) {
 }
 
 void SceneEditor::Save() const {
-    if (sceneIndex < Hymn().scenes.size())
-        Hymn().world.Save(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Hymn().scenes[sceneIndex] + ".json");
+    if (sceneIndex < Resources().scenes.size())
+        Hymn().world.Save(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
 }
 
 void SceneEditor::ShowEntity(Entity* entity) {
@@ -111,7 +117,7 @@ void SceneEditor::ShowEntity(Entity* entity) {
         }
 		
         if (!entity->IsScene()) {
-            if (ImGui::Selectable("Add child"))
+            if (ImGui::Selectable("Add child")) 
                 entity->AddChild("Entity #" + std::to_string(Hymn().entityNumber++));
             
             if (ImGui::Selectable("Instantiate scene"))
@@ -136,7 +142,7 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::Text("Scenes");
         ImGui::Separator();
         
-        for (const std::string& scene : Hymn().scenes) {
+        for (const std::string& scene : Resources().scenes) {
             if (ImGui::Selectable(scene.c_str()))
                 entity->InstantiateScene(scene);
         }

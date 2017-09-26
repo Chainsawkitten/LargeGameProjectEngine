@@ -32,5 +32,6 @@ namespace Component {
             
             /// Ambient coefficient.
             float ambientCoefficient = 0.f;
+
     };
 }

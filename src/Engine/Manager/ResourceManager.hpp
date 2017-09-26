@@ -3,9 +3,9 @@
 #include <map>
 #include <GL/glew.h>
 
+#include "SuperManager.hpp"
+
 namespace Video {
-    class Shader;
-    class ShaderProgram;
     class Texture2D;
     namespace Geometry {
         class Rectangle;
@@ -18,52 +18,14 @@ namespace Geometry {
 namespace Audio {
     class SoundBuffer;
 }
+class TextureAsset;
+class ScriptFile;
 
 /// Handles all resources.
-class ResourceManager {
+class ResourceManager : public SuperManager {
     friend class Hub;
     
     public:
-        /// Create a shader if it doesn't already exist.
-        /**
-         * @param source GLSL code for the shader.
-         * @param sourceLength Length of the GLSL source code.
-         * @param shaderType %Shader type. One of GL_COMPUTE_SHADER, GL_VERTEX_SHADER, GL_TESS_CONTROL_SHADER, GL_TESS_EVALUATION_SHADER, GL_GEOMETRY_SHADER, or GL_FRAGMENT_SHADER.
-         * @return The shader instance
-         */
-        Video::Shader* CreateShader(const char* source, int sourceLength, GLenum shaderType);
-        
-        /// Free the reference to the shader.
-        /**
-         * Deletes the instance if no more references exist.
-         * @param shader %Shader to dereference.
-         */
-        void FreeShader(Video::Shader* shader);
-        
-        /// Create shader program if it doesn't already exist.
-        /**
-         * Link together shaders into a shader program that can be run on the GPU.
-         *
-         * Sample:
-         * \code{.cpp}
-         * Shader* vertexShader = new Shader(vertexSource, vertexSourceLength, GL_VERTEX_SHADER);
-         * Shader* geometryShader = new Shader(geometrySource, geometrySourceLength, GL_GEOMETRY_SHADER);
-         * Shader* fragmentShader = new Shader(fragmentSource, fragmentSourceLength, GL_FRAGMENT_SHADER);
-         * ShaderProgram* shaderProgram = new ResourceManager::GetInstance().CreateShaderProgram({ vertexShader, geometryShader, fragmentShader });
-         * \endcode
-         *
-         * @param shaders List of shaders to link together.
-         * @return The shader program instance
-         */
-        Video::ShaderProgram* CreateShaderProgram(std::initializer_list<const Video::Shader*> shaders);
-        
-        /// Free the reference to a shader program.
-        /**
-         * Deletes the instance if no more references exist.
-         * @param shaderProgram %Shader program to dereference.
-         */
-        void FreeShaderProgram(Video::ShaderProgram* shaderProgram);
-        
         /// Create a rectangle for rendering if it doesn't already exist.
         /**
          * @return The rectangle instance
@@ -90,10 +52,10 @@ class ResourceManager {
         
         /// Create an model for rendering if it doesn't already exist.
         /**
-        * @param filename Filename of model file.
+        * @param name Name of model.
         * @return The model instance
         */
-        Geometry::Model* CreateModel(std::string filename);
+        Geometry::Model* CreateModel(const std::string& name);
 
         /// Free the reference to the model.
         /**
@@ -110,14 +72,6 @@ class ResourceManager {
          */
         Video::Texture2D* CreateTexture2D(const char* data, int dataLength, bool srgb = false);
         
-        /// Create a 2D texture if it doesn't already exist.
-        /**
-         * @param filename Filename of image file.
-         * @param srgb Whether the image is in SRGB space and should be converted to linear space.
-         * @return The %Texture2D instance
-         */
-        Video::Texture2D* CreateTexture2DFromFile(std::string filename, bool srgb = false);
-        
         /// Free the reference to the 2D texture.
         /**
          * Deletes the instance if no more references exist.
@@ -125,13 +79,33 @@ class ResourceManager {
          */
         void FreeTexture2D(Video::Texture2D* texture);
         
+        /// Create a texture asset if it doesn't already exist.
+        /**
+         * @param name The name of the texture asset.
+         * @return The %TextureAsset instance
+         */
+        TextureAsset* CreateTextureAsset(const std::string& name);
+        
+        /// Free the reference to the texture asset.
+        /**
+         * Deletes the instance if no more references exist.
+         * @param textureAsset %TextureAsset to dereference.
+         */
+        void FreeTextureAsset(TextureAsset* textureAsset);
+        
+        /// Get the number of instances of a texture asset.
+        /**
+         * @param textureAsset The texture asset to check.
+         * @return How many instances of the texture asset currently exist.
+         */
+        int GetTextureAssetInstanceCount(TextureAsset* textureAsset);
+        
         /// Create a sound if it doesn't already exist.
         /**
-         * Supported formats: Ogg Vorbis.
-         * @param filename Path to the sound file.
+         * @param name Name of the sound.
          * @return The %SoundBuffer instance.
          */
-        Audio::SoundBuffer* CreateSound(std::string filename);
+        Audio::SoundBuffer* CreateSound(const std::string& name);
         
         /// Free the reference to the sound.
         /**
@@ -140,36 +114,24 @@ class ResourceManager {
          */
         void FreeSound(Audio::SoundBuffer* soundBuffer);
         
+        /// Create a script file if it doesn't already exist.
+        /**
+         * @param name Name of the script file.
+         * @return The %ScriptFile instance.
+         */
+        ScriptFile* CreateScriptFile(const std::string& name);
+        
+        /// Free the reference to the script file.
+        /**
+         * Deletes the instance if no more references exist.
+         * @param scriptFile %ScriptFile to dereference.
+         */
+        void FreeScriptFile(ScriptFile* scriptFile);
+        
     private:
         ResourceManager();
         ResourceManager(ResourceManager const&) = delete;
         void operator=(ResourceManager const&) = delete;
-        
-        // Shaders
-        struct ShaderInstance {
-            Video::Shader* shader;
-            int count;
-        };
-        std::map<const char*, ShaderInstance> shaders;
-        std::map<Video::Shader*, const char*> shadersInverse;
-        
-        // ShaderPrograms
-        struct ShaderProgramInstance {
-            Video::ShaderProgram* shaderProgram;
-            int count;
-        };
-        struct ShaderProgramKey {
-            const Video::Shader* computeShader = nullptr;
-            const Video::Shader* vertexShader = nullptr;
-            const Video::Shader* tessControlShader = nullptr;
-            const Video::Shader* tessEvaluationShader = nullptr;
-            const Video::Shader* geometryShader = nullptr;
-            const Video::Shader* fragmentShader = nullptr;
-            
-            bool operator<(const ShaderProgramKey& other) const;
-        };
-        std::map<ShaderProgramKey, ShaderProgramInstance> shaderPrograms;
-        std::map<Video::ShaderProgram*, ShaderProgramKey> shaderProgramsInverse;
         
         // Rectangle
         Video::Geometry::Rectangle* rectangle;
@@ -195,9 +157,13 @@ class ResourceManager {
         std::map<const char*, Texture2DInstance> textures;
         std::map<Video::Texture2D*, const char*> texturesInverse;
         
-        // Texture2D from file
-        std::map<std::string, Texture2DInstance> texturesFromFile;
-        std::map<Video::Texture2D*, std::string> texturesFromFileInverse;
+        // Texture asset.
+        struct TextureAssetInstance {
+            TextureAsset* textureAsset;
+            int count;
+        };
+        std::map<std::string, TextureAssetInstance> textureAssets;
+        std::map<TextureAsset*, std::string> textureAssetsInverse;
         
         // Sound
         struct SoundInstance {
@@ -206,4 +172,12 @@ class ResourceManager {
         };
         std::map<std::string, SoundInstance> sounds;
         std::map<Audio::SoundBuffer*, std::string> soundsInverse;
+        
+        // ScriptFile
+        struct ScriptFileInstance {
+            ScriptFile* scriptFile;
+            int count;
+        };
+        std::map<std::string, ScriptFileInstance> scriptFiles;
+        std::map<ScriptFile*, std::string> scriptFilesInverse;
 };

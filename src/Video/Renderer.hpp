@@ -14,10 +14,11 @@ namespace Video {
     class ColorFilter;
     class FogFilter;
     class FXAAFilter;
-    class GammaCorrectionFilter;
     class GlowBlurFilter;
     class GlowFilter;
     class ShaderProgram;
+    class RenderSurface;
+    class FrameBuffer;
     namespace Geometry {
         class Geometry3D;
         class Rectangle;
@@ -27,25 +28,19 @@ namespace Video {
     class Renderer {
         public:
             /// Create new renderer.
-            /**
-             * @param screenSize Size of the screen in pixels.
-             */
-            Renderer(const glm::vec2& screenSize);
+            Renderer();
             
             /// Destructor.
-            ~Renderer();
-            
-            /// Set screen size.
-            /**
-             * @param screenSize Size of the screen in pixels.
-             */
-            void SetScreenSize(const glm::vec2& screenSize);
+            ~Renderer(); 
             
             /// Clear the previous frame's data.
             void Clear();
             
             /// Start rendering the frame.
-            void StartRendering();
+            /**
+             * @param renderSurface %RenderSurface to render to.
+             */
+            void StartRendering(RenderSurface* renderSurface);
             
             /// Prepare for rendering static meshes.
             /**
@@ -57,13 +52,13 @@ namespace Video {
             /// Render a static mesh.
             /**
              * @param geometry The geometry to render.
-             * @param diffuseTexture Diffuse texture.
-             * @param normalTexture Normal map.
-             * @param specularTexture Specular map.
-             * @param glowTexture Glow texture.
+             * @param albedo Albedo texture.
+             * @param normal Normal map.
+             * @param metallic Metallic map.
+             * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              */
-            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix);
+            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix);
             
             /// Prepare for rendering skinned meshes.
             /**
@@ -75,15 +70,15 @@ namespace Video {
             /// Render a skinned mesh.
             /**
              * @param geometry The geometry to render.
-             * @param diffuseTexture Diffuse texture.
-             * @param normalTexture Normal map.
-             * @param specularTexture Specular map.
-             * @param glowTexture Glow texture.
+             * @param albedo Albedo texture.
+             * @param normal Normal map.
+             * @param metallic Metallic map.
+             * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              * @param bones Transformations of skeleton.
              * @param bonesIT Inverse transpose transformations of skeleton.
              */
-            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* diffuseTexture, const Video::Texture2D* normalTexture, const Video::Texture2D* specularTexture, const Video::Texture2D* glowTexture, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
+            void RenderSkinnedMesh(const Video::Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT);
             
             /// Add a light to the scene.
             void AddLight(const Video::Light& light);
@@ -91,40 +86,45 @@ namespace Video {
             /// Light the scene with the added lights.
             /**
              * @param inverseProjectionMatrix The camera's inverse projection matrix.
+             * @param renderSurface %RenderSurface contaning textures.
              */
-            void Light(const glm::mat4& inverseProjectionMatrix);
+            void Light(const glm::mat4& inverseProjectionMatrix, RenderSurface* renderSurface);
             
             /// Anti-alias using FXAA.
-            void AntiAlias();
+            /**
+             * @param renderSurface %RenderSurface to apply filter to.
+            */
+            void AntiAlias(RenderSurface* renderSurface);
             
             /// Render fog.
             /**
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param projectionMatrix The camera's projection matrix.
              * @param density The density of the fog.
              * @param color Color.
              */
-            void RenderFog(const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
+            void RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color);
             
             /// Apply glow effect.
             /**
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param blurAmount How many times to blur the glow buffer.
              */
-            void ApplyGlow(int blurAmount);
+            void ApplyGlow(RenderSurface* renderSurface, int blurAmount);
             
             /// Apply a color filter.
             /**
+             * @param renderSurface %RenderSurface to apply filter to.
              * @param color Color.
              */
-            void ApplyColorFilter(const glm::vec3& color);
-            
-            /// Perform gamma correction.
-            void GammaCorrect();
+            void ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color);
             
             /// Display the rendered results.
             /**
+             * @param renderSurface %RenderSurface to render to back buffer.
              * @param dither Whether to use dithering.
              */
-            void DisplayResults(bool dither);
+            void DisplayResults(RenderSurface* renderSurface, bool dither);
             
             /// Begin rendering icons.
             /**
@@ -150,7 +150,6 @@ namespace Video {
             void StopRenderingIcons();
             
         private:
-            glm::vec2 screenSize;
             Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;
@@ -159,7 +158,6 @@ namespace Video {
             ColorFilter* colorFilter;
             FogFilter* fogFilter;
             FXAAFilter* fxaaFilter;
-            GammaCorrectionFilter* gammaCorrectionFilter;
             GlowFilter* glowFilter;
             GlowBlurFilter* glowBlurFilter;
             

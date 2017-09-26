@@ -2,10 +2,12 @@
 
 #include <AL/alc.h>
 
+#include "SuperManager.hpp"
+
 class World;
 
 /// Handles OpenAL sound.
-class SoundManager {
+class SoundManager : public SuperManager{
     friend class Hub;
     
     public:

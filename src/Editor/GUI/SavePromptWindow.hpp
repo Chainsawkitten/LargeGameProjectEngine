@@ -30,8 +30,18 @@ namespace GUI {
              */
             int GetDecision() const;
 
+            /// Resets the decision to -1.
+            void ResetDecision();
+
+            /// Set the title of the window.
+            /**
+             * @param newTitle The new title of the window.
+             */
+            void SetTitle(std::string newTitle);
+
         private:
 
+            std::string title;
             bool visible = false;
             int decision = -1;
             

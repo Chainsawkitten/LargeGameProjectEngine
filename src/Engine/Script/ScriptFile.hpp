@@ -15,9 +15,9 @@ class ScriptFile {
          */
         Json::Value Save() const;
         
-        ///Loads the script from a Json value.
+        /// Loads the script information.
         /**
-         * @param node JSON node to load from.
+         * @param name Name of the script.
          */
-        void Load(const Json::Value& node);
+        void Load(const std::string& name);
 };

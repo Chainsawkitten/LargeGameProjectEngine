@@ -28,13 +28,13 @@ namespace Video {
             /// Render mesh.
             /**
              * @param geometry The geometry to render.
-             * @param diffuseTexture Diffuse texture.
-             * @param normalTexture Normal map.
-             * @param specularTexture Specular map.
-             * @param glowTexture Glow texture.
+             * @param textureAlbedo Albedo texture.
+             * @param normalTexture Normal texture.
+             * @param textureMetallic Metallic texture.
+             * @param textureRoughness Roughness texture.
              * @param modelMatrix Model matrix.
              */
-            void Render(Geometry::Geometry3D* geometry, const Texture2D* diffuseTexture, const Texture2D* normalTexture, const Texture2D* specularTexture, const Texture2D* glowTexture, const glm::mat4 modelMatrix) const;
+            void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const;
             
         private:
             ShaderProgram* shaderProgram;

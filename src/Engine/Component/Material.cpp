@@ -8,40 +8,52 @@
 using namespace Component;
 
 Material::Material(Entity* entity) : SuperComponent(entity) {
-    diffuse = Hymn().defaultDiffuse;
+    albedo = Hymn().defaultAlbedo;
     normal = Hymn().defaultNormal;
-    specular = Hymn().defaultSpecular;
-    glow = Hymn().defaultGlow;
+    metallic = Hymn().defaultMetallic;
+    roughness = Hymn().defaultRoughness;
+}
+
+Material::~Material() {
+    if (albedo != nullptr && albedo != Hymn().defaultAlbedo)
+        Managers().resourceManager->FreeTextureAsset(albedo);
+    
+    if (normal != nullptr && normal != Hymn().defaultNormal)
+        Managers().resourceManager->FreeTextureAsset(normal);
+    
+    if (metallic != nullptr && metallic != Hymn().defaultMetallic)
+        Managers().resourceManager->FreeTextureAsset(metallic);
+    
+    if (roughness != nullptr && roughness != Hymn().defaultRoughness)
+        Managers().resourceManager->FreeTextureAsset(roughness);
 }
 
 Json::Value Material::Save() const {
     Json::Value component;
     
-    if (diffuse != nullptr)
-        component["diffuse"] = diffuse->name;
+    if (albedo != nullptr)
+        component["albedo"] = albedo->name;
     
     if (normal != nullptr)
         component["normal"] = normal->name;
     
-    if (specular != nullptr)
-        component["specular"] = specular->name;
+    if (metallic != nullptr)
+        component["metallic"] = metallic->name;
     
-    if (glow != nullptr)
-        component["glow"] = glow->name;
+    if (roughness != nullptr)
+        component["roughness"] = roughness->name;
     
     return component;
 }
 
 void Material::Load(const Json::Value& node) {
-    LoadTexture(diffuse, node.get("diffuse", "").asString());
+    LoadTexture(albedo, node.get("albedo", "").asString());
     LoadTexture(normal, node.get("normal", "").asString());
-    LoadTexture(specular, node.get("specular", "").asString());
-    LoadTexture(glow, node.get("glow", "").asString());
+    LoadTexture(metallic, node.get("metallic", "").asString());
+    LoadTexture(roughness, node.get("roughness", "").asString());
 }
 
 void Material::LoadTexture(TextureAsset*& texture, const std::string& name) {
-    for (TextureAsset* t : Hymn().textures) {
-        if (t->name == name)
-            texture = t;
-    }
+    if (!name.empty())
+        texture = Managers().resourceManager->CreateTextureAsset(name);
 }

@@ -92,5 +92,6 @@ namespace Component {
             
             /// Whether to preview the emitter in the editor.
             bool preview = false;
+
     };
 }

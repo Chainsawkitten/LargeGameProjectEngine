@@ -13,16 +13,16 @@ PhysicsManager::~PhysicsManager() {
 
 }
 
-void PhysicsManager::Update(World& world, float deltaTime) {
-    std::vector<Component::Physics*> physicsObjects = world.GetComponents<Component::Physics>();
+void PhysicsManager::Update(World &world, float deltaTime) {
+    std::vector<Component::Physics*> physicsObjects = this->GetComponents<Component::Physics>(&world);
     for (Component::Physics* physicsComp : physicsObjects) {
-        if (physicsComp->IsKilled())
+        if (physicsComp->IsKilled() || !physicsComp->entity->enabled)
             continue;
         
         Entity* entity = physicsComp->entity;
         // --- Velocity ---
         // Add acceleration.
-        physicsComp->velocity += (physicsComp->acceleration + gravity * physicsComp->gravityFactor) * deltaTime;
+        physicsComp->velocity += (physicsComp->acceleration + this->gravity * physicsComp->gravityFactor) * deltaTime;
         
         // Add retardation.
         physicsComp->velocity -= physicsComp->velocity * physicsComp->velocityDragFactor * deltaTime;
@@ -55,5 +55,5 @@ void PhysicsManager::Update(World& world, float deltaTime) {
         entity->rotation += physicsComp->angularVelocity * 360.f * deltaTime;
     }
 
-    Simulate(deltaTime);
+    this->Simulate(deltaTime);
 }

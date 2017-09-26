@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <random>
 
+#include "SuperManager.hpp"
+
 class Entity;
 class World;
 namespace Video {
@@ -15,7 +17,7 @@ namespace Component {
 }
 
 /// Handles particles.
-class ParticleManager {
+class ParticleManager : public SuperManager {
     friend class Hub;
     
     public:

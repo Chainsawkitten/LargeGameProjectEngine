@@ -16,17 +16,14 @@ class TextureAsset {
         /// Destructor.
         ~TextureAsset();
         
-        /// Save the texture.
-        /**
-         * @return JSON value to be stored on disk.
-         */
-        Json::Value Save() const;
+        /// Save the texture asset.
+        void Save() const;
         
-        /// Load texture from JSON node.
+        /// Load texture asset from disk.
         /**
-         * @param node JSON node to load from.
+         * @param name The name of the texture asset.
          */
-        void Load(const Json::Value& node);
+        void Load(const std::string& name);
         
         /// Get the texture.
         /**

@@ -1,8 +1,10 @@
 set(SRCS
         DebugDrawing.cpp
+        FrameBuffer.cpp
         ParticleRenderer.cpp
+        ReadWriteTexture.cpp
         Renderer.cpp
-        RenderTarget.cpp
+        RenderSurface.cpp
         Culling/AxisAlignedBoundingBox.cpp
         Culling/Frustum.cpp
         Geometry/Geometry2D.cpp
@@ -28,9 +30,11 @@ set(SRCS
 
 set(HEADERS
         DebugDrawing.hpp
+        FrameBuffer.hpp
         ParticleRenderer.hpp
+        ReadWriteTexture.hpp
         Renderer.hpp
-        RenderTarget.hpp
+        RenderSurface.hpp
         Culling/AxisAlignedBoundingBox.hpp
         Culling/Frustum.hpp
         Geometry/Geometry2D.hpp

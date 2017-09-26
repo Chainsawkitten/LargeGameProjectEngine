@@ -18,6 +18,9 @@ namespace Component {
              */
             Mesh(Entity* entity);
             
+            /// Destructor.
+            ~Mesh() override;
+            
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
@@ -35,5 +38,6 @@ namespace Component {
              * Default: nullptr
              */
             Video::Geometry::Geometry3D* geometry = nullptr;
+
     };
 }

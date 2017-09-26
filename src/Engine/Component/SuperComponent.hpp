@@ -8,6 +8,7 @@ namespace Component {
     /// %Component which all components inherit.
     class SuperComponent {
         public:
+
             /// Create new %SuperComponent.
             /**
              * @param entity Pointer to which entity this component corresponds.
@@ -34,8 +35,8 @@ namespace Component {
             
             /// Load component from JSON node.
             /**
-             * @param node JSON node to load from.
-             */
+            * @param node JSON node to load from.
+            */
             virtual void Load(const Json::Value& node);
             
             /// Pointer to which entity this component corresponds.

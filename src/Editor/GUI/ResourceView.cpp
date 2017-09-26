@@ -1,7 +1,6 @@
-#include "ResourceList.hpp"
+#include "ResourceView.hpp"
 
-#include <Engine/Geometry/RiggedModel.hpp>
-#include <Engine/Geometry/StaticModel.hpp>
+#include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
@@ -13,10 +12,20 @@
 #include <imgui.h>
 #include <limits>
 #include "../ImGui/Splitter.hpp"
+#include "../Resources.hpp"
+#include <Engine/Manager/Managers.hpp>
+#include <Engine/Manager/ResourceManager.hpp>
+#include <cstdio>
+#include <Utility/Log.hpp>
 
 using namespace GUI;
+using namespace std;
 
-void ResourceList::Show() {
+ResourceView::ResourceView() {
+
+}
+
+void ResourceView::Show() {
     ImVec2 size(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y);
     
     // Splitter.
@@ -32,30 +41,25 @@ void ResourceList::Show() {
     // Scenes.
     if (ImGui::TreeNode("Scenes")) {
         if (ImGui::Button("Add scene"))
-            Hymn().scenes.push_back("Scene #" + std::to_string(Hymn().scenes.size()));
+            Resources().scenes.push_back("Scene #" + std::to_string(Resources().scenes.size()));
         
-        for (std::size_t i = 0; i < Hymn().scenes.size(); ++i) {
-            if (ImGui::Selectable(Hymn().scenes[i].c_str())) {
-                sceneEditor.Save();
-                sceneEditor.SetVisible(true);
-                sceneEditor.SetScene(i);
-                Hymn().activeScene = i;
-                sceneEditor.entityEditor.SetVisible(false);
-                Hymn().world.Clear();
-                std::string sceneFile = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Hymn().scenes[i] + ".json";
-                Hymn().world.Load(sceneFile);
+        for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
+            if (ImGui::Selectable(Resources().scenes[i].c_str())) {
+                changeScene = true;
+                sceneIndex = i;
+                savePromptWindow.SetTitle("Save before you switch scene?");
             }
             
-            if (ImGui::BeginPopupContextItem(Hymn().scenes[i].c_str())) {
+            if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
                 if (ImGui::Selectable("Delete")) {
-                    Hymn().scenes.erase(Hymn().scenes.begin() + i);
+                    Resources().scenes.erase(Resources().scenes.begin() + i);
                     ImGui::EndPopup();
                     
-                    if (Hymn().activeScene >= i) {
-                        if (Hymn().activeScene > 0)
-                            Hymn().activeScene = Hymn().activeScene - 1;
+                    if (Resources().activeScene >= i) {
+                        if (Resources().activeScene > 0)
+                            Resources().activeScene = Resources().activeScene - 1;
                         
-                        sceneEditor.SetScene(Hymn().activeScene);
+                        sceneEditor.SetScene(Resources().activeScene);
                     }
                     break;
                 }
@@ -63,23 +67,58 @@ void ResourceList::Show() {
             }
         }
         ImGui::TreePop();
+
+        if (changeScene) {
+
+            if (Hymn().GetPath() != "") {
+
+                savePromptWindow.SetVisible(true);
+                savePromptWindow.Show();
+
+                switch (savePromptWindow.GetDecision())
+                {
+                case 0:
+                    sceneEditor.Save();
+                    sceneEditor.SetVisible(true);
+                    sceneEditor.SetScene(sceneIndex);
+                    Resources().activeScene = sceneIndex;
+                    sceneEditor.entityEditor.SetVisible(false);
+                    Hymn().world.Clear();
+                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
+                    changeScene = false;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.ResetDecision();
+                    break;
+
+                case 1:
+                    sceneEditor.SetVisible(true);
+                    sceneEditor.SetScene(sceneIndex);
+                    Resources().activeScene = sceneIndex;
+                    sceneEditor.entityEditor.SetVisible(false);
+                    Hymn().world.Clear();
+                    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
+                    changeScene = false;
+                    savePromptWindow.SetVisible(false);
+                    savePromptWindow.ResetDecision();
+                    break;
+
+                default:
+                    break;
+                }
+            }
+        }
     }
     
     // Models.
     bool modelPressed = false;
     if (ImGui::TreeNode("Models")) {
-        if (ImGui::Button("Add rigged model")) {
-            Geometry::Model* model = new Geometry::RiggedModel();
-            model->name = "RiggedModel #" + std::to_string(Hymn().modelNumber++);
-            Hymn().models.push_back(model);
-        }
-        if (ImGui::Button("Add static model")) {
-            Geometry::Model* model = new Geometry::StaticModel();
-            model->name = "StaticModel #" + std::to_string(Hymn().modelNumber++);
-            Hymn().models.push_back(model);
+        if (ImGui::Button("Add model")) {
+            Geometry::Model* model = new Geometry::Model();
+            model->name = "Model #" + std::to_string(Resources().modelNumber++);
+            Resources().models.push_back(model);
         }
         
-        for (auto it = Hymn().models.begin(); it != Hymn().models.end(); ++it) {
+        for (auto it = Resources().models.begin(); it != Resources().models.end(); ++it) {
             Geometry::Model* model = *it;
             if (ImGui::Selectable(model->name.c_str())) {
                 modelPressed = true;
@@ -92,7 +131,7 @@ void ResourceList::Show() {
                         modelEditor.SetVisible(false);
                     
                     delete model;
-                    Hymn().models.erase(it);
+                    Resources().models.erase(it);
                     ImGui::EndPopup();
                     break;
                 }
@@ -107,11 +146,11 @@ void ResourceList::Show() {
     if (ImGui::TreeNode("Textures")) {
         if (ImGui::Button("Add texture")) {
             TextureAsset* texture = new TextureAsset();
-            texture->name = "Texture #" + std::to_string(Hymn().textureNumber++);
-            Hymn().textures.push_back(texture);
+            texture->name = "Texture #" + std::to_string(Resources().textureNumber++);
+            Resources().textures.push_back(texture);
         }
         
-        for (auto it = Hymn().textures.begin(); it != Hymn().textures.end(); ++it) {
+        for (auto it = Resources().textures.begin(); it != Resources().textures.end(); ++it) {
             TextureAsset* texture = *it;
             if (ImGui::Selectable(texture->name.c_str())) {
                 texturePressed = true;
@@ -120,11 +159,19 @@ void ResourceList::Show() {
             
             if (ImGui::BeginPopupContextItem(texture->name.c_str())) {
                 if (ImGui::Selectable("Delete")) {
-                    if (textureEditor.GetTexture() == texture)
-                        textureEditor.SetVisible(false);
-                    
-                    delete texture;
-                    Hymn().textures.erase(it);
+                    if (Managers().resourceManager->GetTextureAssetInstanceCount(texture) > 1) {
+                        Log() << "This texture is in use. Remove all references to the texture first.\n";
+                    } else {
+                        if (textureEditor.GetTexture() == texture)
+                            textureEditor.SetVisible(false);
+                        
+                        // Remove files.
+                        remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png").c_str());
+                        remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".json").c_str());
+                        
+                        Managers().resourceManager->FreeTextureAsset(texture);
+                        Resources().textures.erase(it);
+                    }
                     ImGui::EndPopup();
                     break;
                 }
@@ -175,11 +222,11 @@ void ResourceList::Show() {
     if (ImGui::TreeNode("Sounds")) {
         if (ImGui::Button("Add sound")) {
             Audio::SoundBuffer* sound = new Audio::SoundBuffer();
-            sound->name = "Sound #" + std::to_string(Hymn().soundNumber++);
-            Hymn().sounds.push_back(sound);
+            sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
+            Resources().sounds.push_back(sound);
         }
         
-        for (auto it = Hymn().sounds.begin(); it != Hymn().sounds.end(); ++it) {
+        for (auto it = Resources().sounds.begin(); it != Resources().sounds.end(); ++it) {
             Audio::SoundBuffer* sound = *it;
             if (ImGui::Selectable(sound->name.c_str())) {
                 soundPressed = true;
@@ -192,7 +239,7 @@ void ResourceList::Show() {
                         soundEditor.SetVisible(false);
                     
                     delete sound;
-                    Hymn().sounds.erase(it);
+                    Resources().sounds.erase(it);
                     ImGui::EndPopup();
                     break;
                 }
@@ -241,15 +288,15 @@ void ResourceList::Show() {
     ImGui::End();
 }
 
-bool ResourceList::IsVisible() const {
+bool ResourceView::IsVisible() const {
     return visible;
 }
 
-void ResourceList::SetVisible(bool visible) {
+void ResourceView::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void ResourceList::HideEditors() {
+void ResourceView::HideEditors() {
     sceneEditor.SetVisible(false);
     sceneEditor.entityEditor.SetVisible(false);
     scriptEditor.SetVisible(false);
@@ -258,16 +305,16 @@ void ResourceList::HideEditors() {
     soundEditor.SetVisible(false);
 }
 
-void ResourceList::SaveScene() const {
+void ResourceView::SaveScene() const {
     sceneEditor.Save();
 }
 
 #undef max
-void ResourceList::ResetScene() {
+void ResourceView::ResetScene() {
     sceneEditor.SetScene(std::numeric_limits<std::size_t>::max());
     sceneEditor.SetVisible(false);
 }
 
-SceneEditor& ResourceList::GetScene() {
+SceneEditor& ResourceView::GetScene() {
     return sceneEditor;
 }

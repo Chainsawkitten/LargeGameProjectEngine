@@ -3,6 +3,7 @@
 #include <Video/Geometry/Geometry3D.hpp>
 #include <assimp/Importer.hpp>
 #include <json/json.h>
+#include "AssetFileHandler.hpp"
 
 namespace Geometry {
     /// Interface of a model loaded from a file.
@@ -23,43 +24,36 @@ namespace Geometry {
              */
             Json::Value Save() const;
             
-            /// Load model from JSON node.
+            /// Load model from file.
             /**
-             * @param node JSON node to load from.
+             * @param name Name of the model.
              */
-            void Load(const Json::Value& node);
+            void Load(const std::string& name);
             
             /// Load model from file.
             /**
              * @param filename Filename (relative or absolute) to the model file.
              */
-            virtual void Load(const char* filename) = 0;
+            void Load(const char* filename);
             
             /// Get geometry type.
             /**
              * @return Type.
              */
-            virtual Type GetType() const = 0;
+            Type GetType() const final;
             
             /// The name of the model.
             std::string name;
             
-        protected:
-            /// Generate vertex buffer.
-            /**
-             * @param vertexBuffer Vertex buffer.
-             */
-            virtual void GenerateVertexBuffer(GLuint& vertexBuffer) {}
-            
-            /// Generate vertex array.
-            /**
-             * @param vertexBuffer Vertex buffer.
-             * @param indexBuffer Index buffer.
-             * @param vertexArray Vertex array.
-             */
-            virtual void GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) = 0;
-            
-            /// Assimp importer.
-            static Assimp::Importer aImporter;
+        private:
+            void GenerateVertexBuffer(GLuint& vertexBuffer,
+                Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticies);
+            void GenerateVertexBuffer(GLuint& vertexBuffer,
+                Video::Geometry::VertexType::SkinVertex * vertices, unsigned int numVerticies);
+            void GenerateStaticVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray);
+            void GenerateSkinVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray);
+
+            AssetFileHandler assetFile;
+            Type type;
     };
 }

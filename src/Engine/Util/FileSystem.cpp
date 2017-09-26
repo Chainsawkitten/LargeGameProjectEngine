@@ -7,6 +7,7 @@
 #include <cstring>
 #include <fstream>
 #include <Utility/Log.hpp>
+#include <stdio.h>
 
 // Platform-dependent includes.
 #if defined(_WIN32) || defined(WIN32)
@@ -153,6 +154,28 @@ namespace FileSystem {
         return extension;
     }
     
+    std::string GetName(const std::string& filepath) {
+        std::size_t start = filepath.find_last_of(DELIMITER);
+        if (start == std::string::npos)
+            start = 0;
+
+        std::size_t length = filepath.find_last_of(".") - start;
+        
+        return filepath.substr(start + 1, length - 1);
+    }
+
+    std::string Rename(const std::string& filepath, const std::string& name) {
+        std::size_t length = filepath.find_last_of(DELIMITER);
+        std::string path = filepath.substr(0, length + 1);
+
+        std::string newPath = path + name;
+
+        if (rename(filepath.c_str(), newPath.c_str()) > 0)
+            Log() << "Error renaming file: " << filepath <<"\n";
+
+        return newPath;
+    }
+
     void ExecuteProgram(const std::string& path, const std::string& arguments) {
 #if defined(_WIN32) || defined(WIN32)
         STARTUPINFO si = { 0 };
