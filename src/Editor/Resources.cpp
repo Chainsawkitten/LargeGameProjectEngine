@@ -54,7 +54,7 @@ void ResourceList::Save() const {
         scenesNode.append(scene);
     }
     root["scenes"] = scenesNode;
-    
+
     // Save to file.
     ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
     file << root;
@@ -67,7 +67,7 @@ void ResourceList::Load() {
     ifstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
     file >> root;
     file.close();
-    
+
     activeScene = root["activeScene"].asUInt();
     
     // Load textures.
