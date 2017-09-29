@@ -81,7 +81,7 @@
 				{
 					"sphere" : 
 					{
-						"radius" : 13.369999885559082
+						"radius" : 1.0
 					}
 				},
 				"velocity" : 
@@ -346,9 +346,9 @@
 								{
 									"x" : 0.0,
 									"y" : 0.0,
-									"z" : -1.0
+									"z" : 1.0
 								},
-								"planeCoeff" : 0.0
+								"planeCoeff" : 450.0
 							}
 						},
 						"velocity" : 

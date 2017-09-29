@@ -15,6 +15,7 @@ namespace Physics {
         btRigidBody::btRigidBodyConstructionInfo constructionInfo(mass, motionState, shape->GetShape(), btVector3(0, 0, 0));
         rigidBody = new btRigidBody(constructionInfo);
         rigidBody->setUserPointer(this);
+        rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
     }
 
     RigidBody::~RigidBody() {

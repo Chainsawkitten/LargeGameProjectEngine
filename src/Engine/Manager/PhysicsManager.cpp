@@ -80,6 +80,11 @@ void PhysicsManager::Update(float deltaTime) {
         
         // Update rotation.
         entity->rotation += physicsComp->angularVelocity * 360.f * deltaTime;
+
+        physicsComp->GetRigidBody().Position(entity->position);
+        dynamicsWorld->removeRigidBody(physicsComp->GetRigidBody().GetRigidBody());
+        dynamicsWorld->addRigidBody(physicsComp->GetRigidBody().GetRigidBody());
+        physicsComp->GetRigidBody().GetRigidBody()->setGravity(btVector3(0, 0, 0));
     }
 
     dynamicsWorld->stepSimulation(deltaTime, 10);
