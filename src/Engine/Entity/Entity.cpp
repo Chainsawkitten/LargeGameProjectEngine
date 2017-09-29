@@ -71,26 +71,68 @@ bool Entity::HasChild(const Entity* check_child, bool deep) const {
     return false;
 }
 
-Entity* Entity::InstantiateScene(const std::string& name) {
+Entity* Entity::InstantiateScene(const std::string& name, const std::string& originScene) {
+
+    Json::Value root;
     Entity* child = AddChild();
-    
-    // Load scene.
+    bool error = false;
     std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + ".json";
+
+    // Checks if file exists.
     if (FileSystem::FileExists(filename.c_str())) {
-        Json::Value root;
-        std::ifstream file(filename);
-        file >> root;
-        file.close();
-        child->Load(root);
-        
-        child->scene = true;
-        child->sceneName = name;
+        root;
+        std::ifstream file1(filename);
+        file1 >> root;
+
+        CheckIfSceneExists(filename, error, originScene, root);
+
+        if(error == false) {
+            root;
+            std::ifstream file(filename);
+            file >> root;
+            file.close();
+            child->Load(root);
+            child->scene = true;
+            child->sceneName = name;
+        }
     } else {
         child->name = "Error loading scene";
         Log() << "Couldn't find scene to load.";
     }
-    
+
+    if (error)
+    {
+        child->name = "Error loading scene";
+        Log() << "Scene is added in continous loop.";
+    }
+
     return child;
+}
+
+void Entity::CheckIfSceneExists(std::string filename, bool & error, std::string originScene, Json::Value root)
+{
+    Json::Value children = root["children"];
+
+    // Loops through all the scene names.
+    for (unsigned int i = 0; i < root["children"].size(); ++i) {
+        if (root["children"][i]["scene"].asBool()) {
+            printf("%s", root["children"][i]["sceneName"].asString().c_str());
+
+            if (originScene == root["children"][i]["sceneName"].asString())
+            {
+                error = true;
+            }
+            if (error)
+            {
+                break;
+            }
+        }
+
+        if (!error)
+        {
+            CheckIfSceneExists(filename, error, originScene, root["children"][i]);
+        }
+    }
 }
 
 const std::vector<Entity*>& Entity::GetChildren() const {
