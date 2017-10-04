@@ -10,10 +10,10 @@ set(SRCS
         Hymn.cpp
         MainWindow.cpp
         Audio/SoundBuffer.cpp
-	Audio/SteamAudio.cpp
-	Audio/SteamAudioDirectRenderer.cpp
-	Audio/SteamAudioIndirectRenderer.cpp
-	Audio/SteamAudioInterface.cpp
+        Audio/SteamAudio.cpp
+        Audio/SteamAudioDirectRenderer.cpp
+        Audio/SteamAudioIndirectRenderer.cpp
+        Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
         Component/Animation.cpp
         Component/DirectionalLight.cpp
@@ -68,10 +68,10 @@ set(HEADERS
         MainWindow.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
-	Audio/SteamAudio.hpp
-	Audio/SteamAudioDirectRenderer.hpp
-	Audio/SteamAudioIndirectRenderer.hpp
-	Audio/SteamAudioInterface.hpp
+        Audio/SteamAudio.hpp
+        Audio/SteamAudioDirectRenderer.hpp
+        Audio/SteamAudioIndirectRenderer.hpp
+        Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
         Component/Animation.hpp
         Component/DirectionalLight.hpp
