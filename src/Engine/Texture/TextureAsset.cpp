@@ -42,6 +42,13 @@ void TextureAsset::Load(const std::string& name) {
     texture->Load((filename + ".png").c_str(), srgb);
 }
 
+void TextureAsset::Load(const std::string& name, Video::Texture2D* texture, bool srgb) {
+    this->name = name;
+    this->srgb = srgb;
+
+    this->texture = texture;
+}
+
 Texture2D* TextureAsset::GetTexture() const {
     return texture;
 }

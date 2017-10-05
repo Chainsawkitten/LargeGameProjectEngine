@@ -54,6 +54,25 @@ set(HEADERS
         Util/EditorSettings.hpp
     )
 
+# Setup embedded source
+set(EMBEDDED_INPUT
+    ../../assets/Camera.png
+    ../../assets/DefaultAlbedo.png
+    ../../assets/DefaultNormal.png
+    ../../assets/DefaultMetallic.png
+    ../../assets/DefaultRoughness.png
+    ../../assets/Light.png
+    ../../assets/ParticleAtlas.png
+    ../../assets/ParticleEmitter.png
+    ../../assets/SoundSource.png
+)
+
+foreach(item ${EMBEDDED_INPUT})
+    ProcessWithHeaderize(EMBEDDED_HEADER EMBEDDED_SOURCE ${item} ${CMAKE_CURRENT_BINARY_DIR})
+endforeach()
+
+set_property(SOURCE ${SRCS} APPEND PROPERTY OBJECT_DEPENDS ${EMBEDDED_HEADER})
+
 create_directory_groups(${SRCS} ${HEADERS})
 
 add_executable(Editor ${SRCS} ${HEADERS})

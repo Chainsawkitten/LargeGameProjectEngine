@@ -84,6 +84,14 @@ class ResourceManager {
          */
         TextureAsset* CreateTextureAsset(const std::string& name);
         
+        /// Create a texture asset from a texture2D.
+        /**
+         * @param name The name of the texture asset.
+         * @param texture The Texture2D to create TextureAsset from.
+         * @return The %TextureAsset instance 
+         */
+        TextureAsset* CreateTextureAsset(const std::string& name, Video::Texture2D* texture);
+
         /// Free the reference to the texture asset.
         /**
          * Deletes the instance if no more references exist.
