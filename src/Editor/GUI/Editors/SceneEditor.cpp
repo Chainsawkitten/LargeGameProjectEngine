@@ -95,6 +95,18 @@ void SceneEditor::Save() const {
         Hymn().world.Save(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json");
 }
 
+Json::Value SceneEditor::GetSaveFileJson(std::string* filename) const {
+    if (sceneIndex < Resources().scenes.size()) {
+
+        *filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[sceneIndex] + ".json";
+        return Hymn().world.GetSaveJson();
+
+    }
+
+    return Json::Value();
+
+}
+
 void SceneEditor::ShowEntity(Entity* entity) {
     bool leaf = entity->IsScene() || entity->GetChildren().empty();
     bool opened = ImGui::TreeNodeEx(entity->name.c_str(), leaf ? ImGuiTreeNodeFlags_Leaf : 0);

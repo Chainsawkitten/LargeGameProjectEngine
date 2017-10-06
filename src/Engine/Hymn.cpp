@@ -80,9 +80,15 @@ void ActiveHymn::SetPath(const string& path) {
     FileSystem::CreateDirectory((path + FileSystem::DELIMITER + "Textures").c_str());
 }
 
+std::string ActiveHymn::GetSavePath() const {
+
+    return path + FileSystem::DELIMITER + "Hymn.json";
+
+}
+
 void ActiveHymn::Save() const {
     // Save to file.
-    ofstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    ofstream file(GetSavePath());
     file << ToJson();
     file.close();
 }
@@ -93,7 +99,7 @@ void ActiveHymn::Load(const string& path) {
     
     // Load Json document from file.
     Json::Value root;
-    ifstream file(path + FileSystem::DELIMITER + "Hymn.json");
+    ifstream file(GetSavePath());
     file >> root;
     file.close();
     

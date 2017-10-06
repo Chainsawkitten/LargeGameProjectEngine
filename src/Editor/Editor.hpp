@@ -28,6 +28,12 @@ class Editor {
          */
         void Show(float deltaTime);
         
+        /// Show the editor.
+        /**
+         * @return Check if you have made any changes to the scene.
+         */
+        bool HasMadeChanges() const;
+
         /// Save the hymn being edited.
         void Save() const;
 

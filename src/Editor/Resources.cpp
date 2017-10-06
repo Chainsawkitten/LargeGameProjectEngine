@@ -22,10 +22,18 @@ ResourceList& ResourceList::GetInstance() {
 }
 
 void ResourceList::Save() const {
+    // Save to file.
+    ofstream file(GetSavePath());
+    file << ToJson();
+    file.close();
+}
+
+Json::Value ResourceList::ToJson() const {
+
     Json::Value root;
-    
+
     root["activeScene"] = activeScene;
-    
+
     // Save textures.
     Json::Value texturesNode;
     for (TextureAsset* texture : textures) {
@@ -33,38 +41,36 @@ void ResourceList::Save() const {
         texture->Save();
     }
     root["textures"] = texturesNode;
-    
+
     // Save models.
     Json::Value modelsNode;
     for (Geometry::Model* model : models) {
         modelsNode.append(model->name);
     }
     root["models"] = modelsNode;
-    
+
     // Save sounds.
     Json::Value soundsNode;
     for (Audio::SoundBuffer* sound : sounds) {
         soundsNode.append(sound->name);
     }
     root["sounds"] = soundsNode;
-    
+
     // Save scenes.
     Json::Value scenesNode;
     for (const string& scene : scenes) {
         scenesNode.append(scene);
     }
     root["scenes"] = scenesNode;
-    
-    // Save to file.
-    ofstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
-    file << root;
-    file.close();
+
+    return root;
+
 }
 
 void ResourceList::Load() {
     // Load Json document from file.
     Json::Value root;
-    ifstream file(Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json");
+    ifstream file(GetSavePath());
     file >> root;
     file.close();
     
@@ -119,6 +125,12 @@ void ResourceList::Clear() {
     }
     sounds.clear();
     soundNumber = 0U;
+}
+
+std::string ResourceList::GetSavePath() const{
+
+    return Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json";
+
 }
 
 ResourceList& Resources() {

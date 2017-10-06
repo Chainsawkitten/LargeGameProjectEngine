@@ -27,7 +27,13 @@ class ActiveHymn {
          * @param path New path.
          */
         void SetPath(const std::string& path);
-        
+
+        /// Gets the path to the hymn file.
+        /**
+         * @return The full path.
+         */
+        std::string GetSavePath() const;
+
         /// Save the hymn.
         void Save() const;
         
