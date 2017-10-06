@@ -257,7 +257,7 @@ void Editor::Show(float deltaTime) {
         }
 
         // Mouse ray.
-        if (Input()->Pressed(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
+        if (Input()->Triggered(InputHandler::SELECT) && !ImGui::IsMouseHoveringAnyWindow()) {
             mousePicker.UpdateProjectionMatrix(cameraEntity->GetComponent < Component::Lens>()->GetProjection(glm::vec2(MainWindow::GetInstance()->GetSize().x, MainWindow::GetInstance()->GetSize().y)));
             mousePicker.Update();
             float lastDistance = INFINITY;
