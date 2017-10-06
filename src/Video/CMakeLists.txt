@@ -83,6 +83,8 @@ set(EMBEDDED_INPUT
     ../../shaders/PostGlow.frag
     ../../shaders/PostGlowBlur.frag
     ../../shaders/Skinning.vert
+    ../../shaders/Zrejection.vert
+    ../../shaders/Zrejection.frag
 )
 
 foreach(item ${EMBEDDED_INPUT})

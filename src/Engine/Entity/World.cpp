@@ -5,7 +5,9 @@
 #include "../Manager/Managers.hpp"
 #include "../Manager/ParticleManager.hpp"
 #include "../Util/FileSystem.hpp"
+#include "Hymn.hpp"
 #include <fstream>
+#include <ctime>
 
 World::World() {
     particles = new Video::ParticleRenderer::Particle[Managers().particleManager->GetMaxParticleCount()];
@@ -20,6 +22,7 @@ World::~World() {
 Entity* World::CreateEntity(const std::string& name) {
     Entity* entity = new Entity(this, name);
     entities.push_back(entity);
+    entity->SetUniqueIdentifier(std::time(NULL));
     return entity;
 }
 
@@ -44,21 +47,26 @@ const std::vector<Entity*>& World::GetUpdateEntities() const {
 }
 
 void World::Clear() {
+    if (root != nullptr) {
+        root->Kill();
+        
+        // Clear killed components.
+        Managers().ClearKilledComponents();
+    }
+    
+    // Remove all entities.
     for (Entity* entity : entities)
         delete entity;
     entities.clear();
     root = nullptr;
-    
-    Managers().ClearComponents(this);
 
     particleCount = 0;
     updateEntities.clear();
 }
 
 void World::ClearKilled() {
-
     // Clear killed components.
-    Managers().ClearKilledComponents(this);
+    Managers().ClearKilledComponents();
 
     // Clear killed entities.
     std::size_t i = 0;
@@ -95,7 +103,7 @@ void World::Save(const std::string& filename) const {
 
 void World::Load(const std::string& filename) {
     Clear();
-    
+
     CreateRoot();
     
     // Load Json document from file.

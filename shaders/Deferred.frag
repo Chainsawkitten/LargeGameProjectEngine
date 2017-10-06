@@ -163,6 +163,7 @@ void main() {
     color = pow(color, vec3(1.0f / GAMMA)); 
 
     fragmentColor = vec4(color, 1.0f);
+    gl_FragDepth = depth;
 }
 
 

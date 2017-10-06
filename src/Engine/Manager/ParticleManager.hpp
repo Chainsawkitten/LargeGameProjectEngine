@@ -4,7 +4,7 @@
 #include <GL/glew.h>
 #include <random>
 
-#include "SuperManager.hpp"
+#include "../Entity/ComponentContainer.hpp"
 
 class Entity;
 class World;
@@ -15,9 +15,12 @@ namespace Video {
 namespace Component {
     class ParticleEmitter;
 }
+namespace Json {
+    class Value;
+}
 
 /// Handles particles.
-class ParticleManager : public SuperManager {
+class ParticleManager {
     friend class Hub;
     
     public:
@@ -45,9 +48,11 @@ class ParticleManager : public SuperManager {
         /// Render the particles in a world.
         /**
          * @param world %World containing particles to render.
-         * @param camera Camera through which to render.
+         * @param position World position of the camera.
+         * @param up Up direction of the camera.
+         * @param viewProjectionMatrix View projection matrix of the camera.
          */
-        void Render(World& world, const Entity* camera);
+        void Render(World& world, const glm::vec3& position, const glm::vec3& up, const glm::mat4& viewProjectionMatrix);
         
         /// Get the texture atlas.
         /**
@@ -60,6 +65,28 @@ class ParticleManager : public SuperManager {
          * @return The number of rows in the texture atlas.
          */
         int GetTextureAtlasRows() const;
+        
+        /// Create particle emitter component.
+        /**
+         * @return The created component.
+         */
+        Component::ParticleEmitter* CreateParticleEmitter();
+        
+        /// Create particle emitter component.
+        /**
+         * @param node Json node to load the component from.
+         * @return The created component.
+         */
+        Component::ParticleEmitter* CreateParticleEmitter(const Json::Value& node);
+        
+        /// Get all particle emitter components.
+        /**
+         * @return All particle emitter components.
+         */
+        const std::vector<Component::ParticleEmitter*>& GetParticleEmitters() const;
+        
+        /// Remove all killed components.
+        void ClearKilledComponents();
         
     private:
         ParticleManager();
@@ -85,4 +112,6 @@ class ParticleManager : public SuperManager {
 
         // Texture atlas containing the particle textures.
         Video::Texture2D* textureAtlas;
+        
+        ComponentContainer<Component::ParticleEmitter> particleEmitters;
 };

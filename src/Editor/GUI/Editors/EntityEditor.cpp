@@ -9,7 +9,9 @@
 #include <Engine/Component/PointLight.hpp>
 #include <Engine/Component/SpotLight.hpp>
 #include <Engine/Component/Listener.hpp>
+#include <Engine/Component/RigidBody.hpp>
 #include <Engine/Component/Script.hpp>
+#include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
 #include <Engine/Geometry/Model.hpp>
@@ -21,6 +23,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/PhysicsManager.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Hymn.hpp>
 
@@ -28,6 +31,13 @@
 #include "../FileSelector.hpp"
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
+#include <imgui_internal.h>
+#include "PlaneShapeEditor.hpp"
+#include "SphereShapeEditor.hpp"
+
+namespace Physics {
+    class Shape;
+}
 
 using namespace GUI;
 
@@ -42,13 +52,21 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::PointLight>("Point light", std::bind(&EntityEditor::PointLightEditor, this, std::placeholders::_1));
     AddEditor<Component::SpotLight>("Spot light", std::bind(&EntityEditor::SpotLightEditor, this, std::placeholders::_1));
     AddEditor<Component::Listener>("Listener", std::bind(&EntityEditor::ListenerEditor, this, std::placeholders::_1));
+    AddEditor<Component::RigidBody>("Rigid body", std::bind(&EntityEditor::RigidBodyEditor, this, std::placeholders::_1));
     AddEditor<Component::Script>("Script", std::bind(&EntityEditor::ScriptEditor, this, std::placeholders::_1));
+    AddEditor<Component::Shape>("Shape", std::bind(&EntityEditor::ShapeEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
+
+    shapeEditors.push_back(new SphereShapeEditor());
+    shapeEditors.push_back(new PlaneShapeEditor());
+    selectedShape = 0;
 }
 
 EntityEditor::~EntityEditor() {
-    
+    for (auto shapeEditor : shapeEditors) {
+        delete shapeEditor;
+    }
 }
 
 void EntityEditor::Show() {
@@ -61,6 +79,8 @@ void EntityEditor::Show() {
         ImGui::DraggableVec3("Position", entity->position);
         ImGui::DraggableVec3("Rotation", entity->rotation);
         ImGui::DraggableVec3("Scale", entity->scale);
+        ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
+        ImGui::Checkbox("Is entity static", &entity->isStatic);
         ImGui::Unindent();
         if (!entity->IsScene()) {
             if (ImGui::Button("Add component"))
@@ -89,6 +109,16 @@ void EntityEditor::Show() {
 void EntityEditor::SetEntity(Entity* entity) {
     this->entity = entity;
     strcpy(name, entity->name.c_str());
+
+    auto shapeComp = this->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        Physics::Shape& shape = shapeComp->GetShape();
+        for (uint32_t i = 0; i < shapeEditors.size(); ++i) {
+            if (shapeEditors[i]->SetFromShape(shape)) {
+                selectedShape = i;
+            }
+        }
+    }
 }
 
 Entity* EntityEditor::GetEntity() {
@@ -131,23 +161,23 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
 }
 
 void EntityEditor::PhysicsEditor(Component::Physics* physics) {
-    ImGui::Text("Positional");
-    ImGui::Indent();
-    ImGui::DraggableVec3("Velocity", physics->velocity);
-    ImGui::DraggableFloat("Max velocity", physics->maxVelocity, 0.0f);
-    ImGui::DraggableVec3("Acceleration", physics->acceleration);
-    ImGui::DraggableFloat("Velocity drag factor", physics->velocityDragFactor);
-    ImGui::DraggableFloat("Gravity factor", physics->gravityFactor);
-    ImGui::Unindent();
-    ImGui::Text("Angular");
-    ImGui::Indent();
-    ImGui::DraggableVec3("Angular velocity", physics->angularVelocity);
-    ImGui::DraggableFloat("Max angular velocity", physics->maxAngularVelocity, 0.0f);
-    ImGui::DraggableVec3("Angular acceleration", physics->angularAcceleration);
-    ImGui::DraggableFloat("Angular drag factor", physics->angularDragFactor);
-    ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
-    ImGui::Unindent();
-
+    //ImGui::Text("Positional");
+    //ImGui::Indent();
+    //ImGui::DraggableVec3("Velocity", physics->velocity);
+    //ImGui::DraggableFloat("Max velocity", physics->maxVelocity, 0.0f);
+    //ImGui::DraggableVec3("Acceleration", physics->acceleration);
+    //ImGui::DraggableFloat("Velocity drag factor", physics->velocityDragFactor);
+    //ImGui::DraggableFloat("Gravity factor", physics->gravityFactor);
+    //ImGui::Unindent();
+    //ImGui::Text("Angular");
+    //ImGui::Indent();
+    //ImGui::DraggableVec3("Angular velocity", physics->angularVelocity);
+    //ImGui::DraggableFloat("Max angular velocity", physics->maxAngularVelocity, 0.0f);
+    //ImGui::DraggableVec3("Angular acceleration", physics->angularAcceleration);
+    //ImGui::DraggableFloat("Angular drag factor", physics->angularDragFactor);
+    //ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
+    //ImGui::Unindent();
+    ImGui::Text("Will be removed soon.");
 }
 
 void EntityEditor::MeshEditor(Component::Mesh* mesh) {
@@ -323,13 +353,18 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
     
 }
 
-void EntityEditor::ScriptEditor(Component::Script* script) {
+void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
     ImGui::Indent();
-    if(script->scriptFile != nullptr)
-        ImGui::Text(script->scriptFile->name.c_str());
-    else
-        ImGui::Text("No script loaded");
-    
+    if (ImGui::InputFloat("Mass", &rigidBodyMass)) {
+        Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
+    }
+    ImGui::Unindent();
+}
+
+void EntityEditor::ScriptEditor(Component::Script* script) {
+
+    ImGui::Indent();
+
     if (ImGui::Button("Select script"))
         ImGui::OpenPopup("Select script");
 
@@ -338,17 +373,69 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         ImGui::Separator();
 
         for (ScriptFile* scriptFile : Hymn().scripts) {
-            if (ImGui::Selectable(scriptFile->name.c_str())) {
-                if (script->scriptFile != nullptr)
-                    Managers().resourceManager->FreeScriptFile(script->scriptFile);
-                
-                script->scriptFile = Managers().resourceManager->CreateScriptFile(scriptFile->name);
-            }
+            if (ImGui::Selectable(scriptFile->name.c_str()))
+                script->scriptFile = scriptFile;
         }
 
         ImGui::EndPopup();
     }
+
+    if (script->scriptFile != nullptr)
+    {
+        ImGui::Text(script->scriptFile->name.c_str());
+        ImGui::Separator();
+
+        ImGui::Text("Entity References");
+        // Display current entity references
+        for (size_t i = 0; i != script->refList.size(); ++i) {
+            ImGui::Text(script->refList[i]->name.c_str());
+            ImGui::SameLine(ImGui::GetWindowWidth() - 30);
+            if (ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())) {
+                script->refList.erase(script->refList.begin() + i);
+                break;
+            }
+        }
+        
+
+        // Choosing other entity references
+        if (ImGui::Button("Add entity reference")) {
+            ImGui::OpenPopup("Add entity reference");
+        }
+
+        if (ImGui::BeginPopup("Add entity reference"))
+        {
+            ImGui::Text("Entities");
+            ImGui::Separator();
+            for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
+            {
+                if (ImGui::Selectable(entity->name.c_str()))
+                {
+                    script->refList.push_back(entity);
+                }
+            }
+
+            ImGui::EndPopup();
+        }
+    }
+    else
+        ImGui::Text("No script loaded");
+
+
     ImGui::Unindent();
+}
+
+void EntityEditor::ShapeEditor(Component::Shape* shape) {
+    if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
+        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
+        *outText = editor->Label();
+        return true;
+    }, shapeEditors.data(), shapeEditors.size())) {
+        shapeEditors[selectedShape]->Apply(shape);
+    }
+
+    if (selectedShape != -1) {
+        shapeEditors[selectedShape]->Show(shape);
+    }
 }
 
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {

@@ -118,7 +118,7 @@ void ProfilingManager::ShowResult(Result& result) {
     
     ImGui::NextColumn();
     if (result.parent != nullptr) {
-        ImGui::ProgressBar(result.duration / result.parent->duration, ImVec2(0.0f,0.0f));
+        ImGui::ProgressBar(result.duration / result.parent->duration, ImVec2(0.0f, 0.0f));
         ImGui::SameLine(0.0f, ImGui::GetStyle().ItemInnerSpacing.x);
     }
     ImGui::Text((std::to_string(result.duration * 1000.0) + " ms").c_str());

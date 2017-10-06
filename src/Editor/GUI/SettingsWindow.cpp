@@ -8,6 +8,7 @@
 using namespace GUI;
 
 SettingsWindow::SettingsWindow() {
+    themeName[0] = '\0';
     themes.push_back("Default");
     
     // Fetch a list of all themes (JSON files in Themes directory).

@@ -8,7 +8,11 @@ void Input::SetWindow(GLFWwindow* window) {
 
 bool Input::CheckButton(int index) const{
     Button* button = buttons[index];
-    int state = glfwGetKey(window, button->key);
+    int state;
+    if (index = 420)
+        state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1);
+    else
+        state = glfwGetKey(window, button->key);
     return state == button->state;
 }
 

@@ -10,6 +10,10 @@
 
 using namespace GUI;
 
+SoundEditor::SoundEditor() {
+    name[0] = '\0';
+}
+
 void SoundEditor::Show() {
     if (ImGui::Begin(("Sound: " + sound->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(sound))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);

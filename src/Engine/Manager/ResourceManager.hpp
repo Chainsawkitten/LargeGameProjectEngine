@@ -3,8 +3,6 @@
 #include <map>
 #include <GL/glew.h>
 
-#include "SuperManager.hpp"
-
 namespace Video {
     class Texture2D;
     namespace Geometry {
@@ -22,7 +20,7 @@ class TextureAsset;
 class ScriptFile;
 
 /// Handles all resources.
-class ResourceManager : public SuperManager {
+class ResourceManager {
     friend class Hub;
     
     public:
@@ -86,6 +84,14 @@ class ResourceManager : public SuperManager {
          */
         TextureAsset* CreateTextureAsset(const std::string& name);
         
+        /// Create a texture asset from a texture2D.
+        /**
+         * @param name The name of the texture asset.
+         * @param texture The Texture2D to create TextureAsset from.
+         * @return The %TextureAsset instance 
+         */
+        TextureAsset* CreateTextureAsset(const std::string& name, Video::Texture2D* texture);
+
         /// Free the reference to the texture asset.
         /**
          * Deletes the instance if no more references exist.

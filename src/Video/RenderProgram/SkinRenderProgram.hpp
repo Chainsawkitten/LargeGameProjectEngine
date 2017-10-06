@@ -40,6 +40,7 @@ namespace Video {
             void Render(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const;
             
         private:
+            SkinRenderProgram(const SkinRenderProgram & other) = delete;
             ShaderProgram* shaderProgram;
     
             glm::mat4 viewMatrix;

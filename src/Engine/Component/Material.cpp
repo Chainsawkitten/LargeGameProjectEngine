@@ -7,7 +7,7 @@
 
 using namespace Component;
 
-Material::Material(Entity* entity) : SuperComponent(entity) {
+Material::Material() {
     albedo = Hymn().defaultAlbedo;
     normal = Hymn().defaultNormal;
     metallic = Hymn().defaultMetallic;
@@ -44,13 +44,6 @@ Json::Value Material::Save() const {
         component["roughness"] = roughness->name;
     
     return component;
-}
-
-void Material::Load(const Json::Value& node) {
-    LoadTexture(albedo, node.get("albedo", "").asString());
-    LoadTexture(normal, node.get("normal", "").asString());
-    LoadTexture(metallic, node.get("metallic", "").asString());
-    LoadTexture(roughness, node.get("roughness", "").asString());
 }
 
 void Material::LoadTexture(TextureAsset*& texture, const std::string& name) {

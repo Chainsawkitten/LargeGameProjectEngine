@@ -10,7 +10,7 @@
 
 using namespace Component;
 
-Script::Script(Entity* entity) : SuperComponent(entity) {
+Script::Script() {
     
 }
 
@@ -28,9 +28,4 @@ Json::Value Script::Save() const {
         component["scriptName"] = scriptFile->name;
     
     return component;
-}
-
-void Script::Load(const Json::Value& node) {
-    std::string name = node.get("scriptName", "").asString();
-    scriptFile = Managers().resourceManager->CreateScriptFile(name);
 }

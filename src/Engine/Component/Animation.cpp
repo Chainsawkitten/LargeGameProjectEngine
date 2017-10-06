@@ -3,7 +3,7 @@
 #include "../Hymn.hpp"
 #include "../Geometry/Model.hpp"
 
-Component::Animation::Animation(Entity* entity) : SuperComponent(entity) {
+Component::Animation::Animation() {
     
 }
 
@@ -14,13 +14,4 @@ Json::Value Component::Animation::Save() const {
     else
         component["riggedModel"] = "null";
     return component;
-}
-
-void Component::Animation::Load(const Json::Value& node) {
-    std::string name = node.get("riggedModel", "").asString();
-    /// @todo Fix animation.
-    /*for (Geometry::Model* model : Hymn().models) {
-        if (model->name == name)
-            riggedModel = model;
-    }*/
 }

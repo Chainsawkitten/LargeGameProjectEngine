@@ -31,21 +31,6 @@ GLuint Texture2D::GetTextureID() const {
     return texID;
 }
 
-int Texture2D::GetWidth() const {
-    return width;
-}
-
-int Texture2D::GetHeight() const {
-    return height;
-}
-
-void Texture2D::SetWrapping(GLint wrapMode) {
-    glBindTexture(GL_TEXTURE_2D, texID);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapMode);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapMode);
-}
-
 void Texture2D::Load(const char* filename, bool srgb) {
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);

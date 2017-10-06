@@ -10,6 +10,10 @@
 
 using namespace GUI;
 
+TextureEditor::TextureEditor() {
+    name[0] = '\0';
+}
+
 void TextureEditor::Show() {
     if (ImGui::Begin(("Texture: " + texture->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(texture))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);

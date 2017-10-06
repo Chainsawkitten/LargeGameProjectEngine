@@ -11,6 +11,7 @@
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/Profiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>
@@ -78,12 +79,16 @@ int main() {
             if (editor->IsVisible()) {
                 Hymn().world.ClearKilled();
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
-                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"));
+                Managers().debugDrawingManager->Update(deltaTime);
+                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"), EditorSettings::GetInstance().GetBool("Grid Settings"));
                 
                 if (window->ShouldClose())
                     editor->Close();
     
                 editor->Show(deltaTime);
+
+                if (window->ShouldClose() && !editor->isClosing())
+                    window->CancelClose();
 
             } else {
                 { PROFILE("Update");

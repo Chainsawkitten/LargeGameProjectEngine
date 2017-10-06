@@ -18,7 +18,7 @@ InputHandler* InputHandler::activeInstance = nullptr;
 
 InputHandler::InputHandler(GLFWwindow *window) {
     this->window = window;
-    
+
     for (int i = 0; i < BUTTONS; i++) {
         buttonData[i].down = false;
         buttonData[i].released = false;
@@ -113,14 +113,6 @@ bool InputHandler::Pressed(Button button) {
 
 bool InputHandler::Triggered(Button button) {
     return buttonData[button].triggered;
-}
-
-bool InputHandler::Released(Button button) {
-    return buttonData[button].released;
-}
-
-const std::string& InputHandler::GetText() const {
-    return text;
 }
 
 void InputHandler::CharacterCallback(unsigned int codePoint) {

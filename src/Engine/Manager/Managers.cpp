@@ -8,6 +8,7 @@
 #include "ScriptManager.hpp"
 #include "DebugDrawingManager.hpp"
 #include "ProfilingManager.hpp"
+#include "VRManager.hpp"
 
 #include "../Component/SuperComponent.hpp"
 #include "Utility/Log.hpp"
@@ -35,6 +36,7 @@ Hub& Managers() {
 
 void Hub::StartUp() {
     resourceManager = new ResourceManager();
+    vrManager = new VRManager();
     renderManager = new RenderManager();
     particleManager = new ParticleManager();
     physicsManager = new PhysicsManager();
@@ -45,84 +47,25 @@ void Hub::StartUp() {
 }
 
 void Hub::ShutDown() {
-    ClearAllComponents();
-
     delete profilingManager;
     delete debugDrawingManager;
     delete scriptManager;
     delete soundManager;
     delete renderManager;
+    delete vrManager;
     delete particleManager;
     delete physicsManager;
     delete resourceManager;
-
+    
     shutdown = true;
 }
 
-void Hub::AddComponent(World* world, Component::SuperComponent* component, const std::type_info* componentType) {
-    if (*componentType == typeid(Component::Animation*))
-        renderManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::DirectionalLight*))
-        renderManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::Lens*))
-        renderManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::Listener*))
-        soundManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::Material*))
-        renderManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::Mesh*))
-        renderManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::ParticleEmitter*))
-        particleManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::Physics*))
-        physicsManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::PointLight*))
-        renderManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::Script*))
-        scriptManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::SoundSource*))
-        soundManager->AddComponent(world, component, componentType);
-    else if (*componentType == typeid(Component::SpotLight*))
-        renderManager->AddComponent(world, component, componentType);
-    else
-        Log() << componentType->name() << " not assigned to a manager!" << "\n";
-}
-
-void Hub::ClearComponents(World* world) {
+void Hub::ClearKilledComponents() {
     if (!shutdown) {
-        resourceManager->ClearComponents(world);
-        renderManager->ClearComponents(world);
-        particleManager->ClearComponents(world);
-        physicsManager->ClearComponents(world);
-        soundManager->ClearComponents(world);
-        scriptManager->ClearComponents(world);
-        debugDrawingManager->ClearComponents(world);
-        profilingManager->ClearComponents(world);
-    }
-}
-
-void Hub::ClearAllComponents() {
-    if (!shutdown) {
-        resourceManager->ClearAllComponents();
-        renderManager->ClearAllComponents();
-        particleManager->ClearAllComponents();
-        physicsManager->ClearAllComponents();
-        soundManager->ClearAllComponents();
-        scriptManager->ClearAllComponents();
-        debugDrawingManager->ClearAllComponents();
-        profilingManager->ClearAllComponents();
-    }
-}
-
-void Hub::ClearKilledComponents(World* world) {
-    if (!shutdown) {
-        resourceManager->ClearKilledComponents(world);
-        renderManager->ClearKilledComponents(world);
-        particleManager->ClearKilledComponents(world);
-        physicsManager->ClearKilledComponents(world);
-        soundManager->ClearKilledComponents(world);
-        scriptManager->ClearKilledComponents(world);
-        debugDrawingManager->ClearKilledComponents(world);
-        profilingManager->ClearKilledComponents(world);
+        renderManager->ClearKilledComponents();
+        particleManager->ClearKilledComponents();
+        physicsManager->ClearKilledComponents();
+        soundManager->ClearKilledComponents();
+        scriptManager->ClearKilledComponents();
     }
 }

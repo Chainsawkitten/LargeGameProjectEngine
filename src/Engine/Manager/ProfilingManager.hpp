@@ -3,8 +3,6 @@
 #include <string>
 #include <list>
 
-#include "SuperManager.hpp"
-
 #ifdef MEASURE_VRAM
 #include <d3d11_3.h>
 #include <dxgi1_4.h>
@@ -12,7 +10,7 @@
 #endif
 
 /// Handles profiling.
-class ProfilingManager : public SuperManager {
+class ProfilingManager {
     friend class Hub;
     friend class Profiling;
     

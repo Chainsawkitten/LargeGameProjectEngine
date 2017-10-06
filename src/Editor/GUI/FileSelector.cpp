@@ -51,6 +51,10 @@ void FileSelector::SetFileSelectedCallback(const std::function<void(const std::s
     hasFileSelectedCallback = true;
 }
 
+void GUI::FileSelector::SetInitialPath(const char * path) {
+    this->path = path;
+}
+
 void FileSelector::AddExtensions(const std::string& extension) {
     this->extensions.push_back(extension);
     pathChanged = true;

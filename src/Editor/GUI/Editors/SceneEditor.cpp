@@ -20,6 +20,11 @@ enum DraggedItemState {
 };
 DraggedItemState draggedItemState = DraggedItemState::NOT_ACTIVE;
 
+SceneEditor::SceneEditor() {
+    name[0] = '\0';
+    sceneIndex = 0;
+}
+
 void SceneEditor::Show() {
     if (ImGui::Begin(("Scene: " + Resources().scenes[sceneIndex] + "###Scene").c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
@@ -95,13 +100,13 @@ void SceneEditor::ShowEntity(Entity* entity) {
     bool opened = ImGui::TreeNodeEx(entity->name.c_str(), leaf ? ImGuiTreeNodeFlags_Leaf : 0);
     bool instantiate = false;
 
-	//If we pressed down on and started dragging on the entity.
-	if (draggedEntity == nullptr && ImGui::IsItemActive())
-		draggedEntity = entity;
+    //If we pressed down on and started dragging on the entity.
+    if (draggedEntity == nullptr && ImGui::IsItemActive())
+        draggedEntity = entity;
 
     if (draggedItemState == DraggedItemState::ACTIVE && draggedEntity == entity && !ImGui::IsItemActive())
         draggedItemState = DraggedItemState::DEACTIVATE;
-	
+    
     if (draggedItemState == DraggedItemState::DEACTIVATED_THIS_FRAME && ImGui::IsItemHovered() && draggedEntity != entity)
         draggedEntity->SetParent(entity);
 
@@ -110,9 +115,9 @@ void SceneEditor::ShowEntity(Entity* entity) {
             entityPressed = true;
             entityEditor.SetEntity(entity);
         }
-		
+        
         if (!entity->IsScene()) {
-            if (ImGui::Selectable("Add child"))
+            if (ImGui::Selectable("Add child")) 
                 entity->AddChild("Entity #" + std::to_string(Hymn().entityNumber++));
             
             if (ImGui::Selectable("Instantiate scene"))
@@ -138,8 +143,12 @@ void SceneEditor::ShowEntity(Entity* entity) {
         ImGui::Separator();
         
         for (const std::string& scene : Resources().scenes) {
-            if (ImGui::Selectable(scene.c_str()))
-                entity->InstantiateScene(scene);
+
+            if (Resources().scenes[sceneIndex] != scene)
+            {
+                if (ImGui::Selectable(scene.c_str()))
+                    entity->InstantiateScene(scene, Resources().scenes[sceneIndex]);
+            }
         }
         
         ImGui::EndPopup();

@@ -4,13 +4,10 @@
 #include <vector>
 #include <Video/DebugDrawing.hpp>
 
-#include "SuperManager.hpp"
-
-class World;
 class Entity;
 
 /// Debug drawing facilities.
-class DebugDrawingManager : public SuperManager{
+class DebugDrawingManager {
     friend class Hub;
     
     public:
@@ -46,6 +43,29 @@ class DebugDrawingManager : public SuperManager{
          */
         void AddCuboid(const glm::vec3& minCoordinates, const glm::vec3& maxCoordinates, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
         
+        /// Add a plane to the world.
+        /**
+         * @param position Center position of the plane.
+         * @param normal Plane normal.
+         * @param size Size.
+         * @param color Color of the lines.
+         * @param lineWidth The width of the lines used to draw the plane.
+         * @param duration How long the plane should stay in the world (in seconds).
+         * @param depthTesting Whether to enable depth testing.
+         */
+        void AddPlane(const glm::vec3& position, const glm::vec3& normal, const glm::vec2& size, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        
+        /// Add a sphere to the world.
+        /**
+         * @param position The position of the sphere.
+         * @param radius The radius of the sphere.
+         * @param color Color of the lines.
+         * @param lineWidth The width of the lines used to draw the plane.
+         * @param duration How long the plane should stay in the world (in seconds).
+         * @param depthTesting Whether to enable depth testing.
+         */
+        void AddSphere(const glm::vec3& position, float radius, const glm::vec3& color, float lineWidth = 1.f, float duration = 0.f, bool depthTesting = true);
+        
         /// Update the debug geometry.
         /**
          * @param deltaTime Time since last frame (in seconds).
@@ -54,10 +74,9 @@ class DebugDrawingManager : public SuperManager{
         
         /// Render the debug primitives.
         /**
-         * @param world Contains a camera through which to render.
          * @param camera Camera through which to render (or first camera in world if nullptr).
          */
-        void Render(World& world, Entity* camera);
+        void Render(Entity* camera);
         
     private:
         DebugDrawingManager();
@@ -68,6 +87,8 @@ class DebugDrawingManager : public SuperManager{
         std::vector<Video::DebugDrawing::Point> points;
         std::vector<Video::DebugDrawing::Line> lines;
         std::vector<Video::DebugDrawing::Cuboid> cuboids;
+        std::vector<Video::DebugDrawing::Plane> planes;
+        std::vector<Video::DebugDrawing::Sphere> spheres;
         
         Video::DebugDrawing* debugDrawing;
 };

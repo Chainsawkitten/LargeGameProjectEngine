@@ -5,6 +5,7 @@
 #include "Shader/ShaderProgram.hpp"
 #include "DebugDrawing.vert.hpp"
 #include "DebugDrawing.frag.hpp"
+#include "glm/gtc/constants.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
@@ -20,40 +21,15 @@ DebugDrawing::DebugDrawing() {
     // Create point vertex array.
     glBindVertexArray(0);
     
-    glGenBuffers(1, &pointVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, pointVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 1 * sizeof(glm::vec3), &glm::vec3(0.f, 0.f, 0.f)[0], GL_STATIC_DRAW);
-    
-    glGenVertexArrays(1, &pointVertexArray);
-    glBindVertexArray(pointVertexArray);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, pointVertexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
-    
-    glBindVertexArray(0);
+    glm::vec3 point(0.f, 0.f, 0.f);
+    CreateVertexArray(&point, 1, pointVertexBuffer, pointVertexArray);
     
     // Create line vertex array.
     glm::vec3 line[2];
     line[0] = glm::vec3(0.f, 0.f, 0.f);
     line[1] = glm::vec3(1.f, 1.f, 1.f);
     
-    glGenBuffers(1, &lineVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, lineVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 2 * sizeof(glm::vec3), line, GL_STATIC_DRAW);
-    
-    glGenVertexArrays(1, &lineVertexArray);
-    glBindVertexArray(lineVertexArray);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, lineVertexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
-    
-    glBindVertexArray(0);
+    CreateVertexArray(line, 2, lineVertexBuffer, lineVertexArray);
     
     // Create cuboid vertex array.
     glm::vec3 box[24];
@@ -82,20 +58,26 @@ DebugDrawing::DebugDrawing() {
     box[22] = glm::vec3(0.f, 0.f, 1.f);
     box[23] = glm::vec3(1.f, 0.f, 1.f);
     
-    glGenBuffers(1, &cuboidVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, cuboidVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(glm::vec3), box, GL_STATIC_DRAW);
+    CreateVertexArray(box, 24, cuboidVertexBuffer, cuboidVertexArray);
     
-    glGenVertexArrays(1, &cuboidVertexArray);
-    glBindVertexArray(cuboidVertexArray);
+    // Create plane vertex array.
+    glm::vec3 plane[8];
+    plane[0] = glm::vec3(-1.f, -1.f, 0.f);
+    plane[1] = glm::vec3(1.f, -1.f, 0.f);
+    plane[2] = glm::vec3(1.f, -1.f, 0.f);
+    plane[3] = glm::vec3(1.f, 1.f, 0.f);
+    plane[4] = glm::vec3(1.f, 1.f, 0.f);
+    plane[5] = glm::vec3(-1.f, 1.f, 0.f);
+    plane[6] = glm::vec3(-1.f, 1.f, 0.f);
+    plane[7] = glm::vec3(-1.f, -1.f, 0.f);
     
-    glBindBuffer(GL_ARRAY_BUFFER, cuboidVertexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    CreateVertexArray(plane, 8, planeVertexBuffer, planeVertexArray);
     
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
-    
-    glBindVertexArray(0);
+    // Create sphere vertex array.
+    glm::vec3* sphere;
+    CreateSphere(sphere, sphereVertexCount, 14);
+    CreateVertexArray(sphere, sphereVertexCount, sphereVertexBuffer, sphereVertexArray);
+    delete[] sphere;
 }
 
 DebugDrawing::~DebugDrawing() {
@@ -107,6 +89,9 @@ DebugDrawing::~DebugDrawing() {
     
     glDeleteBuffers(1, &lineVertexBuffer);
     glDeleteVertexArrays(1, &lineVertexArray);
+    
+    glDeleteBuffers(1, &planeVertexBuffer);
+    glDeleteVertexArrays(1, &planeVertexArray);
     
     delete shaderProgram;
 }
@@ -153,6 +138,38 @@ void DebugDrawing::DrawCuboid(const Cuboid& cuboid) {
     glDrawArrays(GL_LINES, 0, 24);
 }
 
+void DebugDrawing::DrawPlane(const Plane& plane) {
+    BindVertexArray(planeVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(plane.size * 0.5f, 1.f)));
+    float yaw = atan2(plane.normal.x, plane.normal.z);
+    float pitch = atan2(plane.normal.y, sqrt(plane.normal.x * plane.normal.x + plane.normal.z * plane.normal.z));
+    model = glm::rotate(glm::mat4(), yaw, glm::vec3(0.f, 1.f, 0.f)) * model;
+    model = glm::rotate(glm::mat4(), pitch, glm::vec3(1.f, 0.f, 0.f)) * model;
+    model = glm::translate(glm::mat4(), plane.position) * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    plane.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &plane.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(plane.lineWidth);
+    glDrawArrays(GL_LINES, 0, 8);
+}
+
+void DebugDrawing::DrawSphere(const Sphere& sphere) {
+    BindVertexArray(sphereVertexArray);
+    
+    glm::mat4 model(glm::scale(glm::mat4(), glm::vec3(sphere.radius, sphere.radius, sphere.radius)));
+    model = glm::translate(glm::mat4(), sphere.position) * model;
+    
+    glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &model[0][0]);
+    sphere.depthTesting ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+    glUniform3fv(shaderProgram->GetUniformLocation("color"), 1, &sphere.color[0]);
+    glUniform1f(shaderProgram->GetUniformLocation("size"), 10.f);
+    glLineWidth(sphere.lineWidth);
+    glDrawArrays(GL_LINES, 0, sphereVertexCount);
+}
+
 void DebugDrawing::EndDebugDrawing() {
     glEnable(GL_DEPTH_TEST);
     BindVertexArray(0);
@@ -162,5 +179,57 @@ void DebugDrawing::BindVertexArray(GLuint vertexArray) {
     if (boundVertexArray != vertexArray) {
         glBindVertexArray(vertexArray);
         boundVertexArray = vertexArray;
+    }
+}
+
+void DebugDrawing::CreateVertexArray(const glm::vec3* positions, unsigned int positionCount, GLuint& vertexBuffer, GLuint& vertexArray) {
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, positionCount * sizeof(glm::vec3), positions, GL_STATIC_DRAW);
+    
+    glGenVertexArrays(1, &vertexArray);
+    glBindVertexArray(vertexArray);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), BUFFER_OFFSET(0));
+    
+    glBindVertexArray(0);
+}
+
+// Create UV-sphere with given number of parallel and meridian lines.
+void DebugDrawing::CreateSphere(glm::vec3*& positions, unsigned int& vertexCount, unsigned int detail) {
+    vertexCount = detail * (4 * detail - 2);
+    positions = new glm::vec3[vertexCount];
+    
+    // Horizontal lines (meridians).
+    unsigned int i = 0;
+    for (unsigned int m = 1; m < detail; ++m) {
+        float meridian = glm::pi<float>() * m / detail;
+        for (unsigned int p = 0; p <= detail; ++p) {
+            float parallel = 2.0f * glm::pi<float>() * p / detail;
+            float angle = glm::pi<float>() * 0.5f - meridian;
+            float y = sin(angle);
+            float x = cos(angle);
+            positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+            if (p > 0 && p < detail)
+                positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+        }
+    }
+    
+    // Vertical lines (parallels).
+    for (unsigned int p = 0; p < detail; ++p) {
+        float parallel = 2.0f * glm::pi<float>() * p / detail;
+        for (unsigned int m = 0; m <= detail; ++m) {
+            float meridian = glm::pi<float>() * m / detail;
+            float angle = glm::pi<float>() * 0.5f - meridian;
+            float y = sin(angle);
+            float x = cos(angle);
+            positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+            if (m > 0 && m < detail)
+                positions[i++] = glm::vec3(x * cos(parallel), y, x * sin(parallel));
+        }
     }
 }

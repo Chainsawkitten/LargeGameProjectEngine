@@ -1,16 +1,14 @@
 #include "RayIntersection.hpp"
 
-#include <iostream>
-
 RayIntersection::RayIntersection() {
-    /// Construct something.
+    
 }
 
 RayIntersection::~RayIntersection() {
-    /// Deconstruct something.
+    
 }
 
-bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix) {
+bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirection, Video::AxisAlignedBoundingBox meshData, glm::mat4 modelMatrix, float &outputDistance) {
 
     float tMin = -INFINITY;
     float tMax = INFINITY;
@@ -18,13 +16,8 @@ bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirectio
     glm::vec3 worldPos = glm::vec3(modelMatrix[3].x, modelMatrix[3].y, modelMatrix[3].z);
     glm::vec3 delta = worldPos - rayOrigin;
 
-    glm::vec3 xyzAxis[3];
     float minValue[3] = { meshData.minVertex.x, meshData.minVertex.y, meshData.minVertex.z };
     float maxValue[3] = { meshData.maxVertex.x, meshData.maxVertex.y, meshData.maxVertex.z };
-
-    for (int i = 0; i < 3; i++) {
-        xyzAxis[i] = glm::vec3(modelMatrix[i].x, modelMatrix[i].y, modelMatrix[i].z);
-    }
 
     for (int i = 0; i < 3; i++) {
 
@@ -50,11 +43,18 @@ bool RayIntersection::RayOBBIntersect(glm::vec3 rayOrigin, glm::vec3 rayDirectio
             if (tMax < tMin)
                 return false;
 
+            if (tMax < 0)
+                return false;
+
         } else {
             if (-e + minValue[i] > 0.0f || -e + maxValue[i] < 0.0f)
                 return false;
         }
     }
 
+    if (tMin > 0)
+        outputDistance = tMin;
+    else
+        outputDistance = tMax;
     return true;
 }

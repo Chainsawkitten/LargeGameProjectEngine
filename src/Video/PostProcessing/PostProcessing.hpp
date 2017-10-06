@@ -37,6 +37,7 @@ namespace Video {
             void Render(Video::RenderSurface* renderSurface, bool dither = false);
             
         private:
+            PostProcessing(const PostProcessing & other) = delete;
             const Geometry::Rectangle* rectangle;
 
             float ditherTime = 0.f;

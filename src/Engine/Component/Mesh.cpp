@@ -7,7 +7,7 @@
 
 using namespace Component;
 
-Mesh::Mesh(Entity* entity) : SuperComponent(entity) {
+Mesh::Mesh() {
     
 }
 
@@ -25,9 +25,4 @@ Json::Value Mesh::Save() const {
         component["model"] = model->name;
     
     return component;
-}
-
-void Mesh::Load(const Json::Value& node) {
-    std::string meshName = node.get("model", "").asString();
-    geometry = Managers().resourceManager->CreateModel(meshName);
 }

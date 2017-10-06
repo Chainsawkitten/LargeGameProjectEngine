@@ -16,6 +16,7 @@
  * Particle Emitter Icons | Show particle emitter icons.     | bool   | true
  * Light Source Icons     | Show light source icons.         | bool   | true
  * Camera Icons           | Show camera icons.               | bool   | true
+ * Physics Volumes        | Show physics volumes.            | bool   | true
  * Text Editor            | Path to text editor for scripts. | string | 
  */
 class EditorSettings : public Settings {

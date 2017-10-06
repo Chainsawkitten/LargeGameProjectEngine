@@ -1,5 +1,5 @@
 #include "SoundManager.hpp"
-
+#include <phonon.h>
 #include <Utility/Log.hpp>
 #include <AL/al.h>
 #include "../Entity/World.hpp"
@@ -8,6 +8,8 @@
 #include "../Component/SoundSource.hpp"
 #include "../Component/Physics.hpp"
 #include "../Audio/SoundBuffer.hpp"
+#include "Managers.hpp"
+#include "ResourceManager.hpp"
 
 // Scaling constant. Used to convert from our units to sound system units.
 const float soundScale = 0.2f;
@@ -30,15 +32,6 @@ SoundManager::~SoundManager() {
     alcCloseDevice(device);
 }
 
-void SoundManager::SetVolume(float volume) {
-    alListenerf(AL_GAIN, volume);
-    this->volume = volume;
-}
-
-float SoundManager::GetVolume() const {
-    return volume;
-}
-
 void SoundManager::CheckError(const char* message) {
     ALenum error = alGetError();
     if (error != AL_NO_ERROR) {
@@ -51,10 +44,9 @@ void SoundManager::CheckError(const char* message) {
     }
 }
 
-void SoundManager::Update(World& world) {
+void SoundManager::Update() {
     // Update sound sources.
-    std::vector<Component::SoundSource*> soundComponents = this->GetComponents<Component::SoundSource>(&world);
-    for (Component::SoundSource* sound : soundComponents) {
+    for (Component::SoundSource* sound : soundSources.GetAll()) {
         if (sound->IsKilled() || !sound->entity->enabled)
             continue;
         
@@ -93,7 +85,7 @@ void SoundManager::Update(World& world) {
             alSourcei(sound->source, AL_BUFFER, sound->soundBuffer->GetBuffer());
             sound->soundBufferSet = true;
         }
-        
+
         // Play it.
         if (sound->shouldPlay) {
             alSourcePlay(sound->source);
@@ -104,8 +96,7 @@ void SoundManager::Update(World& world) {
     }
     
     // Update listener.
-    std::vector<Component::Listener*> listeners = this->GetComponents<Component::Listener>(&world);
-    for (Component::Listener* listener : listeners) {
+    for (Component::Listener* listener : listeners.GetAll()) {
         Entity* entity = listener->entity;
         
         // Set position
@@ -122,4 +113,44 @@ void SoundManager::Update(World& world) {
         
         break;
     }
+}
+
+Component::SoundSource* SoundManager::CreateSoundSource() {
+    return soundSources.Create();
+}
+
+Component::SoundSource* SoundManager::CreateSoundSource(const Json::Value& node) {
+    Component::SoundSource* soundSource = soundSources.Create();
+    
+    // Load values from Json node.
+    std::string name = node.get("sound", "").asString();
+    if (!name.empty())
+        soundSource->soundBuffer = Managers().resourceManager->CreateSound(name);
+    
+    soundSource->pitch = node.get("pitch", 1.f).asFloat();
+    soundSource->gain = node.get("gain", 1.f).asFloat();
+    soundSource->loop = node.get("loop", false).asBool();
+    
+    return soundSource;
+}
+
+const std::vector<Component::SoundSource*>& SoundManager::GetSoundSources() const {
+    return soundSources.GetAll();
+}
+
+Component::Listener* SoundManager::CreateListener() {
+    return listeners.Create();
+}
+
+Component::Listener* SoundManager::CreateListener(const Json::Value& node) {
+    return listeners.Create();
+}
+
+const std::vector<Component::Listener*>& SoundManager::GetListeners() const {
+    return listeners.GetAll();
+}
+
+void SoundManager::ClearKilledComponents() {
+    soundSources.ClearKilled();
+    listeners.ClearKilled();
 }

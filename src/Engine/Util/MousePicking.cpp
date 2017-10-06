@@ -1,18 +1,9 @@
 #include "MousePicking.hpp"
 #include <Engine/Util/Input.hpp>
 #include <Engine/MainWindow.hpp>
-#include <Engine/Geometry/MathFunctions.hpp>
-#include <Engine/Component/Lens.hpp>
-#include <glm\gtx\transform.hpp>
-#include "ImGui/Theme.hpp"
+#include <glm/gtx/transform.hpp>
 
-#include <imgui.h>
-
-MousePicking::MousePicking() {
-    /// Fake constructor.
-}
-
-void MousePicking::CreateMousePicker(Entity * cam, glm::mat4 projection) {
+MousePicking::MousePicking(Entity * cam,  const glm::mat4& projection) {
     this->camera = cam;
     this->pMatrix = projection;
 
@@ -21,14 +12,13 @@ void MousePicking::CreateMousePicker(Entity * cam, glm::mat4 projection) {
 }
 
 MousePicking::~MousePicking() {
-    /// Deconstructor.
 }
 
 glm::vec3 MousePicking::GetCurrentRay() {
     return this->currentRay;
 }
 
-void MousePicking::UpdateProjectionMatrix(glm::mat4 projection) {
+void MousePicking::UpdateProjectionMatrix(const glm::mat4& projection) {
     this->pMatrix = projection;
 }
 
@@ -58,14 +48,14 @@ glm::vec2 MousePicking::GetNDC(double mouseX, double mouseY) {
     return glm::vec2(x, y);
 }
 
-glm::vec4 MousePicking::ConvertEyeCoords(glm::vec4 clipSpaceCoordinates) {
+glm::vec4 MousePicking::ConvertEyeCoords(const glm::vec4& clipSpaceCoordinates) {
     glm::mat4 invertProjection = glm::inverse(pMatrix);
     glm::vec4 eyeCoords = invertProjection * clipSpaceCoordinates;
 
     return glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
 }
 
-glm::vec3 MousePicking::ConvertWorldCoords(glm::vec4 eyeCoords) {
+glm::vec3 MousePicking::ConvertWorldCoords(const glm::vec4& eyeCoords) {
     glm::mat4 invertedView = glm::inverse(vMatrix);
     glm::vec4 rayInWorld = invertedView * eyeCoords;
     glm::vec3 mouseRay = glm::vec3(rayInWorld.x, rayInWorld.y, rayInWorld.z);

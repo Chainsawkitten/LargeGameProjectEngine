@@ -10,8 +10,10 @@ layout(location = 3) in vec3 vertexTangent;
 uniform mat4 viewProjection;
 uniform mat4 model;
 uniform mat3 normalMatrix;
+uniform mat4 viewMatrix;
 
 out VertexData {
+    vec3 pos;
     vec3 normal;
     vec3 tangent;
     vec2 texCoords;
@@ -19,6 +21,7 @@ out VertexData {
 
 void main () {
     gl_Position = viewProjection * (model * vec4(vertexPosition, 1.0));
+    vertexOut.pos = vec3(viewMatrix * (model * vec4(vertexPosition,1.0)));
     vertexOut.normal = normalize(normalMatrix * vertexNormal);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;

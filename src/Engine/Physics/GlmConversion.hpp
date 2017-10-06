@@ -1,7 +1,9 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <LinearMath/btVector3.h>
+#include <LinearMath/btQuaternion.h>
 
 namespace Physics {
 
@@ -18,5 +20,12 @@ namespace Physics {
      * @return Converted vector.
      */
     glm::vec3 btToGlm(btVector3 const& vec);
+
+    /// Convert Bullet quaternion to GLM quaternion.
+    /**
+     * @param quat Quaternion to convert.
+     * @return Converted quaternion.
+     */
+    glm::quat btToGlm(btQuaternion const& quat);
 
 }

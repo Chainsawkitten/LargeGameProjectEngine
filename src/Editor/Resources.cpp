@@ -12,7 +12,7 @@
 using namespace std;
 
 ResourceList::ResourceList() {
-    
+    activeScene = -1;
 }
 
 ResourceList& ResourceList::GetInstance() {

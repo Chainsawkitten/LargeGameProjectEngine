@@ -9,8 +9,10 @@
 #include "../Component/PointLight.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/Physics.hpp"
+#include "../Component/RigidBody.hpp"
 #include "../Component/Listener.hpp"
 #include "../Component/Script.hpp"
+#include "../Component/Shape.hpp"
 #include "../Component/SoundSource.hpp"
 #include "../Component/ParticleEmitter.hpp"
 #include "../Util/Json.hpp"
@@ -18,6 +20,12 @@
 #include <Utility/Log.hpp>
 #include "../Hymn.hpp"
 #include <fstream>
+#include "../Manager/Managers.hpp"
+#include "../Manager/ParticleManager.hpp"
+#include "../Manager/PhysicsManager.hpp"
+#include "../Manager/RenderManager.hpp"
+#include "../Manager/ScriptManager.hpp"
+#include "../Manager/SoundManager.hpp"
 
 Entity::Entity(World* world, const std::string& name) : name ( name ) {
     this->world = world;
@@ -65,26 +73,66 @@ bool Entity::HasChild(const Entity* check_child, bool deep) const {
     return false;
 }
 
-Entity* Entity::InstantiateScene(const std::string& name) {
+Entity* Entity::InstantiateScene(const std::string& name, const std::string& originScene) {
+
+    Json::Value root;
     Entity* child = AddChild();
-    
-    // Load scene.
+    bool error = false;
     std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + name + ".json";
+
+    // Checks if file exists.
     if (FileSystem::FileExists(filename.c_str())) {
-        Json::Value root;
-        std::ifstream file(filename);
-        file >> root;
-        file.close();
-        child->Load(root);
-        
-        child->scene = true;
-        child->sceneName = name;
+        std::ifstream file1(filename);
+        file1 >> root;
+
+        CheckIfSceneExists(filename, error, originScene, root);
+
+        if (error == false) {
+            std::ifstream file(filename);
+            file >> root;
+            file.close();
+            child->Load(root);
+            child->scene = true;
+            child->sceneName = name;
+        }
     } else {
         child->name = "Error loading scene";
         Log() << "Couldn't find scene to load.";
     }
-    
+
+    if (error)
+    {
+        child->name = "Error loading scene";
+        Log() << "Scene is added in continous loop.";
+    }
+
     return child;
+}
+
+void Entity::CheckIfSceneExists(const std::string& filename, bool & error, const std::string& originScene, Json::Value root)
+{
+    Json::Value children = root["children"];
+
+    // Loops through all the scene names.
+    for (unsigned int i = 0; i < root["children"].size(); ++i) {
+        if (root["children"][i]["scene"].asBool()) {
+            printf("%s", root["children"][i]["sceneName"].asString().c_str());
+
+            if (originScene == root["children"][i]["sceneName"].asString())
+            {
+                error = true;
+            }
+            if (error)
+            {
+                break;
+            }
+        }
+
+        if (!error)
+        {
+            CheckIfSceneExists(filename, error, originScene, root["children"][i]);
+        }
+    }
 }
 
 const std::vector<Entity*>& Entity::GetChildren() const {
@@ -116,17 +164,11 @@ bool Entity::IsScene() const {
 }
 
 void Entity::Kill() {
-    killed = true;
-    
-    for (auto& it : components)
-        it.second->Kill();
-    
-    for (Entity* child : children)
-        child->Kill();
+    KillHelper();
     
     // Remove this entity from the parent's list of children.
-    parent->RemoveChild(this);
-
+    if (parent != nullptr)
+        parent->RemoveChild(this);
 }
 
 bool Entity::IsKilled() const {
@@ -140,7 +182,9 @@ Json::Value Entity::Save() const {
     entity["scale"] = Json::SaveVec3(scale);
     entity["rotation"] = Json::SaveVec3(rotation);
     entity["scene"] = scene;
-    
+    entity["uid"] = uniqueIdentifier;
+    entity["static"] = isStatic;
+
     if (scene) {
         entity["sceneName"] = sceneName;
     } else {
@@ -153,8 +197,10 @@ Json::Value Entity::Save() const {
         Save<Component::PointLight>(entity, "PointLight");
         Save<Component::SpotLight>(entity, "SpotLight");
         Save<Component::Physics>(entity, "Physics");
+        Save<Component::RigidBody>(entity, "RigidBody");
         Save<Component::Listener>(entity, "Listener");
         Save<Component::Script>(entity, "Script");
+        Save<Component::Shape>(entity, "Shape");
         Save<Component::SoundSource>(entity, "SoundSource");
         Save<Component::ParticleEmitter>(entity, "ParticleEmitter");
         
@@ -193,8 +239,10 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::PointLight>(node, "PointLight");
         Load<Component::SpotLight>(node, "SpotLight");
         Load<Component::Physics>(node, "Physics");
+        Load<Component::RigidBody>(node, "RigidBody");
         Load<Component::Listener>(node, "Listener");
         Load<Component::Script>(node, "Script");
+        Load<Component::Shape>(node, "Shape");
         Load<Component::SoundSource>(node, "SoundSource");
         Load<Component::ParticleEmitter>(node, "ParticleEmitter");
         
@@ -209,6 +257,9 @@ void Entity::Load(const Json::Value& node) {
     position = Json::LoadVec3(node["position"]);
     scale = Json::LoadVec3(node["scale"]);
     rotation = Json::LoadVec3(node["rotation"]);
+    uniqueIdentifier = node.get("uid", 0).asUInt();
+    isStatic = node["static"].asBool();
+    
 }
 
 glm::mat4 Entity::GetModelMatrix() const {
@@ -243,4 +294,113 @@ glm::vec3 Entity::GetWorldPosition() const {
         return glm::vec3(parent->GetModelMatrix() * glm::vec4(position, 1.f));
     
     return position;
+}
+
+unsigned int Entity::GetUniqueIdentifier() const {
+    return uniqueIdentifier;
+}
+
+void Entity::SetUniqueIdentifier(unsigned int UID) {
+    uniqueIdentifier = UID;
+}
+
+Component::SuperComponent* Entity::AddComponent(const std::type_info* componentType) {
+    Component::SuperComponent* component;
+    
+    // Create a component in the correct manager.
+    if (*componentType == typeid(Component::Animation*))
+        component = Managers().renderManager->CreateAnimation();
+    else if (*componentType == typeid(Component::DirectionalLight*))
+        component = Managers().renderManager->CreateDirectionalLight();
+    else if (*componentType == typeid(Component::Lens*))
+        component = Managers().renderManager->CreateLens();
+    else if (*componentType == typeid(Component::Listener*))
+        component = Managers().soundManager->CreateListener();
+    else if (*componentType == typeid(Component::Material*))
+        component = Managers().renderManager->CreateMaterial();
+    else if (*componentType == typeid(Component::Mesh*))
+        component = Managers().renderManager->CreateMesh();
+    else if (*componentType == typeid(Component::ParticleEmitter*))
+        component = Managers().particleManager->CreateParticleEmitter();
+    else if (*componentType == typeid(Component::Physics*))
+        component = Managers().physicsManager->CreatePhysics(this);
+    else if (*componentType == typeid(Component::PointLight*))
+        component = Managers().renderManager->CreatePointLight();
+    else if (*componentType == typeid(Component::RigidBody*))
+        component = Managers().physicsManager->CreateRigidBody(this);
+    else if (*componentType == typeid(Component::Script*))
+        component = Managers().scriptManager->CreateScript();
+    else if (*componentType == typeid(Component::Shape*))
+        component = Managers().physicsManager->CreateShape(this);
+    else if (*componentType == typeid(Component::SoundSource*))
+        component = Managers().soundManager->CreateSoundSource();
+    else if (*componentType == typeid(Component::SpotLight*))
+        component = Managers().renderManager->CreateSpotLight();
+    else {
+        Log() << componentType->name() << " not assigned to a manager!" << "\n";
+        return nullptr;
+    }
+    
+    // Add component to our map.
+    components[componentType] = component;
+    
+    // Set ourselves as the owner.
+    component->entity = this;
+    
+    return component;
+}
+
+void Entity::LoadComponent(const std::type_info* componentType, const Json::Value& node) {
+    Component::SuperComponent* component;
+    
+    // Create a component in the correct manager.
+    if (*componentType == typeid(Component::Animation*))
+        component = Managers().renderManager->CreateAnimation(node);
+    else if (*componentType == typeid(Component::DirectionalLight*))
+        component = Managers().renderManager->CreateDirectionalLight(node);
+    else if (*componentType == typeid(Component::Lens*))
+        component = Managers().renderManager->CreateLens(node);
+    else if (*componentType == typeid(Component::Listener*))
+        component = Managers().soundManager->CreateListener(node);
+    else if (*componentType == typeid(Component::Material*))
+        component = Managers().renderManager->CreateMaterial(node);
+    else if (*componentType == typeid(Component::Mesh*))
+        component = Managers().renderManager->CreateMesh(node);
+    else if (*componentType == typeid(Component::ParticleEmitter*))
+        component = Managers().particleManager->CreateParticleEmitter(node);
+    else if (*componentType == typeid(Component::Physics*))
+        component = Managers().physicsManager->CreatePhysics(this, node);
+    else if (*componentType == typeid(Component::PointLight*))
+        component = Managers().renderManager->CreatePointLight(node);
+    else if (*componentType == typeid(Component::RigidBody*))
+        component = Managers().physicsManager->CreateRigidBody(this, node);
+    else if (*componentType == typeid(Component::Script*))
+        component = Managers().scriptManager->CreateScript(node);
+    else if (*componentType == typeid(Component::Shape*))
+        component = Managers().physicsManager->CreateShape(this, node);
+    else if (*componentType == typeid(Component::SoundSource*))
+        component = Managers().soundManager->CreateSoundSource(node);
+    else if (*componentType == typeid(Component::SpotLight*))
+        component = Managers().renderManager->CreateSpotLight(node);
+    else {
+        Log() << componentType->name() << " not assigned to a manager!" << "\n";
+        return;
+    }
+    
+    // Add component to our map.
+    components[componentType] = component;
+    
+    // Set ourselves as the owner.
+    component->entity = this;
+}
+
+void Entity::KillHelper() {
+    killed = true;
+    
+    for (auto& it : components)
+        it.second->Kill();
+    
+    for (Entity* child : children) {
+        child->KillHelper();
+    }
 }

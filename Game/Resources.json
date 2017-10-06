@@ -3,7 +3,9 @@
 	"models" : 
 	[
 		"CartSecond",
-		"Cave"
+		"Cave",
+		"spak",
+		"Galler"
 	],
 	"scenes" : 
 	[

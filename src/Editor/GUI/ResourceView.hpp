@@ -5,11 +5,15 @@
 #include "Editors/SoundEditor.hpp"
 #include "Editors/ScriptEditor.hpp"
 #include "Editors/TextureEditor.hpp"
+#include "GUI/SavePromptWindow.hpp"
 
 namespace GUI {
     /// Displays all the hymn's resources.
     class ResourceView {
         public:
+            /// Constructor.
+            ResourceView();
+
             /// Show the resource list.
             void Show();
             
@@ -51,7 +55,12 @@ namespace GUI {
             ModelEditor modelEditor;
             TextureEditor textureEditor;
             SoundEditor soundEditor;
-            
+
+            GUI::SavePromptWindow savePromptWindow;
+
+            bool changeScene = false;
+            int sceneIndex = -1;
+
             static const int splitterSize = 2;
             int resourceHeight = 250;
             bool resourceResize = false;

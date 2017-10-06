@@ -32,7 +32,9 @@
 				"y" : 1.0,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"static" : false,
+			"uid" : 1
 		},
 		{
 			"Material" : 
@@ -46,12 +48,96 @@
 			{
 				"model" : "CartSecond"
 			},
+			"Physics" : 
+			{
+				"acceleration" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"angularAcceleration" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"angularDragFactor" : 1.0,
+				"angularVelocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"gravityFactor" : 0.0,
+				"maxAngularVelocity" : 2.0,
+				"maxVelocity" : 20.0,
+				"momentOfInertia" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"velocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"velocityDragFactor" : 1.0
+			},
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
 			"Script" : 
 			{
 				"scriptName" : "Cart"
 			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
 			"children" : 
 			[
+				{
+					"Lens" : 
+					{
+						"fieldOfView" : 45.0,
+						"zFar" : 1000.0,
+						"zNear" : 0.5
+					},
+					"Script" : 
+					{
+						"scriptName" : "Player"
+					},
+					"children" : null,
+					"name" : "Player",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 4.0,
+						"z" : 2.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 4
+				},
 				{
 					"PointLight" : 
 					{
@@ -65,42 +151,7 @@
 						},
 						"intensity" : 0.35199999809265137
 					},
-					"children" : 
-					[
-						{
-							"Lens" : 
-							{
-								"fieldOfView" : 45.0,
-								"zFar" : 1000.0,
-								"zNear" : 0.5
-							},
-							"Script" : 
-							{
-								"scriptName" : "Player"
-							},
-							"children" : null,
-							"name" : "Player",
-							"position" : 
-							{
-								"x" : 0.0,
-								"y" : 25.0,
-								"z" : 0.0
-							},
-							"rotation" : 
-							{
-								"x" : 0.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 1.0,
-								"y" : 1.0,
-								"z" : 1.0
-							},
-							"scene" : false
-						}
-					],
+					"children" : null,
 					"name" : "light",
 					"position" : 
 					{
@@ -120,14 +171,16 @@
 						"y" : 1.0,
 						"z" : 1.0
 					},
-					"scene" : false
+					"scene" : false,
+					"static" : false,
+					"uid" : 5
 				}
 			],
 			"name" : "Minecart",
 			"position" : 
 			{
 				"x" : 0.0,
-				"y" : 0.0,
+				"y" : -4.8320002555847168,
 				"z" : 500.0
 			},
 			"rotation" : 
@@ -142,7 +195,196 @@
 				"y" : 1.0,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"static" : false,
+			"uid" : 2
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "spak"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Lever"
+					},
+					"children" : null,
+					"name" : "Lever",
+					"position" : 
+					{
+						"x" : -5.0,
+						"y" : -6.5,
+						"z" : 400.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 45.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5,
+						"z" : 0.5
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1506428286
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Texture #1",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Galler"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Gates"
+					},
+					"children" : null,
+					"name" : "Gates",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 380.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1506428288
+				},
+				{
+					"Physics" : 
+					{
+						"acceleration" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"angularAcceleration" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"angularDragFactor" : 1.0,
+						"angularVelocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"gravityFactor" : 0.0,
+						"maxAngularVelocity" : 2.0,
+						"maxVelocity" : 20.0,
+						"momentOfInertia" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"velocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"velocityDragFactor" : 1.0
+					},
+					"RigidBody" : 
+					{
+						"mass" : 1.0
+					},
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 1.0
+							},
+							"planeCoeff" : 450.0
+						}
+					},
+					"children" : null,
+					"name" : "StopTrigger",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 450.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1506510737
+				}
+			],
+			"name" : "GateAndLever",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1506431025
 		},
 		{
 			"Material" : 
@@ -172,11 +414,13 @@
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
-				"y" : 1.0,
+				"x" : 0.25,
+				"y" : 0.25,
 				"z" : 1.0
 			},
-			"scene" : false
+			"scene" : false,
+			"static" : false,
+			"uid" : 3
 		}
 	],
 	"name" : "Root",
@@ -198,5 +442,7 @@
 		"y" : 1.0,
 		"z" : 1.0
 	},
-	"scene" : false
+	"scene" : false,
+	"static" : false,
+	"uid" : 0
 }

@@ -4,7 +4,7 @@
 
 using namespace Component;
 
-PointLight::PointLight(Entity* entity) : SuperComponent(entity) {
+PointLight::PointLight() {
     
 }
 
@@ -15,11 +15,4 @@ Json::Value PointLight::Save() const {
     component["attenuation"] = attenuation;
     component["intensity"] = intensity;
     return component;
-}
-
-void PointLight::Load(const Json::Value& node) {
-    color = Json::LoadVec3(node["color"]);
-    ambientCoefficient = node.get("ambientCoefficient", 0.5f).asFloat();
-    attenuation = node.get("attenuation", 1.f).asFloat();
-    intensity = node.get("intensity", 1.f).asFloat();
 }

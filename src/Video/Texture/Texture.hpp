@@ -22,18 +22,6 @@ namespace Video {
              */
             virtual GLuint GetTextureID() const = 0;
     
-            /// Get the width of the texture.
-            /**
-             * @return The width of the texture in texels
-             */
-            virtual int GetWidth() const = 0;
-    
-            /// Get the height of the texture.
-            /**
-             * @return The height of the texture in texels
-             */
-            virtual int GetHeight() const = 0;
-    
             /// Get image GL format based on color components.
             /**
              * @param components The amount of components in the image. (1, 2, 3, or 4.)

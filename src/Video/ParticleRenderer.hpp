@@ -64,6 +64,7 @@ namespace Video {
             void Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix);
             
         private:
+            ParticleRenderer(const ParticleRenderer & other) = delete;
             ShaderProgram* shaderProgram;
             
             // Vertex buffer.

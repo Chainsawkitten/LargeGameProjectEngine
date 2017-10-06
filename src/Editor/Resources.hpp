@@ -30,7 +30,7 @@ class ResourceList {
         std::vector<std::string> scenes;
         
         /// The index to the activeScene.
-        std::size_t activeScene;
+        int activeScene;
         
         /// Models.
         std::vector<Geometry::Model*> models;
