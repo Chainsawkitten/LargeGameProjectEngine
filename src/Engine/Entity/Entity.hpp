@@ -50,10 +50,10 @@ class Entity {
 
         /// Check if entity is a child.
         /**
-        * @param child The entity you want to check if it is a child.
-        * @param deep True if we want to check if it's a grandchild, false if we do not.
-        * @return True if it has a child, false if it does not.
-        */
+         * @param child The entity you want to check if it is a child.
+         * @param deep True if we want to check if it's a grandchild, false if we do not.
+         * @return True if it has a child, false if it does not.
+         */
         bool HasChild(const Entity* child, bool deep = true) const;
 
         /// Instantiate a scene as a child to this entity.
@@ -132,6 +132,12 @@ class Entity {
          * @return The model matrix.
          */
         glm::mat4 GetModelMatrix() const;
+
+        /// Get the local model matrix.
+        /**
+         * @return The local model matrix.
+         */
+        glm::mat4 GetLocalMatrix() const;
         
         /// Get orientation matrix.
         /**

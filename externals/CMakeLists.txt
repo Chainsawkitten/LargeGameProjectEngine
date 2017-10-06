@@ -26,6 +26,12 @@ target_include_directories(stb INTERFACE stb)
 add_library(imgui INTERFACE)
 target_include_directories(imgui INTERFACE imgui)
 
+
+# Imguizmo
+add_library(imguizmo imguizmo/imguizmo.cpp)
+target_include_directories(imguizmo INTERFACE imguizmo)
+target_link_libraries(imguizmo imgui)
+
 # OpenAL Soft
 set(ALSOFT_UTILS OFF CACHE BOOL "Don't build OpenAL Soft utility programs" FORCE)
 set(ALSOFT_EXAMPLES OFF CACHE BOOL "Don't build OpenAL Soft examples" FORCE)

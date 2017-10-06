@@ -25,6 +25,9 @@ class InputHandler {
             ZOOM, ///< Zoom to entity.
             SELECT, ///< Select object.
             FOCUS, ///< Focus on selected object.
+            W,  ///< Key for activating the translation operation in widget.
+            E,  ///< Key for activating the rotation operation in widget.
+            R,  ///< Key for activating the scale operation in widget.
             BUTTONS, ///< Total number of inputs.
         };
         
