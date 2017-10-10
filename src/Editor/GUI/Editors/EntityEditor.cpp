@@ -259,7 +259,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
             
             material->albedo = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
-        
+       
         ImGui::EndPopup();
     }
     ImGui::Unindent();
@@ -300,14 +300,15 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     if (ImGui::BeginPopup("Select metallic texture")) {
         ImGui::Text("Textures");
         ImGui::Separator();
-        
-        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
-            if (material->metallic != Hymn().defaultMetallic)
-                Managers().resourceManager->FreeTextureAsset(material->metallic);
-            
-            material->metallic = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
-        }
-        
+       
+        for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->metallic != Hymn().defaultMetallic)
+                    Managers().resourceManager->FreeTextureAsset(material->metallic);
+                
+                material->metallic = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
+        } 
         ImGui::EndPopup();
     }
     ImGui::Unindent();
@@ -325,13 +326,14 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
-            if (material->roughness != Hymn().defaultRoughness)
-                Managers().resourceManager->FreeTextureAsset(material->roughness);
-            
-            material->roughness = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
+        for (TextureAsset* texture : Resources().textures) {
+            if (ImGui::Selectable(texture->name.c_str())) {
+                if (material->roughness != Hymn().defaultRoughness)
+                    Managers().resourceManager->FreeTextureAsset(material->roughness);
+           
+                material->roughness = Managers().resourceManager->CreateTextureAsset(texture->name);
+            }
         }
-        
         ImGui::EndPopup();
     }
     ImGui::Unindent();
