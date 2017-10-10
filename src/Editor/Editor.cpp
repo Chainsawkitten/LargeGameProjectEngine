@@ -16,11 +16,14 @@
 #include <Engine/Geometry/Model.hpp>
 #include "ImGui/Theme.hpp"
 #include "Resources.hpp"
-
+#include <ImGuizmo.hpp>
 #include <imgui.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtx/transform.hpp>
 #include <fstream>
 
+
+ImGuizmo::OPERATION currentOperation = ImGuizmo::TRANSLATE;
 Editor::Editor() {
     // Create Hymns directory.
     FileSystem::CreateDirectory((FileSystem::DataPath("Hymn to Beauty") + FileSystem::DELIMITER + "Hymns").c_str());
@@ -49,6 +52,9 @@ Editor::Editor() {
     Input()->AssignButton(InputHandler::ZOOM, InputHandler::KEYBOARD, GLFW_KEY_Z);
     Input()->AssignButton(InputHandler::SELECT, InputHandler::MOUSE, GLFW_MOUSE_BUTTON_LEFT);
     Input()->AssignButton(InputHandler::FOCUS, InputHandler::KEYBOARD, GLFW_KEY_F);
+    Input()->AssignButton(InputHandler::W, InputHandler::KEYBOARD, GLFW_KEY_W);
+    Input()->AssignButton(InputHandler::E, InputHandler::KEYBOARD, GLFW_KEY_E);
+    Input()->AssignButton(InputHandler::R, InputHandler::KEYBOARD, GLFW_KEY_R);
 
     // Create editor camera.
     cameraEntity = cameraWorld.CreateEntity("Editor Camera");
@@ -290,9 +296,9 @@ void Editor::Show(float deltaTime) {
                             }
                         }
                         else if (intersectDistance > 0.0f) {
-                                resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
-                                resourceView.GetScene().entityEditor.SetVisible(true);
-                                break;
+                            resourceView.GetScene().entityEditor.SetEntity(Hymn().world.GetEntities().at(entityIndex));
+                            resourceView.GetScene().entityEditor.SetVisible(true);
+                            break;
                         }
                     }
                 }
@@ -364,6 +370,79 @@ void Editor::Show(float deltaTime) {
     // Set cursor.
     if (ImGui::GetMouseCursor() < 5) {
         glfwSetCursor(MainWindow::GetInstance()->GetGLFWWindow(), cursors[ImGui::GetMouseCursor()]);
+    }
+
+    // Widget Controller for translation, rotation  and scale.
+    ImGuizmo::BeginFrame();
+    ImGuizmo::Enable(true);
+    //Widget operation is in local mode
+    ImGuizmo::MODE currentGizmoMode(ImGuizmo::LOCAL);
+    ImGuiIO& io = ImGui::GetIO();
+
+    // Check that there is an active Entity.
+
+    // Get current active Entity.
+    glm::mat4 currentEntityMatrix = glm::mat4();
+
+    Entity* currentEntity = resourceView.GetScene().entityEditor.GetEntity();
+
+    if (resourceView.GetScene().entityEditor.GetEntity() != NULL) {
+        currentEntityMatrix = resourceView.GetScene().entityEditor.GetEntity()->GetLocalMatrix();
+
+        // Change operation based on key input.
+        if (Input()->Triggered(InputHandler::W))
+            currentOperation = ImGuizmo::TRANSLATE;
+
+        else if (Input()->Triggered(InputHandler::E))
+            currentOperation = ImGuizmo::ROTATE;
+
+        else if (Input()->Triggered(InputHandler::R))
+            currentOperation = ImGuizmo::SCALE;
+
+
+        // Projection matrix.
+        glm::mat4 projectionMatrix = cameraEntity->GetComponent<Component::Lens>()->GetProjection(glm::vec2(io.DisplaySize.x, io.DisplaySize.y));
+
+        // View matrix.
+        glm::mat4 viewMatrix = cameraEntity->GetCameraOrientation() * glm::translate(glm::mat4(), -cameraEntity->GetWorldPosition());
+
+        // Identity matrix.
+        glm::mat4 identity = glm::mat4();
+        float translationValue[3] = { currentEntity->position.x, currentEntity->position.y, currentEntity->position.z };
+        float scaleValue[3] = { currentEntity->scale.x, currentEntity->scale.y, currentEntity->scale.z };
+        float rotationValue[3] = { currentEntity->rotation.x, currentEntity->rotation.y, currentEntity->rotation.z };
+
+        // Draw the actual widget.
+        ImGuizmo::SetRect(currentEntityMatrix[0][0], 0, io.DisplaySize.x, io.DisplaySize.y);
+        ImGuizmo::RecomposeMatrixFromComponents(translationValue, rotationValue, scaleValue, &currentEntityMatrix[0][0]);
+        ImGuizmo::Manipulate(&viewMatrix[0][0], &projectionMatrix[0][0], currentOperation, currentGizmoMode, &currentEntityMatrix[0][0]);
+        ImGuizmo::DecomposeMatrixToComponents(&currentEntityMatrix[0][0], translationValue, rotationValue, scaleValue);
+
+        glm::rotate(-90.0f, glm::vec3(rotationValue[0], rotationValue[1], rotationValue[2]));
+
+        if (ImGuizmo::IsUsing()) {
+
+            // Translate.
+            if (currentOperation == ImGuizmo::TRANSLATE) {
+                currentEntity->position.x = translationValue[0];
+                currentEntity->position.y = translationValue[1];
+                currentEntity->position.z = translationValue[2];
+            }
+
+            // Rotate.
+            if (currentOperation == ImGuizmo::ROTATE) {
+                currentEntity->rotation.x = rotationValue[0];
+                currentEntity->rotation.y = rotationValue[1];
+                currentEntity->rotation.z = rotationValue[2];
+            }
+
+            // Scale.
+            if (currentOperation == ImGuizmo::SCALE) {
+                currentEntity->scale.x = scaleValue[0];
+                currentEntity->scale.y = scaleValue[1];
+                currentEntity->scale.z = scaleValue[2];
+            }
+        }
     }
 }
 
@@ -496,7 +575,7 @@ void Editor::NewHymn() {
 }
 
 void Editor::NewHymnClosed(const std::string& hymn) {
-    // Create new hymn
+    // Create new hymn.
     if (!hymn.empty()) {
         resourceView.ResetScene();
         Hymn().Clear();
