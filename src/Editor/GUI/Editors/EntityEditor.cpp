@@ -310,9 +310,6 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->metallic = texture;
-
             if (ImGui::Selectable(texture->name.c_str())) {
                 if (material->metallic != Hymn().defaultMetallic)
                     Managers().resourceManager->FreeTextureAsset(material->metallic);
@@ -339,13 +336,10 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Separator();
         
         for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->roughness = texture;
-
             if (ImGui::Selectable(texture->name.c_str())) {
                 if (material->roughness != Hymn().defaultRoughness)
                     Managers().resourceManager->FreeTextureAsset(material->roughness);
-                
+           
                 material->roughness = Managers().resourceManager->CreateTextureAsset(texture->name);
             }
         }
