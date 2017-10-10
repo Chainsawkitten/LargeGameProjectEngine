@@ -119,15 +119,16 @@ void ModelEditor::FileSelected(const std::string& file) {
     std::string name = FileSystem::GetName(file).c_str();
 
     // Checking so that the file isn't imported twice.
-    // @todo Overwrite option?
-    for (int i = 0; i < Resources().models.size(); ++i) {
+    /// @todo Overwrite option?
+    /// @todo Reimplement this.
+    /*for (int i = 0; i < Resources().models.size(); ++i) {
         if (Resources().models[i]->name == name) {
             Log() << "File " << name << " is already added to project.\n";
             isImported = false;
             hasSourceFile = false;
             return;
         }
-    }
+    }*/
 
     source = file;
 

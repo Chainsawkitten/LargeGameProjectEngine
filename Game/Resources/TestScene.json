@@ -39,14 +39,14 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Texture #1",
+				"albedo" : "Resources/Minecart/Texture #1",
 				"metallic" : "",
-				"normal" : "Texture #1",
+				"normal" : "Resources/Minecart/Texture #1",
 				"roughness" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "CartSecond"
+				"model" : "Resources/Minecart/CartSecond"
 			},
 			"Physics" : 
 			{
@@ -92,7 +92,7 @@
 			},
 			"Script" : 
 			{
-				"scriptName" : "Cart"
+				"scriptName" : "Resources/Minecart/Cart"
 			},
 			"Shape" : 
 			{
@@ -112,7 +112,7 @@
 					},
 					"Script" : 
 					{
-						"scriptName" : "Player"
+						"scriptName" : "Resources/Player"
 					},
 					"children" : null,
 					"name" : "Player",
@@ -212,11 +212,11 @@
 					},
 					"Mesh" : 
 					{
-						"model" : "spak"
+						"model" : "Resources/spak"
 					},
 					"Script" : 
 					{
-						"scriptName" : "Lever"
+						"scriptName" : "Resources/Lever"
 					},
 					"children" : null,
 					"name" : "Lever",
@@ -245,18 +245,18 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "Texture #1",
+						"albedo" : "Resources/Minecart/Texture #1",
 						"metallic" : "",
 						"normal" : "",
 						"roughness" : ""
 					},
 					"Mesh" : 
 					{
-						"model" : "Galler"
+						"model" : "Resources/Gate/Galler"
 					},
 					"Script" : 
 					{
-						"scriptName" : "Gates"
+						"scriptName" : "Resources/Gate/Gates"
 					},
 					"children" : null,
 					"name" : "Gates",
@@ -389,14 +389,14 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Texture #2",
+				"albedo" : "Resources/Cave/Texture #2",
 				"metallic" : "",
-				"normal" : "Texture #3",
+				"normal" : "Resources/Cave/Texture #3",
 				"roughness" : ""
 			},
 			"Mesh" : 
 			{
-				"model" : "Cave"
+				"model" : "Resources/Cave/Cave"
 			},
 			"children" : null,
 			"name" : "cave",

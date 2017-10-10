@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "../Manager/Managers.hpp"
 #include "../Manager/ProfilingManager.hpp"
 
 /// Run profiling.

@@ -65,7 +65,6 @@ class Cart{
     }
     
     void OnTrigger(Component::Physics @trigger, Component::Physics @enterer) {
-        print("WOW! WHAT A COLLISION!");
         hasHitPlane = true;
     }
 }

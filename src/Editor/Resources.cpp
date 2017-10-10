@@ -1,9 +1,9 @@
 #include "Resources.hpp"
 
-#include <json/value.h>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Audio/SoundBuffer.hpp>
+#include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Hymn.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
@@ -11,8 +11,25 @@
 
 using namespace std;
 
+string ResourceList::Resource::GetName() const {
+    switch (type) {
+    case Type::SCENE:
+        return scene;
+    case Type::MODEL:
+        return model->name;
+    case Type::TEXTURE:
+        return texture->name;
+    case Type::SOUND:
+        return sound->name;
+    case Type::SCRIPT:
+        return script->name;
+    default:
+        return "";
+    }
+}
+
 ResourceList::ResourceList() {
-    activeScene = -1;
+    resourceFolder.name = "Resources";
 }
 
 ResourceList& ResourceList::GetInstance() {
@@ -29,42 +46,18 @@ void ResourceList::Save() const {
 }
 
 Json::Value ResourceList::ToJson() const {
-
     Json::Value root;
-
+    
     root["activeScene"] = activeScene;
-
-    // Save textures.
-    Json::Value texturesNode;
-    for (TextureAsset* texture : textures) {
-        texturesNode.append(texture->name);
-        texture->Save();
-    }
-    root["textures"] = texturesNode;
-
-    // Save models.
-    Json::Value modelsNode;
-    for (Geometry::Model* model : models) {
-        modelsNode.append(model->name);
-    }
-    root["models"] = modelsNode;
-
-    // Save sounds.
-    Json::Value soundsNode;
-    for (Audio::SoundBuffer* sound : sounds) {
-        soundsNode.append(sound->name);
-    }
-    root["sounds"] = soundsNode;
-
-    // Save scenes.
-    Json::Value scenesNode;
-    for (const string& scene : scenes) {
-        scenesNode.append(scene);
-    }
-    root["scenes"] = scenesNode;
-
+    root["resourceFolder"] = SaveFolder(resourceFolder);
+    
+    root["sceneNumber"] = sceneNumber;
+    root["textureNumber"] = textureNumber;
+    root["modelNumber"] = modelNumber;
+    root["soundNumber"] = soundNumber;
+    root["scriptNumber"] = scriptNumber;
+    
     return root;
-
 }
 
 void ResourceList::Load() {
@@ -74,63 +67,142 @@ void ResourceList::Load() {
     file >> root;
     file.close();
     
-    activeScene = root["activeScene"].asUInt();
+    activeScene = root["activeScene"].asString();
+    resourceFolder = LoadFolder(root["resourceFolder"], "");
     
-    // Load textures.
-    const Json::Value texturesNode = root["textures"];
-    for (unsigned int i = 0; i < texturesNode.size(); ++i) {
-        textures.push_back(Managers().resourceManager->CreateTextureAsset(texturesNode[i].asString()));
-    }
-    
-    // Load models.
-    const Json::Value modelsNode = root["models"];
-    for (unsigned int i = 0; i < modelsNode.size(); ++i) {
-        models.push_back(Managers().resourceManager->CreateModel(modelsNode[i].asString()));
-    }
-    
-    // Load sounds.
-    const Json::Value soundsNode = root["sounds"];
-    for (unsigned int i = 0; i < soundsNode.size(); ++i) {
-        sounds.push_back(Managers().resourceManager->CreateSound(soundsNode[i].asString()));
-    }
-    
-    // Load scenes.
-    const Json::Value scenesNode = root["scenes"];
-    for (unsigned int i = 0; i < scenesNode.size(); ++i) {
-        scenes.push_back(scenesNode[i].asString());
-    }
-    
-    textureNumber = textures.size();
-    modelNumber = models.size();
-    soundNumber = sounds.size();
+    sceneNumber = root["sceneNumber"].asUInt();
+    textureNumber = root["textureNumber"].asUInt();
+    modelNumber = root["modelNumber"].asUInt();
+    soundNumber = root["soundNumber"].asUInt();
+    scriptNumber = root["scriptNumber"].asUInt();
 }
 
 void ResourceList::Clear() {
-    scenes.clear();
+    ClearFolder(resourceFolder);
+    resourceFolder.name = "Resources";
     
-    for (Geometry::Model* model : models) {
-        Managers().resourceManager->FreeModel(model);
-    }
-    models.clear();
+    sceneNumber = 0U;
     modelNumber = 0U;
-    
-    for (TextureAsset* texture : textures) {
-        Managers().resourceManager->FreeTextureAsset(texture);
-    }
-    textures.clear();
     textureNumber = 0U;
-    
-    for (Audio::SoundBuffer* sound : sounds) {
-        Managers().resourceManager->FreeSound(sound);
-    }
-    sounds.clear();
     soundNumber = 0U;
+    scriptNumber = 0U;
+}
+
+Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
+    Json::Value node;
+    node["name"] = folder.name;
+    
+    // Save subfolders.
+    Json::Value subfolders;
+    for (const ResourceFolder& subfolder : folder.subfolders)
+        subfolders.append(SaveFolder(subfolder));
+    
+    node["subfolders"] = subfolders;
+    
+    // Save resources.
+    Json::Value resourcesNode;
+    for (const Resource& resource : folder.resources) {
+        Json::Value resourceNode;
+        resourceNode["type"] = resource.type;
+        
+        switch (resource.type) {
+        case Resource::SCENE:
+            resourceNode["scene"] = resource.scene;
+            break;
+        case Resource::TEXTURE:
+            resourceNode["texture"] = resource.texture->name;
+            resource.texture->Save();
+            break;
+        case Resource::MODEL:
+            resourceNode["model"] = resource.model->name;
+            resource.model->Save();
+            break;
+        case Resource::SOUND:
+            resourceNode["sound"] = resource.sound->name;
+            resource.sound->Save();
+            break;
+        case Resource::SCRIPT:
+            resourceNode["script"] = resource.script->name;
+            resource.script->Save();
+            break;
+        }
+        
+        resourcesNode.append(resourceNode);
+    }
+    node["resources"] = resourcesNode;
+    
+    return node;
+}
+
+ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, std::string path) {
+    ResourceFolder folder;
+    folder.name = node["name"].asString();
+    path += folder.name + "/";
+    
+    // Load subfolders.
+    Json::Value subfoldersNode = node["subfolders"];
+    for (unsigned int i = 0; i < subfoldersNode.size(); ++i)
+        folder.subfolders.push_back(LoadFolder(subfoldersNode[i], path));
+    
+    // Load resources.
+    Json::Value resourcesNode = node["resources"];
+    for (unsigned int i = 0; i < resourcesNode.size(); ++i) {
+        Json::Value resourceNode = resourcesNode[i];
+        Resource resource;
+        resource.type = static_cast<Resource::Type>(resourceNode["type"].asInt());
+        
+        switch (resource.type) {
+        case Resource::SCENE:
+            resource.scene = resourceNode["scene"].asString();
+            break;
+        case Resource::TEXTURE:
+            resource.texture = Managers().resourceManager->CreateTextureAsset(path + resourceNode["texture"].asString());
+            break;
+        case Resource::MODEL:
+            resource.model = Managers().resourceManager->CreateModel(path + resourceNode["model"].asString());
+            break;
+        case Resource::SOUND:
+            resource.sound = Managers().resourceManager->CreateSound(path + resourceNode["sound"].asString());
+            break;
+        case Resource::SCRIPT:
+            resource.script = Managers().resourceManager->CreateScriptFile(path + resourceNode["script"].asString());
+            break;
+        }
+        
+        folder.resources.push_back(resource);
+    }
+    
+    return folder;
+}
+
+void ResourceList::ClearFolder(ResourceFolder& folder) {
+    // Clear subfolders.
+    for (ResourceFolder& subfolder : folder.subfolders)
+        ClearFolder(subfolder);
+    
+    folder.subfolders.clear();
+    
+    // Clear resources.
+    for (const Resource& resource : folder.resources) {
+        switch (resource.type) {
+        case Resource::Type::MODEL:
+            Managers().resourceManager->FreeModel(resource.model);
+            break;
+        case Resource::Type::TEXTURE:
+            Managers().resourceManager->FreeTextureAsset(resource.texture);
+            break;
+        case Resource::Type::SOUND:
+            Managers().resourceManager->FreeSound(resource.sound);
+            break;
+        default:
+            break;
+        }
+    }
+    folder.resources.clear();
 }
 
 std::string ResourceList::GetSavePath() const{
-
     return Hymn().GetPath() + FileSystem::DELIMITER + "Resources.json";
-
 }
 
 ResourceList& Resources() {

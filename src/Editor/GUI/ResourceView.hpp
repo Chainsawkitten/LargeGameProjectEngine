@@ -5,7 +5,9 @@
 #include "Editors/SoundEditor.hpp"
 #include "Editors/ScriptEditor.hpp"
 #include "Editors/TextureEditor.hpp"
-#include "GUI/SavePromptWindow.hpp"
+#include "SavePromptWindow.hpp"
+#include "FolderNameWindow.hpp"
+#include "../Resources.hpp"
 
 namespace GUI {
     /// Displays all the hymn's resources.
@@ -44,12 +46,6 @@ namespace GUI {
             /// Save the currently active scene.
             void SaveScene() const;
             
-            /// Switches to a new scene
-            /**
-             * @param index The index of the scene we want to switch to.
-             */
-            void SwitchScene(int index);
-
             /// Get a json representing the scene.
             /**
              * @param filename The json file representing the scene.
@@ -66,6 +62,10 @@ namespace GUI {
             SceneEditor& GetScene();
             
         private:
+            void ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path);
+            bool ShowResource(ResourceList::Resource& resource, const std::string& path);
+            void FileNameWindowClosed(const std::string& name);
+            
             bool visible = false;
             
             ScriptEditor scriptEditor;
@@ -73,12 +73,15 @@ namespace GUI {
             ModelEditor modelEditor;
             TextureEditor textureEditor;
             SoundEditor soundEditor;
-
-            GUI::SavePromptWindow savePromptWindow;
-
+            
+            SavePromptWindow savePromptWindow;
+            FolderNameWindow folderNameWindow;
+            
             bool changeScene = false;
-            int sceneIndex = -1;
-
+            std::string resourcePath = "";
+            std::string* scene = nullptr;
+            ResourceList::ResourceFolder* parentFolder;
+            
             static const int splitterSize = 2;
             int resourceHeight = 250;
             bool resourceResize = false;
@@ -88,5 +91,10 @@ namespace GUI {
             
             int editorWidth = 250;
             bool editorResize = false;
+            
+            bool scriptPressed;
+            bool texturePressed;
+            bool modelPressed;
+            bool soundPressed;
     };
 }

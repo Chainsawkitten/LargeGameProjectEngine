@@ -49,6 +49,9 @@ namespace Audio {
             /// The name of the sound.
             std::string name;
             
+            /// The folder containing the sound file.
+            std::string path;
+            
         private:
             ALuint buffer;
     };

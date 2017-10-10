@@ -3,6 +3,7 @@
 #include <glm/gtc/quaternion.hpp>
 #include "../Hymn.hpp"
 #include "../Util/FileSystem.hpp"
+#include <Utility/Log.hpp>
 
 using namespace Geometry;
 
@@ -22,8 +23,10 @@ Json::Value Model::Save() const {
 }
 
 void Model::Load(const std::string& name) {
-    this->name = name;
-    Load((Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name + ".asset").c_str());
+    std::size_t pos = name.find_last_of('/');
+    this->name = name.substr(pos + 1);
+    path = name.substr(0, pos + 1);
+    Load((Hymn().GetPath() + "/" + name + ".asset").c_str());
 }
 
 void Model::Load(const char* filename) {

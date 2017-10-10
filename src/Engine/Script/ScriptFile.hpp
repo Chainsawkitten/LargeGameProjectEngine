@@ -6,9 +6,6 @@
 /// Information about a file containing a script.
 class ScriptFile {
     public:
-        /// The name of the script.
-        std::string name = "";
-        
         /// Saves the scriptfile to Json value.
         /**
          * @return The saved data in a JSON node.
@@ -20,4 +17,10 @@ class ScriptFile {
          * @param name Name of the script.
          */
         void Load(const std::string& name);
+        
+        /// The name of the script.
+        std::string name = "";
+        
+        /// The folder containing the script file.
+        std::string path;
 };

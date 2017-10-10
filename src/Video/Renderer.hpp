@@ -67,7 +67,7 @@ namespace Video {
              * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              */
-            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix);
+            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
             
             /// Prepare for rendering skinned meshes.
             /**

@@ -11,6 +11,8 @@ set(SRCS
         GUI/SavePromptWindow.cpp
         GUI/InputWindow.cpp
         GUI/FileSelector.cpp
+        GUI/FolderNameWindow.cpp
+        GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
         GUI/Editors/EntityEditor.cpp
@@ -38,6 +40,8 @@ set(HEADERS
         GUI/SavePromptWindow.hpp
         GUI/InputWindow.hpp
         GUI/FileSelector.hpp
+        GUI/FolderNameWindow.hpp
+        GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
         GUI/Editors/EntityEditor.hpp
