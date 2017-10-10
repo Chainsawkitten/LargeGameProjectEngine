@@ -10,7 +10,7 @@ Component::Animation::Animation() {
 Json::Value Component::Animation::Save() const {
     Json::Value component;
     if (riggedModel != nullptr)
-        component["riggedModel"] = riggedModel->name;
+        component["riggedModel"] = riggedModel->path + riggedModel->name;
     else
         component["riggedModel"] = "null";
     return component;

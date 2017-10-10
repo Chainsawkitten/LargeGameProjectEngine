@@ -375,8 +375,8 @@ ScriptManager::~ScriptManager() {
     engine->ShutDownAndRelease();
 }
 
-void ScriptManager::BuildScript(const std::string& name) {
-    std::string filename = Hymn().GetPath() + FileSystem::DELIMITER + "Scripts" + FileSystem::DELIMITER + name + ".as";
+void ScriptManager::BuildScript(const ScriptFile* script) {
+    std::string filename = Hymn().GetPath() + "/" + script->path + script->name + ".as";
     if (!FileSystem::FileExists(filename.c_str())) {
         Log() << "Script file does not exist: " << filename << "\n";
         return;
@@ -384,9 +384,9 @@ void ScriptManager::BuildScript(const std::string& name) {
     
     // Create and build script module.
     CScriptBuilder builder;
-    int r = builder.StartNewModule(engine, name.c_str());
+    int r = builder.StartNewModule(engine, script->name.c_str());
     if (r < 0)
-        Log() << "Couldn't start new module: " << name << ".\n";
+        Log() << "Couldn't start new module: " << script->name << ".\n";
     
     r = builder.AddSectionFromFile(filename.c_str());
     if (r < 0)
@@ -398,10 +398,10 @@ void ScriptManager::BuildScript(const std::string& name) {
 }
 
 void ScriptManager::BuildAllScripts() {
-    std::string path = Hymn().GetPath() + FileSystem::DELIMITER + "Scripts" + FileSystem::DELIMITER;
+    std::string path = Hymn().GetPath() + "/";
     
     for (ScriptFile* file : Hymn().scripts) {
-        std::string filename = path + file->name + ".as";
+        std::string filename = path + file->path + file->name + ".as";
         if (!FileSystem::FileExists(filename.c_str())) {
             Log() << "Script file does not exist: " << filename << "\n";
             return;

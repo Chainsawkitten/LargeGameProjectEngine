@@ -32,16 +32,16 @@ Json::Value Material::Save() const {
     Json::Value component;
     
     if (albedo != nullptr)
-        component["albedo"] = albedo->name;
+        component["albedo"] = albedo->path + albedo->name;
     
     if (normal != nullptr)
-        component["normal"] = normal->name;
+        component["normal"] = normal->path + normal->name;
     
     if (metallic != nullptr)
-        component["metallic"] = metallic->name;
+        component["metallic"] = metallic->path + metallic->name;
     
     if (roughness != nullptr)
-        component["roughness"] = roughness->name;
+        component["roughness"] = roughness->path + roughness->name;
     
     return component;
 }

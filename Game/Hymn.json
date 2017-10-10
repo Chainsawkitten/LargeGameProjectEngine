@@ -40,9 +40,9 @@
 	],
 	"scripts" : 
 	[
-		"Player",
-		"Cart",
-		"Lever",
-		"Gates"
+		"Resources/Player",
+		"Resources/Minecart/Cart",
+		"Resources/Lever",
+		"Resources/Gate/Gates"
 	]
 }

@@ -36,6 +36,7 @@
 #include "../Hymn.hpp"
 #include "Util/Profiling.hpp"
 #include "Util/Json.hpp"
+#include "Util/GPUProfiling.hpp"
 
 #include "Manager/VRManager.hpp"
 
@@ -85,61 +86,77 @@ void RenderManager::Render(World& world, Entity* camera) {
     if (camera != nullptr) {
         // Render main window.
         if (mainWindowRenderSurface != nullptr) {
-            const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
-            const glm::mat4 orientationMat = camera->GetCameraOrientation();
-            const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+            { PROFILE("Render main window");
+            { GPUPROFILE("Render main window", Video::Query::Type::TIME_ELAPSED);
 
-            Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
+                const glm::mat4 translationMat = glm::translate(glm::mat4(), -camera->GetWorldPosition());
+                const glm::mat4 orientationMat = camera->GetCameraOrientation();
+                const glm::mat4 projectionMat = camera->GetComponent<Lens>()->GetProjection(mainWindowRenderSurface->GetSize());
+
+                Render(world, translationMat, orientationMat, projectionMat, mainWindowRenderSurface);
+            }
+            }
         }
 
         // Render hmd.
         if (hmdRenderSurface != nullptr) {
-            for (int i = 0; i < 2; ++i)
-            {
-                vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
+            { PROFILE("Render main hmd");
+            { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
 
-                glm::vec3 position = camera->GetWorldPosition();
-                Lens* lens = camera->GetComponent<Lens>();
-                const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
+                for (int i = 0; i < 2; ++i) {
+                    vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
-                glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
-                glm::mat4 eyeTranslation = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
+                    glm::vec3 position = camera->GetWorldPosition();
+                    Lens* lens = camera->GetComponent<Lens>();
+                    const glm::mat4 projectionMat = Managers().vrManager->GetHMDProjectionMatrix(nEye, lens->zNear, lens->zFar);
 
-                glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
-                glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
-                glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
-                glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
+                    glm::mat4 hmdTransform = Managers().vrManager->GetHMDPoseMatrix();
+                    glm::mat4 eyeTranslation = Managers().vrManager->GetHMDEyeToHeadMatrix(nEye);
 
-                glm::mat4 orientationMat = glm::transpose(glm::mat4(
-                    glm::vec4(right, 0.f),
-                    glm::vec4(up, 0.f),
-                    glm::vec4(forward, 0.f),
-                    glm::vec4(0.f, 0.f, 0.f, 1.f)
-                ));
-                
-                glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
-                glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
-                glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
-                glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
+                    glm::vec3 right = glm::vec3(hmdTransform[0][0], hmdTransform[1][0], hmdTransform[2][0]);
+                    glm::vec3 up = glm::vec3(hmdTransform[0][1], hmdTransform[1][1], hmdTransform[2][1]);
+                    glm::vec3 forward = glm::vec3(hmdTransform[0][2], hmdTransform[1][2], hmdTransform[2][2]);
+                    glm::mat4 lensTranslation = glm::translate(glm::mat4(), -position);
 
-                glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
+                    glm::mat4 orientationMat = glm::transpose(glm::mat4(
+                        glm::vec4(right, 0.f),
+                        glm::vec4(up, 0.f),
+                        glm::vec4(forward, 0.f),
+                        glm::vec4(0.f, 0.f, 0.f, 1.f)
+                    ));
 
-                Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
+                    glm::mat4 hmdTranslationLocal = glm::inverse(orientationMat) * hmdTransform;
+                    glm::vec3 hmdPositionLocal = glm::vec3(hmdTranslationLocal[3][0], hmdTranslationLocal[3][1], hmdTranslationLocal[3][2]);
+                    glm::vec3 hmdPositionScaled = hmdPositionLocal * Managers().vrManager->GetScale();
+                    glm::mat4 hmdTranslationScaled = glm::translate(glm::mat4(), hmdPositionScaled);
 
-                hmdRenderSurface->Swap();
-                vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+                    glm::mat4 translationMat = eyeTranslation * hmdTranslationScaled * lensTranslation;
 
-                // Submit texture to HMD.
-                Managers().vrManager->Submit(nEye, &texture);
+                    Render(world, translationMat, orientationMat, projectionMat, hmdRenderSurface);
+
+                    hmdRenderSurface->Swap();
+                    vr::Texture_t texture = { (void*)(std::uintptr_t)hmdRenderSurface->GetColorTexture()->GetTexture(), vr::TextureType_OpenGL, vr::ColorSpace_Auto };
+
+                    // Submit texture to HMD.
+                    Managers().vrManager->Submit(nEye, &texture);
+                }
             }
-            
-            //TMP
-            Managers().vrManager->Sync();
+            }
+
+            { PROFILE("Sync hmd");
+            { GPUPROFILE("Sync hmd", Video::Query::Type::TIME_ELAPSED);
+                Managers().vrManager->Sync();
+            }
+            }
         }
 
         // Render to back buffer.
         { PROFILE("Render to back buffer");
+        { GPUPROFILE("Render to back buffer", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Render to back buffer", Video::Query::Type::SAMPLES_PASSED);
             renderer->DisplayResults(mainWindowRenderSurface, true);
+        }
+        }
         }
     }
 }
@@ -226,8 +243,9 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
     const std::vector<Mesh*>& meshComponents = meshes.GetAll();
 
-    {
-        PROFILE("Render z-pass meshes");
+    { PROFILE("Render z-pass meshes");
+    { GPUPROFILE("Render z-pass meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render z-pass meshes", Video::Query::Type::SAMPLES_PASSED);
         for (Mesh* mesh : meshComponents) {
             if (mesh->IsKilled() || !mesh->entity->enabled)
                 continue;
@@ -236,15 +254,18 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 Entity* entity = mesh->entity; 
                 // If entity does not have material, it won't be rendered.
                 if (entity->GetComponent<Material>() != nullptr) {
-                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix,  entity->GetModelMatrix());
+                    renderer->DepthRenderStaticMesh(mesh->geometry, viewMatrix, projectionMatrix, entity->GetModelMatrix());
                 }
             }
         }
     }
+    }
+    }
 
     // Render static meshes.
-    {
-        PROFILE("Render static meshes");
+    { PROFILE("Render static meshes");
+    { GPUPROFILE("Render static meshes", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render static meshes", Video::Query::Type::SAMPLES_PASSED);
         renderer->PrepareStaticMeshRendering(viewMatrix, projectionMatrix);
         for (Mesh* mesh : meshComponents) {
             if (mesh->IsKilled() || !mesh->entity->enabled)
@@ -254,50 +275,82 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
                 Entity* entity = mesh->entity;
                 Material* material = entity->GetComponent<Material>();
                 if (material != nullptr) {
-                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix());
+                    renderer->RenderStaticMesh(mesh->geometry, material->albedo->GetTexture(), material->normal->GetTexture(), material->metallic->GetTexture(), material->roughness->GetTexture(), entity->GetModelMatrix(), mesh->GetSelected());
                 }
             }
         }
+    }
+    }
     }
 
     /// @todo Render skinned meshes.
     
     // Light the world.
-    {
-        PROFILE("Light the world");
+    { PROFILE("Light the world");
+    { GPUPROFILE("Light the world", Video::Query::Type::TIME_ELAPSED);
+    { //GPUPROFILE("Light the world", Video::Query::Type::SAMPLES_PASSED);
         LightWorld(world, viewMatrix, projectionMatrix, viewProjectionMatrix, renderSurface);
     }
+    }
+    }
+
     /*
     // Anti-aliasing.
     if (Hymn().filterSettings.fxaa) {
-        PROFILE("Anti-aliasing(FXAA)");
-        renderer->AntiAlias(renderSurface);
+        { PROFILE("Anti-aliasing(FXAA)");
+        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Anti-aliasing(FXAA)", Video::Query::Type::SAMPLES_PASSED);
+            renderer->AntiAlias(renderSurface);
+        }
+        }
+        }
     }
-
+    
+    
     // Fog.
     if (Hymn().filterSettings.fog) {
-        PROFILE("Fog");
-        renderer->RenderFog(renderSurface, projectionMatrix, Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+        { PROFILE("Fog");
+        { GPUPROFILE("Fog", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Fog", Video::Query::Type::SAMPLES_PASSED);
+            renderer->RenderFog(renderSurface, projectionMatrix, Hymn().filterSettings.fogDensity, Hymn().filterSettings.fogColor);
+        }
+        }
+        }
     }
-
+    
     // Render particles.
-    {
-        PROFILE("Render particles");
+    { PROFILE("Render particles");
+    { GPUPROFILE("Render particles", Video::Query::Type::TIME_ELAPSED);
+    { GPUPROFILE("Render particles", Video::Query::Type::SAMPLES_PASSED);
         Managers().particleManager->UpdateBuffer(world);
         Managers().particleManager->Render(world, position, up, viewProjectionMatrix);
     }
-
+    }
+    }
+    
+    
     // Glow.
     if (Hymn().filterSettings.glow) {
-        PROFILE("Glow");
-        renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
+        { PROFILE("Glow");
+        { GPUPROFILE("Glow", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Glow", Video::Query::Type::SAMPLES_PASSED);
+            renderer->ApplyGlow(renderSurface, Hymn().filterSettings.glowBlurAmount);
+        }
+        }
+        }
     }
-
+    
     // Color.
     if (Hymn().filterSettings.color) {
-        PROFILE("Color");
-        renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
-    }*/
+        { PROFILE("Color");
+        { GPUPROFILE("Color", Video::Query::Type::TIME_ELAPSED);
+        { GPUPROFILE("Color", Video::Query::Type::SAMPLES_PASSED);
+            renderer->ApplyColorFilter(renderSurface, Hymn().filterSettings.colorColor);
+        }
+        }
+        }
+    }
+    */
 
     renderSurface->GetPostProcessingFrameBuffer()->Unbind();
 }

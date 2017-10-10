@@ -23,7 +23,7 @@ Script::~Script() {
 Json::Value Script::Save() const {
     Json::Value component;
     if (scriptFile != nullptr)
-        component["scriptName"] = scriptFile->name;
+        component["scriptName"] = scriptFile->path + scriptFile->name;
     
     return component;
 }

@@ -44,6 +44,9 @@ namespace Geometry {
             /// The name of the model.
             std::string name;
             
+            /// The folder containing the model file.
+            std::string path;
+            
         private:
             void GenerateVertexBuffer(GLuint& vertexBuffer,
                 Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticies);

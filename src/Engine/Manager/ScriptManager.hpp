@@ -23,13 +23,13 @@ class ScriptManager {
     friend class Hub;
         
     public:
-        /// Build a script in the script folder that can later be run.
+        /// Build a script that can later be run.
         /**
-         * @param name Name of the script to build.
+         * @param script Script to build.
          */
-        void BuildScript(const std::string& name);
+        void BuildScript(const ScriptFile* script);
         
-        /// Build all scripts in the script folder.
+        /// Build all scripts in the hymn.
         void BuildAllScripts();
         
         /// Update all script entities in the game world.

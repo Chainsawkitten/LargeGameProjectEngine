@@ -5,14 +5,12 @@
 #include <Engine/Audio/SoundBuffer.hpp>
 #include <Engine/Script/ScriptFile.hpp>
 #include <Engine/Util/FileSystem.hpp>
-#include <Editor/Util/EditorSettings.hpp>
 #include <Engine/Hymn.hpp>
 #include <DefaultAlbedo.png.hpp>
 #include <Engine/MainWindow.hpp>
 #include <imgui.h>
 #include <limits>
 #include "../ImGui/Splitter.hpp"
-#include "../Resources.hpp"
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <cstdio>
@@ -22,6 +20,7 @@ using namespace GUI;
 using namespace std;
 
 ResourceView::ResourceView() {
+    folderNameWindow.SetClosedCallback(std::bind(&ResourceView::FileNameWindowClosed, this, placeholders::_1));
     savePromptWindow.SetTitle("Save before you switch scene?");
     savePromptWindow.ResetDecision();
 }
@@ -39,223 +38,61 @@ void ResourceView::Show() {
     
     ImGui::Begin("Resources", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders);
     
-    // Scenes.
-    if (ImGui::TreeNode("Scenes")) {
-        if (ImGui::Button("Add scene"))
-            Resources().scenes.push_back("Scene #" + std::to_string(Resources().scenes.size()));
-        
-        for (std::size_t i = 0; i < Resources().scenes.size(); ++i) {
-            if (ImGui::Selectable(Resources().scenes[i].c_str())) {
-                // Sets to dont save when opening first scene.
-                if (sceneIndex == -1) {
-                    changeScene = true;
-                    sceneIndex = i;
-                    savePromptWindow.SetVisible(false);
-                    savePromptWindow.SetDecision(1);
-                } else {
-                    // Does so that the prompt window wont show if you select active scene.
-                    if (Resources().scenes[i] != Resources().scenes[Resources().activeScene]) {
-                        changeScene = true;
-                        sceneIndex = i;
-                    }
-                }
-            }
+    // Show resources.
+    scriptPressed = false;
+    texturePressed = false;
+    modelPressed = false;
+    soundPressed = false;
+    
+    ShowResourceFolder(Resources().resourceFolder, Resources().resourceFolder.name);
+    
+    // Change scene.
+    if (changeScene) {
+        if (Hymn().GetPath() != "") {
+            savePromptWindow.SetVisible(true);
+            savePromptWindow.Show();
             
-            if (ImGui::BeginPopupContextItem(Resources().scenes[i].c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    Resources().scenes.erase(Resources().scenes.begin() + i);
-                    ImGui::EndPopup();
-                    
-                    if (Resources().activeScene >= i) {
-                        if (Resources().activeScene > 0)
-                            Resources().activeScene = Resources().activeScene - 1;
-                        
-                        sceneEditor.SetScene(Resources().activeScene);
-                    }
-                    break;
-                }
-                ImGui::EndPopup();
-            }
-        }
-        ImGui::TreePop();
-        if (changeScene) {
-
-            if (Hymn().GetPath() != "") {
-
-                if (!HasMadeChanges()) {
-                    SwitchScene(sceneIndex);
-                } else {
-
-                    savePromptWindow.SetVisible(true);
-                    savePromptWindow.ResetDecision();
-                    savePromptWindow.Show();
-
-                    switch (savePromptWindow.GetDecision())
-                    {
-                    case 0:
-                        sceneEditor.Save();
-                        SwitchScene(sceneIndex);
-                        break;
-
-                    case 1:
-                        SwitchScene(sceneIndex);
-                        break;
-
-                    case 2:
-                        changeScene = false;
-                        savePromptWindow.ResetDecision();
-                        savePromptWindow.SetVisible(false);
-                        break;
-
-                    default:
-                        break;
-
-                    }
-                }
+            switch (savePromptWindow.GetDecision()) {
+            case 0:
+                sceneEditor.Save();
+                sceneEditor.SetVisible(true);
+                sceneEditor.SetScene(resourcePath, scene);
+                Resources().activeScene = resourcePath + "/" + *scene;
+                sceneEditor.entityEditor.SetVisible(false);
+                Hymn().world.Clear();
+                Hymn().world.Load(Hymn().GetPath() + "/" + Resources().activeScene + ".json");
+                changeScene = false;
+                savePromptWindow.SetVisible(false);
+                savePromptWindow.ResetDecision();
+                break;
+                
+            case 1:
+                sceneEditor.SetVisible(true);
+                sceneEditor.SetScene(resourcePath, scene);
+                Resources().activeScene = resourcePath + "/" + *scene;
+                sceneEditor.entityEditor.SetVisible(false);
+                Hymn().world.Clear();
+                Hymn().world.Load(Hymn().GetPath() + "/" + Resources().activeScene + ".json");
+                changeScene = false;
+                savePromptWindow.SetVisible(false);
+                savePromptWindow.ResetDecision();
+                break;
+                
+            case 2:
+                changeScene = false;
+                savePromptWindow.ResetDecision();
+                savePromptWindow.SetVisible(false);
+                break;
+                
+            default:
+                break;
             }
         }
     }
     
-    // Models.
-    bool modelPressed = false;
-    if (ImGui::TreeNode("Models")) {
-        if (ImGui::Button("Add model")) {
-            Geometry::Model* model = new Geometry::Model();
-            model->name = "Model #" + std::to_string(Resources().modelNumber++);
-            Resources().models.push_back(model);
-        }
-        
-        for (auto it = Resources().models.begin(); it != Resources().models.end(); ++it) {
-            Geometry::Model* model = *it;
-            if (ImGui::Selectable(model->name.c_str())) {
-                modelPressed = true;
-                modelEditor.SetModel(model);
-            }
-            
-            if (ImGui::BeginPopupContextItem(model->name.c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    if (modelEditor.GetModel() == model)
-                        modelEditor.SetVisible(false);
-                    
-                    delete model;
-                    Resources().models.erase(it);
-                    ImGui::EndPopup();
-                    break;
-                }
-                ImGui::EndPopup();
-            }
-        }
-        ImGui::TreePop();
-    }
-    
-    // Textures.
-    bool texturePressed = false;
-    if (ImGui::TreeNode("Textures")) {
-        if (ImGui::Button("Add texture")) {
-            string name = "Texture #" + std::to_string(Resources().textureNumber++);
-            TextureAsset* texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
-            Resources().textures.push_back(texture);
-        }
-        
-        for (auto it = Resources().textures.begin(); it != Resources().textures.end(); ++it) {
-            TextureAsset* texture = *it;
-            if (ImGui::Selectable(texture->name.c_str())) {
-                texturePressed = true;
-                textureEditor.SetTexture(texture);
-            }
-            
-            if (ImGui::BeginPopupContextItem(texture->name.c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    if (Managers().resourceManager->GetTextureAssetInstanceCount(texture) > 1) {
-                        Log() << "This texture is in use. Remove all references to the texture first.\n";
-                    } else {
-                        if (textureEditor.GetTexture() == texture)
-                            textureEditor.SetVisible(false);
-                        
-                        // Remove files.
-                        remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png").c_str());
-                        remove((Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".json").c_str());
-                        
-                        Managers().resourceManager->FreeTextureAsset(texture);
-                        Resources().textures.erase(it);
-                    }
-                    ImGui::EndPopup();
-                    break;
-                }
-                ImGui::EndPopup();
-            }
-        }
-        
-        ImGui::TreePop();
-    }
-    
-    // Scripts.
-    bool scriptPressed = false;
-    if (ImGui::TreeNode("Scripts")) {
-        if (ImGui::Button("Add script")) {
-            ScriptFile* scriptFile = new ScriptFile();
-            scriptFile->name = "Script #" + std::to_string(Hymn().scriptNumber++);
-            Hymn().scripts.push_back(scriptFile);
-        }
-        
-        for (auto it = Hymn().scripts.begin(); it != Hymn().scripts.end(); ++it) {
-            ScriptFile* script = *it;
-            std::string name = script->name;
-            
-            if (ImGui::Selectable(name.c_str())) {
-                scriptPressed = true;
-                scriptEditor.SetScript(script);
-            }
-            
-            if (ImGui::BeginPopupContextItem(name.c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    if (scriptEditor.GetScript() == script)
-                        scriptEditor.SetVisible(false);
-                    
-                    delete script;
-                    Hymn().scripts.erase(it);
-                    ImGui::EndPopup();
-                    break;
-                }
-                ImGui::EndPopup();
-            }
-        }
-        
-        ImGui::TreePop();
-    }
-    
-    // Sounds.
-    bool soundPressed = false;
-    if (ImGui::TreeNode("Sounds")) {
-        if (ImGui::Button("Add sound")) {
-            Audio::SoundBuffer* sound = new Audio::SoundBuffer();
-            sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
-            Resources().sounds.push_back(sound);
-        }
-        
-        for (auto it = Resources().sounds.begin(); it != Resources().sounds.end(); ++it) {
-            Audio::SoundBuffer* sound = *it;
-            if (ImGui::Selectable(sound->name.c_str())) {
-                soundPressed = true;
-                soundEditor.SetSound(sound);
-            }
-            
-            if (ImGui::BeginPopupContextItem(sound->name.c_str())) {
-                if (ImGui::Selectable("Delete")) {
-                    if (soundEditor.GetSound() == sound)
-                        soundEditor.SetVisible(false);
-                    
-                    delete sound;
-                    Resources().sounds.erase(it);
-                    ImGui::EndPopup();
-                    break;
-                }
-                ImGui::EndPopup();
-            }
-        }
-        
-        ImGui::TreePop();
-    }
+    // Create folder.
+    if (folderNameWindow.IsVisible())
+        folderNameWindow.Show();
     
     if (sceneEditor.entityPressed || scriptPressed || texturePressed || modelPressed || soundPressed) {
         sceneEditor.entityEditor.SetVisible(sceneEditor.entityPressed);
@@ -346,26 +183,242 @@ Json::Value ResourceView::GetSceneJson(std::string* filename) const {
     return sceneEditor.GetSaveFileJson(filename);
 }
 
-void ResourceView::SwitchScene(int index) {
-
-    sceneEditor.SetVisible(true);
-    sceneEditor.SetScene(index);
-    Resources().activeScene = index;
-    sceneEditor.entityEditor.SetVisible(false);
-    Hymn().world.Clear();
-    Hymn().world.Load(Hymn().GetPath() + FileSystem::DELIMITER + "Scenes" + FileSystem::DELIMITER + Resources().scenes[index] + ".json");
-    changeScene = false;
-    savePromptWindow.SetVisible(false);
-    savePromptWindow.ResetDecision();
-
-}
-
 #undef max
 void ResourceView::ResetScene() {
-    sceneEditor.SetScene(std::numeric_limits<std::size_t>::max());
+    sceneEditor.SetScene("", nullptr);
     sceneEditor.SetVisible(false);
 }
 
 SceneEditor& ResourceView::GetScene() {
     return sceneEditor;
+}
+
+void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, const std::string& path) {
+    bool opened = ImGui::TreeNode(folder.name.c_str());
+    
+    if (ImGui::BeginPopupContextItem(folder.name.c_str())) {
+        // Add subfolder.
+        if (ImGui::Selectable("Add folder")) {
+            resourcePath = path;
+            parentFolder = &folder;
+            folderNameWindow.SetVisible(true);
+        }
+        
+        // Add scene.
+        if (ImGui::Selectable("Add scene")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SCENE;
+            resource.scene = "Scene #" + std::to_string(Resources().sceneNumber++);
+            folder.resources.push_back(resource);
+        }
+        
+        // Add model.
+        if (ImGui::Selectable("Add model")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::MODEL;
+            resource.model = new Geometry::Model();
+            resource.model->path = path + "/";
+            resource.model->name = "Model #" + std::to_string(Resources().modelNumber++);
+            folder.resources.push_back(resource);
+        }
+        
+        // Add texture.
+        if (ImGui::Selectable("Add texture")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::TEXTURE;
+            string name = path + "/Texture #" + std::to_string(Resources().textureNumber++);
+            resource.texture = Managers().resourceManager->CreateTextureAsset(name, Managers().resourceManager->CreateTexture2D(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH));
+            folder.resources.push_back(resource);
+        }
+        
+        // Add script.
+        if (ImGui::Selectable("Add script")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SCRIPT;
+            resource.script = new ScriptFile();
+            resource.script->path = path + "/";
+            resource.script->name = "Script #" + std::to_string(Hymn().scriptNumber++);
+            Hymn().scripts.push_back(resource.script);
+            folder.resources.push_back(resource);
+        }
+        
+        // Add sound.
+        if (ImGui::Selectable("Add sound")) {
+            ResourceList::Resource resource;
+            resource.type = ResourceList::Resource::SOUND;
+            resource.sound = new Audio::SoundBuffer();
+            resource.sound->path = path + "/";
+            resource.sound->name = "Sound #" + std::to_string(Resources().soundNumber++);
+            folder.resources.push_back(resource);
+        }
+        
+        /// @todo Remove folder.
+        
+        ImGui::EndPopup();
+    }
+    
+    if (opened) {
+        // Show subfolders.
+        for (ResourceList::ResourceFolder& subfolder : folder.subfolders) {
+            ShowResourceFolder(subfolder, path + "/" + subfolder.name);
+        }
+        
+        // Show resources.
+        for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
+            if (ShowResource(*it, path)) {
+                folder.resources.erase(it);
+                return;
+            }
+        }
+        
+        ImGui::TreePop();
+    }
+}
+
+bool ResourceView::ShowResource(ResourceList::Resource& resource, const std::string& path) {
+    // Scene.
+    if (resource.type == ResourceList::Resource::SCENE) {
+        if (ImGui::Selectable(resource.scene.c_str())) {
+            // Sets to don't save when opening first scene.
+            if (scene == nullptr) {
+                changeScene = true;
+                resourcePath = path;
+                scene = &resource.scene;
+                savePromptWindow.SetVisible(false);
+                savePromptWindow.SetDecision(1);
+            } else {
+                // Does so that the prompt window won't show if you select active scene.
+                if (resource.scene != Resources().activeScene) {
+                    changeScene = true;
+                    resourcePath = path;
+                    scene = &resource.scene;
+                    savePromptWindow.SetTitle("Save before you switch scene?");
+                }
+            }
+        }
+        
+        // Delete scene.
+        if (ImGui::BeginPopupContextItem(resource.scene.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (Resources().activeScene == resource.scene) {
+                    Resources().activeScene = "";
+                    sceneEditor.SetScene("", nullptr);
+                }
+                
+                ImGui::EndPopup();
+                
+                return true;
+            }
+            ImGui::EndPopup();
+        }
+    }
+    
+    // Model.
+    if (resource.type == ResourceList::Resource::MODEL) {
+        if (ImGui::Selectable(resource.model->name.c_str())) {
+            modelPressed = true;
+            modelEditor.SetModel(resource.model);
+        }
+        
+        if (ImGui::BeginPopupContextItem(resource.model->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (modelEditor.GetModel() == resource.model)
+                    modelEditor.SetVisible(false);
+                
+                Managers().resourceManager->FreeModel(resource.model);
+                ImGui::EndPopup();
+                
+                return true;
+            }
+            ImGui::EndPopup();
+        }
+    }
+    
+    // Textures.
+    if (resource.type == ResourceList::Resource::TEXTURE) {
+        if (ImGui::Selectable(resource.texture->name.c_str())) {
+            texturePressed = true;
+            textureEditor.SetTexture(resource.texture);
+        }
+        
+        if (ImGui::BeginPopupContextItem(resource.texture->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (Managers().resourceManager->GetTextureAssetInstanceCount(resource.texture) > 1) {
+                    Log() << "This texture is in use. Remove all references to the texture first.\n";
+                } else {
+                    if (textureEditor.GetTexture() == resource.texture)
+                        textureEditor.SetVisible(false);
+                    
+                    // Remove files.
+                    remove((Hymn().GetPath() + "/" + path + "/" + resource.texture->name + ".png").c_str());
+                    remove((Hymn().GetPath() + "/" + path + "/" + resource.texture->name + ".json").c_str());
+                    
+                    Managers().resourceManager->FreeTextureAsset(resource.texture);
+                    ImGui::EndPopup();
+                    return true;
+                }
+            }
+            ImGui::EndPopup();
+        }
+    }
+    
+    // Scripts.
+    if (resource.type == ResourceList::Resource::SCRIPT) {
+        std::string name = resource.script->name;
+        
+        if (ImGui::Selectable(name.c_str())) {
+            scriptPressed = true;
+            scriptEditor.SetScript(resource.script);
+        }
+        
+        if (ImGui::BeginPopupContextItem(name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (scriptEditor.GetScript() == resource.script)
+                    scriptEditor.SetVisible(false);
+                
+                Managers().resourceManager->FreeScriptFile(resource.script);
+                for (auto it = Hymn().scripts.begin(); it != Hymn().scripts.end(); ++it) {
+                    if (*it == resource.script) {
+                        Hymn().scripts.erase(it);
+                        break;
+                    }
+                }
+                ImGui::EndPopup();
+                return true;
+            }
+            ImGui::EndPopup();
+        }
+    }
+    
+    // Sounds.
+    if (resource.type == ResourceList::Resource::SOUND) {
+        if (ImGui::Selectable(resource.sound->name.c_str())) {
+            soundPressed = true;
+            soundEditor.SetSound(resource.sound);
+        }
+        
+        if (ImGui::BeginPopupContextItem(resource.sound->name.c_str())) {
+            if (ImGui::Selectable("Delete")) {
+                if (soundEditor.GetSound() == resource.sound)
+                    soundEditor.SetVisible(false);
+                
+                Managers().resourceManager->FreeSound(resource.sound);
+                ImGui::EndPopup();
+                return true;
+            }
+            ImGui::EndPopup();
+        }
+    }
+    
+    return false;
+}
+
+void ResourceView::FileNameWindowClosed(const std::string& name) {
+    if (!name.empty()) {
+        ResourceList::ResourceFolder folder;
+        folder.name = name;
+        parentFolder->subfolders.push_back(folder);
+        
+        FileSystem::CreateDirectory((Hymn().GetPath() + "/" + resourcePath + "/" + name).c_str());
+    }
 }

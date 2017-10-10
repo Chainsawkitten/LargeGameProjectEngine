@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <json/value.h>
 
 class TextureAsset;
 class ScriptFile;
@@ -20,6 +21,51 @@ class ResourceList {
     friend ResourceList& Resources();
     
     public:
+        /// A resource.
+        struct Resource {
+            /// Get the name of the resource.
+            /**
+             * @return The name of the resource.
+             */
+            std::string GetName() const;
+            
+            /// The type of resource.
+            enum Type {
+                SCENE = 0,
+                MODEL,
+                TEXTURE,
+                SOUND,
+                SCRIPT
+            } type;
+            
+            /// Scene name.
+            std::string scene;
+            
+            /// Model.
+            Geometry::Model* model;
+            
+            /// Texture.
+            TextureAsset* texture;
+            
+            /// Sound.
+            Audio::SoundBuffer* sound;
+            
+            /// Script.
+            ScriptFile* script;
+        };
+        
+        /// A folder containing resources.
+        struct ResourceFolder {
+            /// The name of the folder.
+            std::string name;
+            
+            /// Subfolders.
+            std::vector<ResourceFolder> subfolders;
+            
+            /// The contained resources.
+            std::vector<Resource> resources;
+        };
+        
         /// Save all resources to file.
         void Save() const;
 
@@ -35,26 +81,20 @@ class ResourceList {
         /// Clear resources.
         void Clear();
         
-        /// Scenes.
-        std::vector<std::string> scenes;
+        /// Resources.
+        ResourceFolder resourceFolder;
         
-        /// The index to the activeScene.
-        int activeScene;
+        /// The name of the activeScene.
+        std::string activeScene;
         
-        /// Models.
-        std::vector<Geometry::Model*> models;
+        /// The id of the next scene to create.
+        unsigned int sceneNumber = 0U;
         
         /// The id of the next model to create.
         unsigned int modelNumber = 0U;
         
-        /// Textures.
-        std::vector<TextureAsset*> textures;
-        
         /// The id of the next texture to create.
         unsigned int textureNumber = 0U;
-        
-        /// Sounds.
-        std::vector<Audio::SoundBuffer*> sounds;
     
         /// The id of the next sound to create.
         unsigned int soundNumber = 0U;
@@ -65,8 +105,15 @@ class ResourceList {
          */
         std::string GetSavePath() const;
         
+        /// The id of the next script to create.
+        unsigned int scriptNumber = 0U;
+        
     private:
         static ResourceList& GetInstance();
+        
+        Json::Value SaveFolder(const ResourceFolder& folder) const;
+        ResourceFolder LoadFolder(const Json::Value& node, std::string path);
+        void ClearFolder(ResourceFolder& folder);
         
         ResourceList();
         ResourceList(ResourceList const&) = delete;

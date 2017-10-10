@@ -45,6 +45,9 @@ class TextureAsset {
         /// Whether to convert from SRGB space to linear space when loading.
         bool srgb = false;
         
+        /// The folder containing the texture files.
+        std::string path;
+        
     private:
         TextureAsset(const TextureAsset & other) = delete;
         Video::Texture2D* texture;
