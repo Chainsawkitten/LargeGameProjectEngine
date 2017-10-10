@@ -265,7 +265,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
                 material->albedo = Managers().resourceManager->CreateTextureAsset(texture->name);
             }
         }
-        
+       
         ImGui::EndPopup();
     }
     ImGui::Unindent();
