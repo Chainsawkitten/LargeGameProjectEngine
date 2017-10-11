@@ -27,7 +27,13 @@ class ActiveHymn {
          * @param path New path.
          */
         void SetPath(const std::string& path);
-        
+
+        /// Gets the path to the hymn file.
+        /**
+         * @return The full path.
+         */
+        std::string GetSavePath() const;
+
         /// Save the hymn.
         void Save() const;
         
@@ -62,8 +68,15 @@ class ActiveHymn {
          * @param particleEmitters Whether to show particle emitters.
          * @param lightSources Whether to show light sources.
          * @param cameras Whether to show cameras.
+         * @param physics Whether to show physics volumes.
          */
-        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false);
+        void Render(Entity* camera = nullptr, bool soundSources = false, bool particleEmitters = false, bool lightSources = false, bool cameras = false, bool physics = false, bool gridSettings = false);
+
+        /// Create static grid.
+        /**
+        * @param scale Scales the grid, scale can be a maximum of 100.
+        */
+        void CreateGrid(int scale);
 
         /// The game world.
         World world;
@@ -89,6 +102,16 @@ class ActiveHymn {
         /// Default roughness texture.
         TextureAsset* defaultRoughness;
         
+        /// Grid settings.
+        struct GridSettings {
+            int gridSize = 0;
+            bool gridSettingsOpen = true;
+            bool gridSnap = true;
+            int snapOption = 100;
+        };
+
+        GridSettings gridSettings;
+
         /// Filter settings.
         struct FilterSettings {
             /// Whether to enable color.

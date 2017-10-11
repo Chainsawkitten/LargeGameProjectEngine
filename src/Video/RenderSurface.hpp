@@ -88,6 +88,7 @@ namespace Video {
             void Swap();
             
         private:
+            RenderSurface(const RenderSurface & other) = delete;
             glm::vec2 size;
 
             // Frame buffers.

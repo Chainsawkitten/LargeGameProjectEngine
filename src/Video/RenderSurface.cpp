@@ -16,8 +16,8 @@ RenderSurface::RenderSurface(const glm::vec2& size) {
     depthTexture = new ReadWriteTexture(size, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32, GL_FLOAT);
 
     // Post processing textures.
-    colorTexture[0] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA16F, GL_UNSIGNED_BYTE);
-    colorTexture[1] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA16F, GL_UNSIGNED_BYTE);
+    colorTexture[0] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA8, GL_UNSIGNED_BYTE);
+    colorTexture[1] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA8, GL_UNSIGNED_BYTE);
     extraColorTexture[0] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
     extraColorTexture[1] = new ReadWriteTexture(size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE);
     extraDepthTexture[0] = new ReadWriteTexture(size, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32, GL_FLOAT);

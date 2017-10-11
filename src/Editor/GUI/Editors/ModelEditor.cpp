@@ -46,16 +46,28 @@ void ModelEditor::Show() {
 
         if (hasSourceFile) {
             ImGui::Text("Mesh Data");
+            ImGui::Checkbox("Uniform Scaling", &uniformScaling);
+
+            if (uniformScaling) {
+                float uniScale = scale.x;
+                ImGui::DragFloat("Scale", &uniScale, 0.01f);
+                scale = glm::vec3(uniScale);
+            } else
+                ImGui::DragFloat3("Scale", &scale[0], 0.01f);
+            
             ImGui::Checkbox("Triangulate", &triangulate);
             ImGui::Checkbox("Import Normals", &importNormals);
             ImGui::Checkbox("Import Tangents", &importTangents);
+            ImGui::Checkbox("Import Tangents", &importTangents);
+            ImGui::Checkbox("Flip UVs", &flipUVs);
+
 
             std::string button = isImported ? "Re-import" : "Import";
 
             if (ImGui::Button(button.c_str())) {
                 // Convert to .asset format.
                 AssetConverter asset;
-                asset.Convert(source.c_str(), (destination + ".asset").c_str(), triangulate, importNormals, importTangents);
+                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs);
                 model->Load(destination.c_str());
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
@@ -107,15 +119,16 @@ void ModelEditor::FileSelected(const std::string& file) {
     std::string name = FileSystem::GetName(file).c_str();
 
     // Checking so that the file isn't imported twice.
-    // @todo Overwrite option?
-    for (int i = 0; i < Resources().models.size(); ++i) {
+    /// @todo Overwrite option?
+    /// @todo Reimplement this.
+    /*for (int i = 0; i < Resources().models.size(); ++i) {
         if (Resources().models[i]->name == name) {
             Log() << "File " << name << " is already added to project.\n";
             isImported = false;
             hasSourceFile = false;
             return;
         }
-    }
+    }*/
 
     source = file;
 

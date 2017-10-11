@@ -11,21 +11,22 @@
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ProfilingManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/DebugDrawingManager.hpp>
 #include <Engine/Util/Profiling.hpp>
+#include <Engine/Util/GPUProfiling.hpp>
 #include <Engine/Hymn.hpp>
 #include <thread>
 #include "ImGui/OpenGLImplementation.hpp"
 #include <imgui.h>
 
-#ifdef VR_SUPPORT
-#include <openvr.h>
-#endif
-
 int main() {
     // Enable logging if requested.
-    if (EditorSettings::GetInstance().GetBool("Logging"))
-        freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
-    
+    if (EditorSettings::GetInstance().GetBool("Logging")){
+        FILE* file = freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
+        if (file == nullptr)
+            Log() << "Could not open logging file!\n";
+    }
+
     Log() << "Editor started - " << time(nullptr) << "\n";
     
     if (!glfwInit())
@@ -35,22 +36,15 @@ int main() {
     *snabelA = 10;
 
     MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Hymn to Beauty", EditorSettings::GetInstance().GetBool("Debug Context"));
+
     glewInit();
     window->Init(false);
-    
-    // Init VR.
-#ifdef VR_SUPPORT
-    vr::EVRInitError error;
-    vr::IVRSystem* vrSystem = vr::VR_Init(&error, vr::VRApplication_Scene);
-    Log() << "VR init: " << error << "\n";
-#endif
     
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
     
     Managers().StartUp();
     
     Editor* editor = new Editor();
-    
     // Setup imgui implementation.
     ImGuiImplementation::Init(window->GetGLFWWindow());
     
@@ -64,49 +58,65 @@ int main() {
         float deltaTime = static_cast<float>(glfwGetTime() - lastTime);
         lastTime = glfwGetTime();
         
+        Managers().profilingManager->SetActive(profiling);
+
         // Begin new profiling frame.
-        Managers().profilingManager->BeginFrame();
+        if (Managers().profilingManager->Active())
+            Managers().profilingManager->BeginFrame();
         
         { PROFILE("Frame");
+        { GPUPROFILE("Frame", Video::Query::Type::TIME_ELAPSED);
+
             glfwPollEvents();
-            
+
             if (Input()->Triggered(InputHandler::PROFILE))
                 profiling = !profiling;
-            
+
             // Start new frame.
             ImGuiImplementation::NewFrame();
-            
+
             window->Update();
-            
+
             if (editor->IsVisible()) {
                 Hymn().world.ClearKilled();
                 Managers().particleManager->Update(Hymn().world, deltaTime, true);
-                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"));
-                
+
+                Managers().debugDrawingManager->Update(deltaTime);
+                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"), EditorSettings::GetInstance().GetBool("Grid Settings"));
+
                 if (window->ShouldClose())
                     editor->Close();
-    
+
                 editor->Show(deltaTime);
+
+                if (window->ShouldClose() && !editor->isClosing())
+                    window->CancelClose();
 
             } else {
                 { PROFILE("Update");
+                { GPUPROFILE("Update", Video::Query::Type::TIME_ELAPSED);
                     Hymn().Update(deltaTime);
                 }
+                }
+
                 { PROFILE("Render");
+                { GPUPROFILE("Render", Video::Query::Type::TIME_ELAPSED);
                     Hymn().Render();
+                }
                 }
                 
                 if (Input()->Triggered(InputHandler::PLAYTEST)) {
                     // Rollback to the editor state.
                     editor->LoadEditorState();
-                    
+
                     // Turn editor back on.
                     editor->SetVisible(true);
                 }
             }
         }
-        
-        if (profiling)
+        }
+
+        if (Managers().profilingManager->Active())
             Managers().profilingManager->ShowResults();
         
         ImGui::Render();

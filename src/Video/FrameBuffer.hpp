@@ -18,8 +18,11 @@ namespace Video {
             /// Destructor.
             ~FrameBuffer();
 
-            /// Set as render target.
-            void SetTarget() const;
+            /// Bind this framebuffer as render target.
+            void Bind() const;
+
+            /// Unbind this framebuffer as render target.
+            void Unbind() const;
 
         private:
             std::vector<ReadWriteTexture*> textures;

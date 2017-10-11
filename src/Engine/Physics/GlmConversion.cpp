@@ -10,4 +10,8 @@ namespace Physics {
         return glm::vec3(vec.getX(), vec.getY(), vec.getZ());
     }
 
+    glm::quat btToGlm(btQuaternion const& quat) {
+        return glm::quat(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
+    }
+
 }

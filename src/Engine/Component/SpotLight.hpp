@@ -3,29 +3,18 @@
 #include "SuperComponent.hpp"
 #include <glm/glm.hpp>
 
-class Entity;
-
 namespace Component {
     /// %Component describing a spot light.
     class SpotLight : public SuperComponent {
         public:
             /// Create new spot light.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            SpotLight(Entity* entity);
+            SpotLight();
             
             /// Save the component.
             /**
              * @return JSON value to be stored on disk.
              */
             Json::Value Save() const override;
-            
-            /// Load component from JSON node.
-            /**
-             * @param node JSON node to load from.
-             */
-            void Load(const Json::Value& node) override;
             
             /// Color.
             glm::vec3 color = glm::vec3(1.f, 1.f, 1.f);

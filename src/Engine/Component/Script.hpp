@@ -3,7 +3,6 @@
 #include <vector>
 #include "SuperComponent.hpp"
 
-class Entity;
 class ScriptFile;
 class asIScriptObject;
 
@@ -12,10 +11,7 @@ namespace Component {
     class Script : public SuperComponent {
         public:
             /// Create new script.
-            /**
-             * @param entity Pointer to which entity this component corresponds.
-             */
-            Script(Entity* entity);
+            Script();
             
             /// Destructor.
             ~Script() final;
@@ -26,12 +22,6 @@ namespace Component {
              */
             Json::Value Save() const override;
             
-            /// Load component from JSON node.
-            /**
-             * @param node JSON node to load from.
-             */
-            void Load(const Json::Value& node) override;
-            
             /// Whether the script component has been initialized.
             bool initialized = false;
             
@@ -41,7 +31,7 @@ namespace Component {
             /// The instance of the script class.
             asIScriptObject* instance = nullptr;
       
-			      /// Entities referenced by this script.
-			      std::vector<Entity*> refList;
+            /// Entities referenced by this script.
+            std::vector<Entity*> refList;
     };
 }

@@ -26,15 +26,15 @@ using namespace Video;
 
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
-    lighting = new Lighting(rectangle);
     staticRenderProgram = new StaticRenderProgram();
-    skinRenderProgram = new SkinRenderProgram();
-    postProcessing = new PostProcessing(rectangle);
-    colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
-    fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
-    fxaaFilter = new FXAAFilter();
-    glowFilter = new GlowFilter();
-    glowBlurFilter = new GlowBlurFilter();
+    lighting = new Lighting(staticRenderProgram->GetShaderProgram(), rectangle);
+   // skinRenderProgram = new SkinRenderProgram();
+   // postProcessing = new PostProcessing(rectangle);
+   // colorFilter = new ColorFilter(glm::vec3(1.f, 1.f, 1.f));
+   // fogFilter = new FogFilter(glm::vec3(1.f, 1.f, 1.f));
+   // fxaaFilter = new FXAAFilter();
+   // glowFilter = new GlowFilter();
+   // glowBlurFilter = new GlowBlurFilter();
     
     // Icon rendering.
     Shader* iconVertexShader = new Shader(EDITORENTITY_VERT, EDITORENTITY_VERT_LENGTH, GL_VERTEX_SHADER);
@@ -68,13 +68,13 @@ Renderer::~Renderer() {
     delete rectangle;
     delete lighting;
     delete staticRenderProgram;
-    delete skinRenderProgram;
-    delete postProcessing;
-    delete colorFilter;
-    delete fogFilter;
-    delete fxaaFilter;
-    delete glowFilter;
-    delete glowBlurFilter;
+    //delete skinRenderProgram;
+    //delete postProcessing;
+    //delete colorFilter;
+    //delete fogFilter;
+    //delete fxaaFilter;
+    //delete glowFilter;
+    //delete glowBlurFilter;
     
     // Icon rendering.
     delete iconShaderProgram;
@@ -86,8 +86,12 @@ void Renderer::Clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+void Video::Renderer::DepthRenderStaticMesh(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix)
+{
+    staticRenderProgram->DepthRender(geometry, viewMatrix, projectionMatrix, modelMatrix);
+}
+
 void Renderer::StartRendering(RenderSurface* renderSurface) {
-    renderSurface->GetDeferredFrameBuffer()->SetTarget();
     lighting->ClearLights();
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -106,40 +110,40 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
     staticRenderProgram->PreRender(viewMatrix, projectionMatrix);
 }
 
-void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix) {
-    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix);
+void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {
+    staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, isSelected);
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {
-    fxaaFilter->SetScreenSize(renderSurface->GetSize());
-    postProcessing->ApplyFilter(renderSurface, fxaaFilter);
+    //fxaaFilter->SetScreenSize(renderSurface->GetSize());
+    //postProcessing->ApplyFilter(renderSurface, fxaaFilter);
 }
 
 void Renderer::RenderFog(RenderSurface* renderSurface, const glm::mat4& projectionMatrix, float density, const glm::vec3& color) {
-    fogFilter->SetProjectionMatrix(projectionMatrix);
+    /*fogFilter->SetProjectionMatrix(projectionMatrix);
     fogFilter->SetDensity(density);
     fogFilter->SetColor(color);
-    postProcessing->ApplyFilter(renderSurface, fogFilter);
+    postProcessing->ApplyFilter(renderSurface, fogFilter);*/
 }
 
 void Renderer::ApplyGlow(RenderSurface* renderSurface, int blurAmount) {
-    glowBlurFilter->SetScreenSize(renderSurface->GetSize());
+    /*glowBlurFilter->SetScreenSize(renderSurface->GetSize());
     for (int i = 0; i < blurAmount; ++i) {
         glowBlurFilter->SetHorizontal(true);
         postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
         glowBlurFilter->SetHorizontal(false);
         postProcessing->ApplyFilter(renderSurface, glowBlurFilter);
     }
-    postProcessing->ApplyFilter(renderSurface, glowFilter);
+    postProcessing->ApplyFilter(renderSurface, glowFilter);*/
 }
 
 void Renderer::ApplyColorFilter(RenderSurface* renderSurface, const glm::vec3& color) {
-    colorFilter->SetColor(color);
-    postProcessing->ApplyFilter(renderSurface, colorFilter);
+    /*colorFilter->SetColor(color);
+    postProcessing->ApplyFilter(renderSurface, colorFilter);*/
 }
 
 void Renderer::DisplayResults(RenderSurface* renderSurface, bool dither) {
-    postProcessing->Render(renderSurface, dither);
+    //postProcessing->Render(renderSurface, dither);
 }
 
 void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, const glm::vec3& cameraPosition, const glm::vec3& cameraUp) {

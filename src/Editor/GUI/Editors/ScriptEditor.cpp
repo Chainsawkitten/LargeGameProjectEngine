@@ -23,7 +23,7 @@ void ScriptEditor::Show() {
         }
         
         if (ImGui::Button("Build Script"))
-            Managers().scriptManager->BuildScript(script->name);
+            Managers().scriptManager->BuildScript(script);
     }
     ImGui::End();
 }

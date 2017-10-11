@@ -32,13 +32,7 @@ class MainWindow {
         /**
          * @param showNotifications Whether to show debug messages of notification priority.
          */
-        void Init(bool showNotifications = false);
-        
-        /// Set whether vsync is enabled.
-        /**
-         * @param vsync Whether to enable vsync.
-         */
-        void SetVsync(bool vsync);
+        void Init(bool showNotifications = false) const;
 
         /// Update
         void Update();
@@ -60,7 +54,7 @@ class MainWindow {
         /**
          * @param title New window title.
          */
-        void SetTitle(const char* title);
+        void SetTitle(const char* title) const;
         
         /// Get whether the window should close.
         /**
@@ -70,9 +64,12 @@ class MainWindow {
         
         /// Close the window.
         void Close();
+
+        /// Cancel the closing of the window.
+        void CancelClose();
         
         /// Swap front- and backbuffers.
-        void SwapBuffers();
+        void SwapBuffers() const;
         
         /// Get GLFW window.
         /**

@@ -1,0 +1,448 @@
+{
+	"children" : 
+	[
+		{
+			"DirectionalLight" : 
+			{
+				"ambientCoefficient" : 0.10000000149011612,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			},
+			"children" : null,
+			"name" : "Sun",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Minecart/Texture #1",
+				"metallic" : "",
+				"normal" : "Resources/Minecart/Texture #1",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Minecart/CartSecond"
+			},
+			"Physics" : 
+			{
+				"acceleration" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"angularAcceleration" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"angularDragFactor" : 1.0,
+				"angularVelocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"gravityFactor" : 0.0,
+				"maxAngularVelocity" : 2.0,
+				"maxVelocity" : 20.0,
+				"momentOfInertia" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"velocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"velocityDragFactor" : 1.0
+			},
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
+			"Script" : 
+			{
+				"scriptName" : "Resources/Minecart/Cart"
+			},
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"children" : 
+			[
+				{
+					"Lens" : 
+					{
+						"fieldOfView" : 45.0,
+						"zFar" : 1000.0,
+						"zNear" : 0.5
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/Player"
+					},
+					"children" : null,
+					"name" : "Player",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 4.0,
+						"z" : 2.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 4
+				},
+				{
+					"PointLight" : 
+					{
+						"ambientCoefficient" : 0.13699997961521149,
+						"attenuation" : 0.87799996137619019,
+						"color" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"intensity" : 0.35199999809265137
+					},
+					"children" : null,
+					"name" : "light",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 5.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 5
+				}
+			],
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : -4.8320002555847168,
+				"z" : 500.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 2
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/spak"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/Lever"
+					},
+					"children" : null,
+					"name" : "Lever",
+					"position" : 
+					{
+						"x" : -5.0,
+						"y" : -6.5,
+						"z" : 400.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 45.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 0.5,
+						"y" : 0.5,
+						"z" : 0.5
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1506428286
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Minecart/Texture #1",
+						"metallic" : "",
+						"normal" : "",
+						"roughness" : ""
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Gate/Galler"
+					},
+					"Script" : 
+					{
+						"scriptName" : "Resources/Gate/Gates"
+					},
+					"children" : null,
+					"name" : "Gates",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 380.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1506428288
+				},
+				{
+					"Physics" : 
+					{
+						"acceleration" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"angularAcceleration" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"angularDragFactor" : 1.0,
+						"angularVelocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"gravityFactor" : 0.0,
+						"maxAngularVelocity" : 2.0,
+						"maxVelocity" : 20.0,
+						"momentOfInertia" : 
+						{
+							"x" : 1.0,
+							"y" : 1.0,
+							"z" : 1.0
+						},
+						"velocity" : 
+						{
+							"x" : 0.0,
+							"y" : 0.0,
+							"z" : 0.0
+						},
+						"velocityDragFactor" : 1.0
+					},
+					"RigidBody" : 
+					{
+						"mass" : 1.0
+					},
+					"Shape" : 
+					{
+						"plane" : 
+						{
+							"normal" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 1.0
+							},
+							"planeCoeff" : 0.0
+						}
+					},
+					"children" : null,
+					"name" : "StopTrigger",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 450.0
+					},
+					"rotation" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1506510737
+				}
+			],
+			"name" : "GateAndLever",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1506431025
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Cave/Texture #2",
+				"metallic" : "",
+				"normal" : "Resources/Cave/Texture #3",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Cave/Cave"
+			},
+			"children" : null,
+			"name" : "cave",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.25,
+				"y" : 0.25,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 3
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 0
+}

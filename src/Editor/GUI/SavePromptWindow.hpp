@@ -23,6 +23,12 @@ namespace GUI {
              * @param visible Whether the window should be visible.
              */
             void SetVisible(bool visible);
+
+            /// Sets decision to true or false.
+            /**
+            * @param option If the decision should be 0: Save, 1: Don't save, *2: cancel.
+            */
+            void SetDecision(int option);
             
             /// Fetches what the player picked.
             /**
@@ -37,7 +43,7 @@ namespace GUI {
             /**
              * @param newTitle The new title of the window.
              */
-            void SetTitle(std::string newTitle);
+            void SetTitle(const std::string& newTitle);
 
         private:
 

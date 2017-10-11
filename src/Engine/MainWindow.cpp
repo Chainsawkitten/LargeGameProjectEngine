@@ -56,7 +56,7 @@ MainWindow* MainWindow::GetInstance() {
     return instance;
 }
 
-void MainWindow::Init(bool showNotifications) {
+void MainWindow::Init(bool showNotifications) const {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glEnable(GL_PROGRAM_POINT_SIZE);    
@@ -77,12 +77,12 @@ const glm::vec2& MainWindow::GetSize() const {
     return size;
 }
 
-void MainWindow::SetSize(int width, int height){
+void MainWindow::SetSize(int width, int height) {
     size.x = static_cast<float>(width);
     size.y = static_cast<float>(height);
 }
 
-void MainWindow::SetTitle(const char *title) {
+void MainWindow::SetTitle(const char *title) const {
     glfwSetWindowTitle(window, title);
 }
 
@@ -94,7 +94,12 @@ void MainWindow::Close() {
     shouldClose = true;
 }
 
-void MainWindow::SwapBuffers() {
+void MainWindow::CancelClose() {
+    shouldClose = false;
+    glfwSetWindowShouldClose(window, GLFW_FALSE);
+}
+
+void MainWindow::SwapBuffers() const {
     glfwSwapBuffers(window);
 }
 
@@ -103,10 +108,10 @@ GLFWwindow* MainWindow::GetGLFWWindow() const {
 }
 
 void WindowSizeCallback(GLFWwindow* window, int width, int height) {
-	if (width != 0 && height != 0) {
-		MainWindow::GetInstance()->SetSize(width, height);
-		Managers().renderManager->UpdateBufferSize();
-	}
+    if (width != 0 && height != 0) {
+        MainWindow::GetInstance()->SetSize(width, height);
+        Managers().renderManager->UpdateBufferSize();
+    }
 }
 
 void ErrorCallback(int error, const char* description) {

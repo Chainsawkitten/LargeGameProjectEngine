@@ -20,10 +20,11 @@ void SavePromptWindow::Show() {
             decision = 1;
             ImGui::CloseCurrentPopup();
         }
-        //if (ImGui::Button("cancel", ImVec2(120, 0))) {
-        //    decision = 2;
-        //    ImGui::CloseCurrentPopup();
-        //}
+        ImGui::SameLine();
+        if (ImGui::Button("cancel", ImVec2(120, 0))) {
+            decision = 2;
+            ImGui::CloseCurrentPopup();
+        }
         ImGui::EndPopup();
         
     }
@@ -42,7 +43,7 @@ void SavePromptWindow::ResetDecision() {
     
 }
 
-void SavePromptWindow::SetTitle(std::string newTitle) {
+void SavePromptWindow::SetTitle(const std::string& newTitle) {
 
     title = newTitle;
 
@@ -54,4 +55,17 @@ bool SavePromptWindow::IsVisible() const {
 
 void SavePromptWindow::SetVisible(bool visible) {
     this->visible = visible;
+}
+
+void GUI::SavePromptWindow::SetDecision(int option)
+{
+    if (option == 0) {
+        decision = 0;
+    }
+    if (option == 1) {
+        decision = 1;
+    }
+    if (option == 2) {
+        decision = 2;
+    }
 }

@@ -47,21 +47,26 @@ const std::vector<Entity*>& World::GetUpdateEntities() const {
 }
 
 void World::Clear() {
+    if (root != nullptr) {
+        root->Kill();
+        
+        // Clear killed components.
+        Managers().ClearKilledComponents();
+    }
+    
+    // Remove all entities.
     for (Entity* entity : entities)
         delete entity;
     entities.clear();
     root = nullptr;
-    
-    Managers().ClearComponents(this);
 
     particleCount = 0;
     updateEntities.clear();
 }
 
 void World::ClearKilled() {
-
     // Clear killed components.
-    Managers().ClearKilledComponents(this);
+    Managers().ClearKilledComponents();
 
     // Clear killed entities.
     std::size_t i = 0;
@@ -90,10 +95,14 @@ void World::SetParticleCount(unsigned int particleCount) {
 
 void World::Save(const std::string& filename) const {
     Json::Value rootNode = root->Save();
-    
+
     std::ofstream file(filename);
     file << rootNode;
     file.close();
+}
+
+Json::Value World::GetSaveJson() const {
+    return root->Save();
 }
 
 void World::Load(const std::string& filename) {

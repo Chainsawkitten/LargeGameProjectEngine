@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Texture.hpp"
-#include <glm/glm.hpp>
-#include <string>
 
 namespace Video {
     /// A two-dimensional texture.
@@ -13,7 +11,7 @@ namespace Video {
         public:
             /// Create new unloaded texture.
             Texture2D();
-            
+
             /// Create new texture from the given image file.
             /**
              * @param filename Filename (relative or absolute) of the image file.
@@ -38,18 +36,6 @@ namespace Video {
              * @return The OpenGL texture identifier
              */
             GLuint GetTextureID() const override;
-            
-            /// Get the width of the texture.
-            /**
-             * @return The width of the texture in texels
-             */
-            int GetWidth() const override;
-            
-            /// Get the height of the texture.
-            /**
-             * @return The height of the texture in texels
-             */
-            int GetHeight() const override;
             
             /// Set how coordinates outside 0..1 are handled.
             /**
@@ -80,6 +66,8 @@ namespace Video {
             bool IsLoaded() const;
             
         private:
+            Texture2D(const Texture2D & other) = delete;
+
             GLuint texID = 0;
             int width = 0;
             int height = 0;

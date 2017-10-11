@@ -31,14 +31,6 @@ GLuint Texture2D::GetTextureID() const {
     return texID;
 }
 
-int Texture2D::GetWidth() const {		
-    return width;		
-}		
- 		
-int Texture2D::GetHeight() const {		
-    return height;		
-}
-
 void Texture2D::Load(const char* filename, bool srgb) {
     glGenTextures(1, &texID);
     glBindTexture(GL_TEXTURE_2D, texID);

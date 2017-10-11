@@ -6,6 +6,8 @@
 #include "GUI/SettingsWindow.hpp"
 #include "GUI/FiltersWindow.hpp"
 #include "GUI/SavePromptWindow.hpp"
+#include <Engine/Util/MousePicking.hpp>
+#include <Engine/Util/RayIntersection.hpp>
 #include <string>
 #include <json/json.h>
 
@@ -26,6 +28,12 @@ class Editor {
          */
         void Show(float deltaTime);
         
+        /// Show the editor.
+        /**
+         * @return Check if you have made any changes to the scene.
+         */
+        bool HasMadeChanges() const;
+
         /// Save the hymn being edited.
         void Save() const;
 
@@ -34,9 +42,15 @@ class Editor {
 
         /// Is the editor ready to be closed, have we saved everything?
         /**
-        * @return Are we ready to close the editor?
-        */
+         * @return Are we ready to close the editor?
+         */
         bool ReadyToClose() const;
+
+        /// Is the editor preparing for closing down?
+        /**
+         * @return Are we closing the editor?
+         */
+        bool isClosing() const;
 
         /// Close the editor.
         void Close();
@@ -82,6 +96,9 @@ class Editor {
         
         World cameraWorld;
         Entity* cameraEntity;
+        Entity* selectedEntity;
+        MousePicking mousePicker;
+        RayIntersection rayIntersector;
         
         double lastX = 0.0;
         double lastY = 0.0;

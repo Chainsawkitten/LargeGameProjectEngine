@@ -1,7 +1,5 @@
 #include "ResourceManager.hpp"
 
-#include <Video/Geometry/Rectangle.hpp>
-#include "../Geometry/Cube.hpp"
 #include "../Geometry/Model.hpp"
 #include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
@@ -9,10 +7,6 @@
 #include "../Script/ScriptFile.hpp"
 
 using namespace std;
-
-ResourceManager::ResourceManager() {
-    
-}
 
 Geometry::Model* ResourceManager::CreateModel(const std::string& name) {
     if (models.find(name) == models.end()) {

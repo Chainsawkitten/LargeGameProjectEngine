@@ -20,6 +20,7 @@ set(SRCS
         PostProcessing/GlowBlurFilter.cpp
         PostProcessing/GlowFilter.cpp
         PostProcessing/PostProcessing.cpp
+        Profiling/Query.cpp
         RenderProgram/SkinRenderProgram.cpp
         RenderProgram/StaticRenderProgram.cpp
         Shader/Shader.cpp
@@ -52,6 +53,7 @@ set(HEADERS
         PostProcessing/GlowBlurFilter.hpp
         PostProcessing/GlowFilter.hpp
         PostProcessing/PostProcessing.hpp
+        Profiling/Query.hpp
         RenderProgram/SkinRenderProgram.hpp
         RenderProgram/StaticRenderProgram.hpp
         Shader/Shader.hpp
@@ -83,6 +85,8 @@ set(EMBEDDED_INPUT
     ../../shaders/PostGlow.frag
     ../../shaders/PostGlowBlur.frag
     ../../shaders/Skinning.vert
+    ../../shaders/Zrejection.vert
+    ../../shaders/Zrejection.frag
 )
 
 foreach(item ${EMBEDDED_INPUT})

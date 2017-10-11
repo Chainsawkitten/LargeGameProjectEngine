@@ -17,6 +17,15 @@ namespace Video {
             
             /// Destructor.
             ~StaticRenderProgram();
+            /// Render depth pass.
+            /**
+            * @param geometry The geometry to render.
+            * @param viewMatrix The camera's view matrix.
+            * @param projectionMatrix The camera's projection matrix.
+            * @param modelMatrix Model matrix.
+            */
+            void DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix);
+
             
             /// Bind render program.
             /**
@@ -34,10 +43,17 @@ namespace Video {
              * @param textureRoughness Roughness texture.
              * @param modelMatrix Model matrix.
              */
-            void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix) const;
-            
+            void Render(Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4 modelMatrix, bool isSelected) const;
+
+             /// Returns shaderprogram
+            /**
+            */
+            ShaderProgram* GetShaderProgram();
+
         private:
+            StaticRenderProgram(const StaticRenderProgram & other) = delete;
             ShaderProgram* shaderProgram;
+            ShaderProgram* zShaderProgram;
     
             glm::mat4 viewMatrix;
             glm::mat4 projectionMatrix;

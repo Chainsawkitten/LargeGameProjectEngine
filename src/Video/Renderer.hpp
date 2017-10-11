@@ -35,6 +35,15 @@ namespace Video {
             
             /// Clear the previous frame's data.
             void Clear();
+
+            /// Render a static mesh.
+            /**
+            * @param geometry The geometry to render.
+            * @param viewMatrix The camera's view matrix.
+            * @param projectionMatrix The camera's projection matrix.
+            * @param modelMatrix Model matrix.
+            */
+            void DepthRenderStaticMesh(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix);
             
             /// Start rendering the frame.
             /**
@@ -58,7 +67,7 @@ namespace Video {
              * @param roughness Roughness texture.
              * @param modelMatrix Model matrix.
              */
-            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix);
+            void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
             
             /// Prepare for rendering skinned meshes.
             /**
@@ -93,7 +102,7 @@ namespace Video {
             /// Anti-alias using FXAA.
             /**
              * @param renderSurface %RenderSurface to apply filter to.
-            */
+             */
             void AntiAlias(RenderSurface* renderSurface);
             
             /// Render fog.
@@ -150,6 +159,7 @@ namespace Video {
             void StopRenderingIcons();
             
         private:
+            Renderer(const Renderer & other) = delete;
             Lighting* lighting;
             StaticRenderProgram* staticRenderProgram;
             SkinRenderProgram* skinRenderProgram;

@@ -9,7 +9,9 @@
 #include <Engine/Component/PointLight.hpp>
 #include <Engine/Component/SpotLight.hpp>
 #include <Engine/Component/Listener.hpp>
+#include <Engine/Component/RigidBody.hpp>
 #include <Engine/Component/Script.hpp>
+#include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
 #include <Engine/Geometry/Model.hpp>
@@ -21,6 +23,7 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ScriptManager.hpp>
 #include <Engine/Manager/ParticleManager.hpp>
+#include <Engine/Manager/PhysicsManager.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Hymn.hpp>
 
@@ -29,6 +32,12 @@
 #include "../../ImGui/GuiHelpers.hpp"
 #include "../../Resources.hpp"
 #include <imgui_internal.h>
+#include "PlaneShapeEditor.hpp"
+#include "SphereShapeEditor.hpp"
+
+namespace Physics {
+    class Shape;
+}
 
 using namespace GUI;
 
@@ -43,13 +52,21 @@ EntityEditor::EntityEditor() {
     AddEditor<Component::PointLight>("Point light", std::bind(&EntityEditor::PointLightEditor, this, std::placeholders::_1));
     AddEditor<Component::SpotLight>("Spot light", std::bind(&EntityEditor::SpotLightEditor, this, std::placeholders::_1));
     AddEditor<Component::Listener>("Listener", std::bind(&EntityEditor::ListenerEditor, this, std::placeholders::_1));
+    AddEditor<Component::RigidBody>("Rigid body", std::bind(&EntityEditor::RigidBodyEditor, this, std::placeholders::_1));
     AddEditor<Component::Script>("Script", std::bind(&EntityEditor::ScriptEditor, this, std::placeholders::_1));
+    AddEditor<Component::Shape>("Shape", std::bind(&EntityEditor::ShapeEditor, this, std::placeholders::_1));
     AddEditor<Component::SoundSource>("Sound source", std::bind(&EntityEditor::SoundSourceEditor, this, std::placeholders::_1));
     AddEditor<Component::ParticleEmitter>("Particle emitter", std::bind(&EntityEditor::ParticleEmitterEditor, this, std::placeholders::_1));
+
+    shapeEditors.push_back(new SphereShapeEditor());
+    shapeEditors.push_back(new PlaneShapeEditor());
+    selectedShape = 0;
 }
 
 EntityEditor::~EntityEditor() {
-    
+    for (auto shapeEditor : shapeEditors) {
+        delete shapeEditor;
+    }
 }
 
 void EntityEditor::Show() {
@@ -59,10 +76,43 @@ void EntityEditor::Show() {
         ImGui::Text("Transform");
         ImGui::ShowHelpMarker("The entity's position, rotation and scale.", 75.f);
         ImGui::Indent();
+
+        if (Hymn().gridSettings.gridSnap) {
+            int toNearest = Hymn().gridSettings.snapOption;
+
+            int value = entity->position.x;
+            int rest = value % toNearest;
+
+            if (rest > (toNearest / 2)) {
+                entity->position.x = (value - rest) + toNearest;
+            } else {
+                entity->position.x = (value - rest);
+            }
+
+            value = entity->position.y;
+            rest = value % toNearest;
+
+            if (rest > (toNearest / 2)) {
+                entity->position.y = (value - rest) + toNearest;
+            } else {
+                entity->position.y = (value - rest);
+            }
+
+            value = entity->position.z;
+            rest = value % toNearest;
+
+            if (rest > (toNearest / 2)) {
+                entity->position.z = (value - rest) + toNearest;
+            } else {
+                entity->position.z = (value - rest);
+            }
+        }
+
         ImGui::DraggableVec3("Position", entity->position);
         ImGui::DraggableVec3("Rotation", entity->rotation);
         ImGui::DraggableVec3("Scale", entity->scale);
         ImGui::Text("Unique Identifier: %u", entity->GetUniqueIdentifier());
+        ImGui::Checkbox("Is entity static", &entity->isStatic);
         ImGui::Unindent();
         if (!entity->IsScene()) {
             if (ImGui::Button("Add component"))
@@ -91,6 +141,16 @@ void EntityEditor::Show() {
 void EntityEditor::SetEntity(Entity* entity) {
     this->entity = entity;
     strcpy(name, entity->name.c_str());
+
+    auto shapeComp = this->entity->GetComponent<Component::Shape>();
+    if (shapeComp) {
+        Physics::Shape& shape = shapeComp->GetShape();
+        for (uint32_t i = 0; i < shapeEditors.size(); ++i) {
+            if (shapeEditors[i]->SetFromShape(shape)) {
+                selectedShape = i;
+            }
+        }
+    }
 }
 
 Entity* EntityEditor::GetEntity() {
@@ -117,14 +177,12 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
     if (ImGui::BeginPopup("Select model##Animation")) {
         ImGui::Text("Models");
         ImGui::Separator();
-
-        for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str())) {
-                if (animation->riggedModel != nullptr)
-                    Managers().resourceManager->FreeModel(animation->riggedModel);
-                
-                animation->riggedModel = Managers().resourceManager->CreateModel(model->name);
-            }
+        
+        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
+            if (animation->riggedModel != nullptr)
+                Managers().resourceManager->FreeModel(animation->riggedModel);
+            
+            animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
 
         ImGui::EndPopup();
@@ -133,23 +191,23 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
 }
 
 void EntityEditor::PhysicsEditor(Component::Physics* physics) {
-    ImGui::Text("Positional");
-    ImGui::Indent();
-    ImGui::DraggableVec3("Velocity", physics->velocity);
-    ImGui::DraggableFloat("Max velocity", physics->maxVelocity, 0.0f);
-    ImGui::DraggableVec3("Acceleration", physics->acceleration);
-    ImGui::DraggableFloat("Velocity drag factor", physics->velocityDragFactor);
-    ImGui::DraggableFloat("Gravity factor", physics->gravityFactor);
-    ImGui::Unindent();
-    ImGui::Text("Angular");
-    ImGui::Indent();
-    ImGui::DraggableVec3("Angular velocity", physics->angularVelocity);
-    ImGui::DraggableFloat("Max angular velocity", physics->maxAngularVelocity, 0.0f);
-    ImGui::DraggableVec3("Angular acceleration", physics->angularAcceleration);
-    ImGui::DraggableFloat("Angular drag factor", physics->angularDragFactor);
-    ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
-    ImGui::Unindent();
-
+    //ImGui::Text("Positional");
+    //ImGui::Indent();
+    //ImGui::DraggableVec3("Velocity", physics->velocity);
+    //ImGui::DraggableFloat("Max velocity", physics->maxVelocity, 0.0f);
+    //ImGui::DraggableVec3("Acceleration", physics->acceleration);
+    //ImGui::DraggableFloat("Velocity drag factor", physics->velocityDragFactor);
+    //ImGui::DraggableFloat("Gravity factor", physics->gravityFactor);
+    //ImGui::Unindent();
+    //ImGui::Text("Angular");
+    //ImGui::Indent();
+    //ImGui::DraggableVec3("Angular velocity", physics->angularVelocity);
+    //ImGui::DraggableFloat("Max angular velocity", physics->maxAngularVelocity, 0.0f);
+    //ImGui::DraggableVec3("Angular acceleration", physics->angularAcceleration);
+    //ImGui::DraggableFloat("Angular drag factor", physics->angularDragFactor);
+    //ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
+    //ImGui::Unindent();
+    ImGui::Text("Will be removed soon.");
 }
 
 void EntityEditor::MeshEditor(Component::Mesh* mesh) {
@@ -161,13 +219,11 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
         ImGui::Text("Models");
         ImGui::Separator();
         
-        for (Geometry::Model* model : Resources().models) {
-            if (ImGui::Selectable(model->name.c_str())) {
-                if (mesh->geometry != nullptr)
-                    Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
-                
-                mesh->geometry = Managers().resourceManager->CreateModel(model->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
+            if (mesh->geometry != nullptr)
+                Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
+            
+            mesh->geometry = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -197,13 +253,11 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->albedo != Hymn().defaultAlbedo)
-                    Managers().resourceManager->FreeTextureAsset(material->albedo);
-                
-                material->albedo = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->albedo != Hymn().defaultAlbedo)
+                Managers().resourceManager->FreeTextureAsset(material->albedo);
+            
+            material->albedo = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -223,13 +277,11 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->normal != Hymn().defaultNormal)
-                    Managers().resourceManager->FreeTextureAsset(material->normal);
-                
-                material->normal = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->normal != Hymn().defaultNormal)
+                Managers().resourceManager->FreeTextureAsset(material->normal);
+            
+            material->normal = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -249,16 +301,11 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->metallic = texture;
-
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->metallic != Hymn().defaultMetallic)
-                    Managers().resourceManager->FreeTextureAsset(material->metallic);
-                
-                material->metallic = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->metallic != Hymn().defaultMetallic)
+                Managers().resourceManager->FreeTextureAsset(material->metallic);
+            
+            material->metallic = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -278,16 +325,11 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::Text("Textures");
         ImGui::Separator();
         
-        for (TextureAsset* texture : Resources().textures) {
-            if (ImGui::Selectable(texture->name.c_str()))
-                material->roughness = texture;
-
-            if (ImGui::Selectable(texture->name.c_str())) {
-                if (material->roughness != Hymn().defaultRoughness)
-                    Managers().resourceManager->FreeTextureAsset(material->roughness);
-                
-                material->roughness = Managers().resourceManager->CreateTextureAsset(texture->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
+            if (material->roughness != Hymn().defaultRoughness)
+                Managers().resourceManager->FreeTextureAsset(material->roughness);
+            
+            material->roughness = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();
@@ -325,67 +367,89 @@ void EntityEditor::ListenerEditor(Component::Listener* listener) {
     
 }
 
+void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
+    ImGui::Indent();
+    if (ImGui::InputFloat("Mass", &rigidBodyMass)) {
+        Managers().physicsManager->SetMass(rigidBody, rigidBodyMass);
+    }
+    ImGui::Unindent();
+}
+
 void EntityEditor::ScriptEditor(Component::Script* script) {
 
-	ImGui::Indent();
+    ImGui::Indent();
 
-	if (ImGui::Button("Select script"))
-		ImGui::OpenPopup("Select script");
+    if (ImGui::Button("Select script"))
+        ImGui::OpenPopup("Select script");
 
-	if (ImGui::BeginPopup("Select script")) {
-		ImGui::Text("Scripts");
-		ImGui::Separator();
+    if (ImGui::BeginPopup("Select script")) {
+        ImGui::Text("Scripts");
+        ImGui::Separator();
 
-		for (ScriptFile* scriptFile : Hymn().scripts) {
-			if (ImGui::Selectable(scriptFile->name.c_str()))
-				script->scriptFile = scriptFile;
-		}
+        for (ScriptFile* scriptFile : Hymn().scripts) {
+            if (ImGui::Selectable(scriptFile->name.c_str()))
+                script->scriptFile = scriptFile;
+        }
 
-		ImGui::EndPopup();
-	}
+        ImGui::EndPopup();
+    }
 
-	if (script->scriptFile != nullptr)
-	{
-		ImGui::Text(script->scriptFile->name.c_str());
-		ImGui::Separator();
+    if (script->scriptFile != nullptr)
+    {
+        ImGui::Text(script->scriptFile->name.c_str());
+        ImGui::Separator();
 
-		ImGui::Text("Entity References");
-		// Display current entity references
-		for (size_t i = 0; i != script->refList.size(); ++i) {
-			ImGui::Text(script->refList[i]->name.c_str());
-			ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-			if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
-				script->refList.erase(script->refList.begin() + i);
-				break;
-			}
-		}
-		
+        ImGui::Text("Entity References");
+        // Display current entity references
+        for (size_t i = 0; i != script->refList.size(); ++i) {
+            ImGui::Text(script->refList[i]->name.c_str());
+            ImGui::SameLine(ImGui::GetWindowWidth() - 30);
+            if (ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())) {
+                script->refList.erase(script->refList.begin() + i);
+                break;
+            }
+        }
+        
 
-		// Choosing other entity references
-		if (ImGui::Button("Add entity reference")) {
-			ImGui::OpenPopup("Add entity reference");
-		}
+        // Choosing other entity references
+        if (ImGui::Button("Add entity reference")) {
+            ImGui::OpenPopup("Add entity reference");
+        }
 
-		if (ImGui::BeginPopup("Add entity reference"))
-		{
-			ImGui::Text("Entities");
-			ImGui::Separator();
-			for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
-			{
-				if (ImGui::Selectable(entity->name.c_str()))
-				{
-					script->refList.push_back(entity);
-				}
-			}
+        if (ImGui::BeginPopup("Add entity reference"))
+        {
+            ImGui::Text("Entities");
+            ImGui::Separator();
+            for (Entity* entity : Hymn().world.GetEntities()) //Change into a prettier tree structure or something, later.
+            {
+                if (ImGui::Selectable(entity->name.c_str()))
+                {
+                    script->refList.push_back(entity);
+                }
+            }
 
-			ImGui::EndPopup();
-		}
-	}
-	else
-		ImGui::Text("No script loaded");
+            ImGui::EndPopup();
+        }
+    }
+    else
+        ImGui::Text("No script loaded");
 
 
-	ImGui::Unindent();
+    ImGui::Unindent();
+}
+
+void EntityEditor::ShapeEditor(Component::Shape* shape) {
+    if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
+        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
+        *outText = editor->Label();
+        return true;
+    }, shapeEditors.data(), shapeEditors.size())) {
+        shapeEditors[selectedShape]->Apply(shape);
+    }
+
+    if (selectedShape != -1) {
+        shapeEditors[selectedShape]->Show(shape);
+    }
 }
 
 void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
@@ -398,13 +462,11 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
         ImGui::Text("Sounds");
         ImGui::Separator();
         
-        for (Audio::SoundBuffer* sound : Resources().sounds) {
-            if (ImGui::Selectable(sound->name.c_str())) {
-                if (soundSource->soundBuffer != nullptr)
-                    Managers().resourceManager->FreeSound(soundSource->soundBuffer);
-                
-                soundSource->soundBuffer = Managers().resourceManager->CreateSound(sound->name);
-            }
+        if (resourceSelector.Show(ResourceList::Resource::Type::SOUND)) {
+            if (soundSource->soundBuffer != nullptr)
+                Managers().resourceManager->FreeSound(soundSource->soundBuffer);
+            
+            soundSource->soundBuffer = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
         }
         
         ImGui::EndPopup();

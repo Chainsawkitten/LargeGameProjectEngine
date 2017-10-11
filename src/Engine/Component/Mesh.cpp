@@ -1,13 +1,12 @@
 #include "Mesh.hpp"
 
 #include "../Geometry/Model.hpp"
-#include "../Hymn.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
 
 using namespace Component;
 
-Mesh::Mesh(Entity* entity) : SuperComponent(entity) {
+Mesh::Mesh() {
     
 }
 
@@ -22,12 +21,15 @@ Json::Value Mesh::Save() const {
     
     Geometry::Model* model = dynamic_cast<Geometry::Model*>(geometry);
     if (model != nullptr)
-        component["model"] = model->name;
+        component["model"] = model->path + model->name;
     
     return component;
 }
 
-void Mesh::Load(const Json::Value& node) {
-    std::string meshName = node.get("model", "").asString();
-    geometry = Managers().resourceManager->CreateModel(meshName);
+bool Mesh::GetSelected() const {
+    return isSelected;
+}
+
+void Mesh::SetSelected(bool value) {
+    isSelected = value;
 }

@@ -21,7 +21,7 @@ namespace GUI {
             /**
              * @param callback Function to call when window is closed.
              */
-            void SetClosedCallback(std::function<void(const std::string&)> callback);
+            void SetClosedCallback(const std::function<void(const std::string&)>& callback);
             
             /// Get whether the window is visible.
             /**

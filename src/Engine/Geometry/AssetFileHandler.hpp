@@ -98,7 +98,7 @@ namespace Geometry {
            /**
             * @param meshData Static mesh data.
             */
-            void SaveStaticMesh(AssetFileHandler::MeshData * meshData);
+            void SaveStaticMesh(MeshData * meshData);
 
         private:
             void ReadGlobalHeader();

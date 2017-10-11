@@ -1,7 +1,6 @@
 #include "FileSystem.hpp"
 
 #include <cstdlib>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <cctype>
 #include <cstring>

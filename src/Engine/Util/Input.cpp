@@ -18,7 +18,7 @@ InputHandler* InputHandler::activeInstance = nullptr;
 
 InputHandler::InputHandler(GLFWwindow *window) {
     this->window = window;
-    
+
     for (int i = 0; i < BUTTONS; i++) {
         buttonData[i].down = false;
         buttonData[i].released = false;
@@ -107,11 +107,11 @@ void InputHandler::AssignButton(Button button, Device device, int index) {
     bindings.push_back(binding);
 }
 
-bool InputHandler::Pressed(Button button) {
+bool InputHandler::Pressed(Button button) const {
     return buttonData[button].down;
 }
 
-bool InputHandler::Triggered(Button button) {
+bool InputHandler::Triggered(Button button) const {
     return buttonData[button].triggered;
 }
 

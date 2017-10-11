@@ -9,6 +9,9 @@ class Entity;
 namespace Component {
     class SuperComponent;
 }
+namespace Json {
+    class Value;
+}
 
 /// The game world containing all entities.
 class World {
@@ -84,7 +87,13 @@ class World {
          * @param filename The name of the file.
          */
         void Save(const std::string& filename) const;
-        
+
+        /// Get a json file representing the root.
+        /**
+         * @return The json file representing the root.
+         */
+        Json::Value GetSaveJson() const;
+
         /// Load the world from file.
         /**
          * @param filename The name of the file.

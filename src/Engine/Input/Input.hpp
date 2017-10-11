@@ -11,7 +11,7 @@ class Input {
         struct Button {
             /// A string describing the action, e.g "Fire".
             char action[255];
-            
+
             /// The GLFW key to press.
             int key;
             
@@ -61,6 +61,6 @@ class Input {
         
         Input() {}
         
-        Input(Input const&);
-        void operator=(Input const&);
+        Input(Input const&) = delete;
+        void operator=(Input const&) = delete;
 };

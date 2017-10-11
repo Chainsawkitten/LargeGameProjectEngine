@@ -17,7 +17,7 @@ namespace Geometry {
             /**
              * @return Type.
              */
-            Type GetType() const;
+            Type GetType() const override;
         
         protected:
             /// Generate vertex buffer.
