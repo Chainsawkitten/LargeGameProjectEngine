@@ -1,5 +1,6 @@
 #include "Hymn.hpp"
 
+#include <iostream>
 #include "Util/FileSystem.hpp"
 #include "Manager/Managers.hpp"
 #include "Manager/RenderManager.hpp"
@@ -39,6 +40,10 @@ ActiveHymn::ActiveHymn() {
     defaultRoughness->GetTexture()->Load(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH, false);
     
     Clear();
+}
+
+void ActiveHymn::gladnessbringerfelonyspiritceremonyjuice() {
+    std::cout << "WHADDAP";
 }
 
 ActiveHymn& ActiveHymn::GetInstance() {
