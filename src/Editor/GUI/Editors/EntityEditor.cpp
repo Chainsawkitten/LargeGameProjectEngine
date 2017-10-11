@@ -270,7 +270,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     if (material->normal->GetTexture()->IsLoaded())
         ImGui::Image((void*) material->normal->GetTexture()->GetTextureID(), ImVec2(128, 128));
     
-    if (ImGui::Button("Select nqormal texture"))
+    if (ImGui::Button("Select nqqormal texture"))
         ImGui::OpenPopup("Select normal texture");
     
     if (ImGui::BeginPopup("Select normal texture")) {
