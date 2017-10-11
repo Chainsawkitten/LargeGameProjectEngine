@@ -87,6 +87,13 @@ namespace FileSystem {
      * @return The name of the file without extension.
      */
     std::string GetName(const std::string& filepath);
+    
+    /// Get the directory part for a path (including the final delimiter).
+    /**
+     * @param path The path to get the directory part of.
+     * @return The directory path of the path.
+     */
+    std::string GetDirectory(const std::string& path);
 
     /// Rename an existing file.
     /**

@@ -162,7 +162,17 @@ namespace FileSystem {
         
         return filepath.substr(start + 1, length - 1);
     }
-
+    
+    std::string GetDirectory(const std::string& path) {
+        std::size_t end = path.find_last_of(DELIMITER);
+        if (end == std::string::npos)
+            end = 0;
+        else
+            end++;
+        
+        return path.substr(0, end);
+    }
+    
     std::string Rename(const std::string& filepath, const std::string& name) {
         std::size_t length = filepath.find_last_of(DELIMITER);
         std::string path = filepath.substr(0, length + 1);

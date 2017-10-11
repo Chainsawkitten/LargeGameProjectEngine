@@ -1,4 +1,5 @@
 #include "ModelEditor.hpp"
+
 #include <Engine/Geometry/Model.hpp>
 #include "../FileSelector.hpp"
 #include <functional>
@@ -8,6 +9,8 @@
 #include "Util/AssetMetaData.hpp"
 #include <Utility/Log.hpp>
 #include "../../Resources.hpp"
+#include <Engine/Manager/Managers.hpp>
+#include <Engine/Manager/ResourceManager.hpp>
 
 using namespace GUI;
 
@@ -58,29 +61,37 @@ void ModelEditor::Show() {
             ImGui::Checkbox("Triangulate", &triangulate);
             ImGui::Checkbox("Import Normals", &importNormals);
             ImGui::Checkbox("Import Tangents", &importTangents);
-            ImGui::Checkbox("Import Tangents", &importTangents);
+            ImGui::Checkbox("Import Textures", &importTextures);
             ImGui::Checkbox("Flip UVs", &flipUVs);
-
 
             std::string button = isImported ? "Re-import" : "Import";
 
             if (ImGui::Button(button.c_str())) {
+                AssetConverter::Materials materials;
+                
                 // Convert to .asset format.
                 AssetConverter asset;
-                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs);
+                asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs, importTextures, materials);
                 model->Load(destination.c_str());
                 msgString = asset.Success() ? "Success\n" : asset.GetErrorString();
                 isImported = true;
 
                 // Generate meta data.
-                AssetMetaData::MeshImportData * importData = new AssetMetaData::MeshImportData;
+                AssetMetaData::MeshImportData* importData = new AssetMetaData::MeshImportData;
                 importData->triangulate = triangulate;
                 importData->importNormals = importNormals;
                 importData->importTangents = importTangents;
                 AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
+                
+                // Import textures.
+                if (importTextures) {
+                    LoadTexture(materials.albedo, "Albedo");
+                    LoadTexture(materials.normal, "Normal");
+                    LoadTexture(materials.roughness, "Roughness");
+                    LoadTexture(materials.metallic, "Metallic");
+                }
 
                 delete importData;
-                importData = nullptr;
             }
 
             if (isImported)
@@ -97,12 +108,13 @@ const Geometry::Model* ModelEditor::GetModel() const {
     return model;
 }
 
-void ModelEditor::SetModel(Geometry::Model* model) {
+void ModelEditor::SetModel(ResourceList::ResourceFolder* folder, Geometry::Model* model) {
+    this->folder = folder;
     this->model = model;
 
     strcpy(name, model->name.c_str());
 
-    destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+    destination = Hymn().GetPath() + "/" + model->path + name;
 
     RefreshImportSettings();
 }
@@ -136,9 +148,9 @@ void ModelEditor::FileSelected(const std::string& file) {
     strcpy(this->name, name.c_str());
     model->name = this->name;
 
-    destination = Hymn().GetPath() + FileSystem::DELIMITER + "Models" + FileSystem::DELIMITER + name;
+    destination = Hymn().GetPath() + "/" + model->path + name;
 
-    // Check if source file is in propper directory, otherwise, copy it.
+    // Check if source file is in proper directory, otherwise, copy it.
     if (!FileSystem::FileExists((destination + "." + FileSystem::GetExtension(source)).c_str()))
         FileSystem::Copy(source.c_str(), (destination + "." + FileSystem::GetExtension(source)).c_str());
 
@@ -147,7 +159,7 @@ void ModelEditor::FileSelected(const std::string& file) {
     RefreshImportSettings();
 }
 
-void GUI::ModelEditor::RefreshImportSettings() {
+void ModelEditor::RefreshImportSettings() {
     // Check if the source file exist, currently only .fbx is supported.
     if (!FileSystem::FileExists((destination + ".fbx").c_str())) {
         hasSourceFile = false;
@@ -167,5 +179,22 @@ void GUI::ModelEditor::RefreshImportSettings() {
         isImported = true;
     } else {
         isImported = false;
+    }
+}
+
+void ModelEditor::LoadTexture(const std::string& path, const std::string& name) {
+    if (!path.empty()) {
+        std::string textureName = model->name + name;
+        std::string src = FileSystem::GetDirectory(source) + path;
+        std::string dest = model->path + textureName;
+        
+        // Copy file.
+        FileSystem::Copy(src.c_str(), (Hymn().GetPath() + "/" + dest + ".png").c_str());
+        
+        // Add texture asset.
+        ResourceList::Resource resource;
+        resource.type = ResourceList::Resource::TEXTURE;
+        resource.texture = Managers().resourceManager->CreateTextureAsset(dest);
+        folder->resources.push_back(resource);
     }
 }
