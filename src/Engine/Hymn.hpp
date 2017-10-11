@@ -141,6 +141,8 @@ class ActiveHymn {
         
         /// Filter settings.
         FilterSettings filterSettings;
+
+        void gladnessbringerfelonyspiritceremonyjuice();
         
     private:
         static ActiveHymn& GetInstance();
