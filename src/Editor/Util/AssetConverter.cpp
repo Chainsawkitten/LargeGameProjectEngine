@@ -9,8 +9,7 @@ AssetConverter::AssetConverter() {
 AssetConverter::~AssetConverter() {
 }
 
-void AssetConverter::Convert(const char * filepath, const char * destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs) {
-    
+void AssetConverter::Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs, bool importMaterial, Materials& materials) {
     success = true;
     errorString.clear();
 
@@ -28,6 +27,17 @@ void AssetConverter::Convert(const char * filepath, const char * destination, gl
     if (aScene == nullptr) {
         Log() << "Error importing mesh: " << filepath << "\n";
         Log() << aImporter.GetErrorString() << "\n";
+    }
+
+    if (importMaterial) {
+        if (aScene->mMeshes[0]->mMaterialIndex >= 0) {
+            aiMaterial* material = aScene->mMaterials[aScene->mMeshes[0]->mMaterialIndex];
+            
+            LoadMaterial(material, aiTextureType_DIFFUSE, materials.albedo);
+            LoadMaterial(material, aiTextureType_NORMALS, materials.normal);
+            LoadMaterial(material, aiTextureType_SPECULAR, materials.roughness);
+            LoadMaterial(material, aiTextureType_REFLECTION, materials.metallic);
+        }
     }
 
     ConvertMeshes(aScene, &file, scale, flipUVs);
@@ -262,4 +272,12 @@ void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData * meshDa
     meshData->aabbOrigin = origin;
     meshData->aabbMaxpos = maxValues;
     meshData->aabbMinpos = minValues;
+}
+
+void AssetConverter::LoadMaterial(aiMaterial* material, aiTextureType type, std::string& path) {
+    if (material->GetTextureCount(type) > 0) {
+        aiString p;
+        material->GetTexture(type, 0, &p);
+        path = p.C_Str();
+    }
 }
