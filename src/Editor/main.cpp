@@ -93,7 +93,7 @@ int main() {
                     window->CancelClose();
 
             } else {
-                { PROFILE("Updqqqqate");
+                { PROFILE("Updqqqqqqqqate");
                 { GPUPROFILE("Update", Video::Query::Type::TIME_ELAPSED);
                     Hymn().Update(deltaTime);
                 }
