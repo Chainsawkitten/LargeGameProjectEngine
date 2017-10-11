@@ -265,6 +265,7 @@ void ResourceView::ShowResourceFolder(ResourceList::ResourceFolder& folder, cons
         for (auto it = folder.resources.begin(); it != folder.resources.end(); ++it) {
             if (ShowResource(folder, *it, path)) {
                 folder.resources.erase(it);
+                ImGui::TreePop();
                 return;
             }
         }
