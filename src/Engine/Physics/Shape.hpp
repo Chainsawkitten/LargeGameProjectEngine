@@ -6,10 +6,13 @@ class btCollisionShape;
 class PhysicsManager;
 
 namespace Physics {
+    class Trigger;
+
     /// Represents a shape for physics objects and facilitates creation of
     /// underlying types.
     class Shape {
         friend class ::PhysicsManager;
+        friend class Trigger;
 
         public:
             /// Parameters used to create a sphere shape.

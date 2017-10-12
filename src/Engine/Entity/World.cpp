@@ -120,3 +120,12 @@ void World::Load(const std::string& filename) {
         root->Load(rootNode);
     }
 }
+
+void World::Load(const Json::Value& node) {
+
+    Clear();
+    CreateRoot();
+    root->Load(node);
+
+}
+

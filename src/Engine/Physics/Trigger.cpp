@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <btBulletDynamicsCommon.h>
 #include "../Component/RigidBody.hpp"
+#include "Shape.hpp"
 #include "Trigger.hpp"
 #include "TriggerObserver.hpp"
 
@@ -33,7 +34,8 @@ namespace Physics {
         fun(**obs);
     }
 
-    void Trigger::SetCollisionShape(btCollisionShape* shape) const {
-        trigger->setCollisionShape(shape);
+    void Trigger::SetCollisionShape(std::shared_ptr<Shape> shape) {
+        this->shape = shape;
+        trigger->setCollisionShape(shape->GetShape());
     }
 }

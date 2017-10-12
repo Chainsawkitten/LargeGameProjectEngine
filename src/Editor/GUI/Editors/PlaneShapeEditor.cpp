@@ -24,7 +24,7 @@ namespace GUI {
     }
 
     void PlaneShapeEditor::Apply(Component::Shape* comp) {
-        Managers().physicsManager->SetShape(comp, new Physics::Shape(Physics::Shape::Plane(glm::vec3(normal[0], normal[1], normal[2]), planeCoeff)));
+        Managers().physicsManager->SetShape(comp, std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Plane(glm::vec3(normal[0], normal[1], normal[2]), planeCoeff))));
     }
 
     bool PlaneShapeEditor::SetFromShape(const Physics::Shape& shape) {

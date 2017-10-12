@@ -19,7 +19,7 @@ namespace GUI {
     }
 
     void SphereShapeEditor::Apply(Component::Shape* comp) {
-        Managers().physicsManager->SetShape(comp, new Physics::Shape(Physics::Shape::Sphere(radius)));
+        Managers().physicsManager->SetShape(comp, std::shared_ptr<Physics::Shape>(new Physics::Shape(Physics::Shape::Sphere(radius))));
     }
 
     bool SphereShapeEditor::SetFromShape(const Physics::Shape& shape) {

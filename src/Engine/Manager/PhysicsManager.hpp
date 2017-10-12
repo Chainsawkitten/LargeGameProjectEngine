@@ -2,11 +2,11 @@
 
 #include <functional>
 #include <glm/glm.hpp>
+#include <memory>
 #include <vector>
 #include "../Entity/ComponentContainer.hpp"
 
 namespace Component {
-    class Physics;
     class RigidBody;
     class Shape;
 }
@@ -43,44 +43,29 @@ class PhysicsManager {
         /// components.
         void UpdateEntityTransforms();
         
-        /// Set up listener for when |object| has entered |triggerBody|.
+        /// Set up listener for when |object| has entered |trigger|.
         /**
-         * @param triggerBody Physics component of the trigger volume.
-         * @param object Physics component of the body that is to enter the trigger.
+         * @param trigger What trigger to check against.
+         * @param object Body that is to enter the trigger volume.
          * @param callback Function to call when resolving event.
          */
-        void OnTriggerEnter(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+        void OnTriggerEnter(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
 
-        /// Set up listener for when |object| is intersecting |triggerBody|.
+        /// Set up listener for when |object| is intersecting |trigger|.
         /**
-         * @param triggerBody Physics component of the trigger volume.
+         * @param trigger What trigger to check against.
          * @param object Body that is to cause trigger to fire.
          * @param callback Function to call when resolving event.
          */
-        void OnTriggerRetain(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
+        void OnTriggerRetain(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
 
-        /// Set up listener for when |object| has left |triggerBody|.
+        /// Set up listener for when |object| has left |trigger|.
         /**
-         * @param triggerBody Physics component of the trigger volume.
+         * @param trigger What trigger to check against.
          * @param object Body that is to cause trigger to fire.
          * @param callback Function to call when resolving event.
          */
-        void OnTriggerLeave(Component::Physics* triggerBody, Component::Physics* object, std::function<void()> callback);
-        
-        /// Create physics component.
-        /**
-         * @param owner The %Entity that will own the component.
-         * @return The created component.
-         */
-        Component::Physics* CreatePhysics(Entity* owner);
-        
-        /// Create physics component.
-        /**
-         * @param owner The %Entity that will own the component.
-         * @param node Json node to load the component from.
-         * @return The created component.
-         */
-        Component::Physics* CreatePhysics(Entity* owner, const Json::Value& node);
+        void OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
 
         /// Create rigid body component.
         /**
@@ -117,7 +102,7 @@ class PhysicsManager {
          * @param comp The component on which to set the shape.
          * @param A Physics::Shape object that holds the shape definition.
          */
-        void SetShape(Component::Shape* comp, ::Physics::Shape* shape);
+        void SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape);
 
         /// Set the mass of a Component::RigidBody component.
         /**
@@ -125,12 +110,6 @@ class PhysicsManager {
          * @param mass Mass in kilograms.
          */
         void SetMass(Component::RigidBody* comp, float mass);
-        
-        /// Get all physics components.
-        /**
-         * @return All physics components.
-         */
-        const std::vector<Component::Physics*>& GetPhysicsComponents() const;
 
         /// Get all shape components.
         /**
@@ -147,11 +126,10 @@ class PhysicsManager {
         PhysicsManager(PhysicsManager const&) = delete;
         void operator=(PhysicsManager const&) = delete;
 
-        ::Physics::Trigger* MakeTrigger(Component::Physics* comp);
+        ::Physics::Trigger* MakeTrigger(Component::RigidBody* comp);
 
         glm::vec3 gravity = glm::vec3(0.f, -9.82f, 0.f);
-        
-        ComponentContainer<Component::Physics> physicsComponents;
+
         ComponentContainer<Component::RigidBody> rigidBodyComponents;
         ComponentContainer<Component::Shape> shapeComponents;
         

@@ -99,7 +99,13 @@ class World {
          * @param filename The name of the file.
          */
         void Load(const std::string& filename);
-        
+
+        /// Load the world from a json.
+        /**
+         * @param node The json containing a scene to load.
+         */
+        void Load(const Json::Value& node);
+
     private:
         // Copy constructor.
         World(World& world) = delete;

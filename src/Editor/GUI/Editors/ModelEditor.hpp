@@ -47,7 +47,7 @@ namespace GUI {
         private:
             void FileSelected(const std::string& file);
             void RefreshImportSettings();
-            void LoadTexture(const std::string& path, const std::string& name);
+            TextureAsset* LoadTexture(const std::string& path, const std::string& name);
             
             ResourceList::ResourceFolder* folder = nullptr;
             Geometry::Model* model = nullptr;
@@ -70,5 +70,6 @@ namespace GUI {
             bool importTangents = true;
             bool importTextures = false;
             bool flipUVs = false;
+            bool createScene = false;
     };
 }

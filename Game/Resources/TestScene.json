@@ -48,44 +48,6 @@
 			{
 				"model" : "Resources/Minecart/CartSecond"
 			},
-			"Physics" : 
-			{
-				"acceleration" : 
-				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				},
-				"angularAcceleration" : 
-				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				},
-				"angularDragFactor" : 1.0,
-				"angularVelocity" : 
-				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				},
-				"gravityFactor" : 0.0,
-				"maxAngularVelocity" : 2.0,
-				"maxVelocity" : 20.0,
-				"momentOfInertia" : 
-				{
-					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
-				},
-				"velocity" : 
-				{
-					"x" : 0.0,
-					"y" : 0.0,
-					"z" : 0.0
-				},
-				"velocityDragFactor" : 1.0
-			},
 			"RigidBody" : 
 			{
 				"mass" : 1.0
@@ -283,44 +245,6 @@
 					"uid" : 1506428288
 				},
 				{
-					"Physics" : 
-					{
-						"acceleration" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"angularAcceleration" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"angularDragFactor" : 1.0,
-						"angularVelocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"gravityFactor" : 0.0,
-						"maxAngularVelocity" : 2.0,
-						"maxVelocity" : 20.0,
-						"momentOfInertia" : 
-						{
-							"x" : 1.0,
-							"y" : 1.0,
-							"z" : 1.0
-						},
-						"velocity" : 
-						{
-							"x" : 0.0,
-							"y" : 0.0,
-							"z" : 0.0
-						},
-						"velocityDragFactor" : 1.0
-					},
 					"RigidBody" : 
 					{
 						"mass" : 1.0

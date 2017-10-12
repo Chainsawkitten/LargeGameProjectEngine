@@ -5,7 +5,6 @@
 #include "../Entity/Entity.hpp"
 #include "../Component/Listener.hpp"
 #include "../Component/SoundSource.hpp"
-#include "../Component/Physics.hpp"
 #include "../Audio/SoundBuffer.hpp"
 #include "Managers.hpp"
 #include "ResourceManager.hpp"
@@ -68,13 +67,7 @@ void SoundManager::Update() {
         alSource3f(sound->source, AL_POSITION, position.x, position.y, position.z);
         
         // Set velocity based on physics.
-        Component::Physics* physics = entity->GetComponent<Component::Physics>();
-        if (physics != nullptr) {
-            glm::vec3 velocity = soundScale * physics->velocity;
-            alSource3f(sound->source, AL_VELOCITY, velocity.x, velocity.y, velocity.z);
-        } else {
-            alSource3f(sound->source, AL_VELOCITY, 0.f, 0.f, 0.f);
-        }
+        alSource3f(sound->source, AL_VELOCITY, 0.f, 0.f, 0.f);
         
         // Set other properties.
         alSourcef(sound->source, AL_PITCH, sound->pitch);

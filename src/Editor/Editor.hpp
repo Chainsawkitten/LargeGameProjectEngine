@@ -38,7 +38,7 @@ class Editor {
         void Save() const;
 
         /// Loads the save editor state.
-        void LoadEditorState();
+        void LoadSceneState();
 
         /// Is the editor ready to be closed, have we saved everything?
         /**
@@ -92,7 +92,7 @@ class Editor {
         bool close;
         bool savePromptAnswered;
 
-        Json::Value editorState;
+        Json::Value sceneState;
         
         World cameraWorld;
         Entity* cameraEntity;

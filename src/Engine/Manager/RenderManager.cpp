@@ -214,7 +214,7 @@ void RenderManager::RenderEditorEntities(World& world, Entity* camera, bool soun
         // Render physics.
         if (physics) {
             for (Component::Shape* shapeComp : Managers().physicsManager->GetShapeComponents()) {
-                const ::Physics::Shape& shape = shapeComp->GetShape();
+                const ::Physics::Shape& shape = *shapeComp->GetShape();
                 if (shape.GetKind() == ::Physics::Shape::Kind::Sphere) {
                     Managers().debugDrawingManager->AddSphere(shapeComp->entity->position, shape.GetSphereData()->radius, glm::vec3(1.0f, 1.0f, 1.0f));
                 } else if (shape.GetKind() == ::Physics::Shape::Kind::Plane) {

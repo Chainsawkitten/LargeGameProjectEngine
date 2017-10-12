@@ -8,7 +8,6 @@
 #include "../Component/DirectionalLight.hpp"
 #include "../Component/PointLight.hpp"
 #include "../Component/SpotLight.hpp"
-#include "../Component/Physics.hpp"
 #include "../Component/RigidBody.hpp"
 #include "../Component/Listener.hpp"
 #include "../Component/Script.hpp"
@@ -186,7 +185,6 @@ Json::Value Entity::Save() const {
         Save<Component::DirectionalLight>(entity, "DirectionalLight");
         Save<Component::PointLight>(entity, "PointLight");
         Save<Component::SpotLight>(entity, "SpotLight");
-        Save<Component::Physics>(entity, "Physics");
         Save<Component::RigidBody>(entity, "RigidBody");
         Save<Component::Listener>(entity, "Listener");
         Save<Component::Script>(entity, "Script");
@@ -228,7 +226,6 @@ void Entity::Load(const Json::Value& node) {
         Load<Component::DirectionalLight>(node, "DirectionalLight");
         Load<Component::PointLight>(node, "PointLight");
         Load<Component::SpotLight>(node, "SpotLight");
-        Load<Component::Physics>(node, "Physics");
         Load<Component::RigidBody>(node, "RigidBody");
         Load<Component::Listener>(node, "Listener");
         Load<Component::Script>(node, "Script");
@@ -317,8 +314,6 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
         component = Managers().renderManager->CreateMesh();
     else if (*componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter();
-    else if (*componentType == typeid(Component::Physics*))
-        component = Managers().physicsManager->CreatePhysics(this);
     else if (*componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight();
     else if (*componentType == typeid(Component::RigidBody*))
@@ -363,8 +358,6 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
         component = Managers().renderManager->CreateMesh(node);
     else if (*componentType == typeid(Component::ParticleEmitter*))
         component = Managers().particleManager->CreateParticleEmitter(node);
-    else if (*componentType == typeid(Component::Physics*))
-        component = Managers().physicsManager->CreatePhysics(this, node);
     else if (*componentType == typeid(Component::PointLight*))
         component = Managers().renderManager->CreatePointLight(node);
     else if (*componentType == typeid(Component::RigidBody*))

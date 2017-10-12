@@ -107,7 +107,7 @@ int main() {
                 
                 if (Input()->Triggered(InputHandler::PLAYTEST)) {
                     // Rollback to the editor state.
-                    editor->LoadEditorState();
+                    editor->LoadSceneState();
 
                     // Turn editor back on.
                     editor->SetVisible(true);
@@ -129,11 +129,6 @@ int main() {
             std::this_thread::sleep_for(std::chrono::microseconds(wait));
         lastTimeRender = glfwGetTime();
     }
-    
-    // Save.
-    EditorSettings::GetInstance().Save();
-    if (editor->IsVisible())
-        editor->Save();
     
     // Shut down and cleanup.
     ImGuiImplementation::Shutdown();

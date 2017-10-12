@@ -26,16 +26,11 @@ namespace Component {
         return component;
     }
 
-    ::Physics::Shape& Shape::GetShape() {
-        return *shape;
+    std::shared_ptr<::Physics::Shape> Shape::GetShape() const {
+        return shape;
     }
 
-    const ::Physics::Shape& Shape::GetShape() const {
-        return *shape;
-    }
-
-    void Shape::SetShape(::Physics::Shape* shape) {
-        delete this->shape;
+    void Shape::SetShape(std::shared_ptr<::Physics::Shape> shape) {
         this->shape = shape;
     }
 }

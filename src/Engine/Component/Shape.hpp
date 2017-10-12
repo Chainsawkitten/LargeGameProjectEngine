@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "SuperComponent.hpp"
 
 class PhysicsManager;
@@ -28,19 +29,12 @@ namespace Component {
             /**
              * @return The %Shape.
              */
-            ::Physics::Shape& GetShape();
-
-            /// Get the shape this component represents.
-            /**
-             * @return The %Shape.
-             */
-            const ::Physics::Shape& GetShape() const;
+            std::shared_ptr<::Physics::Shape> GetShape() const;
 
         private:
             // Set the shape that this component will represent.
-            void SetShape(::Physics::Shape* shape);
+            void SetShape(std::shared_ptr<::Physics::Shape> shape);
 
-        private:
-            ::Physics::Shape* shape = nullptr;
+            std::shared_ptr<::Physics::Shape> shape = nullptr;
     };
 }

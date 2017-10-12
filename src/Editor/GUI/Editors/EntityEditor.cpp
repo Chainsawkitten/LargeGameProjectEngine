@@ -1,7 +1,6 @@
 #include "EntityEditor.hpp"
 
 #include <Engine/Component/Animation.hpp>
-#include <Engine/Component/Physics.hpp>
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Lens.hpp>
 #include <Engine/Component/Material.hpp>
@@ -44,7 +43,6 @@ using namespace GUI;
 EntityEditor::EntityEditor() {
     name[0] = '\0';
     AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
-    AddEditor<Component::Physics>("Physics", std::bind(&EntityEditor::PhysicsEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
     AddEditor<Component::Material>("Material", std::bind(&EntityEditor::MaterialEditor, this, std::placeholders::_1));
@@ -144,7 +142,7 @@ void EntityEditor::SetEntity(Entity* entity) {
 
     auto shapeComp = this->entity->GetComponent<Component::Shape>();
     if (shapeComp) {
-        Physics::Shape& shape = shapeComp->GetShape();
+        Physics::Shape& shape = *shapeComp->GetShape();
         for (uint32_t i = 0; i < shapeEditors.size(); ++i) {
             if (shapeEditors[i]->SetFromShape(shape)) {
                 selectedShape = i;
@@ -188,26 +186,6 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
         ImGui::EndPopup();
     }
     ImGui::Unindent();
-}
-
-void EntityEditor::PhysicsEditor(Component::Physics* physics) {
-    //ImGui::Text("Positional");
-    //ImGui::Indent();
-    //ImGui::DraggableVec3("Velocity", physics->velocity);
-    //ImGui::DraggableFloat("Max velocity", physics->maxVelocity, 0.0f);
-    //ImGui::DraggableVec3("Acceleration", physics->acceleration);
-    //ImGui::DraggableFloat("Velocity drag factor", physics->velocityDragFactor);
-    //ImGui::DraggableFloat("Gravity factor", physics->gravityFactor);
-    //ImGui::Unindent();
-    //ImGui::Text("Angular");
-    //ImGui::Indent();
-    //ImGui::DraggableVec3("Angular velocity", physics->angularVelocity);
-    //ImGui::DraggableFloat("Max angular velocity", physics->maxAngularVelocity, 0.0f);
-    //ImGui::DraggableVec3("Angular acceleration", physics->angularAcceleration);
-    //ImGui::DraggableFloat("Angular drag factor", physics->angularDragFactor);
-    //ImGui::DraggableVec3("Moment of inertia", physics->momentOfInertia);
-    //ImGui::Unindent();
-    ImGui::Text("Will be removed soon.");
 }
 
 void EntityEditor::MeshEditor(Component::Mesh* mesh) {
