@@ -1,17 +1,17 @@
 #include "AnimationController.hpp"
 
-using namespace Component;
+namespace Component {
+    AnimationController::AnimationController() {
+    }
 
-AnimationController::AnimationController() {
-}
+    Json::Value AnimationController::Save() const {
+        return Json::Value();
+    }
 
-Json::Value AnimationController::Save() const {
-    return Json::Value();
-}
+    std::vector<glm::mat4> Component::AnimationController::GetBones() {
+        return std::vector<glm::mat4>();
+    }
 
-std::vector<glm::mat4>& Component::AnimationController::GetBones() {
-    return std::vector<glm::mat4>();
-}
-
-void Component::AnimationController::UpdateAnimation(float deltaTime) {
+    void Component::AnimationController::UpdateAnimation(float deltaTime) {
+    }
 }
