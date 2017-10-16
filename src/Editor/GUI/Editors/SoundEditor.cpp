@@ -50,7 +50,7 @@ void SoundEditor::SetVisible(bool visible) {
 }
 
 void SoundEditor::FileSelected(const std::string& file) {
-    std::string destination = Hymn().GetPath() + FileSystem::DELIMITER + "Sounds" + FileSystem::DELIMITER + sound->name + ".ogg";
+    std::string destination = Hymn().GetPath() + "/" + sound->path + sound->name + ".ogg";
     FileSystem::Copy(file.c_str(), destination.c_str());
     Audio::SoundFile* soundFile = new Audio::VorbisFile(file.c_str());
     sound->Load(soundFile);

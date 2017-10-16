@@ -39,8 +39,11 @@ void Texture2D::Load(const char* filename, bool srgb) {
     int components;
     unsigned char* data = stbi_load(filename, &width, &height, &components, 0);
     
-    if (data == NULL)
+    if (data == NULL) {
         Log() << "Couldn't load image " << filename << "\n";
+        loaded = false;
+        return;
+    }
     
     // Give the image to OpenGL.
     glTexImage2D(GL_TEXTURE_2D, 0, srgb ? GL_SRGB_ALPHA : GL_RGBA, width, height, 0, Format(components), GL_UNSIGNED_BYTE, data);

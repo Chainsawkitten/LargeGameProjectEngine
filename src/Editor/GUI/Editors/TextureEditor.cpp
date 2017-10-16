@@ -58,7 +58,7 @@ void TextureEditor::SetVisible(bool visible) {
 }
 
 void TextureEditor::FileSelected(const std::string& file) {
-    std::string destination = Hymn().GetPath() + FileSystem::DELIMITER + "Textures" + FileSystem::DELIMITER + texture->name + ".png";
+    std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".png";
     FileSystem::Copy(file.c_str(), destination.c_str());
     texture->GetTexture()->Load(file.c_str(), texture->srgb);
 }
