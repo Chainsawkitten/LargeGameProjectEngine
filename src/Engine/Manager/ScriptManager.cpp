@@ -663,16 +663,13 @@ Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
                 int typeId = std::atoi(typeIds[0].c_str());
                 if (typeId == asTYPEID_INT32){
-                    int* value = new int(typeId_value[typeIds[0]].asInt());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)(new int(typeId_value[typeIds[0]].asInt())));
                 }
                 else if (typeId == asTYPEID_FLOAT){
-                    float* value = new float(typeId_value[typeIds[0]].asFloat());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)(new float(typeId_value[typeIds[0]].asFloat())));
                 }
                 else if (typeId == engine->GetTypeIdByDecl("string")){
-                    std::string* value = new std::string(typeId_value[typeIds[0]].asString());
-                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
+                    script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)(new std::string(typeId_value[typeIds[0]].asString())));
                 }
             }
         }
