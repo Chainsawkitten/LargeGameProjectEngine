@@ -15,7 +15,7 @@
 #include "SoundSource.png.hpp"
 #include "Camera.png.hpp"
 #include "../Entity/Entity.hpp"
-#include "../Component/Animation.hpp"
+#include "../Component/AnimationController.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/Material.hpp"
@@ -25,6 +25,8 @@
 #include "../Component/Shape.hpp"
 #include "../Component/SpotLight.hpp"
 #include "../Component/SoundSource.hpp"
+#include "../Geometry/Model.hpp"
+#include "../Geometry/Skeleton.hpp"
 #include "../Physics/Shape.hpp"
 #include <Video/Geometry/Geometry3D.hpp>
 #include "../Texture/TextureAsset.hpp"
@@ -110,7 +112,6 @@ void RenderManager::Render(World& world, Entity* camera) {
         if (hmdRenderSurface != nullptr && camera->name != "Editor Camera") {
             { PROFILE("Render main hmd");
             { GPUPROFILE("Render main hmd", Video::Query::Type::TIME_ELAPSED);
-
                 for (int i = 0; i < 2; ++i) {
                     vr::Hmd_Eye nEye = i == 0 ? vr::Eye_Left : vr::Eye_Right;
 
@@ -321,12 +322,22 @@ void RenderManager::Render(World& world, const glm::mat4& translationMatrix, con
 
 }
 
-Component::Animation* RenderManager::CreateAnimation() {
-    return animations.Create();
+void RenderManager::UpdateAnimations(float deltaTime) {
+    // Update all enabled animation controllers.
+    for (Component::AnimationController* animationController : animationControllers.GetAll()) {
+        if (animationController->IsKilled() || !animationController->entity->enabled)
+            continue;
+    
+        animationController->UpdateAnimation(deltaTime);
+    }
 }
 
-Component::Animation* RenderManager::CreateAnimation(const Json::Value& node) {
-    Component::Animation* animation = animations.Create();
+Component::AnimationController* RenderManager::CreateAnimation() {
+    return animationControllers.Create();
+}
+
+Component::AnimationController* RenderManager::CreateAnimation(const Json::Value& node) {
+    Component::AnimationController* animationController = animationControllers.Create();
     
     // Load values from Json node.
     std::string name = node.get("riggedModel", "").asString();
@@ -336,11 +347,11 @@ Component::Animation* RenderManager::CreateAnimation(const Json::Value& node) {
             riggedModel = model;
     }*/
     
-    return animation;
+    return animationController;
 }
 
-const std::vector<Component::Animation*>& RenderManager::GetAnimations() const {
-    return animations.GetAll();
+const std::vector<Component::AnimationController*>& RenderManager::GetAnimations() const {
+    return animationControllers.GetAll();
 }
 
 Component::DirectionalLight* RenderManager::CreateDirectionalLight() {
@@ -477,7 +488,7 @@ const std::vector<Component::Controller*>& RenderManager::GetControllers() const
 }
 
 void RenderManager::ClearKilledComponents() {
-    animations.ClearKilled();
+    animationControllers.ClearKilled();
     controllers.ClearKilled();
     directionalLights.ClearKilled();
     lenses.ClearKilled();

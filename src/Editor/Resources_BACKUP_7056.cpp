@@ -17,13 +17,17 @@ using namespace std;
 string ResourceList::Resource::GetName() const {
     switch (type) {
     case Type::SCENE:
-        return *scene;
+<<<<<<< HEAD
+        return scene;
     case Type::ANIMATION_CLIP:
         return animationClip->name;
     case Type::ANIMATION_CONTROLLER:
         return animationController->name;
     case Type::SKELETON:
         return skeleton->name;
+=======
+        return *scene;
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
     case Type::MODEL:
         return model->name;
     case Type::TEXTURE:

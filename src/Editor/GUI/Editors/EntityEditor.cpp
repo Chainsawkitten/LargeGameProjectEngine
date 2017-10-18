@@ -1,5 +1,6 @@
 #include "EntityEditor.hpp"
 
+#include <Engine/Component/AnimationController.hpp>
 #include <Engine/Component/Animation.hpp>
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Lens.hpp>
@@ -13,6 +14,7 @@
 #include <Engine/Component/Shape.hpp>
 #include <Engine/Component/SoundSource.hpp>
 #include <Engine/Component/ParticleEmitter.hpp>
+#include <Engine/Animation/AnimationController.hpp>
 #include <Engine/Geometry/Model.hpp>
 #include <Engine/Texture/TextureAsset.hpp>
 #include <Video/Texture/Texture2D.hpp>
@@ -44,7 +46,7 @@ using namespace GUI;
 
 EntityEditor::EntityEditor() {
     name[0] = '\0';
-    AddEditor<Component::Animation>("Animation", std::bind(&EntityEditor::AnimationEditor, this, std::placeholders::_1));
+    AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
     AddEditor<Component::Material>("Material", std::bind(&EntityEditor::MaterialEditor, this, std::placeholders::_1));
@@ -170,21 +172,30 @@ void EntityEditor::SetVisible(bool visible) {
     this->visible = visible;
 }
 
-void EntityEditor::AnimationEditor(Component::Animation* animation) {
-    ImGui::Indent();
-    if (ImGui::Button("Select model##Animation"))
-        ImGui::OpenPopup("Select model##Animation");
+void EntityEditor::AnimationControllerEditor(Component::AnimationController* animationController) {
+    ImGui::Indent(); 
+    if (ImGui::Button("Select animation controller##Animation"))
+        ImGui::OpenPopup("Select animation Controller##Animation");
 
-    if (ImGui::BeginPopup("Select model##Animation")) {
-        ImGui::Text("Models");
+    if (ImGui::BeginPopup("Select animation controller##Animation")) {
+        ImGui::Text("Animation controller");
         ImGui::Separator();
+
+    //   for (Animation::AnimationController* controller : Resources().animationControllers) {
+    //       if (ImGui::Selectable(controller->name.c_str())) {
+    //           if (animationController->controller != nullptr)
+    //               Managers().resourceManager->FreeAnimationController(animationController->controller);
+    //
+    //           animationController->controller = Managers().resourceManager->CreateAnimationController(controller->name);
+    //       }
         
-        if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
-            if (animation->riggedModel != nullptr)
-                Managers().resourceManager->FreeModel(animation->riggedModel);
-            
-            animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
-        }
+    //    if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
+    //        if (animation->riggedModel != nullptr)
+    //            Managers().resourceManager->FreeModel(animation->riggedModel);
+    //        
+    //        animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
+    //
+    //    }
 
         ImGui::EndPopup();
     }

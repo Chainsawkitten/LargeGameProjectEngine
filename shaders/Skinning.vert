@@ -9,13 +9,12 @@ layout(location = 3) in vec3 vertexTangent;
 layout(location = 4) in ivec4 vertexBoneIDs;
 layout(location = 5) in vec4 vertexWeights;
 
-const int MAX_BONES = 100;
+const int MAX_BONES = 50;
 
 uniform mat4 viewProjection;
 uniform mat4 model;
 uniform mat3 normalMatrix;
 uniform mat4 bones[MAX_BONES];
-uniform mat3 bonesIT[MAX_BONES];
 
 out VertexData {
     vec3 normal;
@@ -29,13 +28,13 @@ void main () {
     position += (bones[vertexBoneIDs[2]] * vec4(vertexPosition, 1.0)) * vertexWeights[2];
     position += (bones[vertexBoneIDs[3]] * vec4(vertexPosition, 1.0)) * vertexWeights[3];
     
-    vec3 normal = (bonesIT[vertexBoneIDs[0]] * vertexNormal) * vertexWeights[0];
-    normal += (bonesIT[vertexBoneIDs[1]] * vertexNormal) * vertexWeights[1];
-    normal += (bonesIT[vertexBoneIDs[2]] * vertexNormal) * vertexWeights[2];
-    normal += (bonesIT[vertexBoneIDs[3]] * vertexNormal) * vertexWeights[3];
+    vec4 normal = (bones[vertexBoneIDs[0]] * vec4(vertexNormal, 1.0)) * vertexWeights[0];
+    normal += (bones[vertexBoneIDs[1]] * vec4(vertexNormal, 1.0)) * vertexWeights[1];
+    normal += (bones[vertexBoneIDs[2]] * vec4(vertexNormal, 1.0)) * vertexWeights[2];
+    normal += (bones[vertexBoneIDs[3]] * vec4(vertexNormal, 1.0)) * vertexWeights[3];
     
     gl_Position = viewProjection * (model * position);
-    vertexOut.normal = normalize(normalMatrix * normal);
+    vertexOut.normal = normalize(normalMatrix * normal.xyz);
     vertexOut.tangent = vertexTangent;
     vertexOut.texCoords = vertexTexture;
 }

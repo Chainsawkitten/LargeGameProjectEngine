@@ -17,7 +17,7 @@ using namespace std;
 string ResourceList::Resource::GetName() const {
     switch (type) {
     case Type::SCENE:
-        return *scene;
+        return scene;
     case Type::ANIMATION_CLIP:
         return animationClip->name;
     case Type::ANIMATION_CONTROLLER:
@@ -123,7 +123,7 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
         
         switch (resource.type) {
         case Resource::SCENE:
-            resourceNode["scene"] = *resource.scene;
+            resourceNode["scene"] = resource.scene;
             break;
         case Resource::ANIMATION_CLIP:
             resourceNode["animationClip"] = resource.animationClip->name;
@@ -178,7 +178,7 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
         
         switch (resource.type) {
         case Resource::SCENE:
-            resource.scene = new string(resourceNode["scene"].asString());
+            resource.scene = resourceNode["scene"].asString();
             break;
         case Resource::ANIMATION_CLIP:
             resource.animationClip = Managers().resourceManager->CreateAnimationClip(path + resourceNode["animationClip"].asString());
@@ -237,14 +237,10 @@ void ResourceList::ClearFolder(ResourceFolder& folder) {
         case Resource::Type::SOUND:
             Managers().resourceManager->FreeSound(resource.sound);
             break;
-        case Resource::Type::SCENE:
-            delete resource.scene;
-            break;
         default:
             break;
         }
     }
-    
     folder.resources.clear();
 }
 

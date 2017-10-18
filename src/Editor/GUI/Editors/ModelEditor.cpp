@@ -6,9 +6,12 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <imgui.h>
+#include "Util/AssetConverterSkeleton.hpp"
 #include "Util/AssetMetaData.hpp"
 #include <Utility/Log.hpp>
 #include "../../Resources.hpp"
+#include <Engine/Animation/AnimationClip.hpp>
+#include <Engine/Animation/Skeleton.hpp>
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Entity/Entity.hpp>
@@ -139,6 +142,17 @@ void ModelEditor::Show() {
                     material->Kill();
                     delete world;
                 }
+            }
+
+            bool bindPose = false; 
+            ImGui::Text("Animation");
+            ImGui::Checkbox("Bindpose", &bindPose);
+
+            if (ImGui::Button("Import animation")) {
+
+                AssetConverterSkeleton asset;
+                asset.Convert(source.c_str(), destination.c_str(), false);
+                Resources().animationClips.push_back(new Animation::AnimationClip);
             }
 
             if (isImported)

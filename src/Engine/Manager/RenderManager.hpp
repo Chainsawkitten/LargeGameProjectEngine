@@ -12,7 +12,7 @@ namespace Video {
 class World;
 class Entity;
 namespace Component {
-    class Animation;
+    class AnimationController;
     class Controller;
     class DirectionalLight;
     class Lens;
@@ -52,25 +52,31 @@ class RenderManager {
         
         /// Updates the buffers to fit the current screen size.
         void UpdateBufferSize();
+
+        /// Update all the animations in the scene.
+        /**
+         * @param deltaTime Time between frames.
+         */
+        void UpdateAnimations(float deltaTime);
         
         /// Create animation component.
         /**
          * @return The created component.
          */
-        Component::Animation* CreateAnimation();
+        Component::AnimationController* CreateAnimation();
         
         /// Create animation component.
         /**
          * @param node Json node to load the component from.
          * @return The created component.
          */
-        Component::Animation* CreateAnimation(const Json::Value& node);
+        Component::AnimationController* CreateAnimation(const Json::Value& node);
         
         /// Get all animation components.
         /**
          * @return All animation components.
          */
-        const std::vector<Component::Animation*>& GetAnimations() const;
+        const std::vector<Component::AnimationController*>& GetAnimations() const;
         
         /// Create directional light component.
         /**
@@ -232,7 +238,7 @@ class RenderManager {
         Video::Texture2D* cameraTexture;
         
         // Components.
-        ComponentContainer<Component::Animation> animations;
+        ComponentContainer<Component::AnimationController> animationControllers;
         ComponentContainer<Component::Controller> controllers;
         ComponentContainer<Component::DirectionalLight> directionalLights;
         ComponentContainer<Component::Lens> lenses;

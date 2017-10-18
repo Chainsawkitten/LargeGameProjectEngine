@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
-#include "../Component/Animation.hpp"
+#include "../Component/AnimationController.hpp"
 #include "../Component/Lens.hpp"
 #include "../Component/Mesh.hpp"
 #include "../Component/Material.hpp"
@@ -179,7 +179,7 @@ Json::Value Entity::Save() const {
         entity["sceneName"] = sceneName;
     } else {
         // Save components.
-        Save<Component::Animation>(entity, "Animation");
+        Save<Component::AnimationController>(entity, "AnimatioController");
         Save<Component::Controller>(entity, "Controller");
         Save<Component::Lens>(entity, "Lens");
         Save<Component::Mesh>(entity, "Mesh");
@@ -221,7 +221,7 @@ void Entity::Load(const Json::Value& node) {
         scene = true;
     } else {
         // Load components.
-        Load<Component::Animation>(node, "Animation");
+        Load<Component::AnimationController>(node, "AnimatioController");
         Load<Component::Controller>(node, "Controller");
         Load<Component::Lens>(node, "Lens");
         Load<Component::Mesh>(node, "Mesh");
@@ -303,7 +303,7 @@ Component::SuperComponent* Entity::AddComponent(const std::type_info* componentT
     Component::SuperComponent* component;
     
     // Create a component in the correct manager.
-    if (*componentType == typeid(Component::Animation*))
+    if (*componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation();
     else if (*componentType == typeid(Component::Controller*))
         component = Managers().renderManager->CreateController();
@@ -349,7 +349,7 @@ void Entity::LoadComponent(const std::type_info* componentType, const Json::Valu
     Component::SuperComponent* component;
     
     // Create a component in the correct manager.
-    if (*componentType == typeid(Component::Animation*))
+    if (*componentType == typeid(Component::AnimationController*))
         component = Managers().renderManager->CreateAnimation(node);
     else if (*componentType == typeid(Component::Controller*))
         component = Managers().renderManager->CreateController(node);

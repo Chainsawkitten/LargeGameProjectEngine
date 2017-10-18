@@ -72,6 +72,7 @@ namespace Geometry {
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
+             * @param mode Use READ or WRITE.
              */
             bool Open(const char* filepath, Mode mode = READ);
 

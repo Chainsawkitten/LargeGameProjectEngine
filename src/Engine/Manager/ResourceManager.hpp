@@ -16,6 +16,12 @@ namespace Geometry {
 namespace Audio {
     class SoundBuffer;
 }
+
+namespace Animation {
+    class AnimationClip;
+    class AnimationController;
+    class Skeleton;
+}
 class TextureAsset;
 class ScriptFile;
 
@@ -29,17 +35,56 @@ class ResourceManager {
 
         /// Create an model for rendering if it doesn't already exist.
         /**
-        * @param name Name of model.
-        * @return The model instance
-        */
+         * @param name Name of model.
+         * @return The model instance
+         */
         Geometry::Model* CreateModel(const std::string& name);
 
         /// Free the reference to the model.
         /**
-        * @param model %Model to dereference.
-        */
+         * @param model %Model to dereference.
+         */
         void FreeModel(Geometry::Model* model);
-        
+
+        /// Create an animation clip.
+        /**
+         * @param name Name of animation clip.
+         * @return The animation clip instance.
+         */
+        Animation::AnimationClip* CreateAnimationClip(const std::string& name);
+
+        /// Free the reference to the animation clip.
+        /**
+         * @param animationClip %Animation clip to dereference.
+         */
+        void FreeAnimationClip(Animation::AnimationClip * animationClip);
+
+        /// Create an animation clip.
+        /**
+         * @param name Name of animation controller.
+         * @return The animation clip instance.
+         */
+        Animation::AnimationController* CreateAnimationController(const std::string& name);
+
+        /// Free the reference to the animation clip.
+        /**
+         * @param animationClip %Animation clip to dereference.
+         */
+        void FreeAnimationController(Animation::AnimationController * animationController);
+
+        /// Create a skeleton.
+        /**
+         * @param name Name of skeleton.
+         * @return The skeleton instance.
+         */
+        Animation::Skeleton* CreateSkeleton(const std::string& name);
+
+        /// Free the reference to the skeleton.
+        /**
+         * @param skeleton %Skeleton to dereference.
+         */
+        void FreeSkeleton(Animation::Skeleton * skeleton);
+
         /// Create a 2D texture if it doesn't already exist.
         /**
          * @param data Image file data.
@@ -109,23 +154,47 @@ class ResourceManager {
         ResourceManager(ResourceManager const&) = delete;
         void operator=(ResourceManager const&) = delete;
         
-        // Rectangle
+        // Rectangle.
         Video::Geometry::Rectangle* rectangle;
         int rectangleCount = 0;
         
-        // Cube
+        // Cube.
         Geometry::Cube* cube;
         int cubeCount = 0;
         
-        // Model
+        // Model.
         struct ModelInstance {
             Geometry::Model* model;
             int count;
         };
         std::map<std::string, ModelInstance> models;
         std::map<Geometry::Model*, std::string> modelsInverse;
-        
-        // Texture2D
+
+        // Animation clip.
+        struct AnimationClipInstance {
+            Animation::AnimationClip* animationClip;
+            int count;
+        };
+        std::map<std::string, AnimationClipInstance> animationClips;
+        std::map<Animation::AnimationClip*, std::string> animationClipsInverse;
+
+        // Animation controller.
+        struct AnimationControllerInstance {
+            Animation::AnimationController* animationController;
+            int count;
+        };
+        std::map<std::string, AnimationControllerInstance> animationControllers;
+        std::map<Animation::AnimationController*, std::string> animationControllersInverse;
+
+        // Skeleton.
+        struct SkeletonInstance {
+            Animation::Skeleton* skeleton;
+            int count;
+        };
+        std::map<std::string, SkeletonInstance> skeletons;
+        std::map<Animation::Skeleton*, std::string> skeletonsInverse;
+
+        // Texture2D.
         struct Texture2DInstance {
             Video::Texture2D* texture;
             int count;
@@ -141,7 +210,7 @@ class ResourceManager {
         std::map<std::string, TextureAssetInstance> textureAssets;
         std::map<TextureAsset*, std::string> textureAssetsInverse;
         
-        // Sound
+        // Sound.
         struct SoundInstance {
             Audio::SoundBuffer* soundBuffer;
             int count;
@@ -149,7 +218,7 @@ class ResourceManager {
         std::map<std::string, SoundInstance> sounds;
         std::map<Audio::SoundBuffer*, std::string> soundsInverse;
         
-        // ScriptFile
+        // ScriptFile.
         struct ScriptFileInstance {
             ScriptFile* scriptFile;
             int count;

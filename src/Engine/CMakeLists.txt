@@ -9,13 +9,16 @@ set(SRCS
         ../../externals/imgui/imgui_draw.cpp
         Hymn.cpp
         MainWindow.cpp
+	Animation/AnimationClip.cpp
+	Animation/AnimationController.cpp
+	Animation/Skeleton.cpp
         Audio/SoundBuffer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
         Audio/SteamAudioIndirectRenderer.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
-        Component/Animation.cpp
+	Component/AnimationController.cpp
         Component/Controller.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
@@ -32,7 +35,7 @@ set(SRCS
         Component/SuperComponent.cpp
         Entity/Entity.cpp
         Entity/World.cpp
-        Geometry/Animation.cpp
+	Geometry/AssetFileAnimation.cpp
         Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
@@ -68,6 +71,9 @@ set(SRCS
 set(HEADERS
         Hymn.hpp
         MainWindow.hpp
+        Animation/AnimationClip.hpp
+        Animation/AnimationController.hpp
+        Animation/Skeleton.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/SteamAudio.hpp
@@ -75,7 +81,7 @@ set(HEADERS
         Audio/SteamAudioIndirectRenderer.hpp
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
-        Component/Animation.hpp
+        Component/AnimationController.hpp
         Component/Controller.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
@@ -93,7 +99,7 @@ set(HEADERS
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
-        Geometry/Animation.hpp
+        Geometry/AssetFileAnimation.hpp
         Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
@@ -118,6 +124,7 @@ set(HEADERS
         Util/Input.hpp
         Util/Json.hpp
         Util/MousePicking.hpp
+        Util/Node.hpp
         Util/RayIntersection.hpp
         Util/Profiling.hpp
         Util/Settings.hpp

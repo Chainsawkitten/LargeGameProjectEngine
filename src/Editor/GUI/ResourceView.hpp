@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Editors/AnimationControllerEditor.hpp"
 #include "Editors/ModelEditor.hpp"
 #include "Editors/SceneEditor.hpp"
 #include "Editors/SoundEditor.hpp"
@@ -68,6 +69,7 @@ namespace GUI {
             
             bool visible = false;
             
+            AnimationControllerEditor animationControllerEditor;
             ScriptEditor scriptEditor;
             SceneEditor sceneEditor;
             ModelEditor modelEditor;
@@ -92,6 +94,7 @@ namespace GUI {
             int editorWidth = 250;
             bool editorResize = false;
             
+            bool animationControllerPressed;
             bool scriptPressed;
             bool texturePressed;
             bool modelPressed;

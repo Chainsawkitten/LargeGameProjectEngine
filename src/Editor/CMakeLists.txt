@@ -15,8 +15,10 @@ set(SRCS
         GUI/ResourceSelector.cpp
         GUI/ResourceView.cpp
         GUI/SettingsWindow.cpp
+	GUI/Editors/AnimationControllerEditor.cpp
         GUI/Editors/EntityEditor.cpp
         GUI/Editors/ModelEditor.cpp
+        GUI/Editors/NodeEditor.cpp
         GUI/Editors/PlaneShapeEditor.cpp
         GUI/Editors/SceneEditor.cpp
         GUI/Editors/ScriptEditor.cpp
@@ -24,6 +26,7 @@ set(SRCS
         GUI/Editors/SphereShapeEditor.cpp
         GUI/Editors/TextureEditor.cpp
         Util/AssetConverter.cpp
+	Util/AssetConverterSkeleton.cpp
         Util/AssetMetaData.cpp
         Util/EditorSettings.cpp
     )
@@ -44,9 +47,11 @@ set(HEADERS
         GUI/ResourceSelector.hpp
         GUI/ResourceView.hpp
         GUI/SettingsWindow.hpp
+	GUI/Editors/AnimationControllerEditor.hpp
         GUI/Editors/EntityEditor.hpp
         GUI/Editors/IShapeEditor.hpp
         GUI/Editors/ModelEditor.hpp
+        GUI/Editors/NodeEditor.hpp
         GUI/Editors/PlaneShapeEditor.hpp
         GUI/Editors/SceneEditor.hpp
         GUI/Editors/ScriptEditor.hpp
@@ -54,6 +59,7 @@ set(HEADERS
         GUI/Editors/SphereShapeEditor.hpp
         GUI/Editors/TextureEditor.hpp
         Util/AssetConverter.hpp
+	Util/AssetConverterSkeleton.hpp
         Util/AssetMetaData.hpp
         Util/EditorSettings.hpp
     )
