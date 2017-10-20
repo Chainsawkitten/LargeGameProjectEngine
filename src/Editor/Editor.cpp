@@ -64,7 +64,6 @@ Editor::Editor() {
     cameraEntity->AddComponent<Component::Lens>();
     cameraEntity->position.z = 10.0f;
     cameraEntity->GetComponent<Component::Lens>()->zFar = 1000.f;
-    
 
     // Create cursors.
     cursors[0] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
@@ -76,7 +75,6 @@ Editor::Editor() {
     savePromptAnswered = false;
     savePromtWindow.SetTitle("Save before you quit?");
     close = false;
-    
     
     // Load settings.
     showGridSettings = EditorSettings::GetInstance().GetBool("Grid Settings");

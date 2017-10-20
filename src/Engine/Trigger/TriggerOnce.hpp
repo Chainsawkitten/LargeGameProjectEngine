@@ -1,30 +1,30 @@
 #pragma once
-#include <string>
-#include "Entity\Entity.hpp"
 
+#include <string>
+#include "Entity/Entity.hpp"
+
+/// @todo: This pollutes global namespace. Should probably be placed inside TriggerOnce.
 enum Output {
     OnEnter,
     OnLeave
 };
 
 class TriggerOnce {
-public:
+    public:
+        TriggerOnce();
 
-    TriggerOnce();
+        ~TriggerOnce();
 
-    ~TriggerOnce();
+        void Execute(Output type);
 
-    void Execute(Output type);
+    private:
+        void OnEnter();
+        void OnLeave();
 
-private:
-    std::string name;
-    std::string targetFunction;
-    bool startActive;
-    float delay;
-    Entity* targetEntity;
-    Entity* collidedEntity;
-
-private:
-    void OnEnter();
-    void OnLeave();
+        std::string name;
+        std::string targetFunction;
+        bool startActive;
+        float delay;
+        Entity* targetEntity;
+        Entity* collidedEntity;
 };

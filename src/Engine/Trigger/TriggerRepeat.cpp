@@ -1,7 +1,5 @@
 #include "TriggerRepeat.hpp"
 
-
-
 TriggerMultiple::TriggerMultiple() {
 
 }

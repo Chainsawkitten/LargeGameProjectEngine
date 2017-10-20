@@ -1,6 +1,5 @@
 #include "TriggerOnce.hpp"
 
-
 TriggerOnce::TriggerOnce() {
 
 }
