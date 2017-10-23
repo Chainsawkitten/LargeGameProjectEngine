@@ -185,6 +185,12 @@ void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics:
     comp->SetShape(shape);
 }
 
+void PhysicsManager::SetShape(Util::LockBox<Physics::Trigger> trigger, std::shared_ptr<Physics::Shape> shape) {
+    trigger.Open(triggerLockBoxKey, [shape](Physics::Trigger& trigger) {
+        trigger.SetCollisionShape(shape);
+    });
+}
+
 void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
     // Setting mass is only valid with a shape because it also sets inertia.
     auto shapeComp = comp->entity->GetComponent<Component::Shape>();

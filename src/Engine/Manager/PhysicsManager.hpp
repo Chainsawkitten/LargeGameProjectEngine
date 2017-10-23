@@ -110,9 +110,16 @@ class PhysicsManager {
         /// Set the shape of a given Component::Shape component.
         /**
          * @param comp The component on which to set the shape.
-         * @param A Physics::Shape object that holds the shape definition.
+         * @param shape A Physics::Shape object that holds the shape definition.
          */
         ENGINE_API void SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape);
+
+        /// Set the volume shape of a trigger.
+        /**
+         * @param trigger Trigger to alter shape of.
+         * @param shape Shape definition.
+         */
+        ENGINE_API void SetShape(Util::LockBox<Physics::Trigger> trigger, std::shared_ptr<Physics::Shape> shape);
 
         /// Set the mass of a Component::RigidBody component.
         /**
