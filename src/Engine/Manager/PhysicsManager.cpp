@@ -76,30 +76,27 @@ void PhysicsManager::UpdateEntityTransforms() {
     }
 }
 
-void PhysicsManager::OnTriggerEnter(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = CreateTrigger(trigger);
+void PhysicsManager::OnTriggerEnter(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
-    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+    trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
         trigger.ForObserver(object->GetBulletRigidBody(), [&callback](Physics::TriggerObserver& observer) {
             observer.OnEnter(callback);
         });
     });
 }
 
-void PhysicsManager::OnTriggerRetain(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = CreateTrigger(trigger);
+void PhysicsManager::OnTriggerRetain(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
-    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+    trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
         trigger.ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
             observer.OnRetain(callback);
         });
     });
 }
 
-void PhysicsManager::OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = CreateTrigger(trigger);
+void PhysicsManager::OnTriggerLeave(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
-    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+    trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
         trigger.ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
             observer.OnLeave(callback);
         });

@@ -51,7 +51,7 @@ class PhysicsManager {
          * @param object Body that is to enter the trigger volume.
          * @param callback Function to call when resolving event.
          */
-        ENGINE_API void OnTriggerEnter(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
+        ENGINE_API void OnTriggerEnter(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
 
         /// Set up listener for when |object| is intersecting |trigger|.
         /**
@@ -59,7 +59,7 @@ class PhysicsManager {
          * @param object Body that is to cause trigger to fire.
          * @param callback Function to call when resolving event.
          */
-        ENGINE_API void OnTriggerRetain(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
+        ENGINE_API void OnTriggerRetain(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
 
         /// Set up listener for when |object| has left |trigger|.
         /**
@@ -67,7 +67,7 @@ class PhysicsManager {
          * @param object Body that is to cause trigger to fire.
          * @param callback Function to call when resolving event.
          */
-        ENGINE_API void OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback);
+        ENGINE_API void OnTriggerLeave(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback);
 
         /// Create rigid body component.
         /**
