@@ -33,6 +33,7 @@ namespace Physics {
             void ForObserver(btRigidBody* body, const std::function<void(TriggerObserver&)>& fun);
 
             void SetCollisionShape(std::shared_ptr<Shape> shape);
+            void SetPosition(const btVector3& position);
 
         private:
             btCollisionObject* trigger = nullptr;

@@ -107,6 +107,13 @@ class PhysicsManager {
          */
         ENGINE_API Util::LockBox<Physics::Trigger> CreateTrigger(std::shared_ptr<Physics::Shape> shape);
 
+        /// Set the position of a trigger volume.
+        /**
+         * @param trigger Volume to reposition.
+         * @param position New position in world space.
+         */
+        ENGINE_API void SetPosition(Util::LockBox<Physics::Trigger> trigger, const glm::vec3& position);
+
         /// Set the shape of a given Component::Shape component.
         /**
          * @param comp The component on which to set the shape.

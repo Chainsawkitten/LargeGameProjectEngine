@@ -38,4 +38,10 @@ namespace Physics {
         this->shape = shape;
         trigger->setCollisionShape(shape->GetShape());
     }
+
+    void Trigger::SetPosition(const btVector3& position) {
+        auto trans = this->trigger->getWorldTransform();
+        trans.setOrigin(position);
+        this->trigger->setWorldTransform(trans);
+    }
 }
