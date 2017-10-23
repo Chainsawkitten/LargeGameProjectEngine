@@ -1,13 +1,8 @@
 #pragma once
 
-
 class TriggerMultiple {
-public:
+    public:
+        TriggerMultiple();
 
-    TriggerMultiple();
-
-    ~TriggerMultiple();
-
-private:
-
+        ~TriggerMultiple();
 };
