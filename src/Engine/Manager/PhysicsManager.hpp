@@ -102,11 +102,10 @@ class PhysicsManager {
         /// Create a trigger volume that can be used to check intersection
         /// events against physics bodies.
         /**
-         * @param comp Rigid body that represents the volume. This is intended
-         * to be changed to a pure shape in the future.
+         * @param shape Shape of the trigger volume.
          * @return A reference to the internal trigger.
          */
-        ENGINE_API Util::LockBox<Physics::Trigger> CreateTrigger(Component::RigidBody* comp);
+        ENGINE_API Util::LockBox<Physics::Trigger> CreateTrigger(std::shared_ptr<Physics::Shape> shape);
 
         /// Set the shape of a given Component::Shape component.
         /**
