@@ -1,10 +1,10 @@
 #pragma once
 
-#include <assimp/vector2.h>
-#include <assimp/vector3.h>
 #include <assimp/matrix3x3.h>
 #include <assimp/matrix4x4.h>
 #include <assimp/quaternion.h>
+#include <assimp/vector2.h>
+#include <assimp/vector3.h>
 #include <glm/glm.hpp>
 #include "../linking.hpp"
 
@@ -62,7 +62,7 @@ namespace Geometry {
      * @param glmQuat Glm quaternion.
      * @param aiQuat Assimp quaternion.
      */
-    ENGINE_API void CpyQuat(glm::quat &glmQuat, const aiQuaternion& aiQuat);
+    ENGINE_API void CpyQuat(glm::quat& glmQuat, const aiQuaternion& aiQuat);
 
     /// Convert from assimp vector3 to glm vector3.
     /**

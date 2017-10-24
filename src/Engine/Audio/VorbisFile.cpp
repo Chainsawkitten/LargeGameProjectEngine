@@ -5,8 +5,7 @@
 
 using namespace Audio;
 
-VorbisFile::VorbisFile(const char *filename) {
-
+VorbisFile::VorbisFile(const char* filename) {
     // Open OGG file
     int error;
     stb_vorbis* stbfile = stb_vorbis_open_filename(filename, &error, NULL);
@@ -25,7 +24,6 @@ VorbisFile::VorbisFile(const char *filename) {
 }
 
 VorbisFile::~VorbisFile() {
-
 }
 
 float* VorbisFile::GetData() const {

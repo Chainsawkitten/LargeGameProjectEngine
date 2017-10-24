@@ -1,6 +1,6 @@
-#include <catch.hpp>
 #include <memory>
 #include <Utility/LockBox.hpp>
+#include <catch.hpp>
 
 TEST_CASE("LockBox", "[LockBox]") {
     struct TestData {

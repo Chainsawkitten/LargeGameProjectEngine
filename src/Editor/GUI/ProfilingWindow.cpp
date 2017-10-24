@@ -1,8 +1,8 @@
 #include "ProfilingWindow.hpp"
 
 #include <Engine/Manager/Managers.hpp>
-#include <imgui.h>
 #include <Utility/Log.hpp>
+#include <imgui.h>
 
 using namespace GUI;
 
@@ -43,7 +43,7 @@ void ProfilingWindow::Show() {
             }
         }
     }
-    
+
     if (ImGui::CollapsingHeader("Memory")) {
 #ifdef MEASURE_RAM
         PROCESS_MEMORY_COUNTERS_EX memoryCounters;

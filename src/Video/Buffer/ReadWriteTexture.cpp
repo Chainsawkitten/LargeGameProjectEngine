@@ -47,4 +47,3 @@ void ReadWriteTexture::BindForReading(GLenum binding) const {
     glActiveTexture(binding);
     glBindTexture(GL_TEXTURE_2D, this->texture);
 }
-

@@ -1,13 +1,13 @@
 #include "PostProcessing.hpp"
 
-#include <Video/Shader/ShaderProgram.hpp>
+#include <Post.vert.hpp>
 #include <Video/Geometry/Rectangle.hpp>
 #include <Video/PostProcessing/Filter.hpp>
-#include "Shader/Shader.hpp"
-#include <Post.vert.hpp>
-#include "RenderSurface.hpp"
-#include "Buffer/ReadWriteTexture.hpp"
+#include <Video/Shader/ShaderProgram.hpp>
 #include "Buffer/FrameBuffer.hpp"
+#include "Buffer/ReadWriteTexture.hpp"
+#include "RenderSurface.hpp"
+#include "Shader/Shader.hpp"
 
 using namespace Video;
 
@@ -30,16 +30,16 @@ void PostProcessing::ApplyFilter(Video::RenderSurface* renderSurface, Video::Fil
 
     // Bind shaders.
     filter->GetShaderProgram()->Use();
-    
+
     glUniform1i(filter->GetShaderProgram()->GetUniformLocation("tDiffuse"), 0);
     renderSurface->GetColorTexture()->BindForReading(GL_TEXTURE0);
-    
+
     glBindVertexArray(rectangle->GetVertexArray());
-    
+
     filter->SetUniforms();
-    
+
     glDrawElements(GL_TRIANGLES, rectangle->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
-    
+
     renderSurface->GetColorFrameBuffer()->Unbind();
 
     // Reset depth testing to standard value.

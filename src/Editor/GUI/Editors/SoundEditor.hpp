@@ -11,45 +11,45 @@ namespace GUI {
     /// Used to edit a sound.
     class SoundEditor {
         public:
-            /// Constructor.
-            SoundEditor();
+        /// Constructor.
+        SoundEditor();
 
-            /// Show the editor.
-            void Show();
-            
-            /// Get the sound being edited.
-            /**
+        /// Show the editor.
+        void Show();
+
+        /// Get the sound being edited.
+        /**
              * @return The sound being edited.
              */
-            const Audio::SoundBuffer* GetSound() const;
-            
-            /// Set the sound to edit.
-            /**
+        const Audio::SoundBuffer* GetSound() const;
+
+        /// Set the sound to edit.
+        /**
              * @param sound Sound to edit.
              */
-            void SetSound(Audio::SoundBuffer* sound);
-            
-            /// Get whether the window is visible.
-            /**
+        void SetSound(Audio::SoundBuffer* sound);
+
+        /// Get whether the window is visible.
+        /**
              * @return Whether the window is visible.
              */
-            bool IsVisible() const;
-            
-            /// Set whether the window should be visible.
-            /**
+        bool IsVisible() const;
+
+        /// Set whether the window should be visible.
+        /**
              * @param visible Whether the window should be visible.
              */
-            void SetVisible(bool visible);
-            
+        void SetVisible(bool visible);
+
         private:
-            void LoadPressed();
-            void FileSelected(const std::string& file);
-            
-            Audio::SoundBuffer* sound = nullptr;
-            bool visible = false;
-            
-            FileSelector fileSelector;
-            
-            char name[128];
+        void LoadPressed();
+        void FileSelected(const std::string& file);
+
+        Audio::SoundBuffer* sound = nullptr;
+        bool visible = false;
+
+        FileSelector fileSelector;
+
+        char name[128];
     };
 }
