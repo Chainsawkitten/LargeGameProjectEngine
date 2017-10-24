@@ -15,12 +15,11 @@
 #include "../Component/Animation.hpp"
 
 Hub::Hub() {
-    
 }
 
 Hub& Managers() {
     static Hub instance;
-    
+
     return instance;
 }
 
@@ -46,7 +45,7 @@ void Hub::ShutDown() {
     delete particleManager;
     delete physicsManager;
     delete resourceManager;
-    
+
     shutdown = true;
 }
 

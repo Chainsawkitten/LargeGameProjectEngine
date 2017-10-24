@@ -15,7 +15,7 @@ World::World() {
 
 World::~World() {
     Clear();
-    
+
     delete[] particles;
 }
 
@@ -49,11 +49,11 @@ const std::vector<Entity*>& World::GetUpdateEntities() const {
 void World::Clear() {
     if (root != nullptr) {
         root->Kill();
-        
+
         // Clear killed components.
         Managers().ClearKilledComponents();
     }
-    
+
     // Remove all entities.
     for (Entity* entity : entities)
         delete entity;
@@ -122,10 +122,7 @@ void World::Load(const std::string& filename) {
 }
 
 void World::Load(const Json::Value& node) {
-
     Clear();
     CreateRoot();
     root->Load(node);
-
 }
-

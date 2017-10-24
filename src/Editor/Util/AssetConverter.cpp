@@ -32,7 +32,7 @@ void AssetConverter::Convert(const char* filepath, const char* destination, glm:
     if (importMaterial) {
         if (aScene->mMeshes[0]->mMaterialIndex >= 0) {
             aiMaterial* material = aScene->mMaterials[aScene->mMeshes[0]->mMaterialIndex];
-            
+
             LoadMaterial(material, aiTextureType_DIFFUSE, materials.albedo);
             LoadMaterial(material, aiTextureType_NORMALS, materials.normal);
             LoadMaterial(material, aiTextureType_SPECULAR, materials.roughness);
@@ -55,14 +55,14 @@ std::string& AssetConverter::GetErrorString() {
     return errorString;
 }
 
-void AssetConverter::ConvertMeshes(const aiScene * aScene, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
+void AssetConverter::ConvertMeshes(const aiScene* aScene, Geometry::AssetFileHandler* file, glm::vec3 scale, bool flipUVs) {
     for (unsigned int i = 0; i < aScene->mNumMeshes; ++i)
         ConvertMesh(aScene->mMeshes[i], file, scale, flipUVs);
 }
 
-void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * file, glm::vec3 scale, bool flipUVs) {
-    Geometry::AssetFileHandler::MeshData * meshData = new Geometry::AssetFileHandler::MeshData;
-    
+void AssetConverter::ConvertMesh(aiMesh* aMesh, Geometry::AssetFileHandler* file, glm::vec3 scale, bool flipUVs) {
+    Geometry::AssetFileHandler::MeshData* meshData = new Geometry::AssetFileHandler::MeshData;
+
     meshData->parent = 0;
 
     // Convert vertices.
@@ -73,15 +73,14 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     if (aMesh->mNumBones == 0) {
         meshData->staticVertices = ConvertStaticVertices(aMesh, file, numVertices, scale, flipUVs);
         meshData->isSkinned = false;
-    }
-    else {
+    } else {
         meshData->skinnedVertices = ConvertSkinnedVertices(aMesh, file, numVertices, scale, flipUVs);
         meshData->isSkinned = true;
     }
 
     // Convert indicies. 3 indicies for a face/triangle.
     unsigned int numIndicies = aMesh->mNumFaces * 3;
-    uint32_t * indices = new uint32_t[numIndicies];
+    uint32_t* indices = new uint32_t[numIndicies];
     unsigned int indexCounter = 0;
     for (unsigned int i = 0; i < aMesh->mNumFaces; ++i) {
         const aiFace& aFace = aMesh->mFaces[i];
@@ -100,7 +99,7 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
 
     meshData->numIndices = indexCounter;
     meshData->indices = indices;
-    
+
     CalculateAABB(meshData, meshData->numVertices);
 
     file->SaveStaticMesh(meshData);
@@ -109,8 +108,8 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     meshData = nullptr;
 }
 
-Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertices(aiMesh* aMesh, Geometry::AssetFileHandler* file, unsigned int numVertices, glm::vec3 scale, bool flipUVs) {
-    Video::Geometry::VertexType::StaticVertex * vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
+Video::Geometry::VertexType::StaticVertex* AssetConverter::ConvertStaticVertices(aiMesh* aMesh, Geometry::AssetFileHandler* file, unsigned int numVertices, glm::vec3 scale, bool flipUVs) {
+    Video::Geometry::VertexType::StaticVertex* vertices = new Video::Geometry::VertexType::StaticVertex[numVertices];
 
     // Positions.
     if (aMesh->HasNormals()) {
@@ -129,7 +128,7 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
     if (aMesh->HasTextureCoords(0)) {
         for (unsigned int i = 0; i < numVertices; ++i) {
             Geometry::CpyVec(vertices[i].textureCoordinate, aMesh->mTextureCoords[0][i]);
-            if (flipUVs) 
+            if (flipUVs)
                 vertices[i].textureCoordinate.y = 1.0f - vertices[i].textureCoordinate.y;
         }
     } else {
@@ -165,8 +164,8 @@ Video::Geometry::VertexType::StaticVertex * AssetConverter::ConvertStaticVertice
     return vertices;
 }
 
-Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices(aiMesh * aMesh, Geometry::AssetFileHandler * file, unsigned int numVertices, glm::vec3 scale, bool flipUVs) {
-    Video::Geometry::VertexType::SkinVertex * vertices = new Video::Geometry::VertexType::SkinVertex[numVertices];
+Video::Geometry::VertexType::SkinVertex* AssetConverter::ConvertSkinnedVertices(aiMesh* aMesh, Geometry::AssetFileHandler* file, unsigned int numVertices, glm::vec3 scale, bool flipUVs) {
+    Video::Geometry::VertexType::SkinVertex* vertices = new Video::Geometry::VertexType::SkinVertex[numVertices];
 
     // Positions.
     if (aMesh->HasNormals()) {
@@ -220,7 +219,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
     std::vector<unsigned int> weightCounter(numVertices, 0);
 
     for (unsigned int b = 0; b < aMesh->mNumBones; ++b) {
-        const aiBone * aBone = aMesh->mBones[b];
+        const aiBone* aBone = aMesh->mBones[b];
         for (unsigned int i = 0; i < aBone->mNumWeights; ++i) {
             unsigned int vertexID = aBone->mWeights[i].mVertexId;
             unsigned int& count = weightCounter[vertexID];
@@ -235,7 +234,7 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
     return vertices;
 }
 
-void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData * meshData, unsigned int numVertices) {
+void AssetConverter::CalculateAABB(Geometry::AssetFileHandler::MeshData* meshData, unsigned int numVertices) {
     glm::vec3 minValues, maxValues, origin, dim;
     minValues = maxValues = origin = glm::vec3(0.f, 0.f, 0.f);
 

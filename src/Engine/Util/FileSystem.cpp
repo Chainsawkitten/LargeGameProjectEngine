@@ -25,10 +25,10 @@ namespace FileSystem {
     // MacOS and Linux
     const char DELIMITER = '/';
 #endif
-    
+
     const unsigned int FILE = 1;
     const unsigned int DIRECTORY = 2;
-    
+
     bool FileExists(const char* filename) {
 #if defined(_WIN32) || defined(WIN32)
         // Windows
@@ -41,17 +41,17 @@ namespace FileSystem {
 #endif
         return result == 0;
     }
-    
+
     void Copy(const char* source, const char* destination) {
         std::ifstream sourceFile(source, std::ios::binary);
         std::ofstream destinationFile(destination, std::ios::binary);
-        
+
         destinationFile << sourceFile.rdbuf();
-        
+
         sourceFile.close();
         destinationFile.close();
     }
-    
+
     void CreateDirectory(const char* filename) {
 #if defined(_WIN32) || defined(WIN32)
         // Windows
@@ -61,27 +61,27 @@ namespace FileSystem {
         mkdir(filename, ACCESSPERMS);
 #endif
     }
-    
+
     std::vector<std::string> DirectoryContents(const std::string& directoryName, unsigned int type) {
         std::vector<std::string> contents;
-        
+
 #if defined(_WIN32) || defined(WIN32)
         // Windows
         WIN32_FIND_DATA findFileData;
         HANDLE hFind = FindFirstFile((directoryName + DELIMITER + "*").c_str(), &findFileData);
         bool find = hFind != INVALID_HANDLE_VALUE;
-        
+
         while (find) {
             if (((type & DIRECTORY && findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ||
-                 (type & FILE && !(findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))) &&
-                    strcmp(findFileData.cFileName, ".") &&
-                    strcmp(findFileData.cFileName, "..")) {
+                    (type & FILE && !(findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))) &&
+                strcmp(findFileData.cFileName, ".") &&
+                strcmp(findFileData.cFileName, "..")) {
                 contents.push_back(findFileData.cFileName);
             }
-            
+
             find = FindNextFile(hFind, &findFileData);
         }
-        
+
         FindClose(hFind);
 #else
         // MacOS and Linux
@@ -89,21 +89,21 @@ namespace FileSystem {
         dirent* entry;
         while ((entry = readdir(directory)) != NULL) {
             if (((type & DIRECTORY && entry->d_type == DT_DIR) ||
-                 (type & FILE && entry->d_type != DT_DIR)) &&
-                    strcmp(entry->d_name, ".") &&
-                    strcmp(entry->d_name, "..")) {
+                    (type & FILE && entry->d_type != DT_DIR)) &&
+                strcmp(entry->d_name, ".") &&
+                strcmp(entry->d_name, "..")) {
                 contents.push_back(entry->d_name);
             }
         }
         closedir(directory);
 #endif
-        
+
         return contents;
     }
-    
+
     std::string DataPath(const char* appName) {
         std::string path;
-        
+
 #if defined(_WIN32) || defined(WIN32)
         // Windows
         path = getenv("APPDATA");
@@ -116,63 +116,63 @@ namespace FileSystem {
         path = getenv("HOME");
         path += "/.local/share/";
 #endif
-        
+
         path += appName;
-        
+
         CreateDirectory(path.c_str());
-        
+
         return path;
     }
-    
+
     std::string DataPath(const char* appName, const char* filename) {
         std::string path = DataPath(appName);
         path += DELIMITER;
         path += filename;
-        
+
         return path;
     }
-    
+
     std::string GetParentDirectory(const std::string& path) {
         for (std::size_t i = path.length() - 1; i > 0; --i) {
             if (path[i] == '\\' || path[i] == '/')
                 return path.substr(0, i);
         }
-        
+
         return path;
     }
-    
+
     std::string GetExtension(const std::string& filename) {
         std::size_t pos = filename.find_last_of('.');
         if (pos == std::string::npos)
             return "";
-        
+
         std::string extension = filename.substr(pos + 1U);
         for (std::size_t i = 0U; i < extension.length(); ++i)
             extension[i] = tolower(extension[i]);
-        
+
         return extension;
     }
-    
+
     std::string GetName(const std::string& filepath) {
         std::size_t start = filepath.find_last_of(DELIMITER);
         if (start == std::string::npos)
             start = 0;
 
         std::size_t length = filepath.find_last_of(".") - start;
-        
+
         return filepath.substr(start + 1, length - 1);
     }
-    
+
     std::string GetDirectory(const std::string& path) {
         std::size_t end = path.find_last_of(DELIMITER);
         if (end == std::string::npos)
             end = 0;
         else
             end++;
-        
+
         return path.substr(0, end);
     }
-    
+
     std::string Rename(const std::string& filepath, const std::string& name) {
         std::size_t length = filepath.find_last_of(DELIMITER);
         std::string path = filepath.substr(0, length + 1);
@@ -180,7 +180,7 @@ namespace FileSystem {
         std::string newPath = path + name;
 
         if (rename(filepath.c_str(), newPath.c_str()) > 0)
-            Log() << "Error renaming file: " << filepath <<"\n";
+            Log() << "Error renaming file: " << filepath << "\n";
 
         return newPath;
     }

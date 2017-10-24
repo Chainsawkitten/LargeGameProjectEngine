@@ -6,7 +6,6 @@
 using namespace Component;
 
 Lens::Lens() {
-    
 }
 
 Json::Value Lens::Save() const {
@@ -18,5 +17,5 @@ Json::Value Lens::Save() const {
 }
 
 glm::mat4 Lens::GetProjection(const glm::vec2& screenSize) const {
-    return glm::perspective(glm::radians(fieldOfView), screenSize.x/screenSize.y, zNear, zFar);
+    return glm::perspective(glm::radians(fieldOfView), screenSize.x / screenSize.y, zNear, zFar);
 }

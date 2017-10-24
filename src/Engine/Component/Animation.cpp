@@ -4,7 +4,6 @@
 #include "../Geometry/Model.hpp"
 
 Component::Animation::Animation() {
-    
 }
 
 Json::Value Component::Animation::Save() const {

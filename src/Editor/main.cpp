@@ -22,33 +22,33 @@
 
 int main() {
     // Enable logging if requested.
-    if (EditorSettings::GetInstance().GetBool("Logging")){
+    if (EditorSettings::GetInstance().GetBool("Logging")) {
         FILE* file = freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
         if (file == nullptr)
             Log() << "Could not open logging file!\n";
     }
 
     Log() << "Editor started - " << time(nullptr) << "\n";
-    
+
     if (!glfwInit())
         return 1;
-    
+
     MainWindow* window = new MainWindow(EditorSettings::GetInstance().GetLong("Width"), EditorSettings::GetInstance().GetLong("Height"), false, false, "Hymn to Beauty", EditorSettings::GetInstance().GetBool("Debug Context"));
 
     glewInit();
     window->Init(false);
-    
+
     Input::GetInstance().SetWindow(window->GetGLFWWindow());
-    
+
     Managers().StartUp();
-    
+
     Editor* editor = new Editor();
     // Setup imgui implementation.
     ImGuiImplementation::Init(window->GetGLFWWindow());
-    
+
     bool profiling = false;
     GUI::ProfilingWindow profilingWindow;
-    
+
     // Main loop.
     double targetFPS = 60.0;
     double lastTime = glfwGetTime();
@@ -56,95 +56,101 @@ int main() {
     while (!window->ShouldClose() || !editor->ReadyToClose()) {
         float deltaTime = static_cast<float>(glfwGetTime() - lastTime);
         lastTime = glfwGetTime();
-        
+
         Managers().profilingManager->SetActive(profiling);
 
         // Begin new profiling frame.
         if (Managers().profilingManager->Active())
             Managers().profilingManager->BeginFrame();
-        
-        { PROFILE("Frame");
-        { GPUPROFILE("Frame", Video::Query::Type::TIME_ELAPSED);
 
-            glfwPollEvents();
+        {
+            PROFILE("Frame");
+            {
+                GPUPROFILE("Frame", Video::Query::Type::TIME_ELAPSED);
 
-            if (Input()->Triggered(InputHandler::PROFILE))
-                profiling = !profiling;
+                glfwPollEvents();
 
-            // Start new frame.
-            ImGuiImplementation::NewFrame();
+                if (Input()->Triggered(InputHandler::PROFILE))
+                    profiling = !profiling;
 
-            window->Update();
+                // Start new frame.
+                ImGuiImplementation::NewFrame();
 
-            if (editor->IsVisible()) {
-                Hymn().world.ClearKilled();
-                Managers().particleManager->Update(Hymn().world, deltaTime, true);
+                window->Update();
 
-                Managers().debugDrawingManager->Update(deltaTime);
-                Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"));
+                if (editor->IsVisible()) {
+                    Hymn().world.ClearKilled();
+                    Managers().particleManager->Update(Hymn().world, deltaTime, true);
 
-                if (window->ShouldClose())
-                    editor->Close();
+                    Managers().debugDrawingManager->Update(deltaTime);
+                    Hymn().Render(editor->GetCamera(), EditorSettings::GetInstance().GetBool("Sound Source Icons"), EditorSettings::GetInstance().GetBool("Particle Emitter Icons"), EditorSettings::GetInstance().GetBool("Light Source Icons"), EditorSettings::GetInstance().GetBool("Camera Icons"), EditorSettings::GetInstance().GetBool("Physics Volumes"));
 
-                editor->Show(deltaTime);
+                    if (window->ShouldClose())
+                        editor->Close();
 
-                if (window->ShouldClose() && !editor->isClosing())
-                    window->CancelClose();
+                    editor->Show(deltaTime);
 
-            } else {
-                { PROFILE("Update");
-                { GPUPROFILE("Update", Video::Query::Type::TIME_ELAPSED);
-                    Hymn().Update(deltaTime);
-                }
-                }
+                    if (window->ShouldClose() && !editor->isClosing())
+                        window->CancelClose();
 
-                { PROFILE("Render");
-                { GPUPROFILE("Render", Video::Query::Type::TIME_ELAPSED);
-                    Hymn().Render();
-                }
-                }
-                
-                if (Input()->Triggered(InputHandler::PLAYTEST)) {
-                    // Rollback to the editor state.
-                    editor->LoadSceneState();
+                } else {
+                    {
+                        PROFILE("Update");
+                        {
+                            GPUPROFILE("Update", Video::Query::Type::TIME_ELAPSED);
+                            Hymn().Update(deltaTime);
+                        }
+                    }
 
-                    // Turn editor back on.
-                    editor->SetVisible(true);
+                    {
+                        PROFILE("Render");
+                        {
+                            GPUPROFILE("Render", Video::Query::Type::TIME_ELAPSED);
+                            Hymn().Render();
+                        }
+                    }
+
+                    if (Input()->Triggered(InputHandler::PLAYTEST)) {
+                        // Rollback to the editor state.
+                        editor->LoadSceneState();
+
+                        // Turn editor back on.
+                        editor->SetVisible(true);
+                    }
                 }
             }
         }
-        }
-        
+
         if (Managers().profilingManager->Active()) {
             Managers().profilingManager->EndFrame();
             profilingWindow.Show();
         }
-        
+
         ImGui::Render();
-        
+
         // Swap buffers and wait until next frame.
         window->SwapBuffers();
-        
+
         long wait = static_cast<long>((1.0 / targetFPS + lastTimeRender - glfwGetTime()) * 1000000.0);
         if (wait > 0)
             std::this_thread::sleep_for(std::chrono::microseconds(wait));
         lastTimeRender = glfwGetTime();
     }
-    
+
     // Save editor settings.
     EditorSettings::GetInstance().Save();
-    
+
     // Shut down and cleanup.
     ImGuiImplementation::Shutdown();
     delete editor;
     Hymn().world.Clear();
-    
+
     Managers().ShutDown();
-    
+
     delete window;
     glfwTerminate();
-    
+
     Log() << "Editor ended - " << time(nullptr) << "\n";
-    
+
     return 0;
 }

@@ -8,49 +8,49 @@ namespace Video {
     /// Queries information from the GPU.
     class Query {
         public:
-            /// Query types.
-            enum Type {
-                TIME_ELAPSED, ///< Record the time in nanoseconds(ns) that it takes for the GPU to execute all of the scoped commands between Begin() and End().
-                SAMPLES_PASSED ///< Record the number of samples that pass the depth test for all drawing commands between Begin() and End().
-            };
+        /// Query types.
+        enum Type {
+            TIME_ELAPSED,  ///< Record the time in nanoseconds(ns) that it takes for the GPU to execute all of the scoped commands between Begin() and End().
+            SAMPLES_PASSED ///< Record the number of samples that pass the depth test for all drawing commands between Begin() and End().
+        };
 
-            /// Create new query.
-            /**
+        /// Create new query.
+        /**
              * @param type Specifies the type of query object.
              */
-            VIDEO_API Query(Type type);
-            
-            /// Destructor.
-            VIDEO_API ~Query();
+        VIDEO_API Query(Type type);
 
-            /// Start query.
-            VIDEO_API void Begin();
+        /// Destructor.
+        VIDEO_API ~Query();
 
-            /// Stop query.
-            VIDEO_API void End();
+        /// Start query.
+        VIDEO_API void Begin();
 
-            /// Get query type.
-            /**
+        /// Stop query.
+        VIDEO_API void End();
+
+        /// Get query type.
+        /**
              * @return The type of query.
              */
-            VIDEO_API Type GetType() const;
+        VIDEO_API Type GetType() const;
 
-            /// Resolve query result.
-            /**
+        /// Resolve query result.
+        /**
              * @return The result of query.
              */
-            VIDEO_API std::uint64_t Resolve() const;
-            
+        VIDEO_API std::uint64_t Resolve() const;
+
         private:
-            Query(const Query & other) = delete;
+        Query(const Query& other) = delete;
 
-            Type type;
+        Type type;
 
-            bool active;
+        bool active;
 
-            int queryCount;
-            GLuint* queries;
-            GLuint64* results;
-            GLenum target;
+        int queryCount;
+        GLuint* queries;
+        GLuint64* results;
+        GLenum target;
     };
 }

@@ -16,7 +16,7 @@ void scrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
 
 InputHandler* InputHandler::activeInstance = nullptr;
 
-InputHandler::InputHandler(GLFWwindow *window) {
+InputHandler::InputHandler(GLFWwindow* window) {
     this->window = window;
 
     for (int i = 0; i < BUTTONS; i++) {
@@ -27,7 +27,7 @@ InputHandler::InputHandler(GLFWwindow *window) {
 
     // Init mouse state.
     glfwSetScrollCallback(window, scrollCallback);
-    
+
     glfwSetCharCallback(window, characterCallback);
     inputMap[window] = this;
 }
@@ -43,37 +43,37 @@ void InputHandler::SetActive() {
 void InputHandler::Update() {
     lastScroll = scroll;
     scroll = 0.0;
-    
+
     // Get button states.
     bool values[BUTTONS] = {};
     for (Binding binding : bindings) {
         bool value = false;
         switch (binding.device) {
-        case KEYBOARD:
-            if (glfwGetKey(window, binding.index) == GLFW_PRESS)
-                value = true;
-            break;
-        case MOUSE:
-            if (glfwGetMouseButton(window, binding.index) == GLFW_PRESS)
-                value = true;
-            break;
-        default:
-            break;
+            case KEYBOARD:
+                if (glfwGetKey(window, binding.index) == GLFW_PRESS)
+                    value = true;
+                break;
+            case MOUSE:
+                if (glfwGetMouseButton(window, binding.index) == GLFW_PRESS)
+                    value = true;
+                break;
+            default:
+                break;
         }
-        
+
         if (!values[binding.button])
             values[binding.button] = value;
     }
-    
+
     // Update triggered and released.
-    for (int button=0; button<BUTTONS; button++) {
+    for (int button = 0; button < BUTTONS; button++) {
         buttonData[button].triggered = !buttonData[button].down && values[button];
         buttonData[button].released = buttonData[button].down && !values[button];
         buttonData[button].down = values[button];
     }
-    
+
     glfwGetCursorPos(window, &cursorX, &cursorY);
-    
+
     text = tempText;
     tempText = "";
 }
@@ -103,7 +103,7 @@ void InputHandler::AssignButton(Button button, Device device, int index) {
     binding.button = button;
     binding.device = device;
     binding.index = index;
-    
+
     bindings.push_back(binding);
 }
 

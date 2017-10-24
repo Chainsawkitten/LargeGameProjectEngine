@@ -19,7 +19,7 @@ TextureAsset::~TextureAsset() {
 void TextureAsset::Save() const {
     Json::Value texture;
     texture["srgb"] = srgb;
-    
+
     // Save properties to meta file.
     std::string filename = Hymn().GetPath() + "/" + path + name + ".json";
     std::ofstream file(filename);
@@ -32,18 +32,18 @@ void TextureAsset::Load(const std::string& name) {
     this->name = name.substr(pos + 1);
     path = name.substr(0, pos + 1);
     std::string filename = Hymn().GetPath() + "/" + name;
-    
+
     // Get properties from meta file.
     Json::Value root;
-    if(!FileSystem::FileExists(std::string(filename + ".json").c_str())) {
+    if (!FileSystem::FileExists(std::string(filename + ".json").c_str())) {
         Save();
     }
     std::ifstream file(filename + ".json");
     file >> root;
     file.close();
-    
+
     srgb = root.get("srgb", false).asBool();
-    
+
     // Load texture from disk.
     texture->Load((filename + ".png").c_str(), srgb);
 }

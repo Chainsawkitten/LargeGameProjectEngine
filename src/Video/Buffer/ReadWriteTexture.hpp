@@ -8,48 +8,48 @@ namespace Video {
     /// Texture to write and read from.
     class ReadWriteTexture {
         public:
-            /// Create new read/write texture.
-            /**
+        /// Create new read/write texture.
+        /**
              * @param size Size of the new read/write texture.
              * @param format GL format for the texture, numner of channels.
              * @param internalFormat GL internal format, bits per channel.
              * @param type Type for pixel data.
              */
-            VIDEO_API ReadWriteTexture(const glm::vec2& size, GLenum format, GLint internalFormat, GLenum type);
-            
-            /// Destructor.
-            VIDEO_API ~ReadWriteTexture();
+        VIDEO_API ReadWriteTexture(const glm::vec2& size, GLenum format, GLint internalFormat, GLenum type);
 
-            /// Get size of texture.
-            /**
+        /// Destructor.
+        VIDEO_API ~ReadWriteTexture();
+
+        /// Get size of texture.
+        /**
              * @return The size of texture in pixels.
              */
-            VIDEO_API glm::vec2 GetSize() const;
+        VIDEO_API glm::vec2 GetSize() const;
 
-            /// Get texture.
-            /**
+        /// Get texture.
+        /**
              * @return The texture.
              */
-            VIDEO_API GLuint GetTexture() const;
+        VIDEO_API GLuint GetTexture() const;
 
-            /// Get format.
-            /**
+        /// Get format.
+        /**
              * @return Format of texture.
              */
-            VIDEO_API GLenum GetFormat() const;
+        VIDEO_API GLenum GetFormat() const;
 
-            /// Bind texture for reading.
-            /**
+        /// Bind texture for reading.
+        /**
              * @param binding Slot to bind texture to.
              */
-            VIDEO_API void BindForReading(GLenum binding) const;
+        VIDEO_API void BindForReading(GLenum binding) const;
 
         private:
-            static void CreateTexture(GLuint& texture, unsigned width, unsigned height, GLenum format, GLint internalFormat, GLenum type);
+        static void CreateTexture(GLuint& texture, unsigned width, unsigned height, GLenum format, GLint internalFormat, GLenum type);
 
-            GLuint texture;
-            GLenum format;
+        GLuint texture;
+        GLenum format;
 
-            glm::vec2 size;
+        glm::vec2 size;
     };
 }

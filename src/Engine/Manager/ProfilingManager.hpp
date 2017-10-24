@@ -18,103 +18,103 @@ class ProfilingManager {
     friend class Hub;
     friend class Profiling;
     friend class GPUProfiling;
-    
+
     public:
-        /// The type of profiling to perform.
-        enum Type {
-            CPU_TIME = 0,
-            GPU_TIME_ELAPSED,
-            GPU_SAMPLES_PASSED,
-            COUNT
-        };
+    /// The type of profiling to perform.
+    enum Type {
+        CPU_TIME = 0,
+        GPU_TIME_ELAPSED,
+        GPU_SAMPLES_PASSED,
+        COUNT
+    };
 
-        /// A profiling result.
-        struct Result {
-            std::string name;
-            double value = 0.0;
-            std::list<Result> children;
-            Result* parent;
+    /// A profiling result.
+    struct Result {
+        std::string name;
+        double value = 0.0;
+        std::list<Result> children;
+        Result* parent;
 
-            ENGINE_API Result(const std::string& name, Result* parent);
-        };
+        ENGINE_API Result(const std::string& name, Result* parent);
+    };
 
-        /// Begin profiling a frame.
-        ENGINE_API void BeginFrame();
+    /// Begin profiling a frame.
+    ENGINE_API void BeginFrame();
 
-        /// End profiling a frame and collect the results.
-        ENGINE_API void EndFrame();
+    /// End profiling a frame and collect the results.
+    ENGINE_API void EndFrame();
 
-        /// Check whether %ProfilingManager is active.
-        /**
+    /// Check whether %ProfilingManager is active.
+    /**
          * @return Active state.
          */
-        ENGINE_API bool Active() const;
+    ENGINE_API bool Active() const;
 
-        /// Set whether %ProfilingManager is active.
-        /**
+    /// Set whether %ProfilingManager is active.
+    /**
          * @param active Active state.
          */
-        ENGINE_API void SetActive(bool active);
+    ENGINE_API void SetActive(bool active);
 
-        /// Get number of frames being monitored.
-        /**
+    /// Get number of frames being monitored.
+    /**
          * @return The number of frames being stored.
          */
-        ENGINE_API unsigned int GetFrameCount() const;
+    ENGINE_API unsigned int GetFrameCount() const;
 
-        /// Get the measured CPU frame times.
-        /**
+    /// Get the measured CPU frame times.
+    /**
          * @return The CPU frame times.
          */
-        ENGINE_API const float* GetCPUFrameTimes() const;
+    ENGINE_API const float* GetCPUFrameTimes() const;
 
-        /// Get the measured GPU frame times.
-        /**
+    /// Get the measured GPU frame times.
+    /**
          * @return The GPU frame times.
          */
-        ENGINE_API const float* GetGPUFrameTimes() const;
+    ENGINE_API const float* GetGPUFrameTimes() const;
 
-        /// Get profiling result.
-        /**
+    /// Get profiling result.
+    /**
          * @param type The type of profiling to get results for.
          * @return The measured result.
          */
-        ENGINE_API Result* GetResult(Type type) const;
+    ENGINE_API Result* GetResult(Type type) const;
 
-        /// Get the name of a type of profiling.
-        /**
+    /// Get the name of a type of profiling.
+    /**
          * @param type The type of profiling.
          * @return The name.
          */
-        ENGINE_API static std::string TypeToString(Type type);
-        
+    ENGINE_API static std::string TypeToString(Type type);
+
     private:
-        ProfilingManager();
-        ~ProfilingManager();
-        ProfilingManager(ProfilingManager const&) = delete;
-        void operator=(ProfilingManager const&) = delete;
-        
-        Result* StartResult(const std::string& name, Type type);
-        void FinishResult(Result* result, Type type);
-        
-        void ShowResult(Result* result);
+    ProfilingManager();
+    ~ProfilingManager();
+    ProfilingManager(ProfilingManager const&) = delete;
+    void operator=(ProfilingManager const&) = delete;
 
-        bool active;
-        
-        Result* root[Type::COUNT];
-        Result* current[Type::COUNT];
+    Result* StartResult(const std::string& name, Type type);
+    void FinishResult(Result* result, Type type);
 
-        std::map<Video::Query::Type, std::list<Video::Query*>> queryPool;
-        std::map<Result*, Video::Query*> queryMap;
-        
-        Video::Query* frameQuery;
-        double frameStart;
-        static const unsigned int frames = 100;
-        unsigned int frame = 0;
-        float frameTimes[2][frames];
+    void ShowResult(Result* result);
+
+    bool active;
+
+    Result* root[Type::COUNT];
+    Result* current[Type::COUNT];
+
+    std::map<Video::Query::Type, std::list<Video::Query*>> queryPool;
+    std::map<Result*, Video::Query*> queryMap;
+
+    Video::Query* frameQuery;
+    double frameStart;
+    static const unsigned int frames = 100;
+    unsigned int frame = 0;
+    float frameTimes[2][frames];
 
 #ifdef MEASURE_VRAM
-        IDXGIFactory* dxgiFactory = nullptr;
-        IDXGIAdapter3* dxgiAdapter3 = nullptr;
+    IDXGIFactory* dxgiFactory = nullptr;
+    IDXGIAdapter3* dxgiAdapter3 = nullptr;
 #endif
 };

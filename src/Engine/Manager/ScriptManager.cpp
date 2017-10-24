@@ -36,19 +36,19 @@ using namespace Component;
 
 void AngelScriptMessageCallback(const asSMessageInfo* message, void* param) {
     Log() << message->section << " (" << message->row << ", " << message->col << " : ";
-    
+
     switch (message->type) {
-    case asMSGTYPE_ERROR:
-        Log() << "Error";
-        break;
-    case asMSGTYPE_INFORMATION:
-        Log() << "Information";
-        break;
-    case asMSGTYPE_WARNING:
-        Log() << "Warning";
-        break;
+        case asMSGTYPE_ERROR:
+            Log() << "Error";
+            break;
+        case asMSGTYPE_INFORMATION:
+            Log() << "Information";
+            break;
+        case asMSGTYPE_WARNING:
+            Log() << "Warning";
+            break;
     }
-    
+
     Log() << " : " << message->message << "\n";
 }
 
@@ -93,8 +93,8 @@ bool IsIntersect(Entity* checker, Entity* camera) {
     RayIntersection rayIntersector;
     float intersectDistance;
     if (rayIntersector.RayOBBIntersect(camera->GetWorldPosition(), mousePicker.GetCurrentRay(),
-        checker->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
-        checker->GetModelMatrix(), intersectDistance)) {
+            checker->GetComponent<Component::Mesh>()->geometry->GetAxisAlignedBoundingBox(),
+            checker->GetModelMatrix(), intersectDistance)) {
         if (intersectDistance < 10.0f)
             return true;
         return false;
@@ -127,35 +127,43 @@ void vec4Constructor(float x, float y, float z, float w, void* memory) {
     vec->w = w;
 }
 
-template<typename type> void glmConstructor(void* memory) {
+template <typename type>
+void glmConstructor(void* memory) {
     *static_cast<type*>(memory) = type();
 }
 
-template<typename type> type glmAdd(const type& a, const void* memory) {
+template <typename type>
+type glmAdd(const type& a, const void* memory) {
     return *static_cast<const type*>(memory) + a;
 }
 
-template<typename type> type glmSub(const type& a, const void* memory) {
+template <typename type>
+type glmSub(const type& a, const void* memory) {
     return *static_cast<const type*>(memory) - a;
 }
 
-template<typename S, typename T> S glmMul(T a, const void* memory) {
+template <typename S, typename T>
+S glmMul(T a, const void* memory) {
     return *static_cast<const S*>(memory) * a;
 }
 
-template<typename type> type glmMulR(float a, const void* memory) {
+template <typename type>
+type glmMulR(float a, const void* memory) {
     return a * *static_cast<const type*>(memory);
 }
 
-template<typename type> type glmDiv(float a, const void* memory) {
+template <typename type>
+type glmDiv(float a, const void* memory) {
     return *static_cast<const type*>(memory) / a;
 }
 
-template<typename type> type glmDivR(float a, const void* memory) {
+template <typename type>
+type glmDivR(float a, const void* memory) {
     return a / *static_cast<const type*>(memory);
 }
 
-template<typename type> type glmNeg(const void* memory) {
+template <typename type>
+type glmNeg(const void* memory) {
     return -*static_cast<const type*>(memory);
 }
 
@@ -170,16 +178,16 @@ glm::vec4 mat4MulVec4(const glm::vec4& a, const void* memory) {
 ScriptManager::ScriptManager() {
     // Create the script engine
     engine = asCreateScriptEngine();
-    
+
     // Set the message callback to receive information on errors in human readable form.
     engine->SetMessageCallback(asFUNCTION(AngelScriptMessageCallback), 0, asCALL_CDECL);
-    
+
     // Register add-ons.
     RegisterStdString(engine);
     RegisterScriptMath(engine);
-    
+
     engine->RegisterEnum("input");
-    
+
     // Register GLM types.
     engine->RegisterObjectType("vec2", sizeof(glm::vec2), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<glm::vec2>());
     engine->RegisterObjectProperty("vec2", "float x", asOFFSET(glm::vec2, x));
@@ -191,12 +199,12 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("vec2", "vec2 opMul_r(float) const", asFUNCTIONPR(glmMulR, (float, const void*), glm::vec2), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("vec2", "vec2 opDiv(float) const", asFUNCTIONPR(glmDiv, (float, const void*), glm::vec2), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("vec2", "vec2 opDiv_r(float) const", asFUNCTIONPR(glmDivR, (float, const void*), glm::vec2), asCALL_CDECL_OBJLAST);
-    engine->RegisterObjectMethod("vec2", "vec2& opAddAssign(const vec2 &in) const", asMETHODPR(glm::vec2, operator+=, (const glm::vec2&), glm::vec2&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec2", "vec2& opSubAssign(const vec2 &in) const", asMETHODPR(glm::vec2, operator-=, (const glm::vec2&), glm::vec2&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec2", "vec2& opMulAssign(float) const", asMETHODPR(glm::vec2, operator*=, (float), glm::vec2&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec2", "vec2& opDivAssign(float) const", asMETHODPR(glm::vec2, operator/=, (float), glm::vec2&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec2", "vec2& opAddAssign(const vec2 &in) const", asMETHODPR(glm::vec2, operator+=,(const glm::vec2&), glm::vec2&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec2", "vec2& opSubAssign(const vec2 &in) const", asMETHODPR(glm::vec2, operator-=,(const glm::vec2&), glm::vec2&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec2", "vec2& opMulAssign(float) const", asMETHODPR(glm::vec2, operator*=,(float), glm::vec2&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec2", "vec2& opDivAssign(float) const", asMETHODPR(glm::vec2, operator/=,(float), glm::vec2&), asCALL_THISCALL);
     engine->RegisterObjectMethod("vec2", "vec2 opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::vec2), asCALL_CDECL_OBJLAST);
-    
+
     engine->RegisterObjectType("vec3", sizeof(glm::vec3), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<glm::vec3>());
     engine->RegisterObjectProperty("vec3", "float x", asOFFSET(glm::vec3, x));
     engine->RegisterObjectProperty("vec3", "float y", asOFFSET(glm::vec3, y));
@@ -208,12 +216,12 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("vec3", "vec3 opMul_r(float) const", asFUNCTIONPR(glmMulR, (float, const void*), glm::vec3), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("vec3", "vec3 opDiv(float) const", asFUNCTIONPR(glmDiv, (float, const void*), glm::vec3), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("vec3", "vec3 opDiv_r(float) const", asFUNCTIONPR(glmDivR, (float, const void*), glm::vec3), asCALL_CDECL_OBJLAST);
-    engine->RegisterObjectMethod("vec3", "vec3& opAddAssign(const vec3 &in) const", asMETHODPR(glm::vec3, operator+=, (const glm::vec3&), glm::vec3&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec3", "vec3& opSubAssign(const vec3 &in) const", asMETHODPR(glm::vec3, operator-=, (const glm::vec3&), glm::vec3&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec3", "vec3& opMulAssign(float) const", asMETHODPR(glm::vec3, operator*=, (float), glm::vec3&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec3", "vec3& opDivAssign(float) const", asMETHODPR(glm::vec3, operator/=, (float), glm::vec3&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec3", "vec3& opAddAssign(const vec3 &in) const", asMETHODPR(glm::vec3, operator+=,(const glm::vec3&), glm::vec3&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec3", "vec3& opSubAssign(const vec3 &in) const", asMETHODPR(glm::vec3, operator-=,(const glm::vec3&), glm::vec3&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec3", "vec3& opMulAssign(float) const", asMETHODPR(glm::vec3, operator*=,(float), glm::vec3&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec3", "vec3& opDivAssign(float) const", asMETHODPR(glm::vec3, operator/=,(float), glm::vec3&), asCALL_THISCALL);
     engine->RegisterObjectMethod("vec3", "vec3 opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::vec3), asCALL_CDECL_OBJLAST);
-    
+
     engine->RegisterObjectType("vec4", sizeof(glm::vec4), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<glm::vec4>());
     engine->RegisterObjectProperty("vec4", "float x", asOFFSET(glm::vec4, x));
     engine->RegisterObjectProperty("vec4", "float y", asOFFSET(glm::vec4, y));
@@ -226,12 +234,12 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("vec4", "vec4 opMul_r(float) const", asFUNCTIONPR(glmMulR, (float, const void*), glm::vec4), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("vec4", "vec4 opDiv(float) const", asFUNCTIONPR(glmDiv, (float, const void*), glm::vec4), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("vec4", "vec4 opDiv_r(float) const", asFUNCTIONPR(glmDivR, (float, const void*), glm::vec4), asCALL_CDECL_OBJLAST);
-    engine->RegisterObjectMethod("vec4", "vec4& opAddAssign(const vec4 &in) const", asMETHODPR(glm::vec4, operator+=, (const glm::vec4&), glm::vec4&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec4", "vec4& opSubAssign(const vec4 &in) const", asMETHODPR(glm::vec4, operator-=, (const glm::vec4&), glm::vec4&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec4", "vec4& opMulAssign(float) const", asMETHODPR(glm::vec4, operator*=, (float), glm::vec4&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("vec4", "vec4& opDivAssign(float) const", asMETHODPR(glm::vec4, operator/=, (float), glm::vec4&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec4", "vec4& opAddAssign(const vec4 &in) const", asMETHODPR(glm::vec4, operator+=,(const glm::vec4&), glm::vec4&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec4", "vec4& opSubAssign(const vec4 &in) const", asMETHODPR(glm::vec4, operator-=,(const glm::vec4&), glm::vec4&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec4", "vec4& opMulAssign(float) const", asMETHODPR(glm::vec4, operator*=,(float), glm::vec4&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("vec4", "vec4& opDivAssign(float) const", asMETHODPR(glm::vec4, operator/=,(float), glm::vec4&), asCALL_THISCALL);
     engine->RegisterObjectMethod("vec4", "vec4 opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::vec4), asCALL_CDECL_OBJLAST);
-    
+
     engine->RegisterObjectType("mat3", sizeof(glm::mat3), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<glm::mat3>());
     engine->RegisterObjectBehaviour("mat3", asBEHAVE_CONSTRUCT, "void f()", asFUNCTIONPR(glmConstructor<glm::mat3>, (void*), void), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat3", "mat3 opAdd(const mat3 &in) const", asFUNCTIONPR(glmAdd, (const glm::mat3&, const void*), glm::mat3), asCALL_CDECL_OBJLAST);
@@ -241,13 +249,13 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("mat3", "mat3 opMul(const mat3 &in) const", asFUNCTIONPR(glmMul, (const glm::mat3&, const void*), glm::mat3), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat3", "mat3 opDiv(float) const", asFUNCTIONPR(glmDiv, (float, const void*), glm::mat3), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat3", "mat3 opDiv_r(float) const", asFUNCTIONPR(glmDivR, (float, const void*), glm::mat3), asCALL_CDECL_OBJLAST);
-    engine->RegisterObjectMethod("mat3", "mat3& opAddAssign(const mat3 &in) const", asMETHODPR(glm::mat3, operator+=, (const glm::mat3&), glm::mat3&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("mat3", "mat3& opSubAssign(const mat3 &in) const", asMETHODPR(glm::mat3, operator-=, (const glm::mat3&), glm::mat3&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("mat3", "mat3& opMulAssign(float) const", asMETHODPR(glm::mat3, operator*=, (float), glm::mat3&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("mat3", "mat3& opDivAssign(float) const", asMETHODPR(glm::mat3, operator/=, (float), glm::mat3&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("mat3", "mat3& opAddAssign(const mat3 &in) const", asMETHODPR(glm::mat3, operator+=,(const glm::mat3&), glm::mat3&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("mat3", "mat3& opSubAssign(const mat3 &in) const", asMETHODPR(glm::mat3, operator-=,(const glm::mat3&), glm::mat3&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("mat3", "mat3& opMulAssign(float) const", asMETHODPR(glm::mat3, operator*=,(float), glm::mat3&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("mat3", "mat3& opDivAssign(float) const", asMETHODPR(glm::mat3, operator/=,(float), glm::mat3&), asCALL_THISCALL);
     engine->RegisterObjectMethod("mat3", "mat3 opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::mat3), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat3", "vec3 opMul(const vec3 &in) const", asFUNCTION(mat3MulVec3), asCALL_CDECL_OBJLAST);
-    
+
     engine->RegisterObjectType("mat4", sizeof(glm::mat4), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<glm::mat4>());
     engine->RegisterObjectBehaviour("mat4", asBEHAVE_CONSTRUCT, "void f()", asFUNCTIONPR(glmConstructor<glm::mat4>, (void*), void), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat4", "mat4 opAdd(const mat4 &in) const", asFUNCTIONPR(glmAdd, (const glm::mat4&, const void*), glm::mat4), asCALL_CDECL_OBJLAST);
@@ -257,13 +265,13 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("mat4", "mat4 opMul(const mat4 &in) const", asFUNCTIONPR(glmMul, (const glm::mat4&, const void*), glm::mat4), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat4", "mat4 opDiv(float) const", asFUNCTIONPR(glmDiv, (float, const void*), glm::mat4), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat4", "mat4 opDiv_r(float) const", asFUNCTIONPR(glmDivR, (float, const void*), glm::mat4), asCALL_CDECL_OBJLAST);
-    engine->RegisterObjectMethod("mat4", "mat4& opAddAssign(const mat4 &in) const", asMETHODPR(glm::mat4, operator+=, (const glm::mat4&), glm::mat4&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("mat4", "mat4& opSubAssign(const mat4 &in) const", asMETHODPR(glm::mat4, operator-=, (const glm::mat4&), glm::mat4&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("mat4", "mat4& opMulAssign(float) const", asMETHODPR(glm::mat4, operator*=, (float), glm::mat4&), asCALL_THISCALL);
-    engine->RegisterObjectMethod("mat4", "mat4& opDivAssign(float) const", asMETHODPR(glm::mat4, operator/=, (float), glm::mat4&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("mat4", "mat4& opAddAssign(const mat4 &in) const", asMETHODPR(glm::mat4, operator+=,(const glm::mat4&), glm::mat4&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("mat4", "mat4& opSubAssign(const mat4 &in) const", asMETHODPR(glm::mat4, operator-=,(const glm::mat4&), glm::mat4&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("mat4", "mat4& opMulAssign(float) const", asMETHODPR(glm::mat4, operator*=,(float), glm::mat4&), asCALL_THISCALL);
+    engine->RegisterObjectMethod("mat4", "mat4& opDivAssign(float) const", asMETHODPR(glm::mat4, operator/=,(float), glm::mat4&), asCALL_THISCALL);
     engine->RegisterObjectMethod("mat4", "mat4 opNeg() const", asFUNCTIONPR(glmNeg, (const void*), glm::mat4), asCALL_CDECL_OBJLAST);
     engine->RegisterObjectMethod("mat4", "vec4 opMul(const vec4 &in) const", asFUNCTION(mat4MulVec4), asCALL_CDECL_OBJLAST);
-    
+
     // Register GLM functions.
     engine->RegisterGlobalFunction("vec2 normalize(const vec2 &in)", asFUNCTIONPR(glm::normalize, (const glm::vec2&), glm::vec2), asCALL_CDECL);
     engine->RegisterGlobalFunction("vec3 normalize(const vec3 &in)", asFUNCTIONPR(glm::normalize, (const glm::vec3&), glm::vec3), asCALL_CDECL);
@@ -284,7 +292,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterGlobalFunction("mat4 transpose(const mat4 &in)", asFUNCTIONPR(glm::transpose, (const glm::mat4&), glm::mat4), asCALL_CDECL);
     engine->RegisterGlobalFunction("float determinant(const mat3 &in)", asFUNCTIONPR(glm::determinant, (const glm::mat3&), float), asCALL_CDECL);
     engine->RegisterGlobalFunction("float determinant(const mat4 &in)", asFUNCTIONPR(glm::determinant, (const glm::mat4&), float), asCALL_CDECL);
-    
+
     // Register Entity.
     engine->RegisterObjectType("Entity", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Entity", "string name", asOFFSET(Entity, name));
@@ -297,21 +305,21 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "Entity@ InstantiateScene(const string &in)", asMETHOD(Entity, InstantiateScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "bool IsScene() const", asMETHOD(Entity, IsScene), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Entity@ GetChild(const string &in) const", asMETHOD(Entity, GetChild), asCALL_THISCALL);
-    
+
     // Register components.
     engine->SetDefaultNamespace("Component");
-    
+
     engine->RegisterObjectType("DirectionalLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("DirectionalLight", "vec3 color", asOFFSET(DirectionalLight, color));
     engine->RegisterObjectProperty("DirectionalLight", "float ambientCoefficient", asOFFSET(DirectionalLight, ambientCoefficient));
-    
+
     engine->RegisterObjectType("Lens", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Lens", "float fieldOfView", asOFFSET(Lens, fieldOfView));
     engine->RegisterObjectProperty("Lens", "float zNear", asOFFSET(Lens, zNear));
     engine->RegisterObjectProperty("Lens", "float zFar", asOFFSET(Lens, zFar));
-    
+
     engine->RegisterObjectType("Listener", 0, asOBJ_REF | asOBJ_NOCOUNT);
-    
+
     engine->RegisterObjectType("PointLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("PointLight", "vec3 color", asOFFSET(PointLight, color));
     engine->RegisterObjectProperty("PointLight", "float attenuation", asOFFSET(PointLight, attenuation));
@@ -325,7 +333,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectProperty("SpotLight", "float attenuation", asOFFSET(SpotLight, attenuation));
     engine->RegisterObjectProperty("SpotLight", "float intensity", asOFFSET(SpotLight, intensity));
     engine->RegisterObjectProperty("SpotLight", "float coneAngle", asOFFSET(SpotLight, coneAngle));
-    
+
     engine->RegisterObjectType("SoundSource", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("SoundSource", "float pitch", asOFFSET(SoundSource, pitch));
     engine->RegisterObjectProperty("SoundSource", "float gain", asOFFSET(SoundSource, gain));
@@ -333,9 +341,9 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("SoundSource", "void Play()", asMETHOD(SoundSource, Play), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Pause()", asMETHOD(SoundSource, Pause), asCALL_THISCALL);
     engine->RegisterObjectMethod("SoundSource", "void Stop()", asMETHOD(SoundSource, Stop), asCALL_THISCALL);
-    
+
     engine->SetDefaultNamespace("");
-    
+
     // Register getting components.
     engine->RegisterObjectMethod("Entity", "Component::DirectionalLight@ GetDirectionalLight()", asMETHODPR(Entity, GetComponent, () const, DirectionalLight*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::Lens@ GetLens()", asMETHODPR(Entity, GetComponent, () const, Lens*), asCALL_THISCALL);
@@ -344,7 +352,7 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("Entity", "Component::RigidBody@ GetRigidBody()", asMETHODPR(Entity, GetComponent, () const, RigidBody*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::SpotLight@ GetSpotLight()", asMETHODPR(Entity, GetComponent, () const, SpotLight*), asCALL_THISCALL);
     engine->RegisterObjectMethod("Entity", "Component::SoundSource@ GetSoundSource()", asMETHODPR(Entity, GetComponent, () const, SoundSource*), asCALL_THISCALL);
-    
+
     // Register managers.
     engine->RegisterObjectType("DebugDrawingManager", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPoint(const vec3 &in, const vec3 &in, float, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPoint), asCALL_THISCALL);
@@ -352,10 +360,10 @@ ScriptManager::ScriptManager() {
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddCuboid(const vec3 &in, const vec3 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddCuboid), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddPlane(const vec3 &in, const vec3 &in, const vec2 &in, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddPlane), asCALL_THISCALL);
     engine->RegisterObjectMethod("DebugDrawingManager", "void AddSphere(const vec3 &in, float, const vec3 &in, float = 1.0, float = 0.0, bool = true)", asMETHOD(DebugDrawingManager, AddSphere), asCALL_THISCALL);
-    
+
     engine->RegisterObjectType("Hub", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("Hub", "DebugDrawingManager@ debugDrawingManager", asOFFSET(Hub, debugDrawingManager));
-    
+
     // Register functions.
     engine->RegisterGlobalFunction("void print(const string &in)", asFUNCTION(print), asCALL_CDECL);
     engine->RegisterGlobalFunction("void RegisterUpdate()", asFUNCTION(::RegisterUpdate), asCALL_CDECL);
@@ -380,7 +388,7 @@ int ScriptManager::BuildScript(const ScriptFile* script) {
         Log() << "Script file does not exist: " << filename << "\n";
         return -1;
     }
-    
+
     // Create and build script module.
     CScriptBuilder builder;
     int r = builder.StartNewModule(engine, script->name.c_str());
@@ -388,13 +396,13 @@ int ScriptManager::BuildScript(const ScriptFile* script) {
         Log() << "Couldn't start new module: " << script->name << ".\n";
         return r;
     }
-    
+
     r = builder.AddSectionFromFile(filename.c_str());
     if (r < 0) {
         Log() << "File section could not be added: " << filename << ".\n";
         return r;
     }
-    
+
     r = builder.BuildModule();
     if (r < 0) {
         Log() << "Compile errors.\n";
@@ -402,20 +410,18 @@ int ScriptManager::BuildScript(const ScriptFile* script) {
     }
 
     return r;
-
 }
 
 void ScriptManager::BuildAllScripts() {
-
     std::string path = Hymn().GetPath() + "/";
-    
+
     for (ScriptFile* file : Hymn().scripts) {
         std::string filename = path + file->path + file->name + ".as";
         if (!FileSystem::FileExists(filename.c_str())) {
             Log() << "Script file does not exist: " << filename << "\n";
             return;
         }
-        
+
         // Create and build script module.
         CScriptBuilder builder;
         asIScriptModule* module = engine->GetModule(file->name.c_str());
@@ -423,7 +429,7 @@ void ScriptManager::BuildAllScripts() {
             int r = builder.StartNewModule(engine, file->name.c_str());
             if (r < 0)
                 Log() << "Couldn't start new module: " << file->name << ".\n";
-            
+
             r = builder.AddSectionFromFile(filename.c_str());
             if (r < 0)
                 Log() << "File section could not be added: " << filename << ".\n";
@@ -437,7 +443,7 @@ void ScriptManager::BuildAllScripts() {
 
             LoadScriptFile(filename.c_str(), script);
             module->AddScriptSection(filename.c_str(), script.c_str());
-            
+
             int r = module->Build();
             if (r < 0)
                 Log() << file->name.c_str() << "Compile errors.\n";
@@ -446,19 +452,15 @@ void ScriptManager::BuildAllScripts() {
 }
 
 void ScriptManager::FillPropertyMap(Script* script) {
-
     int r = BuildScript(script->scriptFile);
     if (r < 0) {
-
-        Log() << "Couldn't fetch properties" << "\n";
+        Log() << "Couldn't fetch properties"
+              << "\n";
 
     } else {
-
         CreateInstance(script);
         script->FillPropertyMap();
-
     }
-
 }
 
 void ScriptManager::Update(World& world, float deltaTime) {
@@ -471,29 +473,23 @@ void ScriptManager::Update(World& world, float deltaTime) {
             int propertyCount = script->instance->GetPropertyCount();
 
             for (int n = 0; n < propertyCount; n++) {
-
                 int typeId = script->instance->GetPropertyTypeId(n);
-                void *varPointer = script->instance->GetAddressOfProperty(n);
+                void* varPointer = script->instance->GetAddressOfProperty(n);
 
                 auto it = script->propertyMap.find(script->instance->GetPropertyName(n));
 
-                if (it != script->propertyMap.end()){
-
+                if (it != script->propertyMap.end()) {
                     if (script->propertyMap[script->instance->GetPropertyName(n)].first == typeId) {
-
-                        if (typeId == asTYPEID_INT32){
+                        if (typeId == asTYPEID_INT32) {
                             int* propertyPointer = static_cast<int*>(varPointer);
                             *propertyPointer = *(int*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        } else if (typeId == asTYPEID_FLOAT){
+                        } else if (typeId == asTYPEID_FLOAT) {
                             float* propertyPointer = static_cast<float*>(varPointer);
                             *propertyPointer = *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-                        } else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
-
-                            std::string *str = (std::string*)varPointer;
+                        } else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")) {
+                            std::string* str = (std::string*)varPointer;
                             if (str) {
-
                                 *str = *(std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
-
                             }
                         }
                     }
@@ -501,25 +497,25 @@ void ScriptManager::Update(World& world, float deltaTime) {
             }
         }
     }
-    
+
     // Update.
     for (Entity* entity : world.GetUpdateEntities())
         CallUpdate(entity, deltaTime);
-    
+
     // Handle messages.
     while (!messages.empty()) {
         std::vector<Message> temp = messages;
         messages.clear();
-        
+
         for (const Message& message : temp)
             CallMessageReceived(message);
     }
-    
+
     // Register entities for events.
     for (Entity* entity : updateEntities)
         world.RegisterUpdate(entity);
     updateEntities.clear();
-    
+
     // Handle physics triggers.
     for (const TriggerEvent& triggerEvent : triggerEvents) {
         CallTrigger(triggerEvent);
@@ -537,7 +533,7 @@ void ScriptManager::RegisterTriggerEnter(Entity* entity, Component::RigidBody* t
     triggerEvent.object = object;
     triggerEvent.scriptEntity = entity;
     triggerEvent.methodName = methodName;
-    
+
     Managers().physicsManager->OnTriggerEnter(trigger, object, std::bind(&ScriptManager::HandleTrigger, this, triggerEvent));
 }
 
@@ -573,10 +569,10 @@ void ScriptManager::RegisterInput() {
             break;
         }
     }
-    
+
     for (std::size_t i = 0; i < Input::GetInstance().buttons.size(); ++i) {
         Input::Button* button = Input::GetInstance().buttons[i];
-        
+
         // Check if we've already registered the button.
         bool registered = false;
         asUINT inputCount = inputEnum->GetEnumValueCount();
@@ -588,7 +584,7 @@ void ScriptManager::RegisterInput() {
                 break;
             }
         }
-        
+
         if (!registered)
             engine->RegisterEnumValue("input", std::string(button->action).c_str(), i);
     }
@@ -602,18 +598,12 @@ void ScriptManager::SendMessage(Entity* recipient, int type) {
 }
 
 Entity* ScriptManager::GetEntity(unsigned int GUID) const {
-
     const std::vector<Entity*> entities = Hymn().world.GetEntities();
     for (int i = 0; i < entities.size(); i++) {
-
         if (entities[i]->GetUniqueIdentifier() == GUID) {
-
             return entities[i];
-
         }
-
     }
-
 }
 
 Component::Script* ScriptManager::CreateScript() {
@@ -622,47 +612,40 @@ Component::Script* ScriptManager::CreateScript() {
 
 Component::Script* ScriptManager::CreateScript(const Json::Value& node) {
     Component::Script* script = scripts.Create();
-    
+
     // Load values from Json node.
     std::string name = node.get("scriptName", "").asString();
     script->scriptFile = Managers().resourceManager->CreateScriptFile(name);
 
     if (node.isMember("propertyMap")) {
-
         Json::Value propertyMapJson = node.get("propertyMap", "");
         std::vector<std::string> names = propertyMapJson.getMemberNames();
 
         for (const auto& name : names) {
-
             if (propertyMapJson.isMember(name)) {
-
                 Json::Value typeId_value = propertyMapJson.get(name, "");
 
                 std::vector<std::string> typeIds = typeId_value.getMemberNames();
                 int typeId = std::atoi(typeIds[0].c_str());
-                if (typeId == asTYPEID_INT32){
+                if (typeId == asTYPEID_INT32) {
                     int* value = new int(typeId_value[typeIds[0]].asInt());
                     script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
-                }
-                else if (typeId == asTYPEID_FLOAT){
+                } else if (typeId == asTYPEID_FLOAT) {
                     float* value = new float(typeId_value[typeIds[0]].asFloat());
                     script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
-                }
-                else if (typeId == engine->GetTypeIdByDecl("string")){
+                } else if (typeId == engine->GetTypeIdByDecl("string")) {
                     std::string* value = new std::string(typeId_value[typeIds[0]].asString());
                     script->propertyMap[name] = std::pair<int, void*>(typeId, (void*)value);
                 }
             }
         }
     }
-    
+
     return script;
 }
 
 int ScriptManager::GetStringDeclarationID() {
-
     return engine->GetTypeIdByDecl("string");
-
 }
 
 const std::vector<Component::Script*>& ScriptManager::GetScripts() const {
@@ -703,22 +686,22 @@ void ScriptManager::ExecuteScriptMethod(const Entity* entity, const std::string&
 void ScriptManager::CreateInstance(Component::Script* script) {
     currentEntity = script->entity;
     ScriptFile* scriptFile = script->scriptFile;
-    
+
     // Find the class to instantiate.
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
-    
+
     // Find factory function / constructor.
     std::string factoryName = scriptFile->name + "@ " + scriptFile->name + "(Entity@)";
     asIScriptFunction* factoryFunction = type->GetFactoryByDecl(factoryName.c_str());
     if (factoryFunction == nullptr)
         Log() << "Couldn't find the factory function for " << scriptFile->name << ".\n";
-    
+
     // Create context, prepare it and execute.
     asIScriptContext* context = engine->CreateContext();
     context->Prepare(factoryFunction);
     context->SetArgObject(0, script->entity);
     ExecuteCall(context);
-    
+
     // Get the newly created object.
     script->instance = *(static_cast<asIScriptObject**>(context->GetAddressOfReturnValue()));
     script->instance->AddRef();
@@ -731,22 +714,22 @@ void ScriptManager::CallMessageReceived(const Message& message) {
     currentEntity = message.recipient;
     Component::Script* script = currentEntity->GetComponent<Component::Script>();
     ScriptFile* scriptFile = script->scriptFile;
-    
+
     // Get class.
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
-    
+
     // Find method to call.
     asIScriptFunction* method = type->GetMethodByDecl("void ReceiveMessage(int)");
     if (method == nullptr)
         Log() << "Can't find method void ReceiveMessage(int)\n";
-    
+
     // Create context, prepare it and execute.
     asIScriptContext* context = engine->CreateContext();
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgDWord(0, message.type);
     ExecuteCall(context);
-    
+
     // Clean up.
     context->Release();
 }
@@ -754,22 +737,22 @@ void ScriptManager::CallMessageReceived(const Message& message) {
 void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
     Component::Script* script = entity->GetComponent<Component::Script>();
     ScriptFile* scriptFile = script->scriptFile;
-    
+
     // Get class.
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
-    
+
     // Find method to call.
     asIScriptFunction* method = type->GetMethodByDecl("void Update(float)");
     if (method == nullptr)
         Log() << "Can't find method void Update(float)\n";
-    
+
     // Create context, prepare it and execute.
     asIScriptContext* context = engine->CreateContext();
     context->Prepare(method);
     context->SetObject(script->instance);
     context->SetArgFloat(0, deltaTime);
     ExecuteCall(context);
-    
+
     // Clean up.
     context->Release();
 }
@@ -777,16 +760,16 @@ void ScriptManager::CallUpdate(Entity* entity, float deltaTime) {
 void ScriptManager::CallTrigger(const TriggerEvent& triggerEvent) {
     Component::Script* script = triggerEvent.scriptEntity->GetComponent<Component::Script>();
     ScriptFile* scriptFile = script->scriptFile;
-    
+
     // Get class.
     asITypeInfo* type = GetClass(scriptFile->name, scriptFile->name);
-    
+
     // Find method to call.
     std::string methodDeclaration = "void " + triggerEvent.methodName + "(Component::RigidBody@, Component::RigidBody@)";
     asIScriptFunction* method = type->GetMethodByDecl(methodDeclaration.c_str());
     if (method == nullptr)
         Log() << "Can't find method " << methodDeclaration << "\n";
-    
+
     // Create context, prepare it and execute.
     asIScriptContext* context = engine->CreateContext();
     context->Prepare(method);
@@ -794,24 +777,24 @@ void ScriptManager::CallTrigger(const TriggerEvent& triggerEvent) {
     context->SetArgAddress(0, triggerEvent.trigger);
     context->SetArgAddress(1, triggerEvent.object);
     ExecuteCall(context);
-    
+
     // Clean up.
     context->Release();
 }
 
-void ScriptManager::LoadScriptFile(const char* fileName, std::string& script){
+void ScriptManager::LoadScriptFile(const char* fileName, std::string& script) {
     // Open the file in binary mode
     FILE* f = fopen(fileName, "rb");
-    
+
     // Determine the size of the file
     fseek(f, 0, SEEK_END);
     int len = ftell(f);
     fseek(f, 0, SEEK_SET);
-    
+
     // Load the entire file in one call
     script.resize(len);
     fread(&script[0], len, 1, f);
-    
+
     fclose(f);
 }
 
@@ -831,7 +814,7 @@ asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::s
     asIScriptModule* module = engine->GetModule(moduleName.c_str(), asGM_ONLY_IF_EXISTS);
     if (module == nullptr)
         Log() << "Couldn't find \"" << moduleName << "\" module.\n";
-    
+
     // Find the class.
     asUINT typeCount = module->GetObjectTypeCount();
     for (asUINT i = 0; i < typeCount; ++i) {
@@ -839,7 +822,7 @@ asITypeInfo* ScriptManager::GetClass(const std::string& moduleName, const std::s
         if (strcmp(type->GetName(), className.c_str()) == 0)
             return type;
     }
-    
+
     Log() << "Couldn't find class \"" << className << "\".\n";
     return nullptr;
 }

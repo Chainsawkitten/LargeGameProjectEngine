@@ -8,7 +8,8 @@
 
 using namespace Video;
 
-StorageBuffer::StorageBuffer(unsigned int size, GLenum usage) : bound(false) {
+StorageBuffer::StorageBuffer(unsigned int size, GLenum usage)
+    : bound(false) {
     glGenBuffers(1, &ssbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
     glBufferData(GL_SHADER_STORAGE_BUFFER, (GLsizeiptr)size, NULL, usage);
@@ -26,7 +27,7 @@ void StorageBuffer::Write(void* data, unsigned int offset, unsigned int length) 
     assert(bound);
     assert(this->size >= offset + length);
     ERROR_CHECK_VIDEO_START
-    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, length, data); 
+    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, length, data);
     ERROR_CHECK_VIDEO_END
 }
 

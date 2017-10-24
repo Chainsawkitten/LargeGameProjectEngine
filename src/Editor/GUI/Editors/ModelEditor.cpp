@@ -60,7 +60,7 @@ void ModelEditor::Show() {
                 scale = glm::vec3(uniScale);
             } else
                 ImGui::DragFloat3("Scale", &scale[0], 0.01f);
-            
+
             ImGui::Checkbox("Triangulate", &triangulate);
             ImGui::Checkbox("Import Normals", &importNormals);
             ImGui::Checkbox("Import Tangents", &importTangents);
@@ -72,7 +72,7 @@ void ModelEditor::Show() {
 
             if (ImGui::Button(button.c_str())) {
                 AssetConverter::Materials materials;
-                
+
                 // Convert to .asset format.
                 AssetConverter asset;
                 asset.Convert(source.c_str(), (destination + ".asset").c_str(), scale, triangulate, importNormals, importTangents, flipUVs, importTextures, materials);
@@ -86,7 +86,7 @@ void ModelEditor::Show() {
                 importData->importNormals = importNormals;
                 importData->importTangents = importTangents;
                 AssetMetaData::GenerateMetaData((destination + ".asset.meta").c_str(), importData);
-                
+
                 // Import textures.
                 TextureAsset* albedo = nullptr;
                 TextureAsset* normal = nullptr;
@@ -98,9 +98,9 @@ void ModelEditor::Show() {
                     roughness = LoadTexture(materials.roughness, "Roughness");
                     metallic = LoadTexture(materials.metallic, "Metallic");
                 }
-                
+
                 delete importData;
-                
+
                 // Create scene containing an entity with the model and textures.
                 if (createScene) {
                     // Create resource.
@@ -108,15 +108,15 @@ void ModelEditor::Show() {
                     resource.type = ResourceList::Resource::SCENE;
                     resource.scene = new std::string(model->name + "Scene");
                     folder->resources.push_back(resource);
-                    
+
                     // Create and save scene.
                     World* world = new World();
                     world->CreateRoot();
                     Entity* entity = world->GetRoot()->AddChild(model->name);
-                    
+
                     Component::Mesh* mesh = entity->AddComponent<Component::Mesh>();
                     mesh->geometry = model;
-                    
+
                     Component::Material* material = entity->AddComponent<Component::Material>();
                     if (albedo != nullptr)
                         material->albedo = albedo;
@@ -126,9 +126,9 @@ void ModelEditor::Show() {
                         material->roughness = roughness;
                     if (metallic != nullptr)
                         material->metallic = metallic;
-                    
+
                     world->Save(Hymn().GetPath() + "/" + model->path + model->name + "Scene.json");
-                    
+
                     // Cleanup.
                     mesh->geometry = nullptr;
                     mesh->Kill();
@@ -217,7 +217,7 @@ void ModelEditor::RefreshImportSettings() {
     // Check if meta file already exists. If it does import the metadata.
     std::string filePath(destination + ".asset.meta");
     if (FileSystem::FileExists(filePath.c_str())) {
-        AssetMetaData::MeshImportData * importData = AssetMetaData::GetMetaData(filePath.c_str());
+        AssetMetaData::MeshImportData* importData = AssetMetaData::GetMetaData(filePath.c_str());
         triangulate = importData->triangulate;
         importNormals = importData->importNormals;
         importTangents = importData->importTangents;
@@ -234,18 +234,18 @@ TextureAsset* ModelEditor::LoadTexture(const std::string& path, const std::strin
         std::string textureName = model->name + name;
         std::string src = FileSystem::GetDirectory(source) + path;
         std::string dest = model->path + textureName;
-        
+
         // Copy file.
         FileSystem::Copy(src.c_str(), (Hymn().GetPath() + "/" + dest + ".png").c_str());
-        
+
         // Add texture asset.
         ResourceList::Resource resource;
         resource.type = ResourceList::Resource::TEXTURE;
         resource.texture = Managers().resourceManager->CreateTextureAsset(dest);
         folder->resources.push_back(resource);
-        
+
         return resource.texture;
     }
-    
+
     return nullptr;
 }

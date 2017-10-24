@@ -13,7 +13,7 @@
 #include <cstring>
 
 #define SAMPLE_RATE (44100)
-#define PA_SAMPLE_TYPE  paFloat32
+#define PA_SAMPLE_TYPE paFloat32
 
 SoundManager::SoundManager() {
     PaError err;
@@ -41,8 +41,7 @@ SoundManager::SoundManager() {
         paFramesPerBufferUnspecified,
         paClipOff,
         NULL,
-        NULL
-    );
+        NULL);
     CheckError(err);
 
     processedFrameSamples = new float[1]{ 0 };
@@ -50,7 +49,6 @@ SoundManager::SoundManager() {
     err = Pa_StartStream(stream);
     CheckError(err);
 }
-
 
 SoundManager::~SoundManager() {
     delete processedFrameSamples;
@@ -68,31 +66,25 @@ void SoundManager::CheckError(PaError err) {
 }
 
 void SoundManager::Update(float deltaTime) {
-
     // Number of samples to process dependant on deltaTime
     int numSamples = int(SAMPLE_RATE * deltaTime);
 
-
     // Update sound sources.
     for (Component::SoundSource* sound : soundSources.GetAll()) {
-
         if (sound->shouldPlay) {
-
             float* soundBuf = new float[numSamples];
             if (sound->soundBuffer->GetSize() > sound->place + numSamples) {
-                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float)*numSamples);
+                std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), sizeof(float) * numSamples);
                 sound->place += numSamples;
-            }
-            else {
+            } else {
                 // Only copy the end samples of the buffer
                 uint32_t numToCpy = numSamples - (sound->soundBuffer->GetSize() - sound->place) / sizeof(float);
                 std::memcpy(soundBuf, (sound->soundBuffer->GetBuffer() + sound->place), numToCpy);
                 if (sound->loop) {
-                    std::memcpy(soundBuf + numToCpy * sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float)*numSamples - numToCpy);
+                    std::memcpy(soundBuf + numToCpy * sizeof(float), sound->soundBuffer->GetBuffer(), sizeof(float) * numSamples - numToCpy);
                     sound->place = numSamples - numToCpy;
-                }
-                else {
-                    std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float)*(numSamples - numToCpy));
+                } else {
+                    std::memset(soundBuf + numToCpy * sizeof(float), 0, sizeof(float) * (numSamples - numToCpy));
                     sound->shouldPlay = false;
                 }
             }
@@ -110,7 +102,6 @@ void SoundManager::Update(float deltaTime) {
             sound->shouldPlay = false;
             sound->place = 0;
         }
-
     }
 
     uint32_t* numProcessedSamples = new uint32_t;
@@ -118,7 +109,7 @@ void SoundManager::Update(float deltaTime) {
 
     //If not playing anything, add silence
     if (*numProcessedSamples == 0)
-        processedSamples = new float[numSamples] {0};
+        processedSamples = new float[numSamples]{ 0 };
 
     Pa_WriteStream(stream, processedSamples, *numProcessedSamples);
     delete[] processedSamples;

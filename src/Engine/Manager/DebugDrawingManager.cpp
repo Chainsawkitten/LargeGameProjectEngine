@@ -76,7 +76,7 @@ void DebugDrawingManager::AddSphere(const glm::vec3& position, float radius, con
 
 void DebugDrawingManager::Update(float deltaTime) {
     // Points.
-    for (std::size_t i=0; i < points.size(); ++i) {
+    for (std::size_t i = 0; i < points.size(); ++i) {
         if (points[i].duration < 0.f) {
             points[i] = points[points.size() - 1];
             points.pop_back();
@@ -85,9 +85,9 @@ void DebugDrawingManager::Update(float deltaTime) {
             points[i].duration -= deltaTime;
         }
     }
-    
+
     // Lines.
-    for (std::size_t i=0; i < lines.size(); ++i) {
+    for (std::size_t i = 0; i < lines.size(); ++i) {
         if (lines[i].duration < 0.f) {
             lines[i] = lines[lines.size() - 1];
             lines.pop_back();
@@ -96,9 +96,9 @@ void DebugDrawingManager::Update(float deltaTime) {
             lines[i].duration -= deltaTime;
         }
     }
-    
+
     // Cuboids.
-    for (std::size_t i=0; i < cuboids.size(); ++i) {
+    for (std::size_t i = 0; i < cuboids.size(); ++i) {
         if (cuboids[i].duration < 0.f) {
             cuboids[i] = cuboids[cuboids.size() - 1];
             cuboids.pop_back();
@@ -107,9 +107,9 @@ void DebugDrawingManager::Update(float deltaTime) {
             cuboids[i].duration -= deltaTime;
         }
     }
-    
+
     // Planes.
-    for (std::size_t i=0; i < planes.size(); ++i) {
+    for (std::size_t i = 0; i < planes.size(); ++i) {
         if (planes[i].duration < 0.f) {
             planes[i] = planes[planes.size() - 1];
             planes.pop_back();
@@ -118,9 +118,9 @@ void DebugDrawingManager::Update(float deltaTime) {
             planes[i].duration -= deltaTime;
         }
     }
-    
+
     // Spheres.
-    for (std::size_t i=0; i < spheres.size(); ++i) {
+    for (std::size_t i = 0; i < spheres.size(); ++i) {
         if (spheres[i].duration < 0.f) {
             spheres[i] = spheres[spheres.size() - 1];
             spheres.pop_back();
@@ -139,35 +139,35 @@ void DebugDrawingManager::Render(Entity* camera) {
             camera = lens->entity;
         }
     }
-    
+
     if (camera != nullptr) {
         glm::mat4 viewMat(camera->GetCameraOrientation() * glm::translate(glm::mat4(), -camera->GetWorldPosition()));
         glm::mat4 projectionMat(camera->GetComponent<Component::Lens>()->GetProjection(MainWindow::GetInstance()->GetSize()));
         glm::mat4 viewProjectionMatrix(projectionMat * viewMat);
-        
+
         debugDrawing->StartDebugDrawing(viewProjectionMatrix);
-        
+
         // Points.
         for (const DebugDrawing::Point& point : points) {
             debugDrawing->DrawPoint(point);
         }
-        
+
         // Lines.
         for (const DebugDrawing::Line& line : lines)
             debugDrawing->DrawLine(line);
-        
+
         // Cuboids.
         for (const DebugDrawing::Cuboid& cuboid : cuboids)
             debugDrawing->DrawCuboid(cuboid);
-       
+
         // Planes.
         for (const DebugDrawing::Plane& plane : planes)
             debugDrawing->DrawPlane(plane);
-        
+
         // Spheres.
         for (const DebugDrawing::Sphere& sphere : spheres)
             debugDrawing->DrawSphere(sphere);
-        
+
         debugDrawing->EndDebugDrawing();
     }
 }

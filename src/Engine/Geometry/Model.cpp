@@ -8,11 +8,9 @@
 using namespace Geometry;
 
 Model::Model() {
-
 }
 
 Model::~Model() {
-
 }
 
 Json::Value Model::Save() const {
@@ -32,7 +30,7 @@ void Model::Load(const std::string& name) {
 void Model::Load(const char* filename) {
     if (assetFile.Open(filename, AssetFileHandler::READ)) {
         assetFile.LoadMeshData(0);
-        AssetFileHandler::MeshData * meshData = assetFile.GetStaticMeshData();
+        AssetFileHandler::MeshData* meshData = assetFile.GetStaticMeshData();
         type = meshData->isSkinned ? SKIN : STATIC;
 
         if (meshData->isSkinned) {
@@ -55,12 +53,12 @@ Model::Type Model::GetType() const {
 }
 
 void Model::GenerateVertexBuffer(GLuint& vertexBuffer,
-    Video::Geometry::VertexType::StaticVertex * vertices, unsigned int numVerticies) {
+    Video::Geometry::VertexType::StaticVertex* vertices, unsigned int numVerticies) {
     vertexBuffer = Video::Geometry::VertexType::StaticVertex::GenerateVertexBuffer(vertices, numVerticies);
 }
 
 void Model::GenerateVertexBuffer(GLuint& vertexBuffer,
-    Video::Geometry::VertexType::SkinVertex * vertices, unsigned int numVerticies) {
+    Video::Geometry::VertexType::SkinVertex* vertices, unsigned int numVerticies) {
     vertexBuffer = Video::Geometry::VertexType::SkinVertex::GenerateVertexBuffer(vertices, numVerticies);
 }
 

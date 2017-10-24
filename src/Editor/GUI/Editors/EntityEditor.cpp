@@ -118,18 +118,18 @@ void EntityEditor::Show() {
         if (!entity->IsScene()) {
             if (ImGui::Button("Add component"))
                 ImGui::OpenPopup("Add component");
-            
+
             if (ImGui::BeginPopup("Add component")) {
                 ImGui::Text("Components");
                 ImGui::Separator();
-                
+
                 for (Editor& editor : editors) {
                     editor.addFunction();
                 }
-                
+
                 ImGui::EndPopup();
             }
-            
+
             for (Editor& editor : editors) {
                 editor.editFunction();
             }
@@ -178,11 +178,11 @@ void EntityEditor::AnimationEditor(Component::Animation* animation) {
     if (ImGui::BeginPopup("Select model##Animation")) {
         ImGui::Text("Models");
         ImGui::Separator();
-        
+
         if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
             if (animation->riggedModel != nullptr)
                 Managers().resourceManager->FreeModel(animation->riggedModel);
-            
+
             animation->riggedModel = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
 
@@ -195,18 +195,18 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
     ImGui::Indent();
     if (ImGui::Button("Select model##Mesh"))
         ImGui::OpenPopup("Select model##Mesh");
-    
+
     if (ImGui::BeginPopup("Select model##Mesh")) {
         ImGui::Text("Models");
         ImGui::Separator();
-        
+
         if (resourceSelector.Show(ResourceList::Resource::Type::MODEL)) {
             if (mesh->geometry != nullptr)
                 Managers().resourceManager->FreeModel(dynamic_cast<Geometry::Model*>(mesh->geometry));
-            
+
             mesh->geometry = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
-        
+
         ImGui::EndPopup();
     }
     ImGui::Unindent();
@@ -225,8 +225,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     ImGui::Text("Albedo");
     ImGui::Indent();
     if (material->albedo->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->albedo->GetTexture()->GetTextureID(), ImVec2(128, 128));
-    
+        ImGui::Image((void*)material->albedo->GetTexture()->GetTextureID(), ImVec2(128, 128));
+
     if (ImGui::Button("Select albedo texture"))
         albedoShow = true;
 
@@ -241,22 +241,22 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         ImGui::End();
     }
     ImGui::Unindent();
-    
+
     // Normal
     ImGui::Text("Normal");
     ImGui::Indent();
     if (material->normal->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->normal->GetTexture()->GetTextureID(), ImVec2(128, 128));
-    
+        ImGui::Image((void*)material->normal->GetTexture()->GetTextureID(), ImVec2(128, 128));
+
     if (ImGui::Button("Select normal texture"))
         normalShow = true;
-    
+
     if (normalShow) {
         ImGui::Begin("Textures", &normalShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->normal != Hymn().defaultNormal)
                 Managers().resourceManager->FreeTextureAsset(material->normal);
-            
+
             material->normal = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         ImGui::End();
@@ -267,8 +267,8 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     ImGui::Text("Metallic");
     ImGui::Indent();
     if (material->metallic->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->metallic->GetTexture()->GetTextureID(), ImVec2(128, 128));
-    
+        ImGui::Image((void*)material->metallic->GetTexture()->GetTextureID(), ImVec2(128, 128));
+
     if (ImGui::Button("Select metallic texture"))
         metallicShow = true;
 
@@ -277,7 +277,7 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->metallic != Hymn().defaultMetallic)
                 Managers().resourceManager->FreeTextureAsset(material->metallic);
-            
+
             material->metallic = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         ImGui::End();
@@ -288,17 +288,17 @@ void EntityEditor::MaterialEditor(Component::Material* material) {
     ImGui::Text("Roughness");
     ImGui::Indent();
     if (material->roughness->GetTexture()->IsLoaded())
-        ImGui::Image((void*) material->roughness->GetTexture()->GetTextureID(), ImVec2(128, 128));
-    
+        ImGui::Image((void*)material->roughness->GetTexture()->GetTextureID(), ImVec2(128, 128));
+
     if (ImGui::Button("Select roughness texture"))
         roughnessShow = true;
-    
+
     if (roughnessShow) {
         ImGui::Begin("Textures", &roughnessShow, ImGuiWindowFlags_ShowBorders);
         if (resourceSelector.Show(ResourceList::Resource::Type::TEXTURE)) {
             if (material->roughness != Hymn().defaultRoughness)
                 Managers().resourceManager->FreeTextureAsset(material->roughness);
-            
+
             material->roughness = Managers().resourceManager->CreateTextureAsset(resourceSelector.GetSelectedResource().GetPath());
         }
         ImGui::End();
@@ -332,7 +332,6 @@ void EntityEditor::SpotLightEditor(Component::SpotLight* spotLight) {
 }
 
 void EntityEditor::ListenerEditor(Component::Listener* listener) {
-    
 }
 
 void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
@@ -350,7 +349,6 @@ void EntityEditor::RigidBodyEditor(Component::RigidBody* rigidBody) {
 }
 
 void EntityEditor::ScriptEditor(Component::Script* script) {
-
     ImGui::Indent();
 
     if (ImGui::Button("Select script"))
@@ -373,40 +371,32 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         ImGui::Separator();
 
         if (ImGui::Button("Fetch properties")) {
-
             Managers().scriptManager->FillPropertyMap(script);
-                
         }
 
         if (script->instance != nullptr) {
-
             int propertyCount = script->instance->GetPropertyCount();
 
             for (int n = 0; n < propertyCount; n++) {
-
                 int typeId = script->instance->GetPropertyTypeId(n);
-                void *varPointer = script->instance->GetAddressOfProperty(n);
-                if (typeId == asTYPEID_INT32){
+                void* varPointer = script->instance->GetAddressOfProperty(n);
+                if (typeId == asTYPEID_INT32) {
                     ImGui::InputInt(script->instance->GetPropertyName(n), (int*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
-                }
-                else if (typeId == asTYPEID_FLOAT){
+                } else if (typeId == asTYPEID_FLOAT) {
                     ImGui::DraggableFloat(script->instance->GetPropertyName(n), *(float*)script->propertyMap[script->instance->GetPropertyName(n)].second, 0.0f);
                 }
                 /// @todo This will be used to handle objects in the scripts
                 //else if (typeId & asTYPEID_SCRIPTOBJECT){
                 //    asIScriptObject *obj = (asIScriptObject*)varPointer;
                 //}
-                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")){
-                    
+                else if (typeId == script->instance->GetEngine()->GetTypeIdByDecl("string")) {
                     std::map<std::string, std::pair<int, void*>>::iterator it = script->propertyMap.find(script->instance->GetPropertyName(n));
                     if (it != script->propertyMap.end()) {
-
-                        std::string *str = (std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
+                        std::string* str = (std::string*)script->propertyMap[script->instance->GetPropertyName(n)].second;
 
                         //We have to put a limit to the size of the string because we want to use a buffer so we don't have to reallocate it every frame.
                         //I decided to use 128 because that's what we use for the name of the script.
                         if (str->size() <= 128) {
-
                             std::copy(str->begin(), str->end(), stringPropertyBuffer);
                             stringPropertyBuffer[str->size()] = '\0';
 
@@ -414,24 +404,18 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
                             *str = stringPropertyBuffer;
 
-                        }
-                        else
+                        } else
                             ImGui::Text("%s = <TOO BIG>\n", script->instance->GetPropertyName(n));
 
-                    }
-                    else
+                    } else
                         ImGui::Text("%s = <null>\n", script->instance->GetPropertyName(n));
                 }
-
             }
 
             if (ImGui::Button("Reset properties")) {
-
                 script->ClearPropertyMap();
                 Managers().scriptManager->FillPropertyMap(script);
-
             }
-
         }
         ImGui::Separator();
 
@@ -440,7 +424,7 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
         for (size_t i = 0; i != script->refList.size(); ++i) {
             ImGui::Text(script->refList[i]->name.c_str());
             ImGui::SameLine(ImGui::GetWindowWidth() - 30);
-            if(ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())){
+            if (ImGui::SmallButton(("x###remove" + std::to_string(i)).c_str())) {
                 script->refList.erase(script->refList.begin() + i);
                 break;
             }
@@ -460,21 +444,19 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
             ImGui::EndPopup();
         }
 
-    }
-    else
+    } else
         ImGui::Text("No script loaded");
 
-
     ImGui::Unindent();
-
 }
 
 void EntityEditor::ShapeEditor(Component::Shape* shape) {
     if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
-        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
-        *outText = editor->Label();
-        return true;
-    }, shapeEditors.data(), shapeEditors.size())) {
+            IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
+            *outText = editor->Label();
+            return true;
+        },
+            shapeEditors.data(), shapeEditors.size())) {
         shapeEditors[selectedShape]->Apply(shape);
     }
 
@@ -488,18 +470,18 @@ void EntityEditor::SoundSourceEditor(Component::SoundSource* soundSource) {
     ImGui::Indent();
     if (ImGui::Button("Select sound"))
         ImGui::OpenPopup("Select sound");
-    
+
     if (ImGui::BeginPopup("Select sound")) {
         ImGui::Text("Sounds");
         ImGui::Separator();
-        
+
         if (resourceSelector.Show(ResourceList::Resource::Type::SOUND)) {
             if (soundSource->soundBuffer != nullptr)
                 Managers().resourceManager->FreeSound(soundSource->soundBuffer);
-            
+
             soundSource->soundBuffer = Managers().resourceManager->CreateSound(resourceSelector.GetSelectedResource().GetPath());
         }
-        
+
         ImGui::EndPopup();
     }
     ImGui::Unindent();
@@ -517,7 +499,7 @@ void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmi
     int rows = Managers().particleManager->GetTextureAtlasRows();
     float column = static_cast<float>(particleEmitter->particleType.textureIndex % rows);
     float row = static_cast<float>(particleEmitter->particleType.textureIndex / rows);
-    ImGui::Image((void*) Managers().particleManager->GetTextureAtlas()->GetTextureID(), ImVec2(128, 128), ImVec2(column / rows, row / rows), ImVec2((column + 1.f) / rows, (row + 1.f) / rows));
+    ImGui::Image((void*)Managers().particleManager->GetTextureAtlas()->GetTextureID(), ImVec2(128, 128), ImVec2(column / rows, row / rows), ImVec2((column + 1.f) / rows, (row + 1.f) / rows));
     ImGui::InputInt("Texture index", &particleEmitter->particleType.textureIndex);
     ImGui::ColorEdit3("Color", &particleEmitter->particleType.color[0]);
     ImGui::DraggableVec3("Min velocity", particleEmitter->particleType.minVelocity);
@@ -531,22 +513,22 @@ void EntityEditor::ParticleEmitterEditor(Component::ParticleEmitter* particleEmi
     ImGui::DraggableFloat("Mid alpha", particleEmitter->particleType.midAlpha, 0.0f, 1.0f);
     ImGui::DraggableFloat("End alpha", particleEmitter->particleType.endAlpha, 0.0f, 1.0f);
     ImGui::Unindent();
-    
+
     ImGui::Text("Emitter");
     ImGui::Indent();
     ImGui::DraggableFloat("Average emit time", particleEmitter->averageEmitTime, 0.0f);
     ImGui::DraggableFloat("Emit time variance", particleEmitter->emitTimeVariance, 0.0f);
-    
+
     const char* items[] = { "Point", "Cuboid" };
     int item = static_cast<int>(particleEmitter->emitterType);
     if (ImGui::Combo("Emitter type", &item, items, 2))
         particleEmitter->emitterType = static_cast<Component::ParticleEmitter::EmitterType>(item);
-    
+
     if (particleEmitter->emitterType == Component::ParticleEmitter::CUBOID)
         ImGui::DraggableVec3("Size", particleEmitter->size);
-    
+
     ImGui::Unindent();
-    
+
     ImGui::Text("Preview");
     ImGui::Indent();
     ImGui::Checkbox("Simulate", &particleEmitter->preview);

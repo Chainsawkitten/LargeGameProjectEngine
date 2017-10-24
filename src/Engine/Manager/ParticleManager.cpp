@@ -16,16 +16,16 @@ using namespace Video;
 
 ParticleManager::ParticleManager() {
     randomEngine.seed(randomDevice());
-    
+
     textureAtlas = Managers().resourceManager->CreateTexture2D(PARTICLEATLAS_PNG, PARTICLEATLAS_PNG_LENGTH);
-    
+
     particleRenderer = new ParticleRenderer(maxParticleCount);
 }
 
 ParticleManager::~ParticleManager() {
     delete particleRenderer;
-    
-    Managers().resourceManager->FreeTexture2D(textureAtlas);    
+
+    Managers().resourceManager->FreeTexture2D(textureAtlas);
 }
 
 unsigned int ParticleManager::GetMaxParticleCount() const {
@@ -41,13 +41,13 @@ void ParticleManager::Update(World& world, float time, bool preview) {
             world.SetParticleCount(world.GetParticleCount() - 1);
         }
     }
-    
+
     // Spawn new particles from emitters.
     std::uniform_real_distribution<float> minusOneToOne(-1.f, 1.f);
     for (Component::ParticleEmitter* emitter : particleEmitters.GetAll()) {
         if (emitter->IsKilled() || (preview && !emitter->preview) || !emitter->entity->enabled)
             continue;
-        
+
         emitter->timeToNext -= time;
         while (emitter->timeToNext < 0.f) {
             emitter->timeToNext += emitter->averageEmitTime + minusOneToOne(randomEngine) * emitter->emitTimeVariance;
@@ -80,7 +80,7 @@ Component::ParticleEmitter* ParticleManager::CreateParticleEmitter() {
 
 Component::ParticleEmitter* ParticleManager::CreateParticleEmitter(const Json::Value& node) {
     Component::ParticleEmitter* particleEmitter = particleEmitters.Create();
-    
+
     // Load values from Json node.
     particleEmitter->particleType.textureIndex = node.get("textureIndex", 0).asInt();
     particleEmitter->particleType.minVelocity = Json::LoadVec3(node["minVelocity"]);
@@ -98,7 +98,7 @@ Component::ParticleEmitter* ParticleManager::CreateParticleEmitter(const Json::V
     particleEmitter->averageEmitTime = node.get("averageEmitTime", 0.03).asFloat();
     particleEmitter->emitTimeVariance = node.get("emitTimeVariance", 0.03).asFloat();
     particleEmitter->emitterType = static_cast<Component::ParticleEmitter::EmitterType>(node.get("emitterType", 0).asInt());
-    
+
     return particleEmitter;
 }
 
@@ -133,18 +133,18 @@ void ParticleManager::EmitParticle(World& world, const glm::vec3& position, Comp
         particle.alpha[1] = emitter->particleType.midAlpha;
         particle.alpha[2] = emitter->particleType.endAlpha;
         particle.color = emitter->particleType.color;
-        
+
         if (emitter->particleType.uniformScaling) {
             particle.size = emitter->particleType.averageSize + minusOneToOne(randomEngine) * emitter->particleType.sizeVariance;
         } else {
             particle.size.x = emitter->particleType.averageSize.x + minusOneToOne(randomEngine) * emitter->particleType.sizeVariance.x;
             particle.size.y = emitter->particleType.averageSize.y + minusOneToOne(randomEngine) * emitter->particleType.sizeVariance.y;
         }
-        
+
         particle.velocity.x = emitter->particleType.minVelocity.x + zeroToOne(randomEngine) * (emitter->particleType.maxVelocity.x - emitter->particleType.minVelocity.x);
         particle.velocity.y = emitter->particleType.minVelocity.y + zeroToOne(randomEngine) * (emitter->particleType.maxVelocity.y - emitter->particleType.minVelocity.y);
         particle.velocity.z = emitter->particleType.minVelocity.z + zeroToOne(randomEngine) * (emitter->particleType.maxVelocity.z - emitter->particleType.minVelocity.z);
-        
+
         world.GetParticles()[world.GetParticleCount()] = particle;
         world.SetParticleCount(world.GetParticleCount() + 1);
     }

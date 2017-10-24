@@ -43,7 +43,7 @@ void ProfilingWindow::Show() {
             }
         }
     }
-    
+
     if (ImGui::CollapsingHeader("Memory")) {
 #ifdef MEASURE_RAM
         PROCESS_MEMORY_COUNTERS_EX memoryCounters;

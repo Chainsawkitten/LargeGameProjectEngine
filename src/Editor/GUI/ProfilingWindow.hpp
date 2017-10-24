@@ -5,10 +5,10 @@
 namespace GUI {
     class ProfilingWindow {
         public:
-            /// Show profiling results.
-            void Show();
-        
+        /// Show profiling results.
+        void Show();
+
         private:
-            void ShowResult(ProfilingManager::Result* result);
+        void ShowResult(ProfilingManager::Result* result);
     };
 }

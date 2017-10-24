@@ -16,12 +16,12 @@ void ScriptEditor::Show() {
         strcpy(nameText, script->name.c_str());
         if (ImGui::InputText("Name", nameText, 255))
             script->name = nameText;
-        
+
         if (ImGui::Button("Edit Script")) {
             std::string filename = Hymn().GetPath() + "/" + script->path + script->name + ".as";
             FileSystem::ExecuteProgram(EditorSettings::GetInstance().GetString("Text Editor"), "\"" + filename + "\"");
         }
-        
+
         if (ImGui::Button("Build Script"))
             Managers().scriptManager->BuildScript(script);
     }
