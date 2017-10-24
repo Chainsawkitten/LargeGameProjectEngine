@@ -1,14 +1,15 @@
 #include "VRManager.hpp"
 #include "Utility/Log.hpp"
 
-VRManager::VRManager() : scale(1.f) {
+VRManager::VRManager()
+    : scale(1.f) {
     // Check if VR runtime is installed.
     if (!vr::VR_IsRuntimeInstalled()) {
         vrSystem = nullptr;
         Log() << "VR runtime not installed. Playing without VR.\n";
         return;
     }
-    
+
     // Load VR Runtime.
     vr::EVRInitError eError = vr::VRInitError_None;
     vrSystem = vr::VR_Init(&eError, vr::VRApplication_Scene);
@@ -25,7 +26,7 @@ VRManager::VRManager() : scale(1.f) {
 VRManager::~VRManager() {
     if (vrSystem == nullptr)
         return;
-    
+
     vr::VR_Shutdown();
     vrSystem = nullptr;
 }
@@ -95,8 +96,7 @@ glm::mat4 VRManager::GetControllerPoseMatrix(int controlID) const {
             continue;
         else if (role == vr::ETrackedControllerRole::TrackedControllerRole_LeftHand && controlID == 1) {
             return glm::inverse(deviceTransforms[untrackedDevice]);
-        }
-        else if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
+        } else if (role == vr::ETrackedControllerRole::TrackedControllerRole_RightHand && controlID == 2) {
             return glm::inverse(deviceTransforms[untrackedDevice]);
         }
     }
@@ -132,25 +132,21 @@ void VRManager::Submit(vr::Hmd_Eye eye, vr::Texture_t* texture) const {
         Log() << "Unable to submit texture to hmd: " << eError << "\n";
 }
 
-glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix34_t& mat)
-{
+glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix34_t& mat) {
     glm::mat4 glmMat(
         mat.m[0][0], mat.m[1][0], mat.m[2][0], 0.0,
         mat.m[0][1], mat.m[1][1], mat.m[2][1], 0.0,
         mat.m[0][2], mat.m[1][2], mat.m[2][2], 0.0,
-        mat.m[0][3], mat.m[1][3], mat.m[2][3], 1.0f
-    );
+        mat.m[0][3], mat.m[1][3], mat.m[2][3], 1.0f);
     return glmMat;
 }
 
-glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix44_t& mat)
-{
+glm::mat4 VRManager::ConvertMatrix(const vr::HmdMatrix44_t& mat) {
     glm::mat4 glmMat(
         mat.m[0][0], mat.m[1][0], mat.m[2][0], mat.m[3][0],
         mat.m[0][1], mat.m[1][1], mat.m[2][1], mat.m[3][1],
         mat.m[0][2], mat.m[1][2], mat.m[2][2], mat.m[3][2],
-        mat.m[0][3], mat.m[1][3], mat.m[2][3], mat.m[3][3]
-    );
+        mat.m[0][3], mat.m[1][3], mat.m[2][3], mat.m[3][3]);
     return glmMat;
 }
 

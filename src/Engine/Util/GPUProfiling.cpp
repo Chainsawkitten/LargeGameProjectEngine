@@ -4,7 +4,8 @@
 #include "Engine/Manager/Managers.hpp"
 #include <Utility/Log.hpp>
 
-GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) : active(false) {
+GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type)
+    : active(false) {
     // Check if profiling.
     if (Managers().profilingManager->Active()) {
         active = true;
@@ -24,7 +25,7 @@ GPUProfiling::GPUProfiling(const std::string& name, Video::Query::Type type) : a
 
         // Check if nested.
         if (this->type == ProfilingManager::Type::GPU_SAMPLES_PASSED) {
-            if (Managers().profilingManager->current[this->type] != Managers().profilingManager->root[this->type] && 
+            if (Managers().profilingManager->current[this->type] != Managers().profilingManager->root[this->type] &&
                 Managers().profilingManager->current[this->type]->parent == Managers().profilingManager->root[this->type]) {
                 Log() << "Warning: GPU_SAMPLES_PASSED can't be nested! Name: " << name << "\n";
                 active = false;

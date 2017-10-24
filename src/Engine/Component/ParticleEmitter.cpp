@@ -5,12 +5,11 @@
 using namespace Component;
 
 ParticleEmitter::ParticleEmitter() {
-    
 }
 
 Json::Value ParticleEmitter::Save() const {
     Json::Value component;
-    
+
     component["textureIndex"] = particleType.textureIndex;
     component["minVelocity"] = Json::SaveVec3(particleType.minVelocity);
     component["maxVelocity"] = Json::SaveVec3(particleType.maxVelocity);
@@ -27,6 +26,6 @@ Json::Value ParticleEmitter::Save() const {
     component["averageEmitTime"] = averageEmitTime;
     component["emitTimeVariance"] = emitTimeVariance;
     component["emitterType"] = emitterType;
-    
+
     return component;
 }

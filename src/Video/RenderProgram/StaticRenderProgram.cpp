@@ -45,10 +45,9 @@ void StaticRenderProgram::PreDepthRender(const glm::mat4& viewMatrix, const glm:
     glUniformMatrix4fv(zShaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
 }
 
-void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D * geometry, const glm::mat4 & viewMatrix, const glm::mat4 & projectionMatrix, const glm::mat4 modelMatrix) const {
+void Video::StaticRenderProgram::DepthRender(Geometry::Geometry3D* geometry, const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const glm::mat4 modelMatrix) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
-
         glBindVertexArray(geometry->GetVertexArray());
 
         glUniformMatrix4fv(zShaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
@@ -67,7 +66,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
     // Matrices.
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("inverseProjectionMatrix"), 1, GL_FALSE, &inverseProjectionMatrix[0][0]);
-    
+
     // Lights.
     glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
     lightBuffer->BindBase(5);
@@ -77,7 +76,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
         float gamma = 2.2f;
         glUniform1fv(shaderProgram->GetUniformLocation("gamma"), 1, &gamma);
     }
-    
+
     {
         int fogApply = false;
         float fogDensity = 0.002f;

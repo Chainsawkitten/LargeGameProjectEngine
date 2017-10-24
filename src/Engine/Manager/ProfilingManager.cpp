@@ -8,7 +8,8 @@
 
 #include "../Utility/Log.hpp"
 
-ProfilingManager::ProfilingManager() : active(false) {
+ProfilingManager::ProfilingManager()
+    : active(false) {
     for (int i = 0; i < Type::COUNT; ++i) {
         root[i] = new Result("Root: " + TypeToString((Type)i), nullptr);
         root[i]->parent = nullptr;
@@ -70,15 +71,15 @@ void ProfilingManager::EndFrame() {
     // Resolve and reset queries.
     for (auto& it : queryMap) {
         switch (it.second->GetType()) {
-        case Video::Query::Type::TIME_ELAPSED:
-            it.first->value = it.second->Resolve() / 1000000.0;
-            break;
-        case Video::Query::Type::SAMPLES_PASSED:
-            it.first->value = it.second->Resolve();
-            break;
-        default:
-            assert(false);
-            break;
+            case Video::Query::Type::TIME_ELAPSED:
+                it.first->value = it.second->Resolve() / 1000000.0;
+                break;
+            case Video::Query::Type::SAMPLES_PASSED:
+                it.first->value = it.second->Resolve();
+                break;
+            default:
+                assert(false);
+                break;
         }
         queryPool[it.second->GetType()].push_back(it.second);
     }
@@ -111,19 +112,19 @@ ProfilingManager::Result* ProfilingManager::GetResult(Type type) const {
 
 std::string ProfilingManager::TypeToString(ProfilingManager::Type type) {
     switch (type) {
-    case ProfilingManager::CPU_TIME:
-        return "CPU time (ms)";
-        break;
-    case ProfilingManager::GPU_TIME_ELAPSED:
-        return "GPU time (ms)";
-        break;
-    case ProfilingManager::GPU_SAMPLES_PASSED:
-        return "GPU samples passed (number of fragments)";
-        break;
-    default:
-        assert(false);
-        return "ProfilingWindow::TypeToString warning: No valid type to string";
-        break;
+        case ProfilingManager::CPU_TIME:
+            return "CPU time (ms)";
+            break;
+        case ProfilingManager::GPU_TIME_ELAPSED:
+            return "GPU time (ms)";
+            break;
+        case ProfilingManager::GPU_SAMPLES_PASSED:
+            return "GPU samples passed (number of fragments)";
+            break;
+        default:
+            assert(false);
+            return "ProfilingWindow::TypeToString warning: No valid type to string";
+            break;
     }
 }
 
@@ -161,7 +162,7 @@ ProfilingManager::Result* ProfilingManager::StartResult(const std::string& name,
         queryMap[result] = query;
         query->Begin();
     }
-    
+
     return result;
 }
 
@@ -177,6 +178,7 @@ void ProfilingManager::FinishResult(Result* result, Type type) {
     current[type] = result->parent;
 }
 
-ProfilingManager::Result::Result(const std::string& name, Result* parent) : name (name) {
+ProfilingManager::Result::Result(const std::string& name, Result* parent)
+    : name(name) {
     this->parent = parent;
 }

@@ -5,7 +5,8 @@
 
 using namespace Video;
 
-Query::Query(Type type) : active(false) {
+Query::Query(Type type)
+    : active(false) {
     this->type = type;
     switch (type) {
         case TIME_ELAPSED:
@@ -83,5 +84,4 @@ std::uint64_t Query::Resolve() const {
         return results[1] - results[0];
     else
         return results[0];
-
 }

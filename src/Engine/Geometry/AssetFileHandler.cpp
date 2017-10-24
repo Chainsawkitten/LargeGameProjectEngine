@@ -4,7 +4,6 @@
 using namespace Geometry;
 
 AssetFileHandler::AssetFileHandler() {
-
 }
 
 AssetFileHandler::AssetFileHandler(const char* filepath, Mode mode) {
@@ -33,8 +32,7 @@ bool AssetFileHandler::Open(const char* filepath, Mode mode) {
         rFile.read(reinterpret_cast<char*>(&fileVersion), sizeof(uint16_t));
 
         ReadGlobalHeader();
-    }
-    else {
+    } else {
         // Create the .asset file.
         wFile.open(filepath, std::ios::binary);
         if (!wFile.is_open()) {
@@ -88,8 +86,7 @@ void AssetFileHandler::LoadMeshData(int meshID) {
         rFile.read(reinterpret_cast<char*>(meshData->skinnedVertices),
             sizeof(Video::Geometry::VertexType::SkinVertex) * meshData->numVertices);
         meshData->staticVertices = nullptr;
-    }
-    else {
+    } else {
         meshData->staticVertices = new Video::Geometry::VertexType::StaticVertex[meshData->numVertices];
         rFile.read(reinterpret_cast<char*>(meshData->staticVertices),
             sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
@@ -100,11 +97,11 @@ void AssetFileHandler::LoadMeshData(int meshID) {
     rFile.read(reinterpret_cast<char*>(meshData->indices), sizeof(uint32_t) * meshData->numIndices);
 }
 
-AssetFileHandler::MeshData * AssetFileHandler::GetStaticMeshData() {
+AssetFileHandler::MeshData* AssetFileHandler::GetStaticMeshData() {
     return meshData;
 }
 
-void AssetFileHandler::SaveStaticMesh(AssetFileHandler::MeshData * meshData) {
+void AssetFileHandler::SaveStaticMesh(AssetFileHandler::MeshData* meshData) {
     // Write header.
     wFile.write(reinterpret_cast<char*>(&meshData->parent), sizeof(uint32_t));
     wFile.write(reinterpret_cast<char*>(&meshData->numVertices), sizeof(uint32_t));
@@ -122,13 +119,12 @@ void AssetFileHandler::SaveStaticMesh(AssetFileHandler::MeshData * meshData) {
     if (meshData->isSkinned) {
         wFile.write(reinterpret_cast<char*>(meshData->skinnedVertices),
             sizeof(Video::Geometry::VertexType::SkinVertex) * meshData->numVertices);
-    }
-    else {
+    } else {
         wFile.write(reinterpret_cast<char*>(meshData->staticVertices),
             sizeof(Video::Geometry::VertexType::StaticVertex) * meshData->numVertices);
     }
 
-    wFile.write(reinterpret_cast<char*>(meshData->indices), 
+    wFile.write(reinterpret_cast<char*>(meshData->indices),
         sizeof(uint32_t) * meshData->numIndices);
 }
 

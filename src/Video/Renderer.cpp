@@ -25,7 +25,7 @@ Renderer::Renderer() {
     postProcessing = new PostProcessing(rectangle);
 
     fxaaFilter = new FXAAFilter();
-    
+
     lightCount = 0;
     lightBuffer = new StorageBuffer(sizeof(Video::Light), GL_DYNAMIC_DRAW);
 
@@ -37,23 +37,23 @@ Renderer::Renderer() {
     delete iconVertexShader;
     delete iconGeometryShader;
     delete iconFragmentShader;
-    
+
     // Create icon geometry.
     float vertex;
-    
+
     glBindVertexArray(0);
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, 1 * sizeof(float), &vertex, GL_STATIC_DRAW);
-    
+
     glGenVertexArrays(1, &vertexArray);
     glBindVertexArray(vertexArray);
-    
+
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(float), nullptr);
-    
+
     glBindVertexArray(0);
 }
 
@@ -63,7 +63,7 @@ Renderer::~Renderer() {
 
     delete postProcessing;
     delete fxaaFilter;
-    
+
     delete lightBuffer;
 
     // Icon rendering.
@@ -89,7 +89,8 @@ void Renderer::SetLights(const std::vector<Video::Light>& lights) {
     lightCount = lights.size();
 
     // Skip if no lights.
-    if (lightCount == 0) return;
+    if (lightCount == 0)
+        return;
 
     // Resize light buffer if necessary.
     unsigned int byteSize = sizeof(Video::Light) * lights.size();
@@ -119,17 +120,17 @@ void Renderer::AntiAlias(RenderSurface* renderSurface) {
 
 void Renderer::Present(RenderSurface* renderSurface) {
     const glm::vec2 size = renderSurface->GetSize();
-    
+
     /// @todo See if doing this with a fullscreen quad would be faster.
     /// With a fullscreen this would be one command (copying both color and depth) instead of two.
     /// Additionally, online sources seem to indicate fullscreen quads are slightly faster than blitting.
-    
+
     // Copy color buffer.
     renderSurface->GetColorFrameBuffer()->BindRead();
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
     glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
     renderSurface->GetColorFrameBuffer()->Unbind();
-    
+
     // Copy depth buffer.
     renderSurface->GetDepthFrameBuffer()->BindRead();
     glBlitFramebuffer(0, 0, size.x, size.y, 0, 0, size.x, size.y, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
@@ -142,13 +143,13 @@ void Renderer::PrepareRenderingIcons(const glm::mat4& viewProjectionMatrix, cons
     glDepthMask(GL_FALSE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-    
+
     // Set camera uniforms.
     glUniformMatrix4fv(iconShaderProgram->GetUniformLocation("viewProjectionMatrix"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
     glUniform3fv(iconShaderProgram->GetUniformLocation("cameraPosition"), 1, &cameraPosition[0]);
     glUniform3fv(iconShaderProgram->GetUniformLocation("cameraUp"), 1, &cameraUp[0]);
     glUniform1i(iconShaderProgram->GetUniformLocation("baseImage"), 0);
-    
+
     glActiveTexture(GL_TEXTURE0);
 }
 
@@ -157,7 +158,7 @@ void Renderer::RenderIcon(const glm::vec3& position, const Texture2D* icon) {
         currentIcon = icon;
         glBindTexture(GL_TEXTURE_2D, icon->GetTextureID());
     }
-    
+
     glUniform3fv(iconShaderProgram->GetUniformLocation("position"), 1, &position[0]);
     glDrawArrays(GL_POINTS, 0, 1);
 }
@@ -166,4 +167,3 @@ void Renderer::StopRenderingIcons() {
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
 }
-

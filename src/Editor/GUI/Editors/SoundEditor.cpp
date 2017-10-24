@@ -18,7 +18,7 @@ void SoundEditor::Show() {
     if (ImGui::Begin(("Sound: " + sound->name + "###" + std::to_string(reinterpret_cast<uintptr_t>(sound))).c_str(), &visible, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_ShowBorders)) {
         ImGui::InputText("Name", name, 128);
         sound->name = name;
-        
+
         if (ImGui::Button("Load Ogg Vorbis")) {
             fileSelector.AddExtensions("ogg");
             fileSelector.SetFileSelectedCallback(std::bind(&SoundEditor::FileSelected, this, std::placeholders::_1));
@@ -26,7 +26,7 @@ void SoundEditor::Show() {
         }
     }
     ImGui::End();
-    
+
     if (fileSelector.IsVisible())
         fileSelector.Show();
 }
@@ -37,7 +37,7 @@ const Audio::SoundBuffer* SoundEditor::GetSound() const {
 
 void SoundEditor::SetSound(Audio::SoundBuffer* sound) {
     this->sound = sound;
-    
+
     strcpy(name, sound->name.c_str());
 }
 

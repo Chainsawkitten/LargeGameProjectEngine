@@ -8,7 +8,6 @@
 using namespace Component;
 
 SoundSource::SoundSource() {
-    
 }
 
 SoundSource::~SoundSource() {
@@ -18,10 +17,10 @@ SoundSource::~SoundSource() {
 
 Json::Value SoundSource::Save() const {
     Json::Value component;
-    
+
     if (soundBuffer != nullptr)
         component["sound"] = soundBuffer->path + soundBuffer->name;
-    
+
     component["pitch"] = pitch;
     component["gain"] = gain;
     component["loop"] = loop;

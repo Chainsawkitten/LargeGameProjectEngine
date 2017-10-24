@@ -24,7 +24,7 @@ Geometry::Model* ResourceManager::CreateModel(const std::string& name) {
 
 void ResourceManager::FreeModel(Geometry::Model* model) {
     string name = modelsInverse[model];
-    
+
     if (models[name].count-- <= 1) {
         modelsInverse.erase(model);
         delete model;
@@ -40,13 +40,13 @@ Video::Texture2D* ResourceManager::CreateTexture2D(const char* data, int dataLen
     } else {
         textures[data].count++;
     }
-    
+
     return textures[data].texture;
 }
 
 void ResourceManager::FreeTexture2D(Video::Texture2D* texture) {
     const char* data = texturesInverse[texture];
-    
+
     if (textures[data].count-- <= 1) {
         texturesInverse.erase(texture);
         delete texture;
@@ -64,13 +64,13 @@ TextureAsset* ResourceManager::CreateTextureAsset(const std::string& name) {
     } else {
         textureAssets[name].count++;
     }
-    
+
     return textureAssets[name].textureAsset;
 }
 
 void ResourceManager::FreeTextureAsset(TextureAsset* textureAsset) {
     std::string name = textureAssetsInverse[textureAsset];
-    
+
     if (textureAssets[name].count-- <= 1) {
         textureAssetsInverse.erase(textureAsset);
         delete textureAsset;
@@ -93,13 +93,13 @@ Audio::SoundBuffer* ResourceManager::CreateSound(const string& name) {
     } else {
         sounds[name].count++;
     }
-    
+
     return sounds[name].soundBuffer;
 }
 
 void ResourceManager::FreeSound(Audio::SoundBuffer* soundBuffer) {
     string name = soundsInverse[soundBuffer];
-    
+
     if (sounds[name].count-- <= 1) {
         soundsInverse.erase(soundBuffer);
         delete soundBuffer;
@@ -117,13 +117,13 @@ ScriptFile* ResourceManager::CreateScriptFile(const string& name) {
     } else {
         scriptFiles[name].count++;
     }
-    
+
     return scriptFiles[name].scriptFile;
 }
 
 void ResourceManager::FreeScriptFile(ScriptFile* scriptFile) {
     string name = scriptFilesInverse[scriptFile];
-    
+
     if (scriptFiles[name].count-- <= 1) {
         scriptFilesInverse.erase(scriptFile);
         delete scriptFile;

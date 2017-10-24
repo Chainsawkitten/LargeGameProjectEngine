@@ -17,25 +17,25 @@ namespace Component {
         friend class ::PhysicsManager;
 
         public:
-            /// Create new shape.
-            ENGINE_API Shape() = default;
+        /// Create new shape.
+        ENGINE_API Shape() = default;
 
-            /// Save the component.
-            /**
+        /// Save the component.
+        /**
              * @return JSON value to be stored on disk.
              */
-            ENGINE_API Json::Value Save() const override;
+        ENGINE_API Json::Value Save() const override;
 
-            /// Get the shape this component represents.
-            /**
+        /// Get the shape this component represents.
+        /**
              * @return The %Shape.
              */
-            ENGINE_API std::shared_ptr<::Physics::Shape> GetShape() const;
+        ENGINE_API std::shared_ptr<::Physics::Shape> GetShape() const;
 
         private:
-            // Set the shape that this component will represent.
-            void SetShape(std::shared_ptr<::Physics::Shape> shape);
+        // Set the shape that this component will represent.
+        void SetShape(std::shared_ptr<::Physics::Shape> shape);
 
-            std::shared_ptr<::Physics::Shape> shape = nullptr;
+        std::shared_ptr<::Physics::Shape> shape = nullptr;
     };
 }

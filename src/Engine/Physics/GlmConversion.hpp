@@ -27,5 +27,4 @@ namespace Physics {
      * @return Converted quaternion.
      */
     glm::quat btToGlm(btQuaternion const& quat);
-
 }

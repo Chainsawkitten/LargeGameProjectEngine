@@ -8,22 +8,22 @@
 /// Run gpu profiling.
 class GPUProfiling {
     public:
-        /// Start gpu profiling.
-        /**
+    /// Start gpu profiling.
+    /**
          * @param name Name of the segment.
          * @param type Type of profiling.
          */
-        ENGINE_API GPUProfiling(const std::string& name, Video::Query::Type type);
-        
-        /// End gpu profiling.
-        ENGINE_API ~GPUProfiling();
-        
+    ENGINE_API GPUProfiling(const std::string& name, Video::Query::Type type);
+
+    /// End gpu profiling.
+    ENGINE_API ~GPUProfiling();
+
     private:
-        ProfilingManager::Result* result;
+    ProfilingManager::Result* result;
 
-        ProfilingManager::Type type;
+    ProfilingManager::Type type;
 
-        bool active;
+    bool active;
 };
 
 #define GPUPROFILE(name, type) GPUProfiling __gpuProfileInstance(name, type)

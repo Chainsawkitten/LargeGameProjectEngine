@@ -7,7 +7,6 @@
 using namespace Component;
 
 Mesh::Mesh() {
-    
 }
 
 Mesh::~Mesh() {
@@ -18,11 +17,11 @@ Mesh::~Mesh() {
 
 Json::Value Mesh::Save() const {
     Json::Value component;
-    
+
     Geometry::Model* model = dynamic_cast<Geometry::Model*>(geometry);
     if (model != nullptr)
         component["model"] = model->path + model->name;
-    
+
     return component;
 }
 

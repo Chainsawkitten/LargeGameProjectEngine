@@ -5,7 +5,6 @@
 using namespace Component;
 
 SpotLight::SpotLight() {
-    
 }
 
 Json::Value SpotLight::Save() const {
