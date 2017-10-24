@@ -6,7 +6,6 @@
 using namespace Geometry;
 
 Animation::Animation() {
-    
 }
 
 Animation::Animation(const aiAnimation* aAnimation) {
@@ -14,7 +13,6 @@ Animation::Animation(const aiAnimation* aAnimation) {
 }
 
 Animation::~Animation() {
-    
 }
 
 void Animation::Load(const aiAnimation* aAnimation) {
@@ -22,14 +20,14 @@ void Animation::Load(const aiAnimation* aAnimation) {
     duration = aAnimation->mDuration;
     ticksPerSecond = aAnimation->mTicksPerSecond;
     channels.resize(aAnimation->mNumChannels);
-    
+
     // Load animation channels.
     for (std::size_t c = 0; c < channels.size(); ++c) {
         Animation::AnimChannel* channel = &channels[c];
         const aiNodeAnim* aChannel = aAnimation->mChannels[c];
         channel->trgNodeName = aChannel->mNodeName.data;
         channelIndexMap[channel->trgNodeName] = c;
-        
+
         // Position
         channel->posKeys.resize(aChannel->mNumPositionKeys);
         for (std::size_t i = 0; i < channel->posKeys.size(); ++i) {
@@ -38,17 +36,17 @@ void Animation::Load(const aiAnimation* aAnimation) {
             posKey->time = aPosKey->mTime;
             CpyVec(posKey->value, aPosKey->mValue);
         }
-        
+
         // Rotation
         channel->rotKeys.resize(aChannel->mNumRotationKeys);
-        for (std::size_t  i = 0; i < channel->rotKeys.size(); ++i) {
+        for (std::size_t i = 0; i < channel->rotKeys.size(); ++i) {
             Animation::AnimChannel::QuatKey* rotKey = &channel->rotKeys[i];
             aiQuatKey* aRotKey = &aChannel->mRotationKeys[i];
             rotKey->time = aRotKey->mTime;
             //CpyQuat(rotKey->value, aRotKey->mValue);
             rotKey->value = aRotKey->mValue;
         }
-        
+
         // Scale
         channel->sclKeys.resize(aChannel->mNumScalingKeys);
         for (std::size_t i = 0; i < channel->sclKeys.size(); ++i) {
@@ -73,7 +71,7 @@ void Animation::CalcInterpolatedRotation(aiQuaternion& rotation, float animation
         rotation = channel->rotKeys[0].value;
         return;
     }
-    
+
     std::size_t cKey = channel->FindRotKey(animationTime);
     std::size_t nKey = (cKey + 1); // TODO % size()?
     assert(nKey < channel->rotKeys.size());
@@ -92,7 +90,7 @@ void Animation::CalcInterpolatedPosition(glm::vec3& translation, float animation
         translation = channel->posKeys[0].value;
         return;
     }
-    
+
     std::size_t cKey = channel->FindPosKey(animationTime);
     std::size_t nKey = (cKey + 1); // TODO % size()?
     assert(nKey < channel->posKeys.size());
@@ -111,7 +109,7 @@ void Animation::CalcInterpolatedScaling(glm::vec3& scaling, float animationTime,
         scaling = channel->sclKeys[0].value;
         return;
     }
-    
+
     std::size_t cKey = channel->FindSclKey(animationTime);
     std::size_t nKey = (cKey + 1); // TODO % size()?
     assert(nKey < channel->sclKeys.size());

@@ -1,30 +1,30 @@
 #include "Hymn.hpp"
 
-#include "Util/FileSystem.hpp"
-#include "Manager/Managers.hpp"
-#include "Manager/RenderManager.hpp"
-#include "Manager/PhysicsManager.hpp"
-#include "Manager/ParticleManager.hpp"
-#include "Manager/ScriptManager.hpp"
-#include "Manager/SoundManager.hpp"
-#include "Manager/DebugDrawingManager.hpp"
-#include "Manager/ResourceManager.hpp"
+#include <fstream>
+#include <Video/Texture/Texture2D.hpp>
 #include "DefaultAlbedo.png.hpp"
-#include "DefaultNormal.png.hpp"
 #include "DefaultMetallic.png.hpp"
+#include "DefaultNormal.png.hpp"
 #include "DefaultRoughness.png.hpp"
 #include "Geometry/Model.hpp"
-#include <Video/Texture/Texture2D.hpp>
-#include "Texture/TextureAsset.hpp"
 #include "Input/Input.hpp"
+#include "Manager/DebugDrawingManager.hpp"
+#include "Manager/Managers.hpp"
+#include "Manager/ParticleManager.hpp"
+#include "Manager/PhysicsManager.hpp"
+#include "Manager/RenderManager.hpp"
+#include "Manager/ResourceManager.hpp"
+#include "Manager/ScriptManager.hpp"
+#include "Manager/SoundManager.hpp"
 #include "Script/ScriptFile.hpp"
-#include "Util/Json.hpp"
-#include <fstream>
-#include "Util/Profiling.hpp"
+#include "Texture/TextureAsset.hpp"
+#include "Util/FileSystem.hpp"
 #include "Util/GPUProfiling.hpp"
+#include "Util/Json.hpp"
+#include "Util/Profiling.hpp"
 
-#include "Entity/Entity.hpp"
 #include "Component/Animation.hpp"
+#include "Entity/Entity.hpp"
 
 using namespace std;
 
@@ -33,33 +33,33 @@ ActiveHymn::ActiveHymn() {
     defaultAlbedo->GetTexture()->Load(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH, true);
     defaultNormal = new TextureAsset();
     defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH, false);
-    defaultMetallic= new TextureAsset();
+    defaultMetallic = new TextureAsset();
     defaultMetallic->GetTexture()->Load(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH, false);
     defaultRoughness = new TextureAsset();
     defaultRoughness->GetTexture()->Load(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH, false);
-    
+
     Clear();
 }
 
 ActiveHymn& ActiveHymn::GetInstance() {
     static ActiveHymn ActiveHymn;
-    
+
     return ActiveHymn;
 }
 
 void ActiveHymn::Clear() {
     path = "";
     world.Clear();
-    
+
     entityNumber = 1U;
-    
+
     filterSettings.color = false;
     filterSettings.fog = false;
     filterSettings.fogDensity = 0.001f;
     filterSettings.fxaa = true;
     filterSettings.glow = true;
     filterSettings.glowBlurAmount = 1;
-    
+
     for (ScriptFile* script : scripts) {
         Managers().resourceManager->FreeScriptFile(script);
     }
@@ -91,19 +91,19 @@ void ActiveHymn::Save() const {
 void ActiveHymn::Load(const string& path) {
     Clear();
     this->path = path;
-    
+
     // Load Json document from file.
     Json::Value root;
     ifstream file(GetSavePath());
     file >> root;
     file.close();
-    
+
     FromJson(root);
 }
 
 Json::Value ActiveHymn::ToJson() const {
     Json::Value root;
-    
+
     Json::Value inputNode;
     inputNode.append(Input::GetInstance().Save());
     root["input"] = inputNode;
@@ -119,21 +119,21 @@ Json::Value ActiveHymn::ToJson() const {
     filtersNode["glow"] = filterSettings.glow;
     filtersNode["glowBlurAmount"] = filterSettings.glowBlurAmount;
     root["filters"] = filtersNode;
-    
+
     // Save scripts.
     Json::Value scriptNode;
     for (ScriptFile* script : scripts) {
         scriptNode.append(script->path + script->name);
     }
     root["scripts"] = scriptNode;
-    
+
     return root;
 }
 
 void ActiveHymn::FromJson(Json::Value root) {
     const Json::Value inputNode = root["input"];
     Input::GetInstance().Load(inputNode[0]);
-    
+
     // Load filter settings.
     Json::Value filtersNode = root["filters"];
     filterSettings.color = filtersNode["color"].asBool();
@@ -144,7 +144,7 @@ void ActiveHymn::FromJson(Json::Value root) {
     filterSettings.fxaa = filtersNode["fxaa"].asBool();
     filterSettings.glow = filtersNode["glow"].asBool();
     filterSettings.glowBlurAmount = filtersNode["glowBlurAmount"].asInt();
-    
+
     // Load scripts.
     const Json::Value scriptNode = root["scripts"];
     for (unsigned int i = 0; i < scriptNode.size(); ++i) {
@@ -154,19 +154,22 @@ void ActiveHymn::FromJson(Json::Value root) {
 }
 
 void ActiveHymn::Update(float deltaTime) {
-    { PROFILE("Run scripts.");
+    {
+        PROFILE("Run scripts.");
         Managers().scriptManager->Update(world, deltaTime);
     }
-    
-    { PROFILE("Update physics");
+
+    {
+        PROFILE("Update physics");
         Managers().physicsManager->Update(deltaTime);
     }
-    
-    { PROFILE("Update animations");
+
+    {
+        PROFILE("Update animations");
         for (Entity* entity : world.GetEntities()) {
             if (entity->IsKilled() || !entity->enabled)
                 continue;
-            
+
             Component::Animation* anim = entity->GetComponent<Component::Animation>();
             if (anim != nullptr) {
                 Geometry::Model* model = anim->riggedModel;
@@ -174,47 +177,58 @@ void ActiveHymn::Update(float deltaTime) {
             }
         }
     }
-    
-    { PROFILE("Update particles");
+
+    {
+        PROFILE("Update particles");
         Managers().particleManager->Update(world, deltaTime);
     }
-    
-    { PROFILE("Update sounds");
+
+    {
+        PROFILE("Update sounds");
         Managers().soundManager->Update(deltaTime);
     }
-    
-    { PROFILE("Update debug drawing");
+
+    {
+        PROFILE("Update debug drawing");
         Managers().debugDrawingManager->Update(deltaTime);
     }
 
-    { PROFILE("Synchronize transforms");
+    {
+        PROFILE("Synchronize transforms");
         Managers().physicsManager->UpdateEntityTransforms();
     }
-    
-    { PROFILE("Clear killed entities/components");
+
+    {
+        PROFILE("Clear killed entities/components");
         world.ClearKilled();
     }
 }
 
 void ActiveHymn::Render(Entity* camera, bool soundSources, bool particleEmitters, bool lightSources, bool cameras, bool physics) {
-    { PROFILE("Render world");
-    { GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
-        Managers().renderManager->Render(world, camera);
-    }
-    }
-    
-    if (soundSources || particleEmitters || lightSources || cameras || physics) {
-        { PROFILE("Render editor entities");
-        { GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
-            Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras, physics);
-        }
+    {
+        PROFILE("Render world");
+        {
+            GPUPROFILE("Render world", Video::Query::Type::TIME_ELAPSED);
+            Managers().renderManager->Render(world, camera);
         }
     }
 
-    { PROFILE("Render debug entities");
-    { GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
-        Managers().debugDrawingManager->Render(camera);
+    if (soundSources || particleEmitters || lightSources || cameras || physics) {
+        {
+            PROFILE("Render editor entities");
+            {
+                GPUPROFILE("Render editor entities", Video::Query::Type::TIME_ELAPSED);
+                Managers().renderManager->RenderEditorEntities(world, camera, soundSources, particleEmitters, lightSources, cameras, physics);
+            }
+        }
     }
+
+    {
+        PROFILE("Render debug entities");
+        {
+            GPUPROFILE("Render debug entities", Video::Query::Type::TIME_ELAPSED);
+            Managers().debugDrawingManager->Render(camera);
+        }
     }
 }
 

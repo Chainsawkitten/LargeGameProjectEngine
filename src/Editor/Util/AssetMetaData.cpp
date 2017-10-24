@@ -1,6 +1,6 @@
 #include "AssetMetaData.hpp"
 
-bool AssetMetaData::GenerateMetaData(const char * filepath, MeshImportData * meshImportData) {
+bool AssetMetaData::GenerateMetaData(const char* filepath, MeshImportData* meshImportData) {
     // Open file for writing.
     std::ofstream file(filepath);
 
@@ -15,7 +15,7 @@ bool AssetMetaData::GenerateMetaData(const char * filepath, MeshImportData * mes
     file.close();
 }
 
-AssetMetaData::MeshImportData * AssetMetaData::GetMetaData(const char * filepath) {
+AssetMetaData::MeshImportData* AssetMetaData::GetMetaData(const char* filepath) {
     // Open file for reading.
     std::ifstream file(filepath);
 
@@ -23,7 +23,7 @@ AssetMetaData::MeshImportData * AssetMetaData::GetMetaData(const char * filepath
     if (!file.is_open())
         return false;
 
-    MeshImportData * meshImportData = new MeshImportData;
+    MeshImportData* meshImportData = new MeshImportData;
 
     // Read the file.
     file.read(reinterpret_cast<char*>(meshImportData), sizeof(MeshImportData));

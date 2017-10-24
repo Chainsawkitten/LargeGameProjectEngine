@@ -26,18 +26,18 @@
  */
 class EditorSettings : public Settings {
     public:
-        /// Get the instance of the class.
-        /**
+    /// Get the instance of the class.
+    /**
          * @return The %EditorSettings instance
          */
-        static EditorSettings& GetInstance();
-        
-        /// Save the settings to an INI file.
-        void Save() final;
-        
+    static EditorSettings& GetInstance();
+
+    /// Save the settings to an INI file.
+    void Save() final;
+
     private:
-        EditorSettings();
-        
-        EditorSettings(EditorSettings const&) = delete;
-        void operator=(EditorSettings const&) = delete;
+    EditorSettings();
+
+    EditorSettings(EditorSettings const&) = delete;
+    void operator=(EditorSettings const&) = delete;
 };

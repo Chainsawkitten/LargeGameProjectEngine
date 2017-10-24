@@ -1,15 +1,14 @@
 #include "SoundBuffer.hpp"
 
-#include "../Manager/SoundManager.hpp"
-#include "SoundFile.hpp"
 #include "../Hymn.hpp"
+#include "../Manager/SoundManager.hpp"
 #include "../Util/FileSystem.hpp"
+#include "SoundFile.hpp"
 #include "VorbisFile.hpp"
 
 using namespace Audio;
 
 SoundBuffer::SoundBuffer() {
-    
 }
 
 SoundBuffer::SoundBuffer(SoundFile* soundFile) {

@@ -6,7 +6,8 @@
 using namespace GUI;
 using namespace std;
 
-SelectHymnWindow::SelectHymnWindow(): title(nullptr), openButtonName(nullptr) {
+SelectHymnWindow::SelectHymnWindow()
+    : title(nullptr), openButtonName(nullptr) {
     name[0] = '\0';
 }
 
@@ -16,16 +17,16 @@ void SelectHymnWindow::Scan() {
 
 void SelectHymnWindow::Show() {
     ImGui::OpenPopup(title);
-    
+
     // Create new hymn.
     if (ImGui::BeginPopupModal(title, nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_ShowBorders)) {
         for (string file : files) {
             if (ImGui::Button(file.c_str()))
                 strcpy(name, file.c_str());
         }
-        
+
         ImGui::InputText("Name", name, 128);
-        
+
         if (ImGui::Button(openButtonName, ImVec2(120, 0))) {
             closedCallback(name);
             ImGui::CloseCurrentPopup();

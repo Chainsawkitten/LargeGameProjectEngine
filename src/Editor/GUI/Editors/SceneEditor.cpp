@@ -26,44 +26,41 @@ void SceneEditor::Show() {
         ImGui::InputText("Name", name, 128);
         *scene = name;
         Resources().activeScene = path + "/" + name;
-        
+
         // Entities.
         entityPressed = false;
         ShowEntity(Hymn().world.GetRoot());
 
         switch (draggedItemState) {
+            case NOT_ACTIVE:
+                if (draggedEntity != nullptr)
+                    draggedItemState = DraggedItemState::ACTIVATED_THIS_FRAME;
+                break;
 
-        case NOT_ACTIVE:
-            if (draggedEntity != nullptr)
-                draggedItemState = DraggedItemState::ACTIVATED_THIS_FRAME;
-            break;
+            case ACTIVATED_THIS_FRAME:
+                draggedItemState = DraggedItemState::ACTIVE;
+                break;
 
-        case ACTIVATED_THIS_FRAME:
-            draggedItemState = DraggedItemState::ACTIVE;
-            break;
+            case ACTIVE:
+                ImGui::BeginTooltip();
+                ImGui::PushTextWrapPos(450.0f);
+                ImGui::TextUnformatted(draggedEntity->name.c_str());
+                ImGui::PopTextWrapPos();
+                ImGui::EndTooltip();
+                break;
 
-        case ACTIVE:
-            ImGui::BeginTooltip();
-            ImGui::PushTextWrapPos(450.0f);
-            ImGui::TextUnformatted(draggedEntity->name.c_str());
-            ImGui::PopTextWrapPos();
-            ImGui::EndTooltip();
-            break;
+            case DEACTIVATE:
+                draggedItemState = DEACTIVATED_THIS_FRAME;
+                break;
 
-        case DEACTIVATE:
-            draggedItemState = DEACTIVATED_THIS_FRAME;
-            break;
+            case DEACTIVATED_THIS_FRAME:
+                draggedItemState = DraggedItemState::NOT_ACTIVE;
+                draggedEntity = nullptr;
+                break;
 
-        case DEACTIVATED_THIS_FRAME:
-            draggedItemState = DraggedItemState::NOT_ACTIVE;
-            draggedEntity = nullptr;
-            break;
-
-        default:
-            break;
-
+            default:
+                break;
         }
-
     }
     ImGui::End();
 }
@@ -72,7 +69,7 @@ void SceneEditor::SetScene(const std::string& path, std::string* scene) {
     entityEditor.SetVisible(false);
     this->path = path;
     this->scene = scene;
-    
+
     if (scene != nullptr)
         strcpy(name, scene->c_str());
     else
@@ -97,7 +94,7 @@ Json::Value SceneEditor::GetSaveFileJson(std::string* filename) const {
         *filename = Hymn().GetPath() + "/" + path + "/" + *scene + ".json";
         return Hymn().world.GetSaveJson();
     }
-    
+
     return Json::Value();
 }
 
@@ -112,7 +109,7 @@ void SceneEditor::ShowEntity(Entity* entity) {
 
     if (draggedItemState == DraggedItemState::ACTIVE && draggedEntity == entity && !ImGui::IsItemActive())
         draggedItemState = DraggedItemState::DEACTIVATE;
-    
+
     if (draggedItemState == DraggedItemState::DEACTIVATED_THIS_FRAME && ImGui::IsItemHovered() && draggedEntity != entity)
         draggedEntity->SetParent(entity);
 
@@ -121,15 +118,15 @@ void SceneEditor::ShowEntity(Entity* entity) {
             entityPressed = true;
             entityEditor.SetEntity(entity);
         }
-        
+
         if (!entity->IsScene()) {
-            if (ImGui::Selectable("Add child")) 
+            if (ImGui::Selectable("Add child"))
                 entity->AddChild("Entity #" + std::to_string(Hymn().entityNumber++));
-            
+
             if (ImGui::Selectable("Instantiate scene"))
                 instantiate = true;
         }
-        
+
         if (entity != Hymn().world.GetRoot()) {
             if (ImGui::Selectable("Delete")) {
                 entity->Kill();
@@ -137,30 +134,30 @@ void SceneEditor::ShowEntity(Entity* entity) {
                     entityEditor.SetVisible(false);
             }
         }
-        
+
         ImGui::EndPopup();
     }
-    
+
     if (instantiate)
         ImGui::OpenPopup("Select scene");
-    
+
     if (ImGui::BeginPopup("Select scene")) {
         ImGui::Text("Scenes");
         ImGui::Separator();
-        
+
         if (sceneSelector.Show(ResourceList::Resource::SCENE))
             entity->InstantiateScene(sceneSelector.GetSelectedResource().GetPath(), Resources().activeScene);
-        
+
         ImGui::EndPopup();
     }
-    
+
     if (opened) {
         if (!entity->IsScene()) {
             for (Entity* child : entity->GetChildren()) {
                 ShowEntity(child);
             }
         }
-        
+
         ImGui::TreePop();
     }
 }

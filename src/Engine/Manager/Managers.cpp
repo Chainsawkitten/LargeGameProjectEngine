@@ -1,13 +1,13 @@
 #include "Managers.hpp"
 
-#include "ResourceManager.hpp"
-#include "RenderManager.hpp"
+#include "DebugDrawingManager.hpp"
 #include "ParticleManager.hpp"
 #include "PhysicsManager.hpp"
-#include "SoundManager.hpp"
-#include "ScriptManager.hpp"
-#include "DebugDrawingManager.hpp"
 #include "ProfilingManager.hpp"
+#include "RenderManager.hpp"
+#include "ResourceManager.hpp"
+#include "ScriptManager.hpp"
+#include "SoundManager.hpp"
 #include "VRManager.hpp"
 
 #include "Utility/Log.hpp"
@@ -15,12 +15,11 @@
 #include "../Component/Animation.hpp"
 
 Hub::Hub() {
-    
 }
 
 Hub& Managers() {
     static Hub instance;
-    
+
     return instance;
 }
 
@@ -46,7 +45,7 @@ void Hub::ShutDown() {
     delete particleManager;
     delete physicsManager;
     delete resourceManager;
-    
+
     shutdown = true;
 }
 

@@ -1,8 +1,8 @@
 #include "InputWindow.hpp"
 
-#include <Engine/Util/FileSystem.hpp>
-#include <Engine/MainWindow.hpp>
 #include <Engine/Input/Input.hpp>
+#include <Engine/MainWindow.hpp>
+#include <Engine/Util/FileSystem.hpp>
 
 #include <imgui.h>
 
@@ -12,17 +12,17 @@ using namespace std;
 void InputWindow::Show() {
     ImGui::SetNextWindowPosCenter();
     ImGui::OpenPopup("Input");
-    
+
     // Create new hymn.
     if (ImGui::BeginPopupModal("Input", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_ShowBorders)) {
         if (ImGui::Button("Add Button"))
             AddButton();
-        
+
         if (ImGui::Button("Close")) {
             SetVisible(false);
             ImGui::CloseCurrentPopup();
         }
-        
+
         unsigned int buttonNumber = 0;
         for (Input::Button* button : Input::GetInstance().buttons) {
             ImGui::Text("Action");
@@ -36,10 +36,10 @@ void InputWindow::Show() {
             ImGui::Text("State");
             ImGui::SameLine();
             ImGui::InputInt(("##state" + std::to_string(buttonNumber)).c_str(), &(button->state));
-            
+
             buttonNumber++;
         }
-        
+
         ImGui::EndPopup();
     }
 }
@@ -57,6 +57,6 @@ void InputWindow::AddButton() {
     strcpy(button->action, "action");
     button->key = 0;
     button->state = 0;
-    
+
     Input::GetInstance().buttons.push_back(button);
 }

@@ -13,5 +13,4 @@ namespace Physics {
     glm::quat btToGlm(btQuaternion const& quat) {
         return glm::quat(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
     }
-
 }

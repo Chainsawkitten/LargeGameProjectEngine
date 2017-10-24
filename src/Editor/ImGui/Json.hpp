@@ -1,7 +1,7 @@
 #pragma once
 
-#include <json/json.h>
 #include <imgui.h>
+#include <json/json.h>
 
 namespace Json {
     /// Convert an ImVec2 to a JSON node.

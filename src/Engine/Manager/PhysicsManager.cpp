@@ -159,8 +159,7 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
         auto radius = sphere.get("radius", 1.0f).asFloat();
         auto shape = std::shared_ptr<::Physics::Shape>(new ::Physics::Shape(::Physics::Shape::Sphere(radius)));
         comp->SetShape(shape);
-    }
-    else if (node.isMember("plane")) {
+    } else if (node.isMember("plane")) {
         auto plane = node.get("plane", {});
         auto normal = Json::LoadVec3(plane.get("normal", {}));
         auto planeCoeff = plane.get("planeCoeff", 0.0f).asFloat();

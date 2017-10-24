@@ -11,5 +11,4 @@ SteamAudioDirectRenderer::SteamAudioDirectRenderer(IPLContext* context, IPLhandl
 }
 
 SteamAudioDirectRenderer::~SteamAudioDirectRenderer() {
-
 }

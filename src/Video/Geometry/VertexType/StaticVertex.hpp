@@ -11,16 +11,16 @@ namespace Video {
             struct StaticVertex {
                 /// Position.
                 glm::vec3 position;
-                
+
                 /// %Texture coordinate.
                 glm::vec2 textureCoordinate;
-                
+
                 /// Normal.
                 glm::vec3 normal;
-                
+
                 /// Tangent vector.
                 glm::vec3 tangent;
-                
+
                 /// Generate vertex buffer
                 /**
                  * @param vertices Pointer to vertex array.
@@ -28,7 +28,7 @@ namespace Video {
                  * @return Vertex buffer.
                  */
                 VIDEO_API static const GLuint GenerateVertexBuffer(StaticVertex* vertices, unsigned int vertexCount);
-                
+
                 /// Generate vertex buffer
                 /**
                  * @param vertexBuffer The vertex buffer.
