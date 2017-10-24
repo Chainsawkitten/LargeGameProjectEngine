@@ -10,9 +10,6 @@ class Cart{
     float c;
     bool hasHitPlane;
     
-    Component::RigidBody @minecartPhysics;
-    Component::RigidBody @stopPhysics;
-    
     Cart(Entity @entity){
         @hub = Managers();
         @self = @entity;
@@ -27,13 +24,8 @@ class Cart{
         a = (3.0f * c - 300.0f / t) / (t * t);
         b = 100.0f / (t * t) - 2.0f * a * t / 3.0f - 2.0f * c / t;
         
-        Entity @stopTrigger = self.GetParent().GetChild("GateAndLever").GetChild("StopTrigger");
-        @minecartPhysics = self.GetRigidBody();
-        @stopPhysics = stopTrigger.GetRigidBody();
-        
         trigger = false;
         RegisterUpdate();
-        RegisterTriggerEnter(stopPhysics, minecartPhysics, "OnTrigger");
     }
     
     //Update carts movements and send it's position to Player Script.
@@ -62,9 +54,5 @@ class Cart{
     void ReceiveMessage(int signal){
         if (signal == 1)
             trigger = true;
-    }
-    
-    void OnTrigger(Component::RigidBody @trigger, Component::RigidBody @enterer) {
-        hasHitPlane = true;
     }
 }

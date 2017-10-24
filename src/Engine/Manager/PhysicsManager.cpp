@@ -76,30 +76,27 @@ void PhysicsManager::UpdateEntityTransforms() {
     }
 }
 
-void PhysicsManager::OnTriggerEnter(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = CreateTrigger(trigger);
+void PhysicsManager::OnTriggerEnter(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
-    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+    trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
         trigger.ForObserver(object->GetBulletRigidBody(), [&callback](Physics::TriggerObserver& observer) {
             observer.OnEnter(callback);
         });
     });
 }
 
-void PhysicsManager::OnTriggerRetain(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = CreateTrigger(trigger);
+void PhysicsManager::OnTriggerRetain(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
-    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+    trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
         trigger.ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
             observer.OnRetain(callback);
         });
     });
 }
 
-void PhysicsManager::OnTriggerLeave(Component::RigidBody* trigger, Component::RigidBody* object, std::function<void()> callback) {
-    auto t = CreateTrigger(trigger);
+void PhysicsManager::OnTriggerLeave(Util::LockBox<Physics::Trigger> trigger, Component::RigidBody* object, std::function<void()> callback) {
     // Add the callback to the trigger observer
-    t.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
+    trigger.Open(triggerLockBoxKey, [object, &callback](Physics::Trigger& trigger) {
         trigger.ForObserver(object->GetBulletRigidBody(), [&callback](::Physics::TriggerObserver& observer) {
             observer.OnLeave(callback);
         });
@@ -176,17 +173,28 @@ Component::Shape* PhysicsManager::CreateShape(Entity* owner, const Json::Value& 
     return comp;
 }
 
-Util::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(Component::RigidBody* comp) {
-    btTransform trans(btQuaternion(0, 0, 0, 1), ::Physics::glmToBt(comp->entity->position));
+Util::LockBox<Physics::Trigger> PhysicsManager::CreateTrigger(std::shared_ptr<Physics::Shape> shape) {
+    btTransform trans(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0));
     Physics::Trigger* trigger = new Physics::Trigger(trans);
-    auto shapeComp = comp->entity->GetComponent<Component::Shape>();
-    trigger->SetCollisionShape(shapeComp ? shapeComp->GetShape() : nullptr);
+    trigger->SetCollisionShape(shape);
     triggers.push_back(trigger);
     return Util::LockBox<Physics::Trigger>(triggerLockBoxKey, trigger);
 }
 
+void PhysicsManager::SetPosition(Util::LockBox<Physics::Trigger> trigger, const glm::vec3& position) {
+    trigger.Open(triggerLockBoxKey, [&position](Physics::Trigger& trigger) {
+        trigger.SetPosition(Physics::glmToBt(position));
+    });
+}
+
 void PhysicsManager::SetShape(Component::Shape* comp, std::shared_ptr<::Physics::Shape> shape) {
     comp->SetShape(shape);
+}
+
+void PhysicsManager::SetShape(Util::LockBox<Physics::Trigger> trigger, std::shared_ptr<Physics::Shape> shape) {
+    trigger.Open(triggerLockBoxKey, [shape](Physics::Trigger& trigger) {
+        trigger.SetCollisionShape(shape);
+    });
 }
 
 void PhysicsManager::SetMass(Component::RigidBody* comp, float mass) {
