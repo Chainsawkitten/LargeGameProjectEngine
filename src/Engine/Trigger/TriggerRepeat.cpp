@@ -1,6 +1,5 @@
 #include "TriggerRepeat.hpp"
 
-
 TriggerRepeat::TriggerRepeat() {
 
 }

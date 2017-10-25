@@ -345,8 +345,6 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
         return nullptr;
     }
 
-
-
     // Add component to our map.
     components[componentType] = component;
 

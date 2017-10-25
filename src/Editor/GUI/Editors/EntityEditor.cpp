@@ -1,5 +1,6 @@
 #include "EntityEditor.hpp"
 
+#include <array>
 #include <Engine/Component/Animation.hpp>
 #include <Engine/Component/Mesh.hpp>
 #include <Engine/Component/Lens.hpp>
@@ -572,16 +573,25 @@ void EntityEditor::ControllerEditor(Component::Controller* controller) {
 }
 
 void EntityEditor::TriggerEditor(Component::Trigger* trigger) {
+    /// @todo: We should take a look at how we deal with |current| and |items|.
+    /// I had some issues with current item that had to do with using a local
+    /// variable that resulted in the combo not working properly. Maybe it's
+    /// not a problem here, but I'm leaving this comment until I can verify it.
+    /// When it comes to items, we should really see if we can find a better
+    /// way than hardcoding types here. I changed into std::array which should
+    /// catch if the count changes, but it won't reflect changes in name or
+    /// ordering. We can take a look at how I did with physics shapes for that.
 
 
     static char buf1[64] = "";
 
     int current = static_cast<int>(trigger->triggerType);
-    const char* items[] = { "Once", "Repeat", "LookAt", "Proximity" };
+    std::array<const char*, trigger->NUMBER_OF_TYPES> items = { "Once", "Repeat", "LookAt", "Proximity" };
+
     ImGui::Indent();
 
     if (!entity->GetHasTrigger()) {
-        if (ImGui::Combo("Class", &current, items, trigger->NUMBER_OF_TYPES)) {
+        if (ImGui::Combo("Class", &current, items.data(), trigger->NUMBER_OF_TYPES)) {
             trigger->triggerType = static_cast<Component::Trigger::TriggerTypes>(current);
         }
         switch (current) {

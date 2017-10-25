@@ -26,7 +26,7 @@ set(SRCS
         Component/SoundSource.cpp
         Component/SpotLight.cpp
         Component/SuperComponent.cpp
-	Component/Trigger.cpp
+        Component/Trigger.cpp
         Entity/Entity.cpp
         Entity/World.cpp
         Geometry/Animation.cpp
@@ -44,15 +44,15 @@ set(SRCS
         Manager/ResourceManager.cpp
         Manager/ScriptManager.cpp
         Manager/SoundManager.cpp
-	Manager/TriggerManager.cpp
+        Manager/TriggerManager.cpp
         Manager/VRManager.cpp
         Physics/GlmConversion.cpp
         Physics/Shape.cpp
         Physics/Trigger.cpp
         Physics/TriggerObserver.cpp
-	Trigger/SuperTrigger.cpp
-	Trigger/TriggerRepeat.cpp
-	Trigger/TriggerOnce.cpp	
+        Trigger/SuperTrigger.cpp
+        Trigger/TriggerRepeat.cpp
+        Trigger/TriggerOnce.cpp	
         Util/FileSystem.cpp
         Util/GPUProfiling.cpp
         Util/Input.cpp
@@ -92,7 +92,7 @@ set(HEADERS
         Component/SoundSource.hpp
         Component/SpotLight.hpp
         Component/SuperComponent.hpp
-	Component/Trigger.hpp
+        Component/Trigger.hpp
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
@@ -111,15 +111,15 @@ set(HEADERS
         Manager/ResourceManager.hpp
         Manager/ScriptManager.hpp
         Manager/SoundManager.hpp
-	Manager/TriggerManager.hpp
+        Manager/TriggerManager.hpp
         Manager/VRManager.hpp
         Physics/GlmConversion.hpp
         Physics/Shape.hpp
         Physics/Trigger.hpp
         Physics/TriggerObserver.hpp
-	Trigger/SuperTrigger.hpp
-	Trigger/TriggerRepeat.hpp
-	Trigger/TriggerOnce.hpp	
+        Trigger/SuperTrigger.hpp
+        Trigger/TriggerRepeat.hpp
+        Trigger/TriggerOnce.hpp	
         Util/FileSystem.hpp
         Util/GPUProfiling.hpp
         Util/Input.hpp
@@ -127,7 +127,7 @@ set(HEADERS
         Util/MousePicking.hpp
         Util/RayIntersection.hpp
         Util/Profiling.hpp
-        Util/Settings.hpp	
+        Util/Settings.hpp
         Texture/TextureAsset.hpp
         Script/ScriptFile.hpp
         Input/Input.hpp
