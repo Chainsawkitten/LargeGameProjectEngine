@@ -11,24 +11,20 @@ namespace Component {
 class TriggerManager {
     friend class Hub;
 
-public:
+    public:
+        TriggerManager();
+        ~TriggerManager();
+        TriggerManager(const TriggerManager&) = delete;
+        void operator=(const TriggerManager&) = delete;
 
-    TriggerManager();
-    ~TriggerManager();
-    TriggerManager(TriggerManager const&) = delete;
-    void operator=(TriggerManager const&) = delete;
+        /// Remove all killed components.
+        void ClearKilledComponents();
 
-    /// Remove all killed components.
-    void ClearKilledComponents();
+        Component::Trigger* CreateTrigger();
+        ENGINE_API const std::vector<Component::Trigger*>& GetTriggerComponents();
 
-    Component::Trigger* CreateTrigger();
-    ENGINE_API const std::vector<Component::Trigger*>& GetTriggerComponents();
+        ENGINE_API  void CreateTrigger(SuperTrigger* trigger);
 
-    ENGINE_API  void CreateTrigger(SuperTrigger* trigger);
-
-
-private:
-
-    ComponentContainer<Component::Trigger> triggerComponents;
-
+    private:
+        ComponentContainer<Component::Trigger> triggerComponents;
 };

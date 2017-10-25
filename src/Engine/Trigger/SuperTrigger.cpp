@@ -7,4 +7,3 @@ SuperTrigger::SuperTrigger() {
 SuperTrigger::~SuperTrigger() {
 
 }
-

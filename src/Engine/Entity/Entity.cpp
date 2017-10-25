@@ -337,9 +337,8 @@ Component::SuperComponent* Entity::AddComponent(std::type_index componentType) {
         component = Managers().soundManager->CreateSoundSource();
     else if (componentType == typeid(Component::SpotLight*))
         component = Managers().renderManager->CreateSpotLight();
-    else if (componentType == typeid(Component::Trigger*)) {
+    else if (componentType == typeid(Component::Trigger*))
         component = Managers().triggerManager->CreateTrigger();
-    }
     else {
         Log() << componentType.name() << " not assigned to a manager!" << "\n";
         return nullptr;

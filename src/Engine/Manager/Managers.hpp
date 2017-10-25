@@ -51,7 +51,7 @@ class Hub {
 
         /// The trigger manager instance.
         TriggerManager* triggerManager;
-        
+
         /// The VR manager instance.
         VRManager* vrManager;
         

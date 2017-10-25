@@ -1,6 +1,5 @@
 #pragma once
-#include "../Trigger/TriggerRepeat.hpp"
-#include "../Trigger/TriggerOnce.hpp"
+
 #include "SuperComponent.hpp"
 
 class SuperTrigger;

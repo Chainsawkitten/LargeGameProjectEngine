@@ -16,7 +16,6 @@ void TriggerOnce::OnLeave() {
 
 }
 
-
 void TriggerOnce::OnRemain() {
 
 }

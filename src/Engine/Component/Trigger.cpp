@@ -23,9 +23,6 @@ SuperTrigger* Trigger::GetTrigger() {
 }
 
 void Trigger::SetTrigger(SuperTrigger* trigger) {
-
-    if (m_trigger != nullptr)
-        delete m_trigger;
-
+    delete m_trigger;
     m_trigger = trigger;
 }
