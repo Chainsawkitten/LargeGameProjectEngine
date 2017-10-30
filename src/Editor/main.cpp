@@ -19,8 +19,11 @@
 #include "ImGui/OpenGLImplementation.hpp"
 #include <imgui.h>
 #include "GUI/ProfilingWindow.hpp"
+#include <iostream>
 
 int main() {
+    Log().SetupStreams(&std::cout, &std::cout, &std::cout, &std::cerr, &std::cout);
+
     // Enable logging if requested.
     if (EditorSettings::GetInstance().GetBool("Logging")){
         FILE* file = freopen(FileSystem::DataPath("Hymn to Beauty", "log.txt").c_str(), "a", stderr);
