@@ -16,7 +16,7 @@
 class AssetConverter {
     public:
         /// Paths to materials.
-        struct Materials {
+        struct Material {
             /// Albedo texture (Color channel in Maya).
             std::string albedo;
             
@@ -48,7 +48,7 @@ class AssetConverter {
          * @param importMaterial Should materials be imported from the mesh?
          * @param materials Materials structure to store material paths in.
          */
-        void Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipsUVs, bool importMaterial, Materials& materials);
+        void Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipsUVs, bool importMaterial, Material& materials);
 
         /// Check after conversion if everything went well.
         /**

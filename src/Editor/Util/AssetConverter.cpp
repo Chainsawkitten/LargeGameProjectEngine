@@ -9,7 +9,7 @@ AssetConverter::AssetConverter() {
 AssetConverter::~AssetConverter() {
 }
 
-void AssetConverter::Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs, bool importMaterial, Materials& materials) {
+void AssetConverter::Convert(const char* filepath, const char* destination, glm::vec3 scale, bool triangulate, bool importNormals, bool importTangents, bool flipUVs, bool importMaterial, Material& materials) {
     success = true;
     errorString.clear();
 
@@ -104,7 +104,7 @@ void AssetConverter::ConvertMesh(aiMesh * aMesh, Geometry::AssetFileHandler * fi
     
     CalculateAABB(meshData, meshData->numVertices);
 
-    file->SaveStaticMesh(meshData);
+    file->SaveMesh(meshData);
 
     delete meshData;
     meshData = nullptr;
@@ -226,10 +226,12 @@ Video::Geometry::VertexType::SkinVertex * AssetConverter::ConvertSkinnedVertices
             unsigned int vertexID = aBone->mWeights[i].mVertexId;
             unsigned int& count = weightCounter[vertexID];
             vertices[vertexID].weights[count] = aBone->mWeights[i].mWeight;
-            vertices[vertexID].boneIDs[count] = i;
+            vertices[vertexID].boneIDs[count] = b;
             ++count;
         }
     }
+
+    Log() << "Num Weights: " << (int)aMesh->mBones[0]->mNumWeights << "\n";
 
     weightCounter.clear();
 

@@ -11,20 +11,23 @@
 #include <Engine/Manager/Managers.hpp>
 #include <Engine/Manager/ResourceManager.hpp>
 #include <Engine/Util/FileSystem.hpp>
-#include <Utility/Log.hpp>
 
 using namespace std;
 
 string ResourceList::Resource::GetName() const {
     switch (type) {
     case Type::SCENE:
-        return *scene;
+<<<<<<< HEAD
+        return scene;
     case Type::ANIMATION_CLIP:
         return animationClip->name;
     case Type::ANIMATION_CONTROLLER:
         return animationController->name;
     case Type::SKELETON:
         return skeleton->name;
+=======
+        return *scene;
+>>>>>>> 92fdae19220d1e532fa8578fe3ba6f5899c3b428
     case Type::MODEL:
         return model->name;
     case Type::TEXTURE:
@@ -134,7 +137,6 @@ Json::Value ResourceList::SaveFolder(const ResourceFolder& folder) const {
             break;
         case Resource::SKELETON:
             resourceNode["skeleton"] = resource.skeleton->name;
-            //resource.skeleton->Save();
             break;
         case Resource::MODEL:
             resourceNode["model"] = resource.model->name;
@@ -186,12 +188,10 @@ ResourceList::ResourceFolder ResourceList::LoadFolder(const Json::Value& node, s
             resource.animationClip = Managers().resourceManager->CreateAnimationClip(path + resourceNode["animationClip"].asString());
             break;
         case Resource::ANIMATION_CONTROLLER:
-            resource.animationController = Managers().resourceManager->CreateAnimationController(path + resourceNode["animationController"].asString());
+            resource.animationClip = Managers().resourceManager->CreateAnimationClip(path + resourceNode["animationController"].asString());
             break;
         case Resource::SKELETON:
-            Log() << "Skeleton path: " << path << "\n";
-            Log() << "Skeleton name: " << resourceNode["skeleton"].asString() << "\n";
-            resource.skeleton = Managers().resourceManager->CreateSkeleton(path + resourceNode["skeleton"].asString());
+            resource.animationClip = Managers().resourceManager->CreateAnimationClip(path + resourceNode["skeleton"].asString());
             break;
         case Resource::MODEL:
             resource.model = Managers().resourceManager->CreateModel(path + resourceNode["model"].asString());

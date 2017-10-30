@@ -71,6 +71,27 @@ namespace Video {
              */
             VIDEO_API void RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected);
 
+            /// Prepare for rendering skinned meshes.
+            /**
+             * @param viewMatrix The camera's view matrix.
+             * @param The camera's projection matrix.
+             */
+            VIDEO_API void PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+
+            /// Render a skinned mesh.
+            /**
+             * @param geometry The geometry to render.
+             * @param albedo Albedo texture.
+             * @param normal Normal map.
+             * @param metallic Metallic map.
+             * @param roughness Roughness texture.
+             * @param modelMatrix Model matrix.
+             * @param bones Bones array.
+             * @param numBones The number of bones in array.
+             * @param isSelected Whether model is selected(should be highlighted) or not.
+             */
+            VIDEO_API void RenderSkinnedMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected);
+
             /// Update light buffer.
             /**
              * @param lights Vector of lights to push to the light buffer.
@@ -138,6 +159,7 @@ namespace Video {
         private:
             Renderer(const Renderer & other) = delete;
             StaticRenderProgram* staticRenderProgram;
+            SkinRenderProgram* skinRenderProgram;
 
             unsigned int lightCount;
             StorageBuffer* lightBuffer;

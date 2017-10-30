@@ -21,6 +21,7 @@ using namespace Video;
 Renderer::Renderer() {
     rectangle = new Geometry::Rectangle();
     staticRenderProgram = new StaticRenderProgram();
+    skinRenderProgram = new SkinRenderProgram();
 
     postProcessing = new PostProcessing(rectangle);
 
@@ -110,6 +111,14 @@ void Renderer::PrepareStaticMeshRendering(const glm::mat4& viewMatrix, const glm
 
 void Renderer::RenderStaticMesh(Geometry::Geometry3D* geometry, const Texture2D* albedo, const Texture2D* normal, const Texture2D* metallic, const Texture2D* roughness, const glm::mat4 modelMatrix, bool isSelected) {
     staticRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, isSelected);
+}
+
+void Renderer::PrepareSkinnedMeshRendering(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+    skinRenderProgram->PreRender(viewMatrix, projectionMatrix, lightBuffer, lightCount);
+}
+
+void Renderer::RenderSkinnedMesh(Geometry::Geometry3D * geometry, const Texture2D * albedo, const Texture2D * normal, const Texture2D * metallic, const Texture2D * roughness, const glm::mat4 modelMatrix, const std::vector<glm::mat4>& bones, bool isSelected) {
+    skinRenderProgram->Render(geometry, albedo, normal, metallic, roughness, modelMatrix, bones);
 }
 
 void Renderer::AntiAlias(RenderSurface* renderSurface) {

@@ -5,13 +5,16 @@ set(SRCS
         ../../externals/AngelScript/sdk/add_on/scriptstdstring/scriptstdstring.cpp
         Hymn.cpp
         MainWindow.cpp
+	Animation/AnimationClip.cpp
+	Animation/AnimationController.cpp
+	Animation/Skeleton.cpp
         Audio/SoundBuffer.cpp
         Audio/SteamAudio.cpp
         Audio/SteamAudioDirectRenderer.cpp
         Audio/SteamAudioIndirectRenderer.cpp
         Audio/SteamAudioInterface.cpp
         Audio/VorbisFile.cpp
-        Component/Animation.cpp
+        Component/AnimationController.cpp
         Component/DirectionalLight.cpp
         Component/Lens.cpp
         Component/Listener.cpp
@@ -28,12 +31,10 @@ set(SRCS
         Component/VRDevice.cpp
         Entity/Entity.cpp
         Entity/World.cpp
-        Geometry/Animation.cpp
         Geometry/AssetFileHandler.cpp
         Geometry/Cube.cpp
         Geometry/MathFunctions.cpp
         Geometry/Model.cpp
-        Geometry/Skeleton.cpp
         Manager/Managers.cpp
         Manager/DebugDrawingManager.cpp
         Manager/ParticleManager.cpp
@@ -65,6 +66,9 @@ set(HEADERS
         linking.hpp
         Hymn.hpp
         MainWindow.hpp
+        Animation/AnimationClip.hpp
+        Animation/AnimationController.hpp
+        Animation/Skeleton.hpp
         Audio/SoundBuffer.hpp
         Audio/SoundFile.hpp
         Audio/SteamAudio.hpp
@@ -72,7 +76,7 @@ set(HEADERS
         Audio/SteamAudioIndirectRenderer.hpp
         Audio/SteamAudioInterface.hpp
         Audio/VorbisFile.hpp
-        Component/Animation.hpp
+        Component/AnimationController.hpp
         Component/DirectionalLight.hpp
         Component/Lens.hpp
         Component/Listener.hpp
@@ -90,12 +94,10 @@ set(HEADERS
         Entity/ComponentContainer.hpp
         Entity/Entity.hpp
         Entity/World.hpp
-        Geometry/Animation.hpp
         Geometry/AssetFileHandler.hpp
         Geometry/Cube.hpp
         Geometry/MathFunctions.hpp
         Geometry/Model.hpp
-        Geometry/Skeleton.hpp
         Manager/Managers.hpp
         Manager/DebugDrawingManager.hpp
         Manager/ParticleManager.hpp
@@ -115,6 +117,7 @@ set(HEADERS
         Util/Input.hpp
         Util/Json.hpp
         Util/MousePicking.hpp
+        Util/Node.hpp
         Util/RayIntersection.hpp
         Util/Profiling.hpp
         Util/Settings.hpp

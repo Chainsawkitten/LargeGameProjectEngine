@@ -8,7 +8,7 @@
 #include "../ResourceSelector.hpp"
 
 namespace Component {
-    class Animation;
+    class AnimationController;
     class Mesh;
     class Lens;
     class Material;
@@ -76,7 +76,7 @@ namespace GUI {
             template<typename type> void EditComponent(const std::string& name, std::function<void(type*)> editorFunction);
             
             // Editors
-            void AnimationEditor(Component::Animation* animation);
+            void AnimationControllerEditor(Component::AnimationController * animationController);
             void MeshEditor(Component::Mesh* mesh);
             void LensEditor(Component::Lens* lens);
             void MaterialEditor(Component::Material* material);

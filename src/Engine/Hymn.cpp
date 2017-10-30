@@ -24,7 +24,7 @@
 #include "Util/GPUProfiling.hpp"
 
 #include "Entity/Entity.hpp"
-#include "Component/Animation.hpp"
+
 
 using namespace std;
 
@@ -175,16 +175,7 @@ void ActiveHymn::Update(float deltaTime) {
     }
     
     { PROFILE("Update animations");
-        for (Entity* entity : world.GetEntities()) {
-            if (entity->IsKilled() || !entity->enabled)
-                continue;
-            
-            Component::Animation* anim = entity->GetComponent<Component::Animation>();
-            if (anim != nullptr) {
-                Geometry::Model* model = anim->riggedModel;
-                /// @todo Fix animations.
-            }
-        }
+        Managers().renderManager->UpdateAnimations(deltaTime);
     }
     
     { PROFILE("Update particles");

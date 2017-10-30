@@ -6,8 +6,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "../Shader/Shader.hpp"
 #include "../Shader/ShaderProgram.hpp"
+#include "../Buffer/StorageBuffer.hpp"
 #include "Skinning.vert.hpp"
 #include "Default3D.frag.hpp"
+#include <chrono>
+#include <Utility/Log.hpp>
 
 using namespace Video;
 
@@ -23,28 +26,64 @@ SkinRenderProgram::~SkinRenderProgram() {
     delete shaderProgram;
 }
 
-void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix) {
+void SkinRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount) {
     shaderProgram->Use();
-    
     this->viewMatrix = viewMatrix;
     this->projectionMatrix = projectionMatrix;
-    viewProjectionMatrix = projectionMatrix * viewMatrix;
-    
+    this->viewProjectionMatrix = projectionMatrix * viewMatrix;
+
     glUniformMatrix4fv(shaderProgram->GetUniformLocation("viewProjection"), 1, GL_FALSE, &viewProjectionMatrix[0][0]);
+
+    // Lights.
+    glUniform1i(shaderProgram->GetUniformLocation("lightCount"), lightCount);
+    lightBuffer->BindBase(5);
+
+    // Post processing.
+    {
+        float gamma = 2.2f;
+        glUniform1fv(shaderProgram->GetUniformLocation("gamma"), 1, &gamma);
+    }
+
+    {
+        int fogApply = false;
+        float fogDensity = 0.002f;
+        glm::vec3 fogColor = glm::vec3(1, 0, 0);
+        glUniform1iv(shaderProgram->GetUniformLocation("fogApply"), 1, &fogApply);
+        glUniform1fv(shaderProgram->GetUniformLocation("fogDensity"), 1, &fogDensity);
+        glUniform3fv(shaderProgram->GetUniformLocation("fogColor"), 1, &fogColor[0]);
+    }
+
+    {
+        int colorFilterApply = false;
+        glm::vec3 colorFilterColor = glm::vec3(0, 1, 0);
+        glUniform1iv(shaderProgram->GetUniformLocation("colorFilterApply"), 1, &colorFilterApply);
+        glUniform3fv(shaderProgram->GetUniformLocation("colorFilterColor"), 1, &colorFilterColor[0]);
+    }
+
+    {
+        int ditherApply = true;
+        float time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() / 1000000000.0;
+        glUniform1iv(shaderProgram->GetUniformLocation("ditherApply"), 1, &ditherApply);
+        glUniform1fv(shaderProgram->GetUniformLocation("time"), 1, &time);
+    }
 }
 
-void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const {
+void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Texture2D* textureAlbedo, const Texture2D* textureNormal, const Texture2D* textureMetallic, const Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const {
     Frustum frustum(viewProjectionMatrix * modelMatrix);
     if (frustum.Collide(geometry->GetAxisAlignedBoundingBox())) {
+        glDepthFunc(GL_LEQUAL);
+        glDepthMask(GL_FALSE);
+
         glBindVertexArray(geometry->GetVertexArray());
         
-        // Set texture locations
+        // Set texture locations.
+        glUniform1i(shaderProgram->GetUniformLocation("isSelected"), false);
         glUniform1i(shaderProgram->GetUniformLocation("mapAlbedo"), 0);
         glUniform1i(shaderProgram->GetUniformLocation("mapNormal"), 1);
         glUniform1i(shaderProgram->GetUniformLocation("mapMetallic"), 2);
         glUniform1i(shaderProgram->GetUniformLocation("mapRoughness"), 3);
         
-        // Textures
+        // Textures.
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureAlbedo->GetTextureID());
         glActiveTexture(GL_TEXTURE1);
@@ -58,10 +97,12 @@ void SkinRenderProgram::Render(const Geometry::Geometry3D* geometry, const Textu
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("model"), 1, GL_FALSE, &modelMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
         glUniformMatrix3fv(shaderProgram->GetUniformLocation("normalMatrix"), 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
-        assert(bones.size() <= 100 && bonesIT.size() <= 100);
+        assert(bones.size() <= 50);
         glUniformMatrix4fv(shaderProgram->GetUniformLocation("bones"), bones.size(), GL_FALSE, &bones[0][0][0]);
-        glUniformMatrix3fv(shaderProgram->GetUniformLocation("bonesIT"), bonesIT.size(), GL_FALSE, &bonesIT[0][0][0]);
         
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
+
+        glDepthMask(GL_TRUE);
+        glDepthFunc(GL_LESS);
     }
 }

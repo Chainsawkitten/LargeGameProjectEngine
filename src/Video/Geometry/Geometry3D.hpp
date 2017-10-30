@@ -46,21 +46,7 @@ namespace Video {
                  */
                 virtual Type GetType() const = 0;
                 
-            protected:
-                /// Generate vertex buffer.
-                /**
-                 * @param vertexBuffer Vertex buffer.
-                 */
-            //    virtual void GenerateVertexBuffer(GLuint& vertexBuffer) = 0;
-                
-                /// Generate vertex array.
-                /**
-                 * @param vertexBuffer Vertex buffer.
-                 * @param indexBuffer Index buffer.
-                 * @param vertexArray Vertex array.
-                 */
-            //    virtual void GenerateVertexArray(const GLuint vertexBuffer, const GLuint indexBuffer, GLuint& vertexArray) = 0;
-                
+            protected:                
                 /// Generate index buffer.
                 /**
                  * @param indexData Pointer to array of indices.

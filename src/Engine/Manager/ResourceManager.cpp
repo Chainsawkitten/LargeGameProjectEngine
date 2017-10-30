@@ -1,10 +1,16 @@
 #include "ResourceManager.hpp"
 
+#include "../Animation/AnimationClip.hpp"
+#include "../Animation/AnimationController.hpp"
+#include "../Animation/Skeleton.hpp"
+#include <Video/Geometry/Rectangle.hpp>
+#include "../Geometry/Cube.hpp"
 #include "../Geometry/Model.hpp"
 #include <Video/Texture/Texture2D.hpp>
 #include "../Audio/SoundBuffer.hpp"
 #include "../Texture/TextureAsset.hpp"
 #include "../Script/ScriptFile.hpp"
+#include <Utility/Log.hpp>
 
 using namespace std;
 
@@ -29,6 +35,80 @@ void ResourceManager::FreeModel(Geometry::Model* model) {
         modelsInverse.erase(model);
         delete model;
         models.erase(name);
+    }
+}
+
+Animation::AnimationClip* ResourceManager::CreateAnimationClip(const std::string& name) {
+    if (animationClips.find(name) == animationClips.end()) {
+        Animation::AnimationClip* animationClip = new Animation::AnimationClip();
+        animationClip->Load(name);
+        animationClips[name].animationClip = animationClip;
+        animationClipsInverse[animationClip] = name;
+        animationClips[name].count = 1;
+    } else {
+        animationClips[name].count++;
+    }
+
+    return animationClips[name].animationClip;
+}
+
+void ResourceManager::FreeAnimationClip(Animation::AnimationClip * animationClip) {
+    std::string name = animationClipsInverse[animationClip];
+
+    if (animationClips[name].count-- <= 1) {
+        animationClipsInverse.erase(animationClip);
+        delete animationClip;
+        animationClips.erase(name);
+    }
+}
+
+Animation::AnimationController * ResourceManager::CreateAnimationController(const std::string& name) {
+    if (animationControllers.find(name) == animationControllers.end()) {
+        Animation::AnimationController* animationController = new Animation::AnimationController();
+        animationController->Load(name);
+        animationControllers[name].animationController = animationController;
+        animationControllersInverse[animationController] = name;
+        animationControllers[name].count = 1;
+    } else {
+        animationControllers[name].count++;
+    }
+
+    return animationControllers[name].animationController;
+}
+
+void ResourceManager::FreeAnimationController(Animation::AnimationController * animationController) {
+    std::string name = animationControllersInverse[animationController];
+
+    if (animationControllers[name].count-- <= 1) {
+        animationControllersInverse.erase(animationController);
+        delete animationController;
+        animationControllers.erase(name);
+    }
+}
+
+Animation::Skeleton* ResourceManager::CreateSkeleton(const std::string& name) {
+    Log() << "Create skeleton: " << name << "\n";
+
+    if (skeletons.find(name) == skeletons.end()) {
+        Animation::Skeleton* skeleton = new Animation::Skeleton;
+        skeleton->Load(name);
+        skeletons[name].skeleton = skeleton;
+        skeletonsInverse[skeleton] = name;
+        skeletons[name].count = 1;
+    } else {
+        skeletons[name].count++;
+    }
+
+    return skeletons[name].skeleton;
+}
+
+void ResourceManager::FreeSkeleton(Animation::Skeleton * skeleton) {
+    std::string name = skeletonsInverse[skeleton];
+
+    if (skeletons[name].count-- <= 1) {
+        skeletonsInverse.erase(skeleton);
+        delete skeleton;
+        skeletons.erase(name);
     }
 }
 

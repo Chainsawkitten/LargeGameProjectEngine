@@ -73,6 +73,7 @@ namespace Geometry {
             /// Open a .asset file.
             /**
              * @param filepath Path of the file.
+             * @param mode Use READ or WRITE.
              */
             ENGINE_API bool Open(const char* filepath, Mode mode = READ);
 
@@ -99,7 +100,7 @@ namespace Geometry {
             /**
             * @param meshData Static mesh data.
             */
-            ENGINE_API void SaveStaticMesh(MeshData * meshData);
+            ENGINE_API void SaveMesh(MeshData * meshData);
 
         private:
             void ReadGlobalHeader();

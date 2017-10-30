@@ -6,6 +6,7 @@
 namespace Video {
     class Texture2D;
     class ShaderProgram;
+    class StorageBuffer;
     namespace Geometry {
         class Geometry3D;
     }
@@ -24,7 +25,7 @@ namespace Video {
              * @param viewMatrix The camera's view matrix.
              * @param projectionMatrix The camera's projection matrix.
              */
-            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
+            void PreRender(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix, const StorageBuffer* lightBuffer, unsigned int lightCount);
     
             /// Render skinned geometry.
             /**
@@ -37,7 +38,7 @@ namespace Video {
              * @param bones Transformations of skeleton.
              * @param bonesIT Inverse transpose transformations of skeleton.
              */
-            void Render(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones, const std::vector<glm::mat3>& bonesIT) const;
+            void Render(const Video::Geometry::Geometry3D* geometry, const Video::Texture2D* textureAlbedo, const Video::Texture2D* normalTexture, const Video::Texture2D* textureMetallic, const Video::Texture2D* textureRoughness, const glm::mat4& modelMatrix, const std::vector<glm::mat4>& bones) const;
             
         private:
             SkinRenderProgram(const SkinRenderProgram & other) = delete;
