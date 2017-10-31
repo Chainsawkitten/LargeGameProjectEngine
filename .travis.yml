@@ -13,8 +13,10 @@ addons:
       - xorg-dev
       - libgl1-mesa-dev
       - libglu1-mesa-dev
+      - clang-format-3.9
 
 script:
+- "./scripts/clang-format/script.sh"
 - cmake .
 - make -j4
 
