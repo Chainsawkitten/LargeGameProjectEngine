@@ -247,6 +247,13 @@ class Entity {
 
         /// Whether the entity is static.
         bool isStatic = false;
+
+        /// Variables used for enabling and disabling the paint brush tool.
+        bool loadPaintModeClicked = false;
+        bool brushActive = false;
+        bool vertsLoaded = false;
+        bool painting = false;
+
         
     private:
         template<typename T> void Save(Json::Value& node, const std::string& name) const;

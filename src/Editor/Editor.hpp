@@ -74,6 +74,12 @@ class Editor {
          * @return Camera through which to render.
          */
         Entity* GetCamera() const;
+
+        //Whether the vertices for the paint mode are loaded or not.
+        bool vertsLoaded = false;
+
+        //Whether the paint mode is active or not.
+        bool paintModeActive = false;
         
     private:
         void ShowMainMenuBar(bool& play);
@@ -117,7 +123,10 @@ class Editor {
         Entity* selectedEntity;
         MousePicking mousePicker;
         RayIntersection rayIntersector;
-        
+        int nrOfVertices = 0;
+        int nrOfIndices = 0;
+        glm::vec3 normal;
+        float lastIntersect = INFINITY;
         double lastX = 0.0;
         double lastY = 0.0;
         

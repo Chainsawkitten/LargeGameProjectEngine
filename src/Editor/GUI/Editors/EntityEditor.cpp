@@ -56,7 +56,7 @@ EntityEditor::EntityEditor() {
     name[0] = '\0';
 
     AddEditor<Component::AnimationController>("Animation controller", std::bind(&EntityEditor::AnimationControllerEditor, this, std::placeholders::_1));
-    AddEditor<Component::AudioMaterial> ("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
+    AddEditor<Component::AudioMaterial>("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::AudioMaterial>("Audio material", std::bind(&EntityEditor::AudioMaterialEditor, this, std::placeholders::_1));
     AddEditor<Component::Mesh>("Mesh", std::bind(&EntityEditor::MeshEditor, this, std::placeholders::_1));
     AddEditor<Component::Lens>("Lens", std::bind(&EntityEditor::LensEditor, this, std::placeholders::_1));
@@ -273,8 +273,27 @@ void EntityEditor::MeshEditor(Component::Mesh* mesh) {
 
             mesh->geometry = Managers().resourceManager->CreateModel(resourceSelector.GetSelectedResource().GetPath());
         }
-
         ImGui::EndPopup();
+    }
+    // Paint Mode. Load vertices and indices.
+    if (entity->loadPaintModeClicked == false) {
+        if (ImGui::Button("Load paint mode.")){
+            entity->loadPaintModeClicked = true;
+            entity->vertsLoaded = true;
+        }
+    }
+    if (entity->loadPaintModeClicked) {
+        if (entity->brushActive == false) {
+            if (ImGui::Button("Activate paint brush")) {
+                entity->brushActive = true;
+            }
+        }
+        if (entity->brushActive == true) {
+            if (ImGui::Button("Exit paint brush")) {
+                entity->brushActive = false;
+                entity->loadPaintModeClicked = false;
+            }
+        }
     }
     ImGui::Unindent();
 }
@@ -497,11 +516,11 @@ void EntityEditor::ScriptEditor(Component::Script* script) {
 
 void EntityEditor::ShapeEditor(Component::Shape* shape) {
     if (ImGui::Combo("Shape", &selectedShape, [](void* data, int idx, const char** outText) -> bool {
-            IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
-            *outText = editor->Label();
-            return true;
-        },
-            shapeEditors.data(), shapeEditors.size())) {
+        IShapeEditor* editor = *(reinterpret_cast<IShapeEditor**>(data) + idx);
+        *outText = editor->Label();
+        return true;
+    },
+        shapeEditors.data(), shapeEditors.size())) {
         shapeEditors[selectedShape]->Apply(shape);
     }
 

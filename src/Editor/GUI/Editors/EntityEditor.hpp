@@ -6,6 +6,7 @@
 #include <functional>
 #include <Engine/Entity/Entity.hpp>
 #include <imgui.h>
+#include <Engine/Geometry/AssetFileHandler.hpp> 
 #include "../ResourceSelector.hpp"
 
 namespace Component {
@@ -94,7 +95,7 @@ namespace GUI {
             void SoundSourceEditor(Component::SoundSource* soundSource);
             void ParticleEmitterEditor(Component::ParticleEmitter* particleEmitter);
             void VRDeviceEditor(Component::VRDevice* vrDevice);
-            
+
             Entity* entity = nullptr;
             bool visible = false;
             char name[128];
