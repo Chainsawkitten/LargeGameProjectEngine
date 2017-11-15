@@ -2,53 +2,77 @@ class Minecart_Puzzle_1{
     Hub @hub;
     Entity @self;
     float speed;
-    bool trigger;
+    bool hasHitPlane;
+    float planePos;
     float stopTime;
     float endTime;
-    bool hasBridgeBeenLowered;
+    bool puzzleSolved;
+    vec3 tempPos;
+    // v(t) = a*t*t + b*t + c
+    // s(t) = V(t)
+    // s(0) = 0, s(endTime) = breakDistance
+    // v(0) = speed, v(endTime) = 0
+    float a;
+    float b;
+    float c;
+    float brakeDistance;
     
     Minecart_Puzzle_1(Entity @entity){
         @hub = Managers();
         @self = @entity;
-        speed = 4.0f;
+        speed = 2.0f;
         stopTime = 0.0f;
-        endTime = 7.5f;
-        hasBridgeBeenLowered = false;
-        
-        trigger = false;
+        endTime = 5.0f;
+        planePos = 0.0f;
+        puzzleSolved = false;
+        //trigger = false;
+        hasHitPlane = false;
         RegisterUpdate();
     }
     
     //Update carts movements and send it's position to Player Script.
-    void Update(float deltaTime){
-            self.position.z -= speed*deltaTime;
-        
-        if (self.GetWorldPosition().x <= 5.4)
-            speed = 0.0f;
-        
-        /*// Braking phase
-        if (hasHitPlane && stopTime < endTime){
-            stopTime += deltaTime;
-            speed -= 0.0056f;
+    void Update(float deltaTime) {
+        if (!hasHitPlane) {
+            tempPos = self.GetWorldPosition();
+            tempPos.x -= speed * deltaTime;
+            self.SetWorldPosition(tempPos);
         }
-        // Stopping phase
-        else if (stopTime >= endTime && !trigger) {
-            self.position.z = 4;
-            speed = 0.0f;
+        // Braking phase
+        else if (hasHitPlane && stopTime < endTime){
+            stopTime += deltaTime;
+            tempPos = self.GetWorldPosition();
+            float s = a * stopTime * stopTime * stopTime / 3 + b * stopTime * stopTime / 2 + c * stopTime;
+            tempPos.x = planePos - s;
+            self.SetWorldPosition(tempPos);
         }
         // Start again after puzzle has been solved
-        if (trigger){
+        else if (puzzleSolved){
             if (speed < 2.0f)
-                speed += 0.00664f;
-            if (speed > 2.0f){
+                speed += 0.5f * deltaTime;
+            else if (speed > 2.0f){
                 speed = 2.0f;
-                trigger = false;
             }
-        }*/
+            tempPos = self.GetWorldPosition();
+            tempPos.x -= speed * deltaTime;
+            self.SetWorldPosition(tempPos);
+        }
+        // Stopping phase
+        else
+            speed = 0.0f;
     }
     
-    void ReceiveMessage(int signal){
-        if (signal == 1)
-            trigger = true;
+    void OnTrigger(){
+        hasHitPlane = true;
+        planePos = self.GetWorldPosition().x;
+        brakeDistance = 10.0f; // The distance during which we will brake
+        c = speed;
+        b = (6 * brakeDistance - 4 * c * endTime) / (endTime * endTime);
+        a = -(c + b * endTime) / (endTime * endTime);
+    }
+    
+    void ReceiveMessage(Entity @sender, int signal){
+        if (signal == 3) {
+            puzzleSolved = true;
+        }
     }
 }

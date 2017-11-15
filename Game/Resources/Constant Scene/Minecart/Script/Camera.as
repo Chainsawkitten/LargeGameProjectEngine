@@ -32,7 +32,7 @@ class Camera{
             MouseUpdate();
             
         deathTimer += 0.001;
-        if(deathTimer > 10)
-            RestartScene();
+        //if(deathTimer > 10)
+        //    RestartScene();
     }
 }

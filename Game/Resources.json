@@ -3,7 +3,7 @@
 	"animationClipNumber" : 0,
 	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 0,
-	"modelNumber" : 78,
+	"modelNumber" : 98,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -74,13 +74,7 @@
 					},
 					{
 						"name" : "Lever",
-						"resources" : 
-						[
-							{
-								"script" : "Lever",
-								"type" : 4
-							}
-						],
+						"resources" : null,
 						"subfolders" : 
 						[
 							{
@@ -129,13 +123,7 @@
 					},
 					{
 						"name" : "Gate",
-						"resources" : 
-						[
-							{
-								"script" : "Gates",
-								"type" : 4
-							}
-						],
+						"resources" : null,
 						"subfolders" : 
 						[
 							{
@@ -192,6 +180,148 @@
 							}
 						],
 						"subfolders" : null
+					},
+					{
+						"name" : "Model",
+						"resources" : 
+						[
+							{
+								"model" : "Pillars",
+								"type" : 1
+							},
+							{
+								"model" : "Walls",
+								"type" : 1
+							},
+							{
+								"model" : "Floor",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Cave",
+								"type" : 1
+							},
+							{
+								"model" : "room",
+								"type" : 1
+							},
+							{
+								"model" : "ElevatorFrame",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_tracks",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Bridge",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Barrels",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Crates",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Carts",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Textures",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Walls",
+								"resources" : 
+								[
+									{
+										"texture" : "Walls_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Walls_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Walls_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Pillars",
+								"resources" : 
+								[
+									{
+										"texture" : "Pillars_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Pillars_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Pillars_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "ElevatorFrame",
+								"resources" : 
+								[
+									{
+										"texture" : "Elevator_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Tracks",
+								"resources" : 
+								[
+									{
+										"texture" : "Rail_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			},
@@ -476,6 +606,24 @@
 								"subfolders" : null
 							}
 						]
+					},
+					{
+						"name" : "PileOfRocks",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Model",
+								"resources" : 
+								[
+									{
+										"model" : "PileOfRocks",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					}
 				]
 			},
@@ -529,6 +677,52 @@
 									}
 								],
 								"subfolders" : null
+							},
+							{
+								"name" : "The Bucket",
+								"resources" : 
+								[
+									{
+										"texture" : "bucket_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Barrels",
+								"resources" : 
+								[
+									{
+										"texture" : "Barrels_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
 							}
 						]
 					},
@@ -573,15 +767,32 @@
 								"type" : 1
 							},
 							{
+								"model" : "rockscaled",
+								"type" : 1
+							},
+							{
 								"model" : "Tracks",
 								"type" : 1
 							},
 							{
-								"model" : "rockscaled",
+								"model" : "PileOfRocks",
 								"type" : 1
 							}
 						],
-						"subfolders" : null
+						"subfolders" : 
+						[
+							{
+								"name" : "The Bucket",
+								"resources" : 
+								[
+									{
+										"model" : "TheBucket",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
 					},
 					{
 						"name" : "Scripts",
@@ -662,9 +873,9 @@
 			}
 		]
 	},
-	"sceneNumber" : 11,
+	"sceneNumber" : 12,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 0,
 	"soundNumber" : 2,
-	"textureNumber" : 53
+	"textureNumber" : 76
 }

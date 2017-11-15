@@ -33,6 +33,17 @@
 							{
 								"placeholderValue" : ""
 							},
+							"PointLight" : 
+							{
+								"attenuation" : 1.0,
+								"color" : 
+								{
+									"x" : 1.0,
+									"y" : 1.0,
+									"z" : 1.0
+								},
+								"intensity" : 0.10000000149011612
+							},
 							"Script" : 
 							{
 								"scriptName" : "Resources/Constant Scene/Minecart/Script/Camera"
@@ -68,9 +79,27 @@
 							"uid" : 1508919707
 						},
 						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"kinematic" : true,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
 							"Script" : 
 							{
 								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
+							"Shape" : 
+							{
+								"sphere" : 
+								{
+									"radius" : 0.5
+								}
 							},
 							"VRDevice" : 
 							{
@@ -131,9 +160,27 @@
 							"uid" : 1508919751
 						},
 						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"kinematic" : true,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
 							"Script" : 
 							{
 								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
+							"Shape" : 
+							{
+								"sphere" : 
+								{
+									"radius" : 0.5
+								}
 							},
 							"VRDevice" : 
 							{
@@ -303,7 +350,7 @@
 						"angularDamping" : 0.0,
 						"cor" : 0.0,
 						"friction" : 0.5,
-						"kinematic" : false,
+						"kinematic" : true,
 						"linearDamping" : 0.0,
 						"mass" : 1.0,
 						"rollingFriction" : 0.0,

@@ -7,7 +7,7 @@ class Lantern {
         @debugDrawingManager = Managers().debugDrawingManager;
         
         @self = entity;
-        @controller = GetEntity(1508919751);
+        @controller = GetEntityByGUID(1508919751);
         RegisterUpdate();
     }
     
