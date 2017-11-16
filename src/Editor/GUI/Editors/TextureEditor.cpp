@@ -7,6 +7,7 @@
 #include <Engine/Hymn.hpp>
 #include <Engine/Util/FileSystem.hpp>
 #include <imgui.h>
+#include "../../Util/TextureConverter.hpp"
 
 using namespace GUI;
 
@@ -19,7 +20,7 @@ void TextureEditor::Show() {
         if (ImGui::InputText("Name", name, 128, ImGuiInputTextFlags_EnterReturnsTrue)) {
             // Rename texture files.
             std::string path = Hymn().GetPath() + "/" + texture->path;
-            rename((path + texture->name + ".png").c_str(), (path + name + ".png").c_str());
+            rename((path + texture->name + ".htc").c_str(), (path + name + ".htc").c_str());
             
             texture->name = name;
         }
@@ -62,7 +63,10 @@ void TextureEditor::SetVisible(bool visible) {
 }
 
 void TextureEditor::FileSelected(const std::string& file) {
-    std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".png";
-    FileSystem::Copy(file.c_str(), destination.c_str());
-    texture->GetTexture()->Load(file.c_str());
+    std::string destination = Hymn().GetPath() + "/" + texture->path + texture->name + ".hct";
+    
+    // Convert PNG texture to custom texture format.
+    TextureConverter::Convert(file.c_str(), destination.c_str());
+    
+    texture->Load(texture->path + texture->name);
 }

@@ -5,7 +5,7 @@
 #include "../linking.hpp"
 
 namespace Video {
-    class Texture2D;
+    class TexturePNG;
     namespace Geometry {
         class Rectangle;
     }
@@ -90,16 +90,16 @@ class ResourceManager {
         /**
          * @param data Image file data.
          * @param dataLength Length of the image file data.
-         * @return The %Texture2D instance
+         * @return The %TexturePNG instance
          */
-        ENGINE_API Video::Texture2D* CreateTexture2D(const char* data, int dataLength);
+        ENGINE_API Video::TexturePNG* CreateTexturePNG(const char* data, int dataLength);
         
         /// Free the reference to the 2D texture.
         /**
          * Deletes the instance if no more references exist.
          * @param texture %Texture to dereference.
          */
-        ENGINE_API void FreeTexture2D(Video::Texture2D* texture);
+        ENGINE_API void FreeTexturePNG(Video::TexturePNG* texture);
         
         /// Create a texture asset if it doesn't already exist.
         /**
@@ -209,13 +209,13 @@ class ResourceManager {
         std::map<std::string, SkeletonInstance> skeletons;
         std::map<Animation::Skeleton*, std::string> skeletonsInverse;
 
-        // Texture2D.
-        struct Texture2DInstance {
-            Video::Texture2D* texture;
+        // TexturePNG.
+        struct TexturePNGInstance {
+            Video::TexturePNG* texture;
             int count;
         };
-        std::map<const char*, Texture2DInstance> textures;
-        std::map<Video::Texture2D*, const char*> texturesInverse;
+        std::map<const char*, TexturePNGInstance> textures;
+        std::map<Video::TexturePNG*, const char*> texturesInverse;
         
         // Texture asset.
         struct TextureAssetInstance {

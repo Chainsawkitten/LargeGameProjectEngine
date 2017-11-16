@@ -12,6 +12,13 @@ class TextureAsset {
     public:
         /// Create new texture asset.
         ENGINE_API TextureAsset();
+        
+        /// Create new texture asset from a PNG image.
+        /**
+         * @param source Source string containing the image file.
+         * @param sourceLength Length of the source string.
+         */
+        ENGINE_API TextureAsset(const char* source, int sourceLength);
 
         /// Destructor.
         ENGINE_API ~TextureAsset();

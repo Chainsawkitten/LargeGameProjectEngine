@@ -34,14 +34,10 @@
 using namespace std;
 
 ActiveHymn::ActiveHymn() {
-    defaultAlbedo = new TextureAsset();
-    defaultAlbedo->GetTexture()->Load(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH);
-    defaultNormal = new TextureAsset();
-    defaultNormal->GetTexture()->Load(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH);
-    defaultMetallic= new TextureAsset();
-    defaultMetallic->GetTexture()->Load(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH);
-    defaultRoughness = new TextureAsset();
-    defaultRoughness->GetTexture()->Load(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH);
+    defaultAlbedo = new TextureAsset(DEFAULTALBEDO_PNG, DEFAULTALBEDO_PNG_LENGTH);
+    defaultNormal = new TextureAsset(DEFAULTNORMAL_PNG, DEFAULTNORMAL_PNG_LENGTH);
+    defaultMetallic= new TextureAsset(DEFAULTMETALLIC_PNG, DEFAULTMETALLIC_PNG_LENGTH);
+    defaultRoughness = new TextureAsset(DEFAULTROUGHNESS_PNG, DEFAULTROUGHNESS_PNG_LENGTH);
     
     Clear();
 }

@@ -2,7 +2,7 @@
 
 #include <Video/RenderSurface.hpp>
 #include <Video/Buffer/FrameBuffer.hpp>
-#include "Texture/Texture.hpp"
+#include "Texture/Texture2D.hpp"
 #include "Shader/Shader.hpp"
 #include "Shader/ShaderProgram.hpp"
 #include "Particle.vert.hpp"
@@ -71,7 +71,7 @@ void ParticleRenderer::SetBufferContents(unsigned int count, const Particle* par
     particleCount = count;
 }
 
-void ParticleRenderer::Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix, RenderSurface* renderSurface) {
+void ParticleRenderer::Render(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix, RenderSurface* renderSurface) {
     // Don't write to depth buffer.
     GLboolean depthWriting;
     glGetBooleanv(GL_DEPTH_WRITEMASK, &depthWriting);

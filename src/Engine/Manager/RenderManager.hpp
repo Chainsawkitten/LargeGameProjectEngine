@@ -8,7 +8,7 @@
 namespace Video {
     class Renderer;
     class RenderSurface;
-    class Texture2D;
+    class TexturePNG;
     class ShadowPass;
 } // namespace Video
 class World;
@@ -303,10 +303,10 @@ class RenderManager {
         Video::RenderSurface* hmdRenderSurface;
 
         // Editor entity textures.
-        Video::Texture2D* particleEmitterTexture;
-        Video::Texture2D* lightTexture;
-        Video::Texture2D* soundSourceTexture;
-        Video::Texture2D* cameraTexture;
+        Video::TexturePNG* particleEmitterTexture;
+        Video::TexturePNG* lightTexture;
+        Video::TexturePNG* soundSourceTexture;
+        Video::TexturePNG* cameraTexture;
 
         // Components.
         ComponentContainer<Component::AnimationController> animationControllers;

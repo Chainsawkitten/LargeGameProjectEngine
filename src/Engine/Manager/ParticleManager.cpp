@@ -7,7 +7,7 @@
 #include "../Component/ParticleEmitter.hpp"
 #include "../Manager/Managers.hpp"
 #include "../Manager/ResourceManager.hpp"
-#include <Video/Texture/Texture2D.hpp>
+#include <Video/Texture/TexturePNG.hpp>
 #include "ParticleAtlas.png.hpp"
 #include <Video/ParticleRenderer.hpp>
 #include "../Util/Json.hpp"
@@ -22,7 +22,7 @@ using namespace Video;
 ParticleManager::ParticleManager() {
     randomEngine.seed(randomDevice());
     
-    textureAtlas = Managers().resourceManager->CreateTexture2D(PARTICLEATLAS_PNG, PARTICLEATLAS_PNG_LENGTH);
+    textureAtlas = Managers().resourceManager->CreateTexturePNG(PARTICLEATLAS_PNG, PARTICLEATLAS_PNG_LENGTH);
     
     particleRenderer = new ParticleRenderer(maxParticleCount);
 }
@@ -30,7 +30,7 @@ ParticleManager::ParticleManager() {
 ParticleManager::~ParticleManager() {
     delete particleRenderer;
     
-    Managers().resourceManager->FreeTexture2D(textureAtlas);    
+    Managers().resourceManager->FreeTexturePNG(textureAtlas);    
 }
 
 unsigned int ParticleManager::GetMaxParticleCount() const {

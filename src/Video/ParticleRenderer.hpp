@@ -6,7 +6,7 @@
 
 namespace Video {
     class ShaderProgram;
-    class Texture;
+    class Texture2D;
     class RenderSurface;
     
     /// Renders particles.
@@ -64,7 +64,7 @@ namespace Video {
              * @param viewProjectionMatrix The camera's view projection matrix.
              * @param renderSurface %RenderSurface to render particles to.
              */
-            VIDEO_API void Render(Texture* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix, RenderSurface* renderSurface);
+            VIDEO_API void Render(Texture2D* textureAtlas, unsigned int textureAtlasRows, const glm::vec3& cameraPosition, const glm::vec3& cameraUp, const glm::mat4& viewProjectionMatrix, RenderSurface* renderSurface);
             
         private:
             ParticleRenderer(const ParticleRenderer & other) = delete;
