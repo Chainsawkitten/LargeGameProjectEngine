@@ -5,6 +5,7 @@
 #include "Manager/Managers.hpp"
 #include "Manager/RenderManager.hpp"
 #include "Util/Input.hpp"
+#include "Utility/Log.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -31,6 +32,7 @@ MainWindow::MainWindow(int width, int height, bool fullscreen, bool borderless, 
     window = glfwCreateWindow(width, height, title, monitor, nullptr);
     
     if (!window) {
+        Log() << "GLFW terminated.\n";
         glfwTerminate();
         /// @todo Print error to log.
     }

@@ -52,20 +52,25 @@
 using namespace Component;
 
 RenderManager::RenderManager() {
+    Log() << "Starting renderer\n";
     renderer = new Video::Renderer();
 
     // Render surface for main window.
+    Log() << "Window render surface\n";
     mainWindowRenderSurface = new Video::RenderSurface(MainWindow::GetInstance()->GetSize());
 
     // Render surface for hmd.
     hmdRenderSurface = nullptr;
+    Log() << "Check if VR manager is active\n";
     if (Managers().vrManager->Active())
         hmdRenderSurface = new Video::RenderSurface(Managers().vrManager->GetRecommendedRenderTargetSize());
 
     //Init shadowpass.
+    Log() << "Shadowpass init\n";
     shadowPass = new Video::ShadowPass();
 
     // Init textures.
+    Log() << "Init textures\n";
     particleEmitterTexture = Managers().resourceManager->CreateTexturePNG(PARTICLEEMITTER_PNG, PARTICLEEMITTER_PNG_LENGTH);
     lightTexture = Managers().resourceManager->CreateTexturePNG(LIGHT_PNG, LIGHT_PNG_LENGTH);
     soundSourceTexture = Managers().resourceManager->CreateTexturePNG(SOUNDSOURCE_PNG, SOUNDSOURCE_PNG_LENGTH);

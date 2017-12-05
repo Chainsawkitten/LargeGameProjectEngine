@@ -1,4 +1,5 @@
 #include "Rectangle.hpp"
+#include "Utility/Log.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -8,6 +9,7 @@ using namespace Video;
 using namespace Geometry;
 
 Rectangle::Rectangle() {
+    Log() << "Setting vertices\n";
     // Vertices.
     vertexNr = 4;
     vertexData = new Vertex[vertexNr];
@@ -40,7 +42,9 @@ Rectangle::Rectangle() {
     indexData[4] = 2;
     indexData[5] = 3;
     
+    Log() << "Generate buffers\n";
     GenerateBuffers();
+    Log() << "Generate vertex array\n";
     GenerateVertexArray();
 }
 

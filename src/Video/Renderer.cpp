@@ -15,6 +15,7 @@
 #include "Geometry/Rectangle.hpp"
 #include "Buffer/FrameBuffer.hpp"
 #include "Buffer/StorageBuffer.hpp"
+#include "Utility/Log.hpp"
 #include "Buffer/ReadWriteTexture.hpp"
 
 #ifdef USINGMEMTRACK
@@ -24,17 +25,23 @@
 using namespace Video;
 
 Renderer::Renderer() {
+    Log() << "Setting up render program\n";
     rectangle = new Geometry::Rectangle();
+    Log() << "After rectangle\n";
     staticRenderProgram = new StaticRenderProgram();
     skinRenderProgram = new SkinRenderProgram();
-
+    
+    Log() << "Post processing\n";
     postProcessing = new PostProcessing(rectangle);
 
+    Log() << "FXAA\n";
     fxaaFilter = new FXAAFilter();
 
     lightCount = 0;
+    Log() << "Lightbuffer\n";
     lightBuffer = new StorageBuffer(sizeof(Video::Light), GL_DYNAMIC_DRAW);
-
+    
+    Log() << "Icon rendering\n";
     // Icon rendering.
     Shader* iconVertexShader = new Shader(EDITORENTITY_VERT, EDITORENTITY_VERT_LENGTH, GL_VERTEX_SHADER);
     Shader* iconGeometryShader = new Shader(EDITORENTITY_GEOM, EDITORENTITY_GEOM_LENGTH, GL_GEOMETRY_SHADER);
@@ -44,6 +51,7 @@ Renderer::Renderer() {
     delete iconGeometryShader;
     delete iconFragmentShader;
     
+    Log() << "Uniforms\n";
     // Get uniform locations.
     viewProjectionLocation = iconShaderProgram->GetUniformLocation("viewProjectionMatrix");
     cameraPositionLocation = iconShaderProgram->GetUniformLocation("cameraPosition");
@@ -51,6 +59,7 @@ Renderer::Renderer() {
     baseImageLocation = iconShaderProgram->GetUniformLocation("baseImage");
     positionLocation = iconShaderProgram->GetUniformLocation("position");
 
+    Log() << "Icon geometry\n";
     // Create icon geometry.
     float vertex;
 

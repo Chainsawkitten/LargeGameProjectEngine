@@ -30,15 +30,25 @@ Hub& Managers() {
 }
 
 void Hub::StartUp() {
+    Log() << "Resource manager\n";
     resourceManager = new ResourceManager();
+    Log() << "VR manager\n";
     vrManager = new VRManager();
+    Log() << "Render manager\n";
     renderManager = new RenderManager();
+    Log() << "Particle manager\n";
     particleManager = new ParticleManager();
+    Log() << "Physics manager\n";
     physicsManager = new PhysicsManager();
+    Log() << "Sound manager\n";
     soundManager = new SoundManager();
+    Log() << "Script manager\n";
     scriptManager = new ScriptManager();
+    Log() << "Debug drawing manager\n";
     debugDrawingManager = new DebugDrawingManager();
+    Log() << "Profiling manager\n";
     profilingManager = new ProfilingManager();
+    Log() << "Trigger manager\n";
     triggerManager = new TriggerManager();
 }
 

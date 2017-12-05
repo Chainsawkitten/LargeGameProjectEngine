@@ -13,6 +13,7 @@
 #include "ShadowStatic.vert.hpp"
 #include "../Buffer/StorageBuffer.hpp"
 #include <chrono>
+#include "Utility/Log.hpp"
 
 #ifdef USINGMEMTRACK
 #include <MemTrackInclude.hpp>
@@ -21,24 +22,32 @@
 using namespace Video;
 
 StaticRenderProgram::StaticRenderProgram() {
+    Log() << "VertexShader\n";
     Shader* vertexShader = new Shader(DEFAULT3D_VERT, DEFAULT3D_VERT_LENGTH, GL_VERTEX_SHADER);
+    Log() << "Fragment shader\n";
     Shader* fragmentShader = new Shader(DEFAULT3D_FRAG, DEFAULT3D_FRAG_LENGTH, GL_FRAGMENT_SHADER);
+    Log() << "Shader program\n";
     shaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
     delete fragmentShader;
 
     // Create shaders for early rejection pass
+    Log() << "Shaders for rejection pass\n";
     vertexShader = new Shader(ZREJECTIONSTATIC_VERT, ZREJECTIONSTATIC_VERT_LENGTH, GL_VERTEX_SHADER);
+    Log() << "Fragmentshader\n";
     fragmentShader = new Shader(ZREJECTION_FRAG, ZREJECTION_FRAG_LENGTH, GL_FRAGMENT_SHADER);
+    Log() << "zshaderprogram\n";
     zShaderProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
 
     // Create shaders for shadowpass
+    Log() << "shadow pass\n";
     vertexShader = new Shader(SHADOWSTATIC_VERT, SHADOWSTATIC_VERT_LENGTH, GL_VERTEX_SHADER);
     shadowProgram = new ShaderProgram({ vertexShader, fragmentShader });
     delete vertexShader;
     delete fragmentShader;
     
+    Log() << "Uniforms\n";
     // Get uniform locations.
     shadowLightSpaceLocation = shadowProgram->GetUniformLocation("lightSpaceMatrix");
     shadowModelLocation = shadowProgram->GetUniformLocation("model");

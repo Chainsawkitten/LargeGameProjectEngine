@@ -1,4 +1,5 @@
 #include "Geometry2D.hpp"
+#include "Utility/Log.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
@@ -16,11 +17,13 @@ GLuint Geometry2D::GetVertexArray() const {
 }
 
 void Geometry2D::GenerateBuffers() {
+    Log() << "Vertex buffer\n";
     // Vertex buffer
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, GetVertexCount() * sizeof(Vertex), GetVertices(), GL_STATIC_DRAW);
     
+    Log() << "Index buffer\n";
     // Index buffer
     glGenBuffers(1, &indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
