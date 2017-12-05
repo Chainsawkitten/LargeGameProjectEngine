@@ -394,10 +394,10 @@ ScriptManager::ScriptManager() {
     engine->SetDefaultNamespace("Component");
     
     engine->RegisterObjectType("AnimationController", 0, asOBJ_REF | asOBJ_NOCOUNT);
-    engine->RegisterObjectMethod("AnimationController", "void SetBool(string name, bool value)", asMETHOD(AnimationController, SetBool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("AnimationController", "void SetFloat(string name, float value)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
-    engine->RegisterObjectMethod("AnimationController", "bool GetBool(string name)", asMETHOD(AnimationController, GetBool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("AnimationController", "float GetFloat(string name)", asMETHOD(AnimationController, GetFloat), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "void SetBool(const string& in, bool)", asMETHOD(AnimationController, SetBool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "void SetFloat(const string& in, float)", asMETHOD(AnimationController, SetFloat), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "bool GetBool(const string& in)", asMETHOD(AnimationController, GetBool), asCALL_THISCALL);
+    engine->RegisterObjectMethod("AnimationController", "float GetFloat(const string& in)", asMETHOD(AnimationController, GetFloat), asCALL_THISCALL);
 
     engine->RegisterObjectType("DirectionalLight", 0, asOBJ_REF | asOBJ_NOCOUNT);
     engine->RegisterObjectProperty("DirectionalLight", "vec3 color", asOFFSET(DirectionalLight, color));

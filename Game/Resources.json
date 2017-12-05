@@ -1,7 +1,7 @@
 {
 	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 0,
-	"animationControllerNumber" : 0,
+	"animationControllerNumber" : 2,
 	"audioMaterialNumber" : 0,
 	"modelNumber" : 143,
 	"resourceFolder" : 
@@ -536,6 +536,60 @@
 							{
 								"script" : "CartScript_0",
 								"type" : 4
+							},
+							{
+								"script" : "AnimationScript",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Animation",
+						"resources" : 
+						[
+							{
+								"model" : "monster1@model",
+								"type" : 1
+							},
+							{
+								"animationClip" : "monster@crouchscare",
+								"type" : 6
+							},
+							{
+								"skeleton" : "monster@skeleton",
+								"type" : 8
+							},
+							{
+								"animationClip" : "monster@attack",
+								"type" : 6
+							},
+							{
+								"animationController" : "Animation controller #1",
+								"type" : 7
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "monstermaps",
+						"resources" : 
+						[
+							{
+								"texture" : "normalmap",
+								"type" : 2
+							},
+							{
+								"texture" : "albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "roughness",
+								"type" : 2
 							}
 						],
 						"subfolders" : null
@@ -1496,7 +1550,7 @@
 	},
 	"sceneNumber" : 25,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 0,
+	"skeletonNumber" : 2,
 	"soundNumber" : 5,
 	"textureNumber" : 118
 }

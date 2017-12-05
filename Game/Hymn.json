@@ -59,7 +59,8 @@
 		"Resources/Foliage/FlareScript",
 		"Resources/Super Scene/Scripts/SwitcherScript_Final",
 		"Resources/StressScript",
-		"Resources/MonsterTestScript"
+		"Resources/MonsterTestScript",
+		"Resources/Opening Scene/Scripts/AnimationScript"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5

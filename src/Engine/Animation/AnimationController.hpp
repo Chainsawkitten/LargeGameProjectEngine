@@ -23,7 +23,7 @@ namespace Animation {
             /// Used to map bools.
             struct BoolItem {
                 char name[128] = "NewBool\0";
-                bool value = true;
+                bool value = false;
             };
 
             /// Used to map floats.
