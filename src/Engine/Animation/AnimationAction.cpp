@@ -9,7 +9,7 @@
 using namespace Animation;
 
 AnimationAction::AnimationAction() {
-    
+    animationClipName[512] = { '\0' };
 }
 
 AnimationAction::~AnimationAction() {
