@@ -32,7 +32,7 @@ namespace Animation {
             ENGINE_API void Load(std::ifstream* file) override;
             
             /// Name of animation.
-            char animationClipName[512] = {'\0'};
+            char animationClipName[512];
             
             /// Can the playback speed be changed with scripting.
             bool isPlaybackModifierStatic = true;
