@@ -1,0 +1,64 @@
+{
+	"filters" : 
+	{
+		"color" : false,
+		"colorColor" : 
+		{
+			"x" : 1.0,
+			"y" : 1.0,
+			"z" : 1.0
+		},
+		"dither" : false,
+		"fog" : false,
+		"fogColor" : 
+		{
+			"x" : 1.0,
+			"y" : 1.0,
+			"z" : 1.0
+		},
+		"fogDensity" : 0.00099999993108212948,
+		"fxaa" : true,
+		"gamma" : 2.2000000476837158
+	},
+	"input" : 
+	[
+		{
+			"0" : 
+			{
+				"action" : "OpenGate",
+				"key" : 69,
+				"state" : 1
+			},
+			"1" : 
+			{
+				"action" : "Trigger",
+				"key" : 33,
+				"state" : 1
+			},
+			"size" : 2
+		}
+	],
+	"scripts" : 
+	[
+		"Resources/Constant Scene/Minecart/Script/Minecart",
+		"Resources/Constant Scene/Minecart/Script/Camera",
+		"Resources/Constant Scene/Minecart/Script/Lantern",
+		"Resources/Opening Scene/Audio/scr_AudioManager",
+		"Resources/NewAssets/Scripts/Rock",
+		"Resources/NewAssets/Scripts/Bridge",
+		"Resources/Constant Scene/Minecart/Script/Controller",
+		"Resources/Constant Scene/Minecart/Script/Minecart",
+		"Resources/Constant Scene/Minecart/Script/Camera",
+		"Resources/Constant Scene/Minecart/Script/Lantern",
+		"Resources/Opening Scene/Audio/scr_AudioManager",
+		"Resources/Constant Scene/Minecart/Script/Minecart_Puzzle_1",
+		"Resources/NewAssets/Scripts/Rock",
+		"Resources/NewAssets/Scripts/Bridge",
+		"Resources/Constant Scene/Minecart/Script/Controller",
+		"Resources/Constant Scene/Minecart/Script/Player",
+		"Resources/NewAssets/Scripts/Cart_Puzzle_1",
+		"Resources/NewAssets/Scripts/BigBalk"
+	],
+	"startupScene" : "Resources/Opening Scene/Opening Scene",
+	"vrScale" : 1.5
+}

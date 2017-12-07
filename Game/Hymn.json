@@ -64,6 +64,8 @@
 		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer",
 		"Resources/Opening Scene/Scripts/AnimationScript",
 		"Resources/NewAssets/Scripts/MonsterRun",
+		"Resources/Constant Scene/Hands/RightHandAnim",
+		"Resources/Constant Scene/Hands/LeftHandAnim",
 		"Resources/elevatorScene/Scripts/elevator_moveCart",
 		"Resources/elevatorScene/Scripts/elevator_frontDoorCon",
 		"Resources/elevatorScene/Scripts/elevator_backDoorCon",
@@ -74,7 +76,10 @@
 		"Resources/VoltageScene/Scripts/ElevatorSoundScript",
 		"Resources/VoltageScene/Scripts/FlickeringLights",
 		"Resources/VoltageScene/Scripts/RoundAboutMinecartController",
-		"Resources/Super Scene/Scripts/SwitcherScript_Voltage"
+		"Resources/Super Scene/Scripts/SwitcherScript_Voltage",
+		"Resources/Super Scene/Scripts/SwitcherScript_2",
+		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
+		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5

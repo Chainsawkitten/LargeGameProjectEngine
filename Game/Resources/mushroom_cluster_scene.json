@@ -1,44 +1,5 @@
 {
-	"children" : 
-	[
-		{
-			"Material" : 
-			{
-				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
-				"metallic" : "Resources/NewAssets/Textures/Barrels/Barrels_Metallic",
-				"normal" : "Resources/fern_normal",
-				"roughness" : "Resources/NewAssets/Textures/Barrels/Barrels_Roughness"
-			},
-			"Mesh" : 
-			{
-				"model" : "Resources/mushroom_cluster_scene"
-			},
-			"children" : null,
-			"name" : "Entity #1",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 0.041400004178285599,
-				"y" : 0.041400004178285599,
-				"z" : 0.041400004178285599
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1510833553
-		}
-	],
+	"children" : null,
 	"name" : "Root",
 	"position" : 
 	{
@@ -61,5 +22,5 @@
 	},
 	"scene" : false,
 	"static" : false,
-	"uid" : 1510833546
+	"uid" : 1512132705
 }

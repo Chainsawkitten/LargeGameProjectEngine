@@ -1,0 +1,65 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/fern_albedo",
+				"metallic" : "",
+				"normal" : "Resources/fern_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/fernPhong"
+			},
+			"children" : null,
+			"name" : "Entity #1",
+			"position" : 
+			{
+				"x" : -0.066855177283287048,
+				"y" : 0.0075569059699773788,
+				"z" : 0.0040659718215465546
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.060900013893842697,
+				"y" : 0.060900013893842697,
+				"z" : 0.060900013893842697
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510828094
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1510828089
+}

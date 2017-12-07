@@ -1,6 +1,7 @@
 class Cart_Puzzle_1{
     Entity @self;
     Entity @actualSelf;
+    Entity @rightHand;
     float speed;
     bool hasHitPlane;
     float planePos;
@@ -20,6 +21,7 @@ class Cart_Puzzle_1{
     Cart_Puzzle_1(Entity @entity){
         @self = GetEntityByGUID(1508919384);
         @actualSelf = @entity;
+        @rightHand = GetEntityByGUID(1508919758);
         speed = 2.0f;
         stopTime = 0.0f;
         endTime = 5.0f;
@@ -30,10 +32,11 @@ class Cart_Puzzle_1{
         actualSelf.SetEnabled(false, true);
         RegisterUpdate();
     }
+
     
     //Update carts movements and send it's position to Player Script.
     void Update(float deltaTime) {
-        if (!hasHitPlane) {
+        if (!hasHitPlane) {         
             tempPos = self.GetWorldPosition();
             tempPos.x -= speed * deltaTime;
             self.SetWorldPosition(tempPos);

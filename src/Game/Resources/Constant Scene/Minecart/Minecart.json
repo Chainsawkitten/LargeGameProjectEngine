@@ -1,0 +1,469 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
+				"metallic" : "Resources/Constant Scene/Minecart/Textures/cart_metallic",
+				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
+				"roughness" : "Resources/Constant Scene/Minecart/Textures/cart_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/Minecart/Model/cart"
+			},
+			"children" : 
+			[
+				{
+					"Script" : 
+					{
+						"scriptName" : "Resources/Constant Scene/Minecart/Script/Player"
+					},
+					"children" : 
+					[
+						{
+							"Lens" : 
+							{
+								"fieldOfView" : 45.0,
+								"zFar" : 100.0,
+								"zNear" : 0.5
+							},
+							"Listener" : 
+							{
+								"placeholderValue" : ""
+							},
+							"PointLight" : 
+							{
+								"attenuation" : 1.0,
+								"color" : 
+								{
+									"x" : 1.0,
+									"y" : 1.0,
+									"z" : 1.0
+								},
+								"intensity" : 0.10000000149011612
+							},
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Camera"
+							},
+							"VRDevice" : 
+							{
+								"controllerID" : 1,
+								"type" : "headset"
+							},
+							"children" : null,
+							"name" : "Camera",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : -0.27400001883506775,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1508919707
+						},
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
+							"Shape" : 
+							{
+								"sphere" : 
+								{
+									"radius" : 0.25
+								}
+							},
+							"VRDevice" : 
+							{
+								"controllerID" : 1,
+								"type" : "controller"
+							},
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "Resources/Constant Scene/Controller/Textures/hand_albedo",
+										"metallic" : "Resources/Constant Scene/Controller/Textures/hand_metallic",
+										"normal" : "Resources/Constant Scene/Controller/Textures/hand_normal",
+										"roughness" : "Resources/Constant Scene/Controller/Textures/hand_roughness"
+									},
+									"Mesh" : 
+									{
+										"model" : "Resources/Constant Scene/Controller/Models/HandClosed"
+									},
+									"children" : null,
+									"name" : "LeftCtrlModel",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 0.10000000149011612,
+										"y" : 0.10000000149011612,
+										"z" : 0.10000000149011612
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1510937666
+								},
+								{
+									"SpotLight" : 
+									{
+										"ambientCoefficient" : 0.0,
+										"attenuation" : 1.0,
+										"color" : 
+										{
+											"x" : 1.0,
+											"y" : 1.0,
+											"z" : 1.0
+										},
+										"coneAngle" : 30.0,
+										"intensity" : 5.0,
+										"shadow" : true
+									},
+									"children" : 
+									[
+										{
+											"Material" : 
+											{
+												"albedo" : "Resources/Constant Scene/Lantern/Textures/lanter_albedo",
+												"metallic" : "Resources/Constant Scene/Lantern/Textures/lanter_metallic",
+												"normal" : "Resources/Constant Scene/Lantern/Textures/lantern_normal",
+												"roughness" : "Resources/Constant Scene/Lantern/Textures/lantern_roughness"
+											},
+											"Mesh" : 
+											{
+												"model" : "Resources/Constant Scene/Lantern/Lantern"
+											},
+											"children" : null,
+											"name" : "LanternMesh",
+											"position" : 
+											{
+												"x" : 0.0,
+												"y" : 0.0,
+												"z" : 0.0
+											},
+											"rotation" : 
+											{
+												"w" : 1.910685465164705e-15,
+												"x" : -4.3711388286737929e-08,
+												"y" : 1.0,
+												"z" : -4.3711388286737929e-08
+											},
+											"scale" : 
+											{
+												"x" : 0.070000000298023224,
+												"y" : 0.070000000298023224,
+												"z" : 0.070000000298023224
+											},
+											"scene" : false,
+											"static" : false,
+											"uid" : 1509714156
+										}
+									],
+									"name" : "Lantern",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : -0.18000000715255737,
+										"z" : 0.013000000268220901
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1509711303
+								}
+							],
+							"name" : "Left Controller",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1508919751
+						},
+						{
+							"RigidBody" : 
+							{
+								"angularDamping" : 0.0,
+								"cor" : 0.0,
+								"friction" : 0.0,
+								"ghost" : true,
+								"kinematic" : false,
+								"linearDamping" : 0.0,
+								"mass" : 1.0,
+								"rollingFriction" : 0.0,
+								"spinningFriction" : 0.0
+							},
+							"Script" : 
+							{
+								"scriptName" : "Resources/Constant Scene/Minecart/Script/Controller"
+							},
+							"Shape" : 
+							{
+								"box" : 
+								{
+									"depth" : 1.5,
+									"height" : 0.5,
+									"width" : 0.89999997615814209
+								}
+							},
+							"VRDevice" : 
+							{
+								"controllerID" : 2,
+								"type" : "controller"
+							},
+							"children" : 
+							[
+								{
+									"Material" : 
+									{
+										"albedo" : "Resources/Constant Scene/Controller/Textures/hand_albedo",
+										"metallic" : "Resources/Constant Scene/Controller/Textures/hand_metallic",
+										"normal" : "Resources/Constant Scene/Controller/Textures/hand_normal",
+										"roughness" : "Resources/Constant Scene/Controller/Textures/hand_roughness"
+									},
+									"Mesh" : 
+									{
+										"model" : "Resources/Constant Scene/Controller/Models/HandOpenRight"
+									},
+									"children" : null,
+									"name" : "RightCtrlModel",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 0.10000000149011612,
+										"y" : 0.10000000149011612,
+										"z" : 0.10000000149011612
+									},
+									"scene" : false,
+									"static" : false,
+									"uid" : 1510937667
+								}
+							],
+							"name" : "Right Controller",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1508919758
+						}
+					],
+					"name" : "Player",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1508919503
+				},
+				{
+					"RigidBody" : 
+					{
+						"angularDamping" : 0.0,
+						"cor" : 0.0,
+						"friction" : 0.5,
+						"ghost" : false,
+						"kinematic" : true,
+						"linearDamping" : 0.0,
+						"mass" : 1.0,
+						"rollingFriction" : 0.0,
+						"spinningFriction" : 0.0
+					},
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 1.0,
+							"height" : 1.0,
+							"width" : 1.0
+						}
+					},
+					"children" : null,
+					"name" : "MinecraftPhysicsComponent",
+					"position" : 
+					{
+						"x" : 0.19700001180171967,
+						"y" : 0.36900001764297485,
+						"z" : -0.44700002670288086
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1509959164
+				}
+			],
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 5.0,
+				"y" : 5.0,
+				"z" : 5.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1508919384
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1508919163
+}

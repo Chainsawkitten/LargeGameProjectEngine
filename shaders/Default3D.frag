@@ -237,11 +237,11 @@ void main() {
     // Gamma correction.
     color = pow(color, vec3(1.0f / gamma));
 
-    // Dither.
-    if (ditherApply) {
-        float dither = rand(gl_FragCoord.xy / frameSize + vec2(time, 0.0f)) / 255.0f;
-        color = color + vec3(dither);
-    }
+	// Dither.
+	if (ditherApply) {
+		float dither = rand(gl_FragCoord.xy / frameSize + vec2(time, 0.0f)) / 255.0f;
+		color = color + vec3(dither);
+	}
     
     // Final color.
     finalColor = color;

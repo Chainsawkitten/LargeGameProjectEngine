@@ -1,6 +1,6 @@
 {
 	"CPU" : false,
-	"GPU" : true,
+	"GPU" : false,
 	"importNormals" : true,
 	"importTangents" : true,
 	"triangulate" : true

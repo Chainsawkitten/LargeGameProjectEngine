@@ -360,10 +360,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
-										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
-										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
-										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
+										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
 									},
 									"Mesh" : 
 									{
@@ -397,10 +397,10 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
-										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
-										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
-										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
+										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+										"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
 									},
 									"Mesh" : 
 									{
@@ -434,9 +434,9 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
-										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
-										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+										"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
 										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
@@ -471,9 +471,9 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
 										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
-										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
 										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
@@ -508,8 +508,8 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
-										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+										"metallic" : "Resources/NewAssets/Textures/Rails/rail_normal",
 										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
 										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
@@ -545,9 +545,9 @@
 								{
 									"Material" : 
 									{
-										"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+										"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
 										"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
-										"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+										"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
 										"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
 									},
 									"Mesh" : 
@@ -832,7 +832,7 @@
 			{
 				"x" : 0.0,
 				"y" : 0.0,
-				"z" : 0.0
+				"z" : 0.0047622323036193848
 			},
 			"rotation" : 
 			{
@@ -1017,10 +1017,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
-				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
-				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
-				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
 			},
 			"Mesh" : 
 			{
@@ -1537,12 +1537,12 @@
 													{
 														"albedo" : "Resources/NewAssets/Textures/The Bucket/bucket_albedo",
 														"metallic" : "Resources/NewAssets/Textures/The Bucket/bucket_metallic",
-														"normal" : "Resources/NewAssets/Textures/The Bucket/bucket_normal",
-														"roughness" : "Resources/NewAssets/Textures/The Bucket/bucket_roughness"
+														"normal" : "",
+														"roughness" : ""
 													},
 													"Mesh" : 
 													{
-														"model" : "Resources/NewAssets/Models/The Bucket/TheBucket"
+														"model" : "Resources/NewAssets/Models/Puzzle Scale/bucketFixedHandle_01"
 													},
 													"children" : 
 													[
@@ -1581,9 +1581,9 @@
 															"name" : "BucketShape",
 															"position" : 
 															{
-																"x" : -0.070966601371765137,
-																"y" : 3.5870001316070557,
-																"z" : 0.066697537899017334
+																"x" : -0.070966765284538269,
+																"y" : -0.059439480304718018,
+																"z" : -2.4295229911804199
 															},
 															"rotation" : 
 															{
@@ -1606,22 +1606,22 @@
 													"name" : "Bucket",
 													"position" : 
 													{
-														"x" : -0.14610970020294189,
-														"y" : -1.5018868446350098,
-														"z" : -3.2162940502166748
+														"x" : -0.28170663118362427,
+														"y" : 0.16956812143325806,
+														"z" : -0.96456813812255859
 													},
 													"rotation" : 
 													{
-														"w" : 0.70710676908493042,
+														"w" : 1.0,
 														"x" : 0.0,
-														"y" : 0.70710676908493042,
+														"y" : 0.0,
 														"z" : 0.0
 													},
 													"scale" : 
 													{
-														"x" : 0.20000000298023224,
-														"y" : 0.20000000298023224,
-														"z" : 0.20000000298023224
+														"x" : 1.0,
+														"y" : 1.0,
+														"z" : 1.0
 													},
 													"scene" : false,
 													"static" : false,
@@ -2120,6 +2120,43 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512475495
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.074000000953674316,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.19215686619281769,
+					"z" : 0.0
+				},
+				"intensity" : 5.5670003890991211
+			},
+			"children" : null,
+			"name" : "cave_light",
+			"position" : 
+			{
+				"x" : -0.33725535869598389,
+				"y" : -9.3931074142456055,
+				"z" : 0.70159029960632324
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512381323
 		}
 	],
 	"name" : "Root",

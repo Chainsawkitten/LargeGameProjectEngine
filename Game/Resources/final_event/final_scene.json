@@ -54,7 +54,7 @@
 			"name" : "plane",
 			"position" : 
 			{
-				"x" : 0.0,
+				"x" : 17.808002471923828,
 				"y" : 0.0,
 				"z" : 0.0
 			},
@@ -69,7 +69,7 @@
 			{
 				"x" : 1.0,
 				"y" : 1.0,
-				"z" : 1.0
+				"z" : 2.3470001220703125
 			},
 			"scene" : false,
 			"static" : false,
@@ -115,10 +115,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/final_event/textures/sack_albedo",
+				"metallic" : "Resources/final_event/textures/burlap_metallic",
+				"normal" : "Resources/final_event/textures/burlap_normal",
+				"roughness" : "Resources/final_event/textures/burlap_roughness"
 			},
 			"Mesh" : 
 			{
@@ -152,9 +152,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/final_event/textures/sand_albedo",
 				"metallic" : "",
-				"normal" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
 				"roughness" : ""
 			},
 			"Mesh" : 
@@ -165,16 +165,16 @@
 			"name" : "hills",
 			"position" : 
 			{
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -2.4160001277923584,
+				"y" : -1.6680001020431519,
+				"z" : 0.056000001728534698
 			},
 			"rotation" : 
 			{
-				"w" : 1.0,
+				"w" : 0.99991434812545776,
 				"x" : 0.0,
 				"y" : 0.0,
-				"z" : 0.0
+				"z" : 0.013089596293866634
 			},
 			"scale" : 
 			{
@@ -189,10 +189,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
 			},
 			"Mesh" : 
 			{
@@ -226,10 +226,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
 			},
 			"Mesh" : 
 			{
@@ -263,9 +263,9 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/final_event/textures/sand_albedo",
 				"metallic" : "",
-				"normal" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
 				"roughness" : ""
 			},
 			"Mesh" : 
@@ -300,7 +300,7 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "",
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
 				"metallic" : "",
 				"normal" : "",
 				"roughness" : ""
@@ -399,7 +399,7 @@
 			"position" : 
 			{
 				"x" : -41.894157409667969,
-				"y" : 0.37365445494651794,
+				"y" : 0.37315106391906738,
 				"z" : -0.30674630403518677
 			},
 			"rotation" : 
@@ -420,16 +420,21 @@
 			"uid" : 1511261108
 		},
 		{
+			"AnimationController" : 
+			{
+				"animationController" : "Resources/final_event/Animation controller #5",
+				"skeleton" : "Resources/final_event/Lmonsterskeleton"
+			},
 			"Material" : 
 			{
-				"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
-				"metallic" : "",
-				"normal" : "",
-				"roughness" : ""
+				"albedo" : "Resources/final_event/textures/monster_albedo",
+				"metallic" : "Resources/final_event/textures/monster_metallic",
+				"normal" : "Resources/final_event/textures/monster_normal",
+				"roughness" : "Resources/final_event/textures/monster_roughness"
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Constant Scene/Minecart/Model/cart"
+				"model" : "Resources/final_event/monster1model"
 			},
 			"RigidBody" : 
 			{
@@ -643,6 +648,38 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1512046440
+						},
+						{
+							"SoundSource" : 
+							{
+								"loop" : false,
+								"sound" : "Resources/final_event/Audio/snd_hets",
+								"volume" : 1.0
+							},
+							"children" : null,
+							"name" : "Hets",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512476155
 						}
 					],
 					"name" : "Audio",
@@ -673,15 +710,131 @@
 			"name" : "Monster",
 			"position" : 
 			{
-				"x" : 21.722570419311523,
-				"y" : 18.970512390136719,
+				"x" : 22.38496208190918,
+				"y" : 18.371841430664063,
+				"z" : -0.26529741287231445
+			},
+			"rotation" : 
+			{
+				"w" : 0.73785704374313354,
+				"x" : 0.0,
+				"y" : -0.6749565601348877,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.1452658474445343,
+				"y" : 0.14526602625846863,
+				"z" : 0.1452658474445343
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511261389
+		},
+		{
+			"Shape" : 
+			{
+				"box" : 
+				{
+					"depth" : 1.0,
+					"height" : 1.0,
+					"width" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1511261389,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 3,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 1,
+				"triggerFunction" : "void StopCharging()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1511277360,
+				"triggerTargetEntity" : 1511261389,
+				"triggerTriggered" : false
+			},
+			"children" : 
+			[
+				{
+					"Shape" : 
+					{
+						"box" : 
+						{
+							"depth" : 1.0,
+							"height" : 1.0,
+							"width" : 1.0
+						}
+					},
+					"Trigger" : 
+					{
+						"trigger" : "A Trigger",
+						"triggerActive" : false,
+						"triggerCharges" : 0,
+						"triggerCollidedEntityUID" : 1509959164,
+						"triggerCooldown" : 0.0,
+						"triggerDelay" : 0.0,
+						"triggerEventStruct_Check_0" : true,
+						"triggerEventStruct_Check_1" : true,
+						"triggerEventStruct_Check_2" : true,
+						"triggerEventStruct_Check_3" : true,
+						"triggerEventStruct_EventID" : 0,
+						"triggerEventStruct_ScriptID" : 2,
+						"triggerEventStruct_ShapeID" : 0,
+						"triggerEventStruct_TargetID" : 0,
+						"triggerFunction" : "void StopBeforeMonster()",
+						"triggerName" : "New Trigger",
+						"triggerOwner" : 1511337030,
+						"triggerTargetEntity" : 1511260476,
+						"triggerTriggered" : false
+					},
+					"children" : null,
+					"name" : "CartStopTrigger",
+					"position" : 
+					{
+						"x" : 2.0320322513580322,
+						"y" : -0.033799551427364349,
+						"z" : 0.039142608642578125
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511337030
+				}
+			],
+			"name" : "MonsterStopChargeTrigger",
+			"position" : 
+			{
+				"x" : -15.714401245117188,
+				"y" : 0.0,
 				"z" : 0.0
 			},
 			"rotation" : 
 			{
-				"w" : 0.70710676908493042,
+				"w" : 1.0,
 				"x" : 0.0,
-				"y" : 0.70710676908493042,
+				"y" : 0.0,
 				"z" : 0.0
 			},
 			"scale" : 
@@ -692,7 +845,269 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1511261389
+			"uid" : 1511277360
+		},
+		{
+			"SpotLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"attenuation" : 0.05000000074505806,
+				"color" : 
+				{
+					"x" : 0.20000000298023224,
+					"y" : 0.37647059559822083,
+					"z" : 1.0
+				},
+				"coneAngle" : 156.25700378417969,
+				"intensity" : 59.519001007080078,
+				"shadow" : false
+			},
+			"children" : null,
+			"name" : "moonlight",
+			"position" : 
+			{
+				"x" : 105.62100219726563,
+				"y" : 30.747001647949219,
+				"z" : 13.450000762939453
+			},
+			"rotation" : 
+			{
+				"w" : -0.49153140187263489,
+				"x" : 0.29403352737426758,
+				"y" : 0.68124300241470337,
+				"z" : 0.45590144395828247
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512372613
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512373452
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand2",
+			"position" : 
+			{
+				"x" : 59.998207092285156,
+				"y" : -0.39634609222412109,
+				"z" : -9.2392082214355469
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : -4.3711391839451608e-08,
+				"y" : -4.371138473402425e-08,
+				"z" : -4.3711391839451608e-08
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512373565
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "table",
+			"position" : 
+			{
+				"x" : -16.43507194519043,
+				"y" : -0.45075690746307373,
+				"z" : 2.0214829444885254
+			},
+			"rotation" : 
+			{
+				"w" : 0.70660316944122314,
+				"x" : 0.0,
+				"y" : -0.70760959386825562,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0304203033447266,
+				"y" : 2.6025247573852539,
+				"z" : 1.067196249961853
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512374239
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.25,
+				"color" : 
+				{
+					"x" : 0.5058823823928833,
+					"y" : 0.19215686619281769,
+					"z" : 0.0
+				},
+				"intensity" : 55.926002502441406
+			},
+			"children" : null,
+			"name" : "outside_light",
+			"position" : 
+			{
+				"x" : 54.294002532958984,
+				"y" : 4.4960002899169922,
+				"z" : -0.78600001335144043
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512375197
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.0080000003799796104,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.29411765933036804,
+					"z" : 0.0039215688593685627
+				},
+				"intensity" : 0.67500001192092896
+			},
+			"children" : null,
+			"name" : "outside_elevator_light",
+			"position" : 
+			{
+				"x" : -64.596351623535156,
+				"y" : 5.0766377449035645,
+				"z" : 11.381728172302246
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512382169
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sack_albedo",
+				"metallic" : "",
+				"normal" : "Resources/final_event/textures/sack_normal",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/ropepile"
+			},
+			"children" : null,
+			"name" : "rope",
+			"position" : 
+			{
+				"x" : -16.649513244628906,
+				"y" : 0.40276569128036499,
+				"z" : 1.7442541122436523
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.4798860549926758,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512373778
 		},
 		{
 			"RigidBody" : 
@@ -712,8 +1127,8 @@
 				"box" : 
 				{
 					"depth" : 0.05000000074505806,
-					"height" : 0.10000000149011612,
-					"width" : 0.52999997138977051
+					"height" : 0.30000001192092896,
+					"width" : 1.0
 				}
 			},
 			"Trigger" : 
@@ -743,14 +1158,14 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "",
-						"metallic" : "",
-						"normal" : "",
-						"roughness" : ""
+						"albedo" : "Resources/final_event/textures/knife_albedo",
+						"metallic" : "Resources/final_event/textures/knife_metallic",
+						"normal" : "Resources/final_event/textures/knife_normal",
+						"roughness" : "Resources/final_event/textures/knife_roughness"
 					},
 					"Mesh" : 
 					{
-						"model" : "Resources/final_event/knife2"
+						"model" : "Resources/final_event/knife2asc"
 					},
 					"children" : null,
 					"name" : "Mesh",
@@ -781,133 +1196,60 @@
 			"name" : "knife",
 			"position" : 
 			{
-				"x" : -6.7576127052307129,
-				"y" : 0.093465059995651245,
-				"z" : 0.99431264400482178
+				"x" : -15.102301597595215,
+				"y" : 0.60552012920379639,
+				"z" : 1.2216460704803467
 			},
 			"rotation" : 
 			{
-				"w" : 0.70116895437240601,
-				"x" : 0.70116895437240601,
-				"y" : -0.091442205011844635,
-				"z" : 0.091442205011844635
+				"w" : -0.45119252800941467,
+				"x" : 0.53534525632858276,
+				"y" : -0.26331841945648193,
+				"z" : 0.66369462013244629
 			},
 			"scale" : 
 			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
+				"x" : 1.0999976396560669,
+				"y" : 1.0999953746795654,
+				"z" : 1.0999959707260132
 			},
 			"scene" : false,
 			"static" : false,
 			"uid" : 1511264657
 		},
 		{
-			"Shape" : 
+			"ParticleSystem" : 
 			{
-				"plane" : 
+				"NrOfParticles" : 1006,
+				"alphaControl" : 4.1000003814697266,
+				"emitAmount" : 30,
+				"lifetime" : 2.0,
+				"mass" : 0.029999999329447746,
+				"randomVelocity" : 
 				{
-					"normal" : 
-					{
-						"x" : -1.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"planeCoeff" : 0.0
+					"x" : -2.0,
+					"y" : -4.0,
+					"z" : 0.0
+				},
+				"rate" : 0.0,
+				"scale" : 0.05000000074505806,
+				"speed" : 0.30000001192092896,
+				"spread" : 57,
+				"textureIndex" : 1,
+				"velocity" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
 				}
 			},
-			"Trigger" : 
-			{
-				"trigger" : "A Trigger",
-				"triggerActive" : false,
-				"triggerCharges" : 0,
-				"triggerCollidedEntityUID" : 1511261389,
-				"triggerCooldown" : 0.0,
-				"triggerDelay" : 0.0,
-				"triggerEventStruct_Check_0" : true,
-				"triggerEventStruct_Check_1" : true,
-				"triggerEventStruct_Check_2" : true,
-				"triggerEventStruct_Check_3" : true,
-				"triggerEventStruct_EventID" : 0,
-				"triggerEventStruct_ScriptID" : 3,
-				"triggerEventStruct_ShapeID" : 0,
-				"triggerEventStruct_TargetID" : 1,
-				"triggerFunction" : "void StopCharging()",
-				"triggerName" : "New Trigger",
-				"triggerOwner" : 1511277360,
-				"triggerTargetEntity" : 1511261389,
-				"triggerTriggered" : false
-			},
-			"children" : 
-			[
-				{
-					"Shape" : 
-					{
-						"plane" : 
-						{
-							"normal" : 
-							{
-								"x" : 1.0,
-								"y" : 0.0,
-								"z" : 0.0
-							},
-							"planeCoeff" : 0.0
-						}
-					},
-					"Trigger" : 
-					{
-						"trigger" : "A Trigger",
-						"triggerActive" : false,
-						"triggerCharges" : 0,
-						"triggerCollidedEntityUID" : 1509959164,
-						"triggerCooldown" : 0.0,
-						"triggerDelay" : 0.0,
-						"triggerEventStruct_Check_0" : true,
-						"triggerEventStruct_Check_1" : true,
-						"triggerEventStruct_Check_2" : true,
-						"triggerEventStruct_Check_3" : true,
-						"triggerEventStruct_EventID" : 0,
-						"triggerEventStruct_ScriptID" : 2,
-						"triggerEventStruct_ShapeID" : 0,
-						"triggerEventStruct_TargetID" : 0,
-						"triggerFunction" : "void StopBeforeMonster()",
-						"triggerName" : "New Trigger",
-						"triggerOwner" : 1511337030,
-						"triggerTargetEntity" : 1511260476,
-						"triggerTriggered" : false
-					},
-					"children" : null,
-					"name" : "CartStopTrigger",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : -9.5374882221221924e-05,
-						"z" : 0.0
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1511337030
-				}
-			],
-			"name" : "MonsterStopChargeTrigger",
+			"children" : null,
+			"name" : "blood_particles",
 			"position" : 
 			{
-				"x" : -5.6180000305175781,
-				"y" : 0.0,
-				"z" : 0.0
+				"x" : -13.415000915527344,
+				"y" : 0.66800004243850708,
+				"z" : -0.15000000596046448
 			},
 			"rotation" : 
 			{
@@ -924,22 +1266,22 @@
 			},
 			"scene" : false,
 			"static" : false,
-			"uid" : 1511277360
+			"uid" : 1512553749
 		}
 	],
 	"name" : "Root",
 	"position" : 
 	{
 		"x" : 0.0,
-		"y" : 0.0,
-		"z" : 0.0
+		"y" : -1.3789753913879395,
+		"z" : 0.20630192756652832
 	},
 	"rotation" : 
 	{
-		"w" : -4.371138473402425e-08,
-		"x" : -4.3711391839451608e-08,
-		"y" : 1.0,
-		"z" : -4.3711391839451608e-08
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : -4.3711430919302074e-08,
+		"z" : 0.0
 	},
 	"scale" : 
 	{

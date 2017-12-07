@@ -1,0 +1,481 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_albedo",
+				"metallic" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_metallic",
+				"normal" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Bridge Puzzle Scene/Cave/Models/cave_puzzle_02"
+			},
+			"children" : null,
+			"name" : "Cave",
+			"position" : 
+			{
+				"x" : 3.2340002059936523,
+				"y" : 0.0,
+				"z" : 0.23100000619888306
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : -0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509540557
+		},
+		{
+			"children" : null,
+			"name" : "Bucket",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509540568
+		},
+		{
+			"children" : null,
+			"name" : "Rock",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509540588
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.010000000707805157,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 1.0
+			},
+			"children" : null,
+			"name" : "Sun",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509540824
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_albedo",
+				"metallic" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_metallic",
+				"normal" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Cave/Textures/rock_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Bridge Puzzle Scene/Cave/Models/cave"
+			},
+			"children" : null,
+			"name" : "IntroCave",
+			"position" : 
+			{
+				"x" : 3.2800002098083496,
+				"y" : 0.0,
+				"z" : 22.130001068115234
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509710888
+		},
+		{
+			"name" : "Minecart",
+			"position" : 
+			{
+				"x" : 3.2050001621246338,
+				"y" : -0.41600000858306885,
+				"z" : 30.264001846313477
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		},
+		{
+			"RigidBody" : 
+			{
+				"mass" : 1.0
+			},
+			"Shape" : 
+			{
+				"plane" : 
+				{
+					"normal" : 
+					{
+						"x" : 0.0,
+						"y" : 1.0,
+						"z" : 0.0
+					},
+					"planeCoeff" : 0.0
+				}
+			},
+			"children" : null,
+			"name" : "BreakCheck",
+			"position" : 
+			{
+				"x" : 3.3410000801086426,
+				"y" : 0.0,
+				"z" : 13.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.70710676908493042,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509958720
+		},
+		{
+			"children" : 
+			[
+				{
+					"name" : "Rails 1",
+					"position" : 
+					{
+						"x" : 3.2049999237060547,
+						"y" : -0.6950000524520874,
+						"z" : 39.897003173828125
+					},
+					"rotation" : 
+					{
+						"w" : 0.70710676908493042,
+						"x" : 0.0,
+						"y" : 0.70710676908493042,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : true,
+					"sceneName" : "Resources/Constant Scene/Rails/Rail Scene",
+					"static" : false,
+					"uid" : 1509713057
+				},
+				{
+					"name" : "Rails 2",
+					"position" : 
+					{
+						"x" : 3.2049999237060547,
+						"y" : -0.69499999284744263,
+						"z" : -5.9210004806518555
+					},
+					"rotation" : 
+					{
+						"w" : 0.70710676908493042,
+						"x" : 0.0,
+						"y" : 0.70710676908493042,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : true,
+					"sceneName" : "Resources/Constant Scene/Rails/Rail Scene",
+					"static" : false,
+					"uid" : 1509713057
+				}
+			],
+			"name" : "Rails Parent",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509971572
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
+						"metallic" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_metallic",
+						"normal" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_normal",
+						"roughness" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Bridge Puzzle Scene/Bridge/Models/Bridge"
+					},
+					"children" : 
+					[
+						{
+							"Material" : 
+							{
+								"albedo" : "",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Constant Scene/Rails/rails"
+							},
+							"children" : null,
+							"name" : "BridgeRail",
+							"position" : 
+							{
+								"x" : -3.1140000820159912,
+								"y" : 0.32000002264976501,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.5,
+								"y" : 1.5,
+								"z" : 4.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1509971213
+						},
+						{
+							"Material" : 
+							{
+								"albedo" : "",
+								"metallic" : "",
+								"normal" : "",
+								"roughness" : ""
+							},
+							"Mesh" : 
+							{
+								"model" : "Resources/Constant Scene/Rails/rails"
+							},
+							"children" : null,
+							"name" : "BridgeRail2",
+							"position" : 
+							{
+								"x" : 2.6980001926422119,
+								"y" : 0.31999999284744263,
+								"z" : 0.0
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.5,
+								"y" : 1.5,
+								"z" : 4.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1509971462
+						}
+					],
+					"name" : "Bridge",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 3.506000280380249
+					},
+					"rotation" : 
+					{
+						"w" : 0.7071068286895752,
+						"x" : 1.3411045074462891e-06,
+						"y" : 0.7071068286895752,
+						"z" : -1.3411045074462891e-06
+					},
+					"scale" : 
+					{
+						"x" : 0.5,
+						"y" : 1.0,
+						"z" : 0.25
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1509540577
+				}
+			],
+			"name" : "BridgeParent",
+			"position" : 
+			{
+				"x" : 3.2049999237060547,
+				"y" : -1.1169999837875366,
+				"z" : -4.5780000686645508
+			},
+			"rotation" : 
+			{
+				"w" : 0.99144488573074341,
+				"x" : -0.13052619993686676,
+				"y" : -0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509971989
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1509540543
+}

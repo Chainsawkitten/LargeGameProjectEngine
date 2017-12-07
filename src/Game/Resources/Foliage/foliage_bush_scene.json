@@ -1,0 +1,75 @@
+{
+	"children" : 
+	[
+		{
+			"DirectionalLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			},
+			"Material" : 
+			{
+				"albedo" : "Resources/Foliage/fern_albedo",
+				"metallic" : "Resources/Foliage/fern_metallic",
+				"normal" : "Resources/Foliage/fern_normal",
+				"roughness" : "Resources/Foliage/fern_roughnes"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Foliage/lowpoly_bush"
+			},
+			"children" : null,
+			"name" : "bush",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : -4.3711388286737929e-08,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 1.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511360796
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1511360783
+}

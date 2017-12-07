@@ -1,0 +1,1363 @@
+{
+	"children" : 
+	[
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/final_cave"
+			},
+			"children" : 
+			[
+				{
+					"children" : 
+					[
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1511423772
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -1.9136972427368164,
+								"y" : 5.4486684799194336,
+								"z" : -1.6069910526275635
+							},
+							"rotation" : 
+							{
+								"w" : -0.6250615119934082,
+								"x" : -0.64952081441879272,
+								"y" : 0.24363958835601807,
+								"z" : -0.35785555839538574
+							},
+							"scale" : 
+							{
+								"x" : 3.0190000534057617,
+								"y" : 3.0190000534057617,
+								"z" : 3.0190000534057617
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511429341
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1511423772
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -7.5738945007324219,
+								"y" : 1.0470829010009766,
+								"z" : 3.3284769058227539
+							},
+							"rotation" : 
+							{
+								"w" : 0.47412794828414917,
+								"x" : -0.61587923765182495,
+								"y" : 0.54408568143844604,
+								"z" : -0.31601625680923462
+							},
+							"scale" : 
+							{
+								"x" : 4.0190000534057617,
+								"y" : 4.0190000534057617,
+								"z" : 4.0190000534057617
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511429344
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1511423772
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -52.32220458984375,
+								"y" : 6.2958545684814453,
+								"z" : -2.3225555419921875
+							},
+							"rotation" : 
+							{
+								"w" : -0.32594013214111328,
+								"x" : -0.33961397409439087,
+								"y" : 0.5550428032875061,
+								"z" : 0.68582284450531006
+							},
+							"scale" : 
+							{
+								"x" : 4.0190000534057617,
+								"y" : 4.0190000534057617,
+								"z" : 4.0190000534057617
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511429350
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1511423772
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : -41.5341796875,
+								"y" : 0.83144295215606689,
+								"z" : -4.7958531379699707
+							},
+							"rotation" : 
+							{
+								"w" : 0.68838405609130859,
+								"x" : 0.71966904401779175,
+								"y" : -0.079541780054569244,
+								"z" : 0.043323524296283722
+							},
+							"scale" : 
+							{
+								"x" : 4.0190000534057617,
+								"y" : 4.0190000534057617,
+								"z" : 4.0190000534057617
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511429357
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1511423772
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : 14.384174346923828,
+								"y" : 3.0312366485595703,
+								"z" : -5.9594454765319824
+							},
+							"rotation" : 
+							{
+								"w" : -0.16341377794742584,
+								"x" : -0.35277330875396729,
+								"y" : -0.65819829702377319,
+								"z" : -0.64468741416931152
+							},
+							"scale" : 
+							{
+								"x" : 3.0190000534057617,
+								"y" : 3.0190000534057617,
+								"z" : 3.0190000534057617
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511429375
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1511423772
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : 50.137336730957031,
+								"y" : 2.6314332485198975,
+								"z" : 3.8983821868896484
+							},
+							"rotation" : 
+							{
+								"w" : -0.4985048770904541,
+								"x" : 0.55649197101593018,
+								"y" : -0.45826873183250427,
+								"z" : 0.4814554750919342
+							},
+							"scale" : 
+							{
+								"x" : 4.0190000534057617,
+								"y" : 4.0190000534057617,
+								"z" : 4.0190000534057617
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511429385
+						},
+						{
+							"children" : 
+							[
+								{
+									"name" : "Root",
+									"position" : 
+									{
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"rotation" : 
+									{
+										"w" : 1.0,
+										"x" : 0.0,
+										"y" : 0.0,
+										"z" : 0.0
+									},
+									"scale" : 
+									{
+										"x" : 1.0,
+										"y" : 1.0,
+										"z" : 1.0
+									},
+									"scene" : true,
+									"sceneName" : "Resources/lowpoly_bush_scene",
+									"static" : false,
+									"uid" : 1511423772
+								}
+							],
+							"name" : "foliage_",
+							"position" : 
+							{
+								"x" : 21.029546737670898,
+								"y" : 0.88195133209228516,
+								"z" : -6.983128547668457
+							},
+							"rotation" : 
+							{
+								"w" : -0.0089312335476279259,
+								"x" : -0.51682585477828979,
+								"y" : 0.67263811826705933,
+								"z" : -0.52949905395507813
+							},
+							"scale" : 
+							{
+								"x" : 4.0190000534057617,
+								"y" : 4.0190000534057617,
+								"z" : 4.0190000534057617
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1511429389
+						}
+					],
+					"name" : "foliage",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1511429341
+				}
+			],
+			"name" : "cave",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511256688
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Walls/Walls_Albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Textures/Walls/Walls_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Walls/Walls_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/final_plane"
+			},
+			"children" : null,
+			"name" : "plane",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.4621776342391968
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511256764
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/burlap_albedo",
+				"metallic" : "Resources/final_event/textures/burlap_metallic",
+				"normal" : "Resources/final_event/textures/burlap_normal",
+				"roughness" : "Resources/final_event/textures/burlap_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/sacks"
+			},
+			"children" : null,
+			"name" : "burlap_sack",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511257322
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/hills_outside_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/final_hills"
+			},
+			"children" : null,
+			"name" : "hills",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : -2.1953334808349609,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.99989992380142212,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.014142952859401703
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511257384
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/final_rail"
+			},
+			"children" : null,
+			"name" : "rails",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511257425
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/final_wood_structures"
+			},
+			"children" : null,
+			"name" : "wood_structures",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511257442
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "Resources/final_event/textures/sand_metallic",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : "Resources/final_event/textures/sand_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/final_skullsandbones"
+			},
+			"children" : null,
+			"name" : "bones",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511257573
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/CrateMetallic",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wires"
+			},
+			"children" : null,
+			"name" : "wires",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511257857
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
+				"metallic" : "Resources/Constant Scene/Minecart/Textures/cart_metallic",
+				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
+				"roughness" : "Resources/Constant Scene/Minecart/Textures/cart_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Constant Scene/Minecart/Model/cart"
+			},
+			"children" : null,
+			"name" : "minecart",
+			"position" : 
+			{
+				"x" : -65.742584228515625,
+				"y" : -0.27337902784347534,
+				"z" : -0.39984488487243652
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : -0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511257883
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/knife_albedo",
+				"metallic" : "Resources/final_event/textures/knife_metallic",
+				"normal" : "Resources/final_event/textures/knife_normal",
+				"roughness" : "Resources/final_event/textures/knife_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/knife2asc"
+			},
+			"children" : null,
+			"name" : "knife",
+			"position" : 
+			{
+				"x" : -18.623144149780273,
+				"y" : -0.13748238980770111,
+				"z" : 0.95378005504608154
+			},
+			"rotation" : 
+			{
+				"w" : -0.48423075675964355,
+				"x" : 0.49608966708183289,
+				"y" : -0.47632569074630737,
+				"z" : 0.54085415601730347
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511264657
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/wood_table"
+			},
+			"children" : null,
+			"name" : "table",
+			"position" : 
+			{
+				"x" : -15.692378997802734,
+				"y" : -0.025337694212794304,
+				"z" : 3.3821890354156494
+			},
+			"rotation" : 
+			{
+				"w" : 0.70589703321456909,
+				"x" : 0.0,
+				"y" : 0.70831447839736938,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.73635339736938477,
+				"y" : 0.73635327816009521,
+				"z" : 0.73635339736938477
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511267007
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/burlap_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/ropepile"
+			},
+			"children" : null,
+			"name" : "rope",
+			"position" : 
+			{
+				"x" : -16.231632232666016,
+				"y" : 0.21869280934333801,
+				"z" : 3.5783777236938477
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511269521
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "Resources/final_event/textures/sand_metallic",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : "Resources/final_event/textures/sand_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand",
+			"position" : 
+			{
+				"x" : -48.814765930175781,
+				"y" : -0.15478134155273438,
+				"z" : 4.3039975166320801
+			},
+			"rotation" : 
+			{
+				"w" : 0.78491252660751343,
+				"x" : 0.017133152112364769,
+				"y" : 0.61847215890884399,
+				"z" : 0.033299800008535385
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511336650
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "Resources/final_event/textures/sand_metallic",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : "Resources/final_event/textures/sand_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand_sack",
+			"position" : 
+			{
+				"x" : -9.6368494033813477,
+				"y" : 0.1853289008140564,
+				"z" : 2.8078887462615967
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.081731528043746948,
+				"y" : 0.087474517524242401,
+				"z" : 0.099527999758720398
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511337384
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "Resources/final_event/textures/sand_metallic",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : "Resources/final_event/textures/sand_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand_sack_2",
+			"position" : 
+			{
+				"x" : 7.1076960563659668,
+				"y" : 0.12415127456188202,
+				"z" : -4.8361883163452148
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.072222240269184113,
+				"y" : 0.10964417457580566,
+				"z" : 0.10111512988805771
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511338098
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "Resources/final_event/textures/sand_metallic",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : "Resources/final_event/textures/sand_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand2",
+			"position" : 
+			{
+				"x" : 27.946502685546875,
+				"y" : -0.058281064033508301,
+				"z" : -4.528505802154541
+			},
+			"rotation" : 
+			{
+				"w" : 0.95895099639892578,
+				"x" : 0.0,
+				"y" : -0.28357094526290894,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511338235
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 3.6120002269744873,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.36862745881080627,
+					"z" : 0.0078431377187371254
+				},
+				"intensity" : 2.7480001449584961
+			},
+			"children" : null,
+			"name" : "lantern_pointlight",
+			"position" : 
+			{
+				"x" : 6.354985237121582,
+				"y" : 4.6305770874023438,
+				"z" : -0.43429797887802124
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511338707
+		},
+		{
+			"SpotLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"attenuation" : 0.028000000864267349,
+				"color" : 
+				{
+					"x" : 0.55294120311737061,
+					"y" : 0.7921568751335144,
+					"z" : 1.0
+				},
+				"coneAngle" : 55.0780029296875,
+				"intensity" : 6.4260001182556152,
+				"shadow" : false
+			},
+			"children" : null,
+			"name" : "moon_light",
+			"position" : 
+			{
+				"x" : 132.00334167480469,
+				"y" : 19.787660598754883,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 0.74519079923629761,
+				"x" : -0.63663238286972046,
+				"y" : 0.10330912470817566,
+				"z" : -0.16945788264274597
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511338953
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 0.99900007247924805,
+				"color" : 
+				{
+					"x" : 0.0,
+					"y" : 1.0,
+					"z" : 0.18431372940540314
+				},
+				"intensity" : 2.2760000228881836
+			},
+			"children" : null,
+			"name" : "ligth_on_knife",
+			"position" : 
+			{
+				"x" : -22.001644134521484,
+				"y" : 2.2924773693084717,
+				"z" : 2.7753658294677734
+			},
+			"rotation" : 
+			{
+				"w" : 0.60249632596969604,
+				"x" : -0.29991284012794495,
+				"y" : 0.48446494340896606,
+				"z" : 0.55887341499328613
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511339134
+		},
+		{
+			"DirectionalLight" : 
+			{
+				"ambientCoefficient" : 7.7160005569458008,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				}
+			},
+			"children" : null,
+			"name" : "DIR_LIGHT",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511342029
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/knife_albedo",
+				"metallic" : "Resources/final_event/textures/knife_metallic",
+				"normal" : "Resources/final_event/textures/knife_normal",
+				"roughness" : "Resources/final_event/textures/knife_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/knife2asc"
+			},
+			"children" : null,
+			"name" : "decorative_knife",
+			"position" : 
+			{
+				"x" : -15.939491271972656,
+				"y" : 0.2526191771030426,
+				"z" : 3.1852443218231201
+			},
+			"rotation" : 
+			{
+				"w" : -0.26632991433143616,
+				"x" : -0.16021810472011566,
+				"y" : 0.55633962154388428,
+				"z" : -0.77063846588134766
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511342342
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/sand_albedo",
+				"metallic" : "Resources/final_event/textures/sand_metallic",
+				"normal" : "Resources/final_event/textures/sand_normal",
+				"roughness" : "Resources/final_event/textures/sand_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/single_sand"
+			},
+			"children" : null,
+			"name" : "sand_forknife",
+			"position" : 
+			{
+				"x" : -18.039510726928711,
+				"y" : -0.37907898426055908,
+				"z" : 3.1706697940826416
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.76804715394973755,
+				"y" : 0.52999997138977051,
+				"z" : 1.4824675321578979
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511342970
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/final_event/textures/crystal_albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/crystalmany"
+			},
+			"children" : null,
+			"name" : "crystal",
+			"position" : 
+			{
+				"x" : -21.999191284179688,
+				"y" : -0.24627178907394409,
+				"z" : 2.7940559387207031
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511344492
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/WoodenStructure/wood_vertical_albedo",
+				"metallic" : "Resources/Constant Scene/WoodenStructure/wood_vertical_metallic",
+				"normal" : "Resources/Constant Scene/WoodenStructure/wood_vertical_normal",
+				"roughness" : "Resources/Constant Scene/WoodenStructure/wood_vertical_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/final_event/monster_wooden_structures"
+			},
+			"children" : null,
+			"name" : "monster_wooden_structure",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511346249
+		},
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 0.7450980544090271,
+					"z" : 0.086274512112140656
+				},
+				"intensity" : 5.2430000305175781
+			},
+			"children" : null,
+			"name" : "lantern_outside",
+			"position" : 
+			{
+				"x" : 60.865394592285156,
+				"y" : 6.1621756553649902,
+				"z" : -2.1114490032196045
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1511346483
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1511256681
+}

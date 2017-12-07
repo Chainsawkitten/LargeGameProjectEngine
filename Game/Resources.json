@@ -1,7 +1,7 @@
 {
 	"activeScene" : "Resources/Super Scene/Super Scene",
-	"animationClipNumber" : 2,
-	"animationControllerNumber" : 3,
+	"animationClipNumber" : 0,
+	"animationControllerNumber" : 0,
 	"audioMaterialNumber" : 4,
 	"modelNumber" : 188,
 	"resourceFolder" : 
@@ -246,7 +246,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "StarterScene_Platform",
+								"model" : "platformForStarterScene_01",
 								"type" : 1
 							},
 							{
@@ -540,60 +540,6 @@
 							{
 								"script" : "CartScript_0",
 								"type" : 4
-							},
-							{
-								"script" : "AnimationScript",
-								"type" : 4
-							}
-						],
-						"subfolders" : null
-					},
-					{
-						"name" : "Animation",
-						"resources" : 
-						[
-							{
-								"model" : "monster1@model",
-								"type" : 1
-							},
-							{
-								"animationClip" : "monster@crouchscare",
-								"type" : 6
-							},
-							{
-								"skeleton" : "monster@skeleton",
-								"type" : 8
-							},
-							{
-								"animationClip" : "monster@attack",
-								"type" : 6
-							},
-							{
-								"animationController" : "Animation controller #1",
-								"type" : 7
-							}
-						],
-						"subfolders" : null
-					},
-					{
-						"name" : "monstermaps",
-						"resources" : 
-						[
-							{
-								"texture" : "normalmap",
-								"type" : 2
-							},
-							{
-								"texture" : "albedo",
-								"type" : 2
-							},
-							{
-								"texture" : "metallic",
-								"type" : 2
-							},
-							{
-								"texture" : "roughness",
-								"type" : 2
 							}
 						],
 						"subfolders" : null
@@ -1524,6 +1470,10 @@
 					{
 						"texture" : "FlareRoughness",
 						"type" : 2
+					},
+					{
+						"model" : "single_sand",
+						"type" : 1
 					}
 				],
 				"subfolders" : null
@@ -1557,7 +1507,7 @@
 						"type" : 1
 					},
 					{
-						"model" : "sand_piles",
+						"model" : "single_sand",
 						"type" : 1
 					},
 					{
@@ -1581,8 +1531,44 @@
 						"type" : 4
 					},
 					{
-						"model" : "knife2",
+						"model" : "knife2asc",
 						"type" : 1
+					},
+					{
+						"model" : "ropepile",
+						"type" : 1
+					},
+					{
+						"model" : "wood_table",
+						"type" : 1
+					},
+					{
+						"animationController" : "Animation controller #5",
+						"type" : 7
+					},
+					{
+						"model" : "monster1model",
+						"type" : 1
+					},
+					{
+						"skeleton" : "Lmonsterskeleton",
+						"type" : 8
+					},
+					{
+						"animationClip" : "monster@attack",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@death",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@fall",
+						"type" : 6
+					},
+					{
+						"animationClip" : "monster@run",
+						"type" : 6
 					}
 				],
 				"subfolders" : 
@@ -1592,11 +1578,51 @@
 						"resources" : 
 						[
 							{
-								"texture" : "sack_albedo",
+								"texture" : "knife_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_albedo",
 								"type" : 2
 							},
 							{
 								"texture" : "sand_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "sack_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "sack_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "monster_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "monster_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "monster_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "monster_roughness",
 								"type" : 2
 							}
 						],
@@ -1620,6 +1646,10 @@
 							},
 							{
 								"sound" : "snd_landing",
+								"type" : 3
+							},
+							{
+								"sound" : "snd_hets",
 								"type" : 3
 							}
 						],
@@ -2099,7 +2129,7 @@
 	},
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 2,
-	"soundNumber" : 5,
+	"skeletonNumber" : 6,
+	"soundNumber" : 6,
 	"textureNumber" : 154
 }

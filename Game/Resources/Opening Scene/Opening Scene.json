@@ -115,10 +115,10 @@
 		{
 			"Material" : 
 			{
-				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
-				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
-				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
-				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
+				"albedo" : "Resources/NewAssets/Textures/Rails/rail_albedo",
+				"metallic" : "Resources/NewAssets/Textures/Rails/rail_metallic",
+				"normal" : "Resources/NewAssets/Textures/Rails/rail_normal",
+				"roughness" : "Resources/NewAssets/Textures/Rails/rail_roughness"
 			},
 			"Mesh" : 
 			{
@@ -344,7 +344,7 @@
 			},
 			"Mesh" : 
 			{
-				"model" : "Resources/Opening Scene/Model/StarterScene_Platform"
+				"model" : "Resources/Opening Scene/Model/platformForStarterScene_01"
 			},
 			"children" : null,
 			"name" : "StarterCavePlatform",
@@ -849,9 +849,9 @@
 			"name" : "Flare1",
 			"position" : 
 			{
-				"x" : 1.7085421085357666,
-				"y" : 1.9019343852996826,
-				"z" : 0.51401627063751221
+				"x" : 1.630901575088501,
+				"y" : 1.8614828586578369,
+				"z" : 0.46753787994384766
 			},
 			"rotation" : 
 			{
@@ -862,9 +862,9 @@
 			},
 			"scale" : 
 			{
-				"x" : 0.125,
-				"y" : 0.75,
-				"z" : 0.125
+				"x" : 0.047999873757362366,
+				"y" : 0.28799933195114136,
+				"z" : 0.04799995943903923
 			},
 			"scene" : true,
 			"sceneName" : "Resources/Foliage/FlareScene",
@@ -1041,7 +1041,6 @@
 				"triggerEventStruct_TargetID" : 3,
 				"triggerFunction" : "void TriggerAnim()",
 				"triggerName" : "New Trigger",
-				"triggerOwner" : 1512122749,
 				"triggerTargetEntity" : 1512122204,
 				"triggerTriggered" : false
 			},
@@ -1059,57 +1058,6 @@
 				"x" : 0.0,
 				"y" : 0.0,
 				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512122749
-		},
-		{
-			"PointLight" : 
-			{
-				"attenuation" : 1.0860000848770142,
-				"color" : 
-				{
-					"x" : 0.0,
-					"y" : 1.0,
-					"z" : 1.0
-				},
-				"intensity" : 1.4110000133514404
-			},
-			"SpotLight" : 
-			{
-				"ambientCoefficient" : 0.014000000432133675,
-				"attenuation" : 1.0610001087188721,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
-				},
-				"coneAngle" : 26.471000671386719,
-				"intensity" : 9.2230005264282227,
-				"shadow" : false
-			},
-			"children" : null,
-			"name" : "monsterLights",
-			"position" : 
-			{
-				"x" : -34.795001983642578,
-				"y" : 2.8160853385925293,
-				"z" : 10.696269035339355
-			},
-			"rotation" : 
-			{
-				"w" : 0.87925451993942261,
-				"x" : -0.28150114417076111,
-				"y" : 0.37064903974533081,
-				"z" : -0.1014033630490303
 			},
 			"scale" : 
 			{

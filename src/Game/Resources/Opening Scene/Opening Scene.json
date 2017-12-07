@@ -1,0 +1,775 @@
+{
+	"children" : 
+	[
+		{
+			"PointLight" : 
+			{
+				"attenuation" : 1.0,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"intensity" : 1.0
+			},
+			"children" : null,
+			"name" : "Sun",
+			"position" : 
+			{
+				"x" : -0.28283846378326416,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1508402678
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Opening Scene/Gate/Textures/gate_albedo",
+						"metallic" : "Resources/Opening Scene/Gate/Textures/gate_metallic",
+						"normal" : "Resources/Opening Scene/Gate/Textures/gate_normal",
+						"roughness" : "Resources/Opening Scene/Gate/Textures/gate_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Opening Scene/Gate/Models/barsfbx"
+					},
+					"children" : null,
+					"name" : "LeftGate",
+					"position" : 
+					{
+						"x" : -0.74000000953674316,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1508412106
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Opening Scene/Gate/Textures/gate_albedo",
+						"metallic" : "Resources/Opening Scene/Gate/Textures/gate_metallic",
+						"normal" : "Resources/Opening Scene/Gate/Textures/gate_normal",
+						"roughness" : "Resources/Opening Scene/Gate/Textures/gate_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Opening Scene/Gate/Models/barsfbx"
+					},
+					"children" : null,
+					"name" : "CentreGate",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1508412107
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Opening Scene/Gate/Textures/gate_albedo",
+						"metallic" : "Resources/Opening Scene/Gate/Textures/gate_metallic",
+						"normal" : "Resources/Opening Scene/Gate/Textures/gate_normal",
+						"roughness" : "Resources/Opening Scene/Gate/Textures/gate_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Opening Scene/Gate/Models/barsfbx"
+					},
+					"children" : null,
+					"name" : "RightGate",
+					"position" : 
+					{
+						"x" : 0.74000000953674316,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1508412109
+				}
+			],
+			"name" : "Gates",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : -1.8520001173019409,
+				"z" : -1.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 2.0,
+				"y" : 3.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1508411993
+		},
+		{
+			"children" : 
+			[
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Opening Scene/Lever/Textures/lever_albedo",
+						"metallic" : "Resources/Opening Scene/Lever/Textures/lever_metallic",
+						"normal" : "Resources/Opening Scene/Lever/Textures/lever_normal",
+						"roughness" : "Resources/Opening Scene/Lever/Textures/lever_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Opening Scene/Lever/Models/leverbox"
+					},
+					"children" : null,
+					"name" : "Base",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1508412420
+				},
+				{
+					"Material" : 
+					{
+						"albedo" : "Resources/Opening Scene/Lever/Textures/lever_albedo",
+						"metallic" : "Resources/Opening Scene/Lever/Textures/lever_metallic",
+						"normal" : "Resources/Opening Scene/Lever/Textures/lever_normal",
+						"roughness" : "Resources/Opening Scene/Lever/Textures/lever_roughness"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/Opening Scene/Lever/Models/leverhandle"
+					},
+					"children" : null,
+					"name" : "Handle",
+					"position" : 
+					{
+						"x" : -0.10000000149011612,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 0.96592581272125244,
+						"x" : 0.25881904363632202,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1508412421
+				}
+			],
+			"name" : "Lever",
+			"position" : 
+			{
+				"x" : -0.8330000638961792,
+				"y" : -2.1640000343322754,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.5,
+				"y" : 0.5,
+				"z" : 0.5
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1508412411
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Opening Scene/Audio/scr_AudioManager"
+			},
+			"SoundSource" : 
+			{
+				"loop" : true,
+				"sound" : "Resources/Opening Scene/Audio/Ambient",
+				"volume" : 0.15000000596046448
+			},
+			"children" : null,
+			"name" : "AudioManager",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1509010103
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Pillars/Pillars_Albedo",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/Floor"
+			},
+			"children" : null,
+			"name" : "Floor",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510732799
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Walls/Walls_Albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Textures/Walls/Walls_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Walls/Walls_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/Walls"
+			},
+			"children" : null,
+			"name" : "Wall",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 0.99999994039535522
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510732830
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Pillars/Pillars_Albedo",
+				"metallic" : "",
+				"normal" : "Resources/Opening Scene/Textures/Pillars/Pillars_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Pillars/Pillars_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/Pillars"
+			},
+			"children" : null,
+			"name" : "Pillars",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510732869
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "",
+				"metallic" : "",
+				"normal" : "",
+				"roughness" : ""
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/room"
+			},
+			"children" : null,
+			"name" : "Room",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510733429
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/ElevatorFrame/Elevator_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/ElevatorFrame/Elevator_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/ElevatorFrame/Elevator_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/ElevatorFrame/Elevator_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/ElevatorFrame"
+			},
+			"children" : null,
+			"name" : "ElevatorFrame",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510733471
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Textures/Tracks/Rail_Albedo",
+				"metallic" : "Resources/Opening Scene/Textures/Tracks/Rail_Metallic",
+				"normal" : "Resources/Opening Scene/Textures/Tracks/Rail_Normal",
+				"roughness" : "Resources/Opening Scene/Textures/Tracks/Rail_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_tracks"
+			},
+			"children" : null,
+			"name" : "RailTrack",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510735271
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Opening Scene/Cave/Textures/cave_albedo",
+				"metallic" : "Resources/Opening Scene/Cave/Textures/cave_metallic",
+				"normal" : "Resources/Opening Scene/Cave/Textures/cave_normal",
+				"roughness" : "Resources/Opening Scene/Cave/Textures/cave_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_Cave"
+			},
+			"children" : null,
+			"name" : "StarterCave",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510735397
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_albedo",
+				"metallic" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_metallic",
+				"normal" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_normal",
+				"roughness" : "Resources/Bridge Puzzle Scene/Bridge/Textures/bridge_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_Bridge"
+			},
+			"children" : null,
+			"name" : "StarterBridge",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510735812
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/CrateAlbedo",
+				"metallic" : "Resources/NewAssets/Textures/CrateMetallic",
+				"normal" : "Resources/NewAssets/Textures/CreateNormal",
+				"roughness" : "Resources/NewAssets/Textures/CrateRoughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_Crates"
+			},
+			"children" : null,
+			"name" : "StarterCrates",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510736457
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/NewAssets/Textures/Barrels/Barrels_Albedo",
+				"metallic" : "Resources/NewAssets/Textures/Barrels/Barrels_Metallic",
+				"normal" : "Resources/NewAssets/Textures/Barrels/Barrels_Normal",
+				"roughness" : "Resources/NewAssets/Textures/Barrels/Barrels_Roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_Barrels"
+			},
+			"children" : null,
+			"name" : "Barrels_TEMP",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510736518
+		},
+		{
+			"Material" : 
+			{
+				"albedo" : "Resources/Constant Scene/Minecart/Textures/cart_albedo",
+				"metallic" : "Resources/Constant Scene/Minecart/Textures/cart_metallic",
+				"normal" : "Resources/Constant Scene/Minecart/Textures/cart_normal",
+				"roughness" : "Resources/Constant Scene/Minecart/Textures/cart_roughness"
+			},
+			"Mesh" : 
+			{
+				"model" : "Resources/Opening Scene/Model/StarterScene_Carts"
+			},
+			"children" : null,
+			"name" : "Minecarts",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1510736596
+		},
+		{
+			"name" : "Root",
+			"position" : 
+			{
+				"x" : 13.790403366088867,
+				"y" : 1.9311840534210205,
+				"z" : -1.2180876731872559
+			},
+			"rotation" : 
+			{
+				"w" : 0.70710676908493042,
+				"x" : 0.0,
+				"y" : 0.70710676908493042,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 0.20000000298023224,
+				"y" : 0.20000000298023224,
+				"z" : 0.20000000298023224
+			},
+			"scene" : true,
+			"sceneName" : "Resources/Constant Scene/Minecart/Minecart",
+			"static" : false,
+			"uid" : 1508919163
+		}
+	],
+	"name" : "Root",
+	"position" : 
+	{
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"rotation" : 
+	{
+		"w" : 1.0,
+		"x" : 0.0,
+		"y" : 0.0,
+		"z" : 0.0
+	},
+	"scale" : 
+	{
+		"x" : 1.0,
+		"y" : 1.0,
+		"z" : 1.0
+	},
+	"scene" : false,
+	"static" : false,
+	"uid" : 1508399850
+}

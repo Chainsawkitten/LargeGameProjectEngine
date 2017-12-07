@@ -1,0 +1,1312 @@
+{
+	"activeScene" : "Resources/final_event/final_scene",
+	"animationClipNumber" : 0,
+	"animationControllerNumber" : 0,
+	"audioMaterialNumber" : 0,
+	"modelNumber" : 153,
+	"resourceFolder" : 
+	{
+		"name" : "Resources",
+		"resources" : 
+		[
+			{
+				"scene" : "Combined Scene",
+				"type" : 0
+			},
+			{
+				"scene" : "NewAssetsScene",
+				"type" : 0
+			},
+			{
+				"scene" : "lowpoly_bush_scene",
+				"type" : 0
+			}
+		],
+		"subfolders" : 
+		[
+			{
+				"name" : "Opening Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Opening Scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Cave",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "cave",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "cave_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Lever",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "leverbox",
+										"type" : 1
+									},
+									{
+										"model" : "leverFBX",
+										"type" : 1
+									},
+									{
+										"model" : "leverhandle",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "lever_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "lever_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Gate",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "barsfbx",
+										"type" : 1
+									},
+									{
+										"model" : "gateFBX",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "gate_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "gate_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "gate_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "gate_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Audio",
+						"resources" : 
+						[
+							{
+								"sound" : "Ambient",
+								"type" : 3
+							},
+							{
+								"script" : "scr_AudioManager",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Model",
+						"resources" : 
+						[
+							{
+								"model" : "Pillars",
+								"type" : 1
+							},
+							{
+								"model" : "Walls",
+								"type" : 1
+							},
+							{
+								"model" : "Floor",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Cave",
+								"type" : 1
+							},
+							{
+								"model" : "room",
+								"type" : 1
+							},
+							{
+								"model" : "ElevatorFrame",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_tracks",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Bridge",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Barrels",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Crates",
+								"type" : 1
+							},
+							{
+								"model" : "StarterScene_Carts",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Textures",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Walls",
+								"resources" : 
+								[
+									{
+										"texture" : "Walls_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Walls_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Walls_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Pillars",
+								"resources" : 
+								[
+									{
+										"texture" : "Pillars_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Pillars_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Pillars_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "ElevatorFrame",
+								"resources" : 
+								[
+									{
+										"texture" : "Elevator_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Elevator_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Tracks",
+								"resources" : 
+								[
+									{
+										"texture" : "Rail_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Rail_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					}
+				]
+			},
+			{
+				"name" : "Constant Scene",
+				"resources" : null,
+				"subfolders" : 
+				[
+					{
+						"name" : "Minecart",
+						"resources" : 
+						[
+							{
+								"scene" : "Minecart",
+								"type" : 0
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Model",
+								"resources" : 
+								[
+									{
+										"model" : "cart",
+										"type" : 1
+									},
+									{
+										"model" : "Lantern",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Script",
+								"resources" : 
+								[
+									{
+										"script" : "Minecart",
+										"type" : 4
+									},
+									{
+										"script" : "Lantern",
+										"type" : 4
+									},
+									{
+										"script" : "Camera",
+										"type" : 4
+									},
+									{
+										"script" : "Controller",
+										"type" : 4
+									},
+									{
+										"script" : "Player",
+										"type" : 4
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "cart_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "cart_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Controller",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "hand_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "hand_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "hand_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "hand_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "HandClosed",
+										"type" : 1
+									},
+									{
+										"model" : "HandClosedRight",
+										"type" : 1
+									},
+									{
+										"model" : "HandOpen",
+										"type" : 1
+									},
+									{
+										"model" : "HandOpenRight",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Rails",
+						"resources" : 
+						[
+							{
+								"scene" : "Rail Scene",
+								"type" : 0
+							},
+							{
+								"model" : "rails",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "WoodenStructure",
+						"resources" : 
+						[
+							{
+								"model" : "horizontal_pillars",
+								"type" : 1
+							},
+							{
+								"texture" : "horizontal_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "horizontal_metall",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "wood_vertical_roughness",
+								"type" : 2
+							},
+							{
+								"model" : "vertical_pillars",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Ore",
+						"resources" : 
+						[
+							{
+								"model" : "goldores",
+								"type" : 1
+							},
+							{
+								"texture" : "goldalbedo",
+								"type" : 2
+							},
+							{
+								"texture" : "goldmetal",
+								"type" : 2
+							},
+							{
+								"texture" : "goldroughness",
+								"type" : 2
+							},
+							{
+								"texture" : "goldnormal",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
+					},
+					{
+						"name" : "Lantern",
+						"resources" : 
+						[
+							{
+								"model" : "Lantern",
+								"type" : 1
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "lanter_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "lantern_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "lanter_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "lantern_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					}
+				]
+			},
+			{
+				"name" : "Bridge Puzzle Scene",
+				"resources" : 
+				[
+					{
+						"scene" : "Bridge Puzzle Scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Cave",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "cave_puzzle_01",
+										"type" : 1
+									},
+									{
+										"model" : "cave_puzzle_02",
+										"type" : 1
+									},
+									{
+										"model" : "cave",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "cave_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "cave_roughness",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Bucket",
+						"resources" : null,
+						"subfolders" : null
+					},
+					{
+						"name" : "Bridge",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "Bridge",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "bridge_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "bridge_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Rock",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Models",
+								"resources" : 
+								[
+									{
+										"model" : "rockscaled",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Textures",
+								"resources" : 
+								[
+									{
+										"texture" : "rock_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Texture #38",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "PileOfRocks",
+						"resources" : null,
+						"subfolders" : 
+						[
+							{
+								"name" : "Model",
+								"resources" : 
+								[
+									{
+										"model" : "PileOfRocks",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Cables",
+						"resources" : 
+						[
+							{
+								"model" : "wires",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					}
+				]
+			},
+			{
+				"name" : "NewAssets",
+				"resources" : null,
+				"subfolders" : 
+				[
+					{
+						"name" : "Textures",
+						"resources" : 
+						[
+							{
+								"texture" : "CrateAlbedo",
+								"type" : 2
+							},
+							{
+								"texture" : "CreateNormal",
+								"type" : 2
+							},
+							{
+								"texture" : "CrateMetallic",
+								"type" : 2
+							},
+							{
+								"texture" : "CrateRoughness",
+								"type" : 2
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "Rock",
+								"resources" : 
+								[
+									{
+										"texture" : "rock_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "rock_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "The Bucket",
+								"resources" : 
+								[
+									{
+										"texture" : "bucket_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "bucket_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Barrels",
+								"resources" : 
+								[
+									{
+										"texture" : "Barrels_Albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Normal",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "Barrels_Roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Scale",
+								"resources" : 
+								[
+									{
+										"texture" : "scale_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "scale_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "scale_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "scale_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Rails",
+								"resources" : 
+								[
+									{
+										"texture" : "rail_albedo",
+										"type" : 2
+									},
+									{
+										"texture" : "rail_normal",
+										"type" : 2
+									},
+									{
+										"texture" : "rail_metallic",
+										"type" : 2
+									},
+									{
+										"texture" : "rail_roughness",
+										"type" : 2
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Models",
+						"resources" : 
+						[
+							{
+								"model" : "Barrels",
+								"type" : 1
+							},
+							{
+								"model" : "Cave-",
+								"type" : 1
+							},
+							{
+								"model" : "Cave",
+								"type" : 1
+							},
+							{
+								"model" : "crates",
+								"type" : 1
+							},
+							{
+								"model" : "Pick",
+								"type" : 1
+							},
+							{
+								"model" : "Platform",
+								"type" : 1
+							},
+							{
+								"model" : "Cave-2",
+								"type" : 1
+							},
+							{
+								"model" : "BridgeFbx",
+								"type" : 1
+							},
+							{
+								"model" : "TrackPlatform",
+								"type" : 1
+							},
+							{
+								"model" : "rockscaled",
+								"type" : 1
+							},
+							{
+								"model" : "Tracks",
+								"type" : 1
+							},
+							{
+								"model" : "PileOfRocks",
+								"type" : 1
+							},
+							{
+								"model" : "Track",
+								"type" : 1
+							}
+						],
+						"subfolders" : 
+						[
+							{
+								"name" : "The Bucket",
+								"resources" : 
+								[
+									{
+										"model" : "TheBucket",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							},
+							{
+								"name" : "Puzzle Scale",
+								"resources" : 
+								[
+									{
+										"model" : "bigBalk_01",
+										"type" : 1
+									},
+									{
+										"model" : "bucketFixedHandle_01",
+										"type" : 1
+									},
+									{
+										"model" : "chainForBucket_01",
+										"type" : 1
+									},
+									{
+										"model" : "chainForRock_01",
+										"type" : 1
+									},
+									{
+										"model" : "rock_for_puzzleAttrap",
+										"type" : 1
+									},
+									{
+										"model" : "smallBalk_01",
+										"type" : 1
+									}
+								],
+								"subfolders" : null
+							}
+						]
+					},
+					{
+						"name" : "Scripts",
+						"resources" : 
+						[
+							{
+								"script" : "Rock",
+								"type" : 4
+							},
+							{
+								"script" : "Bridge",
+								"type" : 4
+							},
+							{
+								"script" : "Cart_Puzzle_1",
+								"type" : 4
+							},
+							{
+								"script" : "BigBalk",
+								"type" : 4
+							}
+						],
+						"subfolders" : null
+					}
+				]
+			},
+			{
+				"name" : "Pussel-2",
+				"resources" : 
+				[
+					{
+						"scene" : "Pussel-2 scene",
+						"type" : 0
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "Models",
+						"resources" : 
+						[
+							{
+								"model" : "Cave-2",
+								"type" : 1
+							},
+							{
+								"model" : "cave-2-",
+								"type" : 1
+							},
+							{
+								"model" : "barrels-2",
+								"type" : 1
+							},
+							{
+								"model" : "Crate-2",
+								"type" : 1
+							},
+							{
+								"model" : "lanterns-2",
+								"type" : 1
+							},
+							{
+								"model" : "Picks-2",
+								"type" : 1
+							},
+							{
+								"model" : "Platform-2",
+								"type" : 1
+							},
+							{
+								"model" : "table2",
+								"type" : 1
+							},
+							{
+								"model" : "Track-2",
+								"type" : 1
+							},
+							{
+								"model" : "TrackPlatform-2",
+								"type" : 1
+							}
+						],
+						"subfolders" : null
+					}
+				]
+			},
+			{
+				"name" : "Foliage",
+				"resources" : 
+				[
+					{
+						"model" : "fernscale",
+						"type" : 1
+					},
+					{
+						"scene" : "Fern_scene",
+						"type" : 0
+					},
+					{
+						"texture" : "fern_albedo",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_normal",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_metallic",
+						"type" : 2
+					},
+					{
+						"texture" : "fern_roughnes",
+						"type" : 2
+					},
+					{
+						"model" : "mushroom_cluster",
+						"type" : 1
+					},
+					{
+						"model" : "lowpoly_bush",
+						"type" : 1
+					}
+				],
+				"subfolders" : null
+			},
+			{
+				"name" : "final_event",
+				"resources" : 
+				[
+					{
+						"model" : "final_cave",
+						"type" : 1
+					},
+					{
+						"model" : "final_hills",
+						"type" : 1
+					},
+					{
+						"model" : "final_plane",
+						"type" : 1
+					},
+					{
+						"model" : "final_rail",
+						"type" : 1
+					},
+					{
+						"model" : "final_skullsandbones",
+						"type" : 1
+					},
+					{
+						"model" : "final_wood_structures",
+						"type" : 1
+					},
+					{
+						"scene" : "final_scene",
+						"type" : 0
+					},
+					{
+						"model" : "wires",
+						"type" : 1
+					},
+					{
+						"model" : "wood_table",
+						"type" : 1
+					},
+					{
+						"model" : "ropepile",
+						"type" : 1
+					},
+					{
+						"model" : "single_sand",
+						"type" : 1
+					},
+					{
+						"model" : "sacks",
+						"type" : 1
+					},
+					{
+						"model" : "knife2asc",
+						"type" : 1
+					},
+					{
+						"model" : "crystalmany",
+						"type" : 1
+					},
+					{
+						"model" : "monster_wooden_structures",
+						"type" : 1
+					}
+				],
+				"subfolders" : 
+				[
+					{
+						"name" : "textures",
+						"resources" : 
+						[
+							{
+								"texture" : "hills_outside_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "burlap_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "burlap_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "burlap_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "burlap_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "knife_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "sand_roughness",
+								"type" : 2
+							},
+							{
+								"texture" : "crystal_albedo",
+								"type" : 2
+							},
+							{
+								"texture" : "crystal_normal",
+								"type" : 2
+							},
+							{
+								"texture" : "crystal_metallic",
+								"type" : 2
+							},
+							{
+								"texture" : "crystal_roughness",
+								"type" : 2
+							}
+						],
+						"subfolders" : null
+					}
+				]
+			}
+		]
+	},
+	"sceneNumber" : 25,
+	"scriptNumber" : 0,
+	"skeletonNumber" : 0,
+	"soundNumber" : 2,
+	"textureNumber" : 130
+}
