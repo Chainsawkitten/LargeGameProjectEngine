@@ -267,8 +267,14 @@ bool Renderer::GetDitherApply() const {
 
 void Renderer::SetFrameSize(const glm::vec2& frameSize) {
     staticRenderProgram->SetFrameSize(frameSize);
+    skinRenderProgram->SetFrameSize(frameSize);
 }
 
 glm::vec2 Renderer::GetFrameSize() const {
+    assert(staticRenderProgram->GetFrameSize() == skinRenderProgram->GetFrameSize());
     return staticRenderProgram->GetFrameSize();
+}
+
+VIDEO_API void Video::Renderer::SetBloodApply(bool bloodApply) {
+    staticRenderProgram->SetBloodApply(bloodApply);
 }

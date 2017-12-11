@@ -122,6 +122,12 @@ namespace Video {
              */
             glm::vec2 GetFrameSize() const;
 
+            /// Set whether blood is applied.
+            /**
+             * @param bloodApply Whether blood is applied.
+             */
+            void SetBloodApply(bool bloodApply);
+
         protected:
             float gamma = 2.2f;
             int fogApply = false;
@@ -131,5 +137,6 @@ namespace Video {
             glm::vec3 colorFilterColor = glm::vec3(0, 1, 0);
             int ditherApply = true;
             glm::vec2 frameSize = glm::vec2(800.f, 800.f);
+            int bloodApply = false;
     };
 } // namespace Video

@@ -64,6 +64,7 @@ StaticRenderProgram::StaticRenderProgram() {
     modelLocation = shaderProgram->GetUniformLocation("model");
     viewLocation = shaderProgram->GetUniformLocation("viewMatrix");
     normalLocation = shaderProgram->GetUniformLocation("normalMatrix");
+    bloodApplyLocation = shaderProgram->GetUniformLocation("bloodApply");
 }
 
 StaticRenderProgram::~StaticRenderProgram() {
@@ -145,6 +146,7 @@ void StaticRenderProgram::PreRender(const glm::mat4& viewMatrix, const glm::mat4
 
     glUniform1iv(colorFilterApplyLocation, 1, &colorFilterApply);
     glUniform3fv(colorFilterColorLocation, 1, &colorFilterColor[0]);
+    glUniform1iv(bloodApplyLocation, 1, &bloodApply);
 
     float time = static_cast<float>(std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count() % 30000000000 / 1000000000.0);
     glUniform1iv(ditherApplyLocation, 1, &ditherApply);
@@ -185,6 +187,7 @@ void StaticRenderProgram::Render(Geometry::Geometry3D* geometry, const Video::Te
         glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &viewMatrix[0][0]);
         glm::mat4 normalMatrix = glm::transpose(glm::inverse(viewMatrix * modelMatrix));
         glUniformMatrix3fv(normalLocation, 1, GL_FALSE, &glm::mat3(normalMatrix)[0][0]);
+        
 
         glDrawElements(GL_TRIANGLES, geometry->GetIndexCount(), GL_UNSIGNED_INT, (void*)0);
 

@@ -108,6 +108,7 @@ namespace Video {
             GLuint modelLocation;
             GLuint viewLocation;
             GLuint normalLocation;
+            GLuint bloodApplyLocation;
 
             bool first = true;
       
