@@ -372,20 +372,6 @@
 					{
 						"scriptName" : "Resources/Constant Scene/Minecart/Script/Lantern"
 					},
-					"SpotLight" : 
-					{
-						"ambientCoefficient" : 0.0,
-						"attenuation" : 1.0,
-						"color" : 
-						{
-							"x" : 1.0,
-							"y" : 1.0,
-							"z" : 1.0
-						},
-						"coneAngle" : 30.0,
-						"intensity" : 5.0,
-						"shadow" : true
-					},
 					"children" : 
 					[
 						{
@@ -466,6 +452,46 @@
 							"scene" : false,
 							"static" : false,
 							"uid" : 1509714156
+						},
+						{
+							"SpotLight" : 
+							{
+								"ambientCoefficient" : 0.0,
+								"attenuation" : 1.0,
+								"color" : 
+								{
+									"x" : 1.0,
+									"y" : 1.0,
+									"z" : 1.0
+								},
+								"coneAngle" : 30.0,
+								"intensity" : 5.0,
+								"shadow" : true
+							},
+							"children" : null,
+							"name" : "Light",
+							"position" : 
+							{
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : -0.078000001609325409
+							},
+							"rotation" : 
+							{
+								"w" : 1.0,
+								"x" : 0.0,
+								"y" : 0.0,
+								"z" : 0.0
+							},
+							"scale" : 
+							{
+								"x" : 1.0,
+								"y" : 1.0,
+								"z" : 1.0
+							},
+							"scene" : false,
+							"static" : false,
+							"uid" : 1512982818
 						}
 					],
 					"name" : "Lantern",

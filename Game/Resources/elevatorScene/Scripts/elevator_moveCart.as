@@ -78,10 +78,12 @@ class elevator_moveCart {
                 break;
 
             case 2:
+                GetEntityByGUID(1512996068).GetSoundSource().Stop(); //Stop door banging sound
+
                 elevatorPos = elevator.GetWorldPosition();
                 elevatorPos.y += speed * deltaTime;
                 elevator.SetWorldPosition(elevatorPos);
-                
+
                 tempPos = self.GetWorldPosition();
                 tempPos.y += speed * deltaTime;
                 self.SetWorldPosition(tempPos);
@@ -137,5 +139,6 @@ class elevator_moveCart {
 
     void StopCart() {
         phase = 5;
+        GetEntityByGUID(1512560813).GetSoundSource().Stop();
     }
 }

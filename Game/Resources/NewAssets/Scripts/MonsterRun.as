@@ -5,10 +5,12 @@ class MonsterRun {
     float speed;
     bool run;
     Component::AnimationController @animCtrl;
+    Component::SoundSource @doorbang;
     
     MonsterRun(Entity @entity){
         @hub = Managers();
         @self = @entity;
+        @doorbang = GetEntityByGUID(1512996068).GetSoundSource();
         speed = 2.3f;
         run = false;
         @animCtrl = self.GetAnimationController();
@@ -28,10 +30,12 @@ class MonsterRun {
             
                 monsterPos.x -= speed * deltaTime;
         
-                self.SetWorldPosition(monsterPos); 
+                self.SetWorldPosition(monsterPos);
             }
             if(monsterPos.x < -144.7f){
                 animCtrl.SetBool("E", true);
+                doorbang.Play();
+                run = false;
             }
 
         }

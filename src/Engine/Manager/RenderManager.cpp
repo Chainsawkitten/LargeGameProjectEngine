@@ -267,8 +267,8 @@ void RenderManager::RenderWorldEntities(World& world, const glm::mat4& viewMatri
         if (spotLight->shadow) {
             Entity* lightEntity = spotLight->entity;
             lightViewMatrix = glm::inverse(lightEntity->GetModelMatrix());
-            ///Will use range 50.f on the projection, no support for spotlight lenght. 
-            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.5f, 50.0f);
+            // Will use range 50.f on the projection, no support for spotlight length. 
+            lightProjection = glm::perspective(glm::radians(2.f * spotLight->coneAngle), aspectRatio, 0.01f, 50.0f);
         }
     }
 

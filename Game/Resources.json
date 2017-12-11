@@ -1,9 +1,9 @@
 {
 	"activeScene" : "Resources/Super Scene/Super Scene",
 	"animationClipNumber" : 4,
-	"animationControllerNumber" : 4,
+	"animationControllerNumber" : 8,
 	"audioMaterialNumber" : 4,
-	"modelNumber" : 189,
+	"modelNumber" : 193,
 	"resourceFolder" : 
 	{
 		"name" : "Resources",
@@ -1398,6 +1398,10 @@
 							{
 								"sound" : "monsterfootstep",
 								"type" : 3
+							},
+							{
+								"sound" : "monsterdoorbang",
+								"type" : 3
 							}
 						],
 						"subfolders" : 
@@ -1721,6 +1725,10 @@
 							{
 								"sound" : "snd_hets",
 								"type" : 3
+							},
+							{
+								"model" : "final_cave_soundmesh",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -1925,6 +1933,10 @@
 							{
 								"sound" : "sndElevatorStop",
 								"type" : 3
+							},
+							{
+								"model" : "elevatorcave_soundmesh",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -2243,6 +2255,14 @@
 							{
 								"sound" : "Rotation",
 								"type" : 3
+							},
+							{
+								"model" : "voltage_cave_soundmesh",
+								"type" : 1
+							},
+							{
+								"model" : "elevator_voltage_soundmesh",
+								"type" : 1
 							}
 						],
 						"subfolders" : null
@@ -2292,7 +2312,7 @@
 	},
 	"sceneNumber" : 31,
 	"scriptNumber" : 0,
-	"skeletonNumber" : 3,
+	"skeletonNumber" : 9,
 	"soundNumber" : 19,
 	"textureNumber" : 154
 }

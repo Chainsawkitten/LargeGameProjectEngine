@@ -4135,6 +4135,102 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512994196
+		},
+		{
+			"children" : 
+			[
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialRock"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Audio/voltage_cave_soundmesh"
+					},
+					"children" : null,
+					"name" : "Cave",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512985785
+				},
+				{
+					"AudioMaterial" : 
+					{
+						"audio material" : "Resources/Constant Scene/Audio/Materials/AudioMaterialMetal"
+					},
+					"Mesh" : 
+					{
+						"model" : "Resources/VoltageScene/Audio/elevator_voltage_soundmesh"
+					},
+					"children" : null,
+					"name" : "Elevator",
+					"position" : 
+					{
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"rotation" : 
+					{
+						"w" : 1.0,
+						"x" : 0.0,
+						"y" : 0.0,
+						"z" : 0.0
+					},
+					"scale" : 
+					{
+						"x" : 1.0,
+						"y" : 1.0,
+						"z" : 1.0
+					},
+					"scene" : false,
+					"static" : false,
+					"uid" : 1512985865
+				}
+			],
+			"name" : "SoundMeshes",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512985777
 		}
 	],
 	"name" : "Root",
