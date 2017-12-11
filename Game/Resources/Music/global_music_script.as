@@ -12,8 +12,7 @@ class global_music_script {
     Component::SoundSource @snd_horn;
     Component::SoundSource @snd_gameover;
     Component::SoundSource @snd_win;
-    
-    float deltaT;
+
     global_music_script(Entity @entity){
         @hub = Managers();
         @self = @entity;
@@ -29,17 +28,9 @@ class global_music_script {
         @snd_horn=GetEntityByGUID(1512735015).GetSoundSource();
         @snd_win=GetEntityByGUID(1512735032).GetSoundSource();
 
-        // Remove this if updates are not desired.
-        RegisterUpdate();
-    }
-
-    // Called by the engine for each frame.
-    void Update(float deltaTime) {
-        //deltaT=deltaTime;
     }
     
     void PlayMysticString(){
-        print("playing mystic");
         snd_mystic.Play();
     }
     void PlayHunted(){
