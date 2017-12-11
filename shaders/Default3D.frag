@@ -49,6 +49,7 @@ uniform vec3 colorFilterColor;
 uniform bool ditherApply;
 uniform float time;
 uniform vec2 frameSize;
+uniform bool bloodApply;
 
 // --- CONSTANTS ---
 const float PI = 3.14159265359f;
@@ -242,7 +243,21 @@ void main() {
 		float dither = rand(gl_FragCoord.xy / frameSize + vec2(time, 0.0f)) / 255.0f;
 		color = color + vec3(dither);
 	}
-    
+   
+   if(bloodApply){
+        float aspect = frameSize.x / frameSize.y;
+        vec2 uv = vec2(0.5, 0.5);
+        vec2 dist = (gl_FragCoord.xy / frameSize) - uv;
+        dist.x *= aspect;
+        float l = length(dist);
+        float rad = 0.1f;
+        if (l > rad){
+            l -= rad;
+            float red = color.x;
+            color.x += l * sin(time * 5.0);
+            color.x = clamp(color.x, red, 1.0);
+        }
+    }
     // Final color.
     finalColor = color;
 

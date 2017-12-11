@@ -73,14 +73,17 @@ class MonsterScript {
             }
             case 5: { // Eating
                 eatingTimer += deltaTime;
+                hub.renderManager.SetBloodApply(true);
                 TriggerAttack();
                 if (eatingTimer >= 10.0f) {
                     SendMessage(cart, 0); // Player was eaten
+                    hub.renderManager.SetBloodApply(false);
                     phase = 7;
                 }
                 break;
             }
             case 6: { // Dying
+                hub.renderManager.SetBloodApply(false);
                 break;
             }
         }
