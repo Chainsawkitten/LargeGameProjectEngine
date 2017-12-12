@@ -905,7 +905,7 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
 						"metallic" : "",
 						"normal" : "",
 						"roughness" : ""
