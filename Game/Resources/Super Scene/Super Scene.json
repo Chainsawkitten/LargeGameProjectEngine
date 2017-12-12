@@ -502,6 +502,311 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512488823
+		},
+		{
+			"Script" : 
+			{
+				"scriptName" : "Resources/Music/global_music_script"
+			},
+			"children" : null,
+			"name" : "MusicScript",
+			"position" : 
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512735609
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 5,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 41,
+				"triggerFunction" : "void PlayHorn()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512735700,
+				"triggerTargetEntity" : 1512735609,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "horn_trigger",
+			"position" : 
+			{
+				"x" : -167.32818603515625,
+				"y" : 25.492874145507813,
+				"z" : -1.3502171039581299
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512735700
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 4,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 41,
+				"triggerFunction" : "void PlayWaterphone()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512735929,
+				"triggerTargetEntity" : 1512735609,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "waterphone_trigger",
+			"position" : 
+			{
+				"x" : -21.325908660888672,
+				"y" : 2.0587832927703857,
+				"z" : -1.3923904895782471
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512735929
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 1,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 41,
+				"triggerFunction" : "void PlayMysticString()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512736071,
+				"triggerTargetEntity" : 1512735609,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "mysticstring_trigger",
+			"position" : 
+			{
+				"x" : 10.408856391906738,
+				"y" : 2.7158405780792236,
+				"z" : -1.3538110256195068
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512736071
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 2,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 41,
+				"triggerFunction" : "void PlayHunted()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512736139,
+				"triggerTargetEntity" : 1512735609,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "hunted_trigger",
+			"position" : 
+			{
+				"x" : -79.002983093261719,
+				"y" : 1.9181506633758545,
+				"z" : -1.3514893054962158
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512736139
+		},
+		{
+			"Shape" : 
+			{
+				"sphere" : 
+				{
+					"radius" : 1.0
+				}
+			},
+			"Trigger" : 
+			{
+				"trigger" : "A Trigger",
+				"triggerActive" : false,
+				"triggerCharges" : 0,
+				"triggerCollidedEntityUID" : 1509959164,
+				"triggerCooldown" : 0.0,
+				"triggerDelay" : 0.0,
+				"triggerEventStruct_Check_0" : true,
+				"triggerEventStruct_Check_1" : true,
+				"triggerEventStruct_Check_2" : true,
+				"triggerEventStruct_Check_3" : true,
+				"triggerEventStruct_EventID" : 0,
+				"triggerEventStruct_ScriptID" : 3,
+				"triggerEventStruct_ShapeID" : 0,
+				"triggerEventStruct_TargetID" : 41,
+				"triggerFunction" : "void PlayCharged()",
+				"triggerName" : "New Trigger",
+				"triggerOwner" : 1512736201,
+				"triggerTargetEntity" : 1512735609,
+				"triggerTriggered" : false
+			},
+			"children" : null,
+			"name" : "charged_trigger",
+			"position" : 
+			{
+				"x" : -231.67437744140625,
+				"y" : 25.419689178466797,
+				"z" : -1.4408676624298096
+			},
+			"rotation" : 
+			{
+				"w" : 1.0,
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512736201
 		}
 	],
 	"name" : "Root",

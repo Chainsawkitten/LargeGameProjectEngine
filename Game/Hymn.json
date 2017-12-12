@@ -87,7 +87,8 @@
 		"Resources/Constant Scene/Audio/Scripts/PlayAudioOnStartup",
 		"Resources/Constant Scene/Minecart/Script/RailAudioPlayer",
 		"Resources/NewAssets/Scripts/monsterSoundScript",
-		"Resources/VoltageScene/Scripts/VoltageRandomEvents"
+		"Resources/VoltageScene/Scripts/VoltageRandomEvents",
+		"Resources/Music/global_music_script"
 	],
 	"startupScene" : "Resources/Super Scene/Super Scene",
 	"vrScale" : 1.5
