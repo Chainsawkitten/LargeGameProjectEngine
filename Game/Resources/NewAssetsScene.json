@@ -2104,7 +2104,7 @@
 					{
 						"loop" : true,
 						"sound" : "Resources/NewAssets/Audio/monsterfootstep",
-						"volume" : 1.0
+						"volume" : 0.34200000762939453
 					},
 					"children" : null,
 					"name" : "footstepSound",

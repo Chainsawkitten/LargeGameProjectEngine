@@ -681,81 +681,20 @@
 								"resources" : 
 								[
 									{
-										"model" : "LeftHand@Model",
+										"model" : "HandClosed",
 										"type" : 1
 									},
 									{
-										"model" : "RightHand@Model",
+										"model" : "HandClosedRight",
 										"type" : 1
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "AnimationControllers",
-								"resources" : 
-								[
-									{
-										"animationController" : "LeftHandCtrl",
-										"type" : 7
 									},
 									{
-										"animationController" : "RightHandCtrl",
-										"type" : 7
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "Animations",
-								"resources" : 
-								[
-									{
-										"animationClip" : "LeftHand@Closed",
-										"type" : 6
+										"model" : "HandOpen",
+										"type" : 1
 									},
 									{
-										"animationClip" : "LeftHand@Closing",
-										"type" : 6
-									},
-									{
-										"animationClip" : "LeftHand@Open",
-										"type" : 6
-									},
-									{
-										"animationClip" : "LeftHand@Opening",
-										"type" : 6
-									},
-									{
-										"animationClip" : "RightHand@Closed",
-										"type" : 6
-									},
-									{
-										"animationClip" : "RightHand@Closing",
-										"type" : 6
-									},
-									{
-										"animationClip" : "RightHand@Open",
-										"type" : 6
-									},
-									{
-										"animationClip" : "RightHand@Opening",
-										"type" : 6
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "Skeletons",
-								"resources" : 
-								[
-									{
-										"skeleton" : "LeftHand@Skeleton",
-										"type" : 8
-									},
-									{
-										"skeleton" : "RightHand@Skeleton",
-										"type" : 8
+										"model" : "HandOpenRight",
+										"type" : 1
 									}
 								],
 								"subfolders" : null
@@ -2166,9 +2105,14 @@
 			}
 		]
 	},
-	"sceneNumber" : 33,
+	"sceneNumber" : 31,
 	"scriptNumber" : 0,
 	"skeletonNumber" : 9,
 	"soundNumber" : 19,
+<<<<<<< HEAD
 	"textureNumber" : 155
+=======
+	"textureNumber" : 154
+
+>>>>>>> f41daadce9ac6a0de95ef149756a519c80336e7a
 }

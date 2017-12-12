@@ -10,6 +10,7 @@ class monsterSoundScript {
         @footStep = GetEntityByGUID(1512650688);
         self.GetSoundSource().Play();
         // Remove this if updates are not desired.
+        
         RegisterUpdate();
     }
 
