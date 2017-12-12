@@ -164,29 +164,6 @@
 									}
 								],
 								"subfolders" : null
-							},
-							{
-								"name" : "Textures",
-								"resources" : 
-								[
-									{
-										"texture" : "gate_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "gate_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "gate_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "gate_roughness",
-										"type" : 2
-									}
-								],
-								"subfolders" : null
 							}
 						]
 					},
@@ -242,15 +219,7 @@
 								"type" : 1
 							},
 							{
-								"model" : "StarterScene_StraightCave",
-								"type" : 1
-							},
-							{
 								"model" : "platformForStarterScene_01",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_CavePlatform",
 								"type" : 1
 							},
 							{
@@ -259,10 +228,6 @@
 							},
 							{
 								"model" : "warningSign_02_fixed_position",
-								"type" : 1
-							},
-							{
-								"model" : "StarterScene_Bridge",
 								"type" : 1
 							},
 							{
@@ -756,26 +721,6 @@
 						"resources" : 
 						[
 							{
-								"model" : "horizontal_pillars",
-								"type" : 1
-							},
-							{
-								"texture" : "horizontal_albedo",
-								"type" : 2
-							},
-							{
-								"texture" : "horizontal_normal",
-								"type" : 2
-							},
-							{
-								"texture" : "horizontal_roughness",
-								"type" : 2
-							},
-							{
-								"texture" : "horizontal_metall",
-								"type" : 2
-							},
-							{
 								"texture" : "wood_vertical_albedo",
 								"type" : 2
 							},
@@ -902,13 +847,7 @@
 			},
 			{
 				"name" : "Bridge Puzzle Scene",
-				"resources" : 
-				[
-					{
-						"scene" : "Bridge Puzzle Scene",
-						"type" : 0
-					}
-				],
+				"resources" : null,
 				"subfolders" : 
 				[
 					{
@@ -937,33 +876,10 @@
 							},
 							{
 								"name" : "Textures",
-								"resources" : 
-								[
-									{
-										"texture" : "rock_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_roughness",
-										"type" : 2
-									}
-								],
+								"resources" : null,
 								"subfolders" : null
 							}
 						]
-					},
-					{
-						"name" : "Bucket",
-						"resources" : null,
-						"subfolders" : null
 					},
 					{
 						"name" : "Bridge",
@@ -1018,29 +934,6 @@
 									{
 										"model" : "rockscaled",
 										"type" : 1
-									}
-								],
-								"subfolders" : null
-							},
-							{
-								"name" : "Textures",
-								"resources" : 
-								[
-									{
-										"texture" : "rock_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "rock_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "Texture #38",
-										"type" : 2
 									}
 								],
 								"subfolders" : null
@@ -1297,17 +1190,6 @@
 						"subfolders" : 
 						[
 							{
-								"name" : "The Bucket",
-								"resources" : 
-								[
-									{
-										"model" : "TheBucket",
-										"type" : 1
-									}
-								],
-								"subfolders" : null
-							},
-							{
 								"name" : "Puzzle Scale",
 								"resources" : 
 								[
@@ -1358,10 +1240,6 @@
 							},
 							{
 								"script" : "BigBalk",
-								"type" : 4
-							},
-							{
-								"script" : "Cart_debug_script",
 								"type" : 4
 							},
 							{
@@ -1422,66 +1300,6 @@
 								"subfolders" : null
 							}
 						]
-					}
-				]
-			},
-			{
-				"name" : "Pussel-2",
-				"resources" : 
-				[
-					{
-						"scene" : "Pussel-2 scene",
-						"type" : 0
-					}
-				],
-				"subfolders" : 
-				[
-					{
-						"name" : "Models",
-						"resources" : 
-						[
-							{
-								"model" : "Cave-2",
-								"type" : 1
-							},
-							{
-								"model" : "cave-2-",
-								"type" : 1
-							},
-							{
-								"model" : "barrels-2",
-								"type" : 1
-							},
-							{
-								"model" : "Crate-2",
-								"type" : 1
-							},
-							{
-								"model" : "lanterns-2",
-								"type" : 1
-							},
-							{
-								"model" : "Picks-2",
-								"type" : 1
-							},
-							{
-								"model" : "Platform-2",
-								"type" : 1
-							},
-							{
-								"model" : "table2",
-								"type" : 1
-							},
-							{
-								"model" : "Track-2",
-								"type" : 1
-							},
-							{
-								"model" : "TrackPlatform-2",
-								"type" : 1
-							}
-						],
-						"subfolders" : null
 					}
 				]
 			},
@@ -2104,29 +1922,6 @@
 								"subfolders" : null
 							},
 							{
-								"name" : "VoltageBox",
-								"resources" : 
-								[
-									{
-										"texture" : "box_albedo",
-										"type" : 2
-									},
-									{
-										"texture" : "box_normal",
-										"type" : 2
-									},
-									{
-										"texture" : "box_metallic",
-										"type" : 2
-									},
-									{
-										"texture" : "box_roughness",
-										"type" : 2
-									}
-								],
-								"subfolders" : null
-							},
-							{
 								"name" : "VoltagePropp",
 								"resources" : 
 								[
@@ -2315,4 +2110,5 @@
 	"skeletonNumber" : 9,
 	"soundNumber" : 19,
 	"textureNumber" : 154
+
 }

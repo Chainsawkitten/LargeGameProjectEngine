@@ -4115,10 +4115,10 @@
 				{
 					"Material" : 
 					{
-						"albedo" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_albedo",
-						"metallic" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_metallic",
-						"normal" : "Resources/Bridge Puzzle Scene/Rock/Textures/rock_normal",
-						"roughness" : "Resources/Bridge Puzzle Scene/Rock/Textures/Texture #38"
+						"albedo" : "Resources/NewAssets/Textures/Rock/rock_albedo",
+						"metallic" : "Resources/NewAssets/Textures/Rock/rock_metallic",
+						"normal" : "Resources/NewAssets/Textures/Rock/rock_normal",
+						"roughness" : "Resources/NewAssets/Textures/Rock/rock_roughness"
 					},
 					"Mesh" : 
 					{
