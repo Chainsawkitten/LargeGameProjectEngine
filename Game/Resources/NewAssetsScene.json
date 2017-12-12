@@ -2068,7 +2068,7 @@
 					{
 						"loop" : true,
 						"sound" : "Resources/NewAssets/Audio/monsterSound",
-						"volume" : 1.0
+						"volume" : 0.62900000810623169
 					},
 					"children" : null,
 					"name" : "MonsterSound",

@@ -732,7 +732,7 @@
 			"name" : "hunted_trigger",
 			"position" : 
 			{
-				"x" : -97.1685791015625,
+				"x" : -79.002983093261719,
 				"y" : 1.9181506633758545,
 				"z" : -1.3514893054962158
 			},
@@ -807,61 +807,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512736201
-		},
-		{
-			"Shape" : 
-			{
-				"sphere" : 
-				{
-					"radius" : 1.5000001192092896
-				}
-			},
-			"Trigger" : 
-			{
-				"trigger" : "A Trigger",
-				"triggerActive" : false,
-				"triggerCharges" : 0,
-				"triggerCollidedEntityUID" : 1509959164,
-				"triggerCooldown" : 0.0,
-				"triggerDelay" : 0.0,
-				"triggerEventStruct_Check_0" : true,
-				"triggerEventStruct_Check_1" : true,
-				"triggerEventStruct_Check_2" : true,
-				"triggerEventStruct_Check_3" : true,
-				"triggerEventStruct_EventID" : 0,
-				"triggerEventStruct_ScriptID" : 8,
-				"triggerEventStruct_ShapeID" : 0,
-				"triggerEventStruct_TargetID" : 41,
-				"triggerFunction" : "void FadeHunted()",
-				"triggerName" : "New Trigger",
-				"triggerOwner" : 1512737322,
-				"triggerTargetEntity" : 1512735609,
-				"triggerTriggered" : false
-			},
-			"children" : null,
-			"name" : "stop_hunted_trigger",
-			"position" : 
-			{
-				"x" : -148.78483581542969,
-				"y" : 18.394647598266602,
-				"z" : -1.5055403709411621
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512737322
 		}
 	],
 	"name" : "Root",
