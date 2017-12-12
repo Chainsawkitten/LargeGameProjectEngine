@@ -569,14 +569,14 @@
 		{
 			"PointLight" : 
 			{
-				"attenuation" : 0.0099999997764825821,
+				"attenuation" : 14.645000457763672,
 				"color" : 
 				{
 					"x" : 1.0,
 					"y" : 1.0,
 					"z" : 1.0
 				},
-				"intensity" : 2.064000129699707
+				"intensity" : 159.5570068359375
 			},
 			"Script" : 
 			{
@@ -4098,6 +4098,46 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512719575
+		},
+		{
+			"SpotLight" : 
+			{
+				"ambientCoefficient" : 0.0,
+				"attenuation" : 6.1880002021789551,
+				"color" : 
+				{
+					"x" : 1.0,
+					"y" : 1.0,
+					"z" : 1.0
+				},
+				"coneAngle" : 34.047000885009766,
+				"intensity" : 18.590000152587891,
+				"shadow" : false
+			},
+			"children" : null,
+			"name" : "SwitchBoardLight",
+			"position" : 
+			{
+				"x" : 24.339000701904297,
+				"y" : 2.0160000324249268,
+				"z" : 2.3429999351501465
+			},
+			"rotation" : 
+			{
+				"w" : 0.9537169337272644,
+				"x" : -0.30070579051971436,
+				"y" : -0.0,
+				"z" : 0.0
+			},
+			"scale" : 
+			{
+				"x" : 1.0,
+				"y" : 1.0,
+				"z" : 1.0
+			},
+			"scene" : false,
+			"static" : false,
+			"uid" : 1512996604
 		},
 		{
 			"Material" : 
