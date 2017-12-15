@@ -2469,44 +2469,6 @@
 			"children" : 
 			[
 				{
-					"PointLight" : 
-					{
-						"attenuation" : 0.20600001513957977,
-						"color" : 
-						{
-							"x" : 0.91764706373214722,
-							"y" : 1.0,
-							"z" : 1.0
-						},
-						"distance" : 2.7999999523162842,
-						"intensity" : 0.11400000751018524
-					},
-					"children" : null,
-					"name" : "light",
-					"position" : 
-					{
-						"x" : 0.0,
-						"y" : 7.0,
-						"z" : 9.0530004501342773
-					},
-					"rotation" : 
-					{
-						"w" : 1.0,
-						"x" : 0.0,
-						"y" : 0.0,
-						"z" : 0.0
-					},
-					"scale" : 
-					{
-						"x" : 1.0,
-						"y" : 1.0,
-						"z" : 1.0
-					},
-					"scene" : false,
-					"static" : false,
-					"uid" : 1512395355
-				},
-				{
 					"Script" : 
 					{
 						"scriptName" : "Resources/NewAssets/Scripts/monsterSoundScript"
