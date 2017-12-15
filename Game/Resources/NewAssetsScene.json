@@ -1322,58 +1322,7 @@
 					{
 						"model" : "Resources/Bridge Puzzle Scene/Cables/wires"
 					},
-					"children" : 
-					[
-						{
-							"Material" : 
-							{
-								"albedo" : "Resources/Constant Scene/Lantern/Textures/lanter_albedo",
-								"metallic" : "Resources/Constant Scene/Lantern/Textures/lanter_metallic",
-								"normal" : "Resources/Constant Scene/Lantern/Textures/lantern_normal",
-								"roughness" : "Resources/Constant Scene/Lantern/Textures/lantern_roughness"
-							},
-							"Mesh" : 
-							{
-								"model" : "Resources/Constant Scene/Lantern/Lantern"
-							},
-							"PointLight" : 
-							{
-								"attenuation" : 2.0110001564025879,
-								"color" : 
-								{
-									"x" : 1.0,
-									"y" : 0.45882353186607361,
-									"z" : 0.15686275064945221
-								},
-								"distance" : 15.0,
-								"intensity" : 4.9470000267028809
-							},
-							"children" : null,
-							"name" : "CableLight",
-							"position" : 
-							{
-								"x" : 14.476000785827637,
-								"y" : 1.5790001153945923,
-								"z" : 0.0020000000949949026
-							},
-							"rotation" : 
-							{
-								"w" : 0.7726169228553772,
-								"x" : 0.0,
-								"y" : -0.63487255573272705,
-								"z" : 0.0
-							},
-							"scale" : 
-							{
-								"x" : 0.05000000074505806,
-								"y" : 0.10000000149011612,
-								"z" : 0.10000000149011612
-							},
-							"scene" : false,
-							"static" : false,
-							"uid" : 1510815546
-						}
-					],
+					"children" : null,
 					"name" : "Cables",
 					"position" : 
 					{
@@ -2634,82 +2583,6 @@
 			"scene" : false,
 			"static" : false,
 			"uid" : 1512394369
-		},
-		{
-			"PointLight" : 
-			{
-				"attenuation" : 1.1529999971389771,
-				"color" : 
-				{
-					"x" : 0.20392157137393951,
-					"y" : 0.82352942228317261,
-					"z" : 1.0
-				},
-				"distance" : 20.0,
-				"intensity" : 59.211002349853516
-			},
-			"children" : null,
-			"name" : "Blue Light",
-			"position" : 
-			{
-				"x" : 0.0,
-				"y" : -6.5224928855895996,
-				"z" : 0.0
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512475495
-		},
-		{
-			"PointLight" : 
-			{
-				"attenuation" : 0.074000000953674316,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 0.19215686619281769,
-					"z" : 0.0
-				},
-				"distance" : 30.0,
-				"intensity" : 5.5670003890991211
-			},
-			"children" : null,
-			"name" : "cave_light",
-			"position" : 
-			{
-				"x" : -0.33725535869598389,
-				"y" : -9.3931074142456055,
-				"z" : 0.70159029960632324
-			},
-			"rotation" : 
-			{
-				"w" : 1.0,
-				"x" : 0.0,
-				"y" : 0.0,
-				"z" : 0.0
-			},
-			"scale" : 
-			{
-				"x" : 1.0,
-				"y" : 1.0,
-				"z" : 1.0
-			},
-			"scene" : false,
-			"static" : false,
-			"uid" : 1512381323
 		},
 		{
 			"Material" : 

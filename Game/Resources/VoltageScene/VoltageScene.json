@@ -567,18 +567,6 @@
 			"uid" : 1511528317
 		},
 		{
-			"PointLight" : 
-			{
-				"attenuation" : 14.645000457763672,
-				"color" : 
-				{
-					"x" : 1.0,
-					"y" : 1.0,
-					"z" : 1.0
-				},
-				"distance" : 15.0,
-				"intensity" : 159.5570068359375
-			},
 			"Script" : 
 			{
 				"scriptName" : "Resources/VoltageScene/Scripts/FlickeringLights"
